@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using ProductivityHarborApi.Data;
+using ProductivityHarborApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<TokenProviderService>();
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -9,7 +12,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
