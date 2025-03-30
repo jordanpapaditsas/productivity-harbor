@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddSingleton<TokenProviderService>();
+//builder.Services.AddSingleton<TokenProviderService>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
