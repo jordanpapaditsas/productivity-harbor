@@ -1,1 +1,6 @@
-@ProductivityHarborApi_HostAddress = http://localhost:5085
+@ProductivityHarborApi_HostAddress = http://localhost:5006
+
+GET {{ProductivityHarborApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

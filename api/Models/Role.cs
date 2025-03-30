@@ -2,7 +2,7 @@
 
 namespace ProductivityHarborApi.Models
 {
-    public class Role : IdentityRole
+    public class Role : IdentityRole<Guid>
     {
     }
 }

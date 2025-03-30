@@ -1,8 +1,0 @@
-*** Migration Steps ***
-
-1.Add-Migration {name of the migration}
-2.Update-Database
-
-
-*** Scalar Steps ***
-To use Scalar you need to hit the endpoint: {your localhost endpoint}/scalar/v1
