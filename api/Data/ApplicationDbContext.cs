@@ -5,7 +5,7 @@ using ProductivityHarborApi.Models;
 
 namespace ProductivityHarborApi.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<User, Role, string>
     {
       
         public ApplicationDbContext(DbContextOptions options): base(options)
