@@ -16,5 +16,17 @@
             public static readonly string UserRoleName = "User";
             public static readonly string GuestRoleName = "Guest";
         }
+        public static class Users
+        {
+            // Guids
+            public static readonly Guid PhAdminId = Guid.Parse("4576ae9e-90d9-4271-b023-d50d6442c5d4");
+            public static readonly Guid AdminId = Guid.Parse("eed6a6a2-09a2-4d3f-8163-87be46c9ac57");
+            // Strings
+            public static readonly string PhAdminUserName = "PhAdmin";
+            public static readonly string PhAdminPassword = "3pGznqRKXbMhXne";
+
+            public static readonly string AdminUserName = "Admin";
+            public static readonly string AdminPassword = "xhjGbzzfIxSXgcX";
+        }
     }
 }

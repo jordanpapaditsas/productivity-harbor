@@ -8,7 +8,6 @@ using ProductivityHarborApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Adding Services
 builder.Services.AddSingleton<TokenProviderService>();
 
@@ -31,18 +30,13 @@ builder.Services.AddIdentityApiEndpoints<User>(options => options.SignIn.Require
     .AddRoles<Role>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddScoped<ApplicationDbSeeder>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
-
-// Seed Roles
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
-    await SeedRoles(roleManager);
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -51,6 +45,16 @@ if (app.Environment.IsDevelopment())
 }
 
 // Using Methods
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var seeder = scope.ServiceProvider.GetRequiredService<ApplicationDbSeeder>();
+
+    await seeder.SeedRoles(roleManager);
+    await seeder.SeedUsers(userManager);
+}
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -61,49 +65,5 @@ app.MapIdentityApi<User>();
 
 app.UseCors("productivity_harbor");
 
-
 // Run API
 app.Run();
-
-
-// Seed Roles Method
-async Task SeedRoles(RoleManager<Role> roleManager)
-{
-    var roleNames = new List<Role>
-    {
-        new Role
-        {
-            Id = AppStaticData.Roles.PhAdminRoleId,
-            Name = AppStaticData.Roles.PhAdminRoleName,
-            NormalizedName = AppStaticData.Roles.PhAdminRoleName.ToUpper(),
-        },
-        new Role
-        {
-            Id = AppStaticData.Roles.AdminRoleId,
-            Name = AppStaticData.Roles.AdminRoleName,
-            NormalizedName = AppStaticData.Roles.AdminRoleName.ToUpper(),
-        },
-         new Role
-        {
-            Id = AppStaticData.Roles.UserRoleId,
-            Name = AppStaticData.Roles.UserRoleName,
-            NormalizedName = AppStaticData.Roles.UserRoleName.ToUpper(),
-        }, 
-        new Role
-        {
-            Id = AppStaticData.Roles.GuestRoleId,
-            Name = AppStaticData.Roles.GuestRoleName,
-            NormalizedName = AppStaticData.Roles.GuestRoleName.ToUpper(),
-        },
-    };
-
-    foreach (var role in roleNames)
-    {
-        var roleExists = await roleManager.RoleExistsAsync(role.Name);
-
-        if (!roleExists)
-        {
-            await roleManager.CreateAsync(role);
-        }
-    }
-}
