@@ -1,10 +1,20 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ApiResponseDto } from '../../dtos/api-response.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  baseUrl: string = 'http://localhost:5000/api';
+  controller: string = 'Accounts';
+  private httpClient = inject(HttpClient);
 
-constructor() { }
-
+  register(data: FormData): Observable<ApiResponseDto> {
+    return this.httpClient.post<ApiResponseDto>(
+      `${this.baseUrl}/${this.controller}/register`,
+      data
+    );
+  }
 }

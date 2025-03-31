@@ -1,6 +1,26 @@
-﻿namespace ProductivityHarborApi.Controllers
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using ProductivityHarborApi.Data;
+using ProductivityHarborApi.Dtos;
+using ProductivityHarborApi.Models;
+
+namespace ProductivityHarborApi.Controllers
 {
-    public class AccountsController
+    [Route("api/[controller]")]
+    [ApiController] 
+    public class AccountsController : ControllerBase
     {
+        private readonly ApplicationDbContext _context;
+
+        public AccountsController(ApplicationDbContext context) 
+        {
+            _context = context;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromForm] RegisterDto registerDto)
+        {
+            // Add logic in Registration 
+        }
     }
 }

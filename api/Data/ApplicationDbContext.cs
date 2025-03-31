@@ -11,6 +11,10 @@ namespace ProductivityHarborApi.Data
         {
         }
 
-        public DbSet<User> AppUsers { get; set; }  
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }   
+
     }
 }

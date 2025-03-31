@@ -1,0 +1,18 @@
+﻿namespace ProductivityHarborApi.Common
+{
+    public class AppStaticData
+    {
+        public static class Roles
+        {
+            // Guids
+            public static readonly Guid PhAdminRoleId = Guid.Parse("3b28c94b-c894-4f91-b5e6-3bb0671dd09a");
+            public static readonly Guid AdminRoleId = Guid.Parse("4993238c-ea61-4c59-a015-b54f4efc7701");
+            public static readonly Guid UserRoleId = Guid.Parse("08a67996-9d5a-44b6-9416-dfdbe2b6b812");
+
+            // Strings
+            public static readonly string PhAdminRoleName = "PhAdmin";
+            public static readonly string AdminRoleName = "Admin";
+            public static readonly string UserRoleName = "User";
+        }
+    }
+}
