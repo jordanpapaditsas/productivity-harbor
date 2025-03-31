@@ -88,6 +88,12 @@ async Task SeedRoles(RoleManager<Role> roleManager)
             Id = AppStaticData.Roles.UserRoleId,
             Name = AppStaticData.Roles.UserRoleName,
             NormalizedName = AppStaticData.Roles.UserRoleName.ToUpper(),
+        }, 
+        new Role
+        {
+            Id = AppStaticData.Roles.GuestRoleId,
+            Name = AppStaticData.Roles.GuestRoleName,
+            NormalizedName = AppStaticData.Roles.GuestRoleName.ToUpper(),
         },
     };
 
