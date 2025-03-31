@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProductivityHarborApi.Common;
 using ProductivityHarborApi.Models;
@@ -9,43 +7,45 @@ namespace ProductivityHarborApi.Data
 {
     public class ApplicationDbSeeder
     {
-        // Seed Roles
-        //using (var scope = app.Services.CreateScope())
-        //{
-        //    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
-        //    await SeedRoles(roleManager);
-        //}
+        private readonly string _phAdminPassword;
+        private readonly string _adminPassword;
+
+        public ApplicationDbSeeder(IConfiguration configuration)
+        {
+            _phAdminPassword = configuration["PhAdmin:Password"] ?? throw new ArgumentNullException(nameof(configuration), "PhAdmin password cannot be null");
+            _adminPassword = configuration["Admin:Password"] ?? throw new ArgumentNullException(nameof(configuration), "Admin password cannot be null");
+        }
 
         // Seed Roles Method
         public async Task SeedRoles(RoleManager<Role> roleManager)
         {
             var roleNames = new List<Role>
-            {
-                new Role
                 {
-                    Id = AppStaticData.Roles.PhAdminRoleId,
-                    Name = AppStaticData.Roles.PhAdminRoleName,
-                    NormalizedName = AppStaticData.Roles.PhAdminRoleName.ToUpper(),
-                },
-                new Role
-                {
-                    Id = AppStaticData.Roles.AdminRoleId,
-                    Name = AppStaticData.Roles.AdminRoleName,
-                    NormalizedName = AppStaticData.Roles.AdminRoleName.ToUpper(),
-                },
-                 new Role
-                {
-                    Id = AppStaticData.Roles.UserRoleId,
-                    Name = AppStaticData.Roles.UserRoleName,
-                    NormalizedName = AppStaticData.Roles.UserRoleName.ToUpper(),
-                },
-                new Role
-                {
-                    Id = AppStaticData.Roles.GuestRoleId,
-                    Name = AppStaticData.Roles.GuestRoleName,
-                    NormalizedName = AppStaticData.Roles.GuestRoleName.ToUpper(),
-                },
-            };
+                    new Role
+                    {
+                        Id = AppStaticData.Roles.PhAdminRoleId,
+                        Name = AppStaticData.Roles.PhAdminRoleName,
+                        NormalizedName = AppStaticData.Roles.PhAdminRoleName.ToUpper(),
+                    },
+                    new Role
+                    {
+                        Id = AppStaticData.Roles.AdminRoleId,
+                        Name = AppStaticData.Roles.AdminRoleName,
+                        NormalizedName = AppStaticData.Roles.AdminRoleName.ToUpper(),
+                    },
+                     new Role
+                    {
+                        Id = AppStaticData.Roles.UserRoleId,
+                        Name = AppStaticData.Roles.UserRoleName,
+                        NormalizedName = AppStaticData.Roles.UserRoleName.ToUpper(),
+                    },
+                    new Role
+                    {
+                        Id = AppStaticData.Roles.GuestRoleId,
+                        Name = AppStaticData.Roles.GuestRoleName,
+                        NormalizedName = AppStaticData.Roles.GuestRoleName.ToUpper(),
+                    },
+                };
 
             foreach (var role in roleNames)
             {
@@ -58,27 +58,29 @@ namespace ProductivityHarborApi.Data
             }
         }
 
+        // Seed Users Method
         public async Task SeedUsers(UserManager<User> userManager)
         {
+
             var users = new List<User>
-            {
-                new User
                 {
-                    Id = AppStaticData.Users.PhAdminId,
-                    UserName = AppStaticData.Users.PhAdminUserName,
-                    NormalizedUserName = AppStaticData.Users.PhAdminUserName.ToUpper(),
-                    SecurityStamp = Guid.NewGuid().ToString(""),
-                    PasswordHash = new PasswordHasher<User>().HashPassword(null, AppStaticData.Users.PhAdminPassword),
-                },
-                new User
-                {
-                    Id = AppStaticData.Users.AdminId,
-                    UserName = AppStaticData.Users.AdminUserName,
-                    NormalizedUserName = AppStaticData.Users.AdminUserName.ToUpper(),
-                    SecurityStamp = Guid.NewGuid().ToString(""),
-                    PasswordHash = new PasswordHasher<User>().HashPassword(null, AppStaticData.Users.AdminPassword),
-                },
-            };
+                    new User
+                    {
+                        Id = AppStaticData.Users.PhAdminId,
+                        UserName = AppStaticData.Users.PhAdminUserName,
+                        NormalizedUserName = AppStaticData.Users.PhAdminUserName.ToUpper(),
+                        SecurityStamp = Guid.NewGuid().ToString(""),
+                        PasswordHash = new PasswordHasher<User>().HashPassword(null, _phAdminPassword),
+                    },
+                    new User
+                    {
+                        Id = AppStaticData.Users.AdminId,
+                        UserName = AppStaticData.Users.AdminUserName,
+                        NormalizedUserName = AppStaticData.Users.AdminUserName.ToUpper(),
+                        SecurityStamp = Guid.NewGuid().ToString(""),
+                        PasswordHash = new PasswordHasher<User>().HashPassword(null, _adminPassword),
+                    },
+                };
 
             foreach (var user in users)
             {
@@ -86,7 +88,7 @@ namespace ProductivityHarborApi.Data
 
                 if (!userExists)
                 {
-                   var result = await userManager.CreateAsync(user);
+                    var result = await userManager.CreateAsync(user);
                     if (result.Succeeded)
                     {
                         if (user.UserName == AppStaticData.Users.PhAdminUserName)
@@ -97,9 +99,6 @@ namespace ProductivityHarborApi.Data
                         {
                             await userManager.AddToRoleAsync(user, AppStaticData.Roles.AdminRoleName);
                         }
-                    } else
-                    {
-                        
                     }
                 }
             }

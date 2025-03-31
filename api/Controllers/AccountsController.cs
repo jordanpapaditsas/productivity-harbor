@@ -16,13 +16,5 @@ namespace ProductivityHarborApi.Controllers
         {
             _context = context;
         }
-
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm] RegisterDto registerDto)
-        {
-            // Add logic in Registration 
-
-            return Ok();
-        }
     }
 }

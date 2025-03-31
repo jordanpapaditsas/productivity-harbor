@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using ProductivityHarborApi.Common;
 using ProductivityHarborApi.Data;
 using ProductivityHarborApi.Models;
 using ProductivityHarborApi.Services;
@@ -42,6 +40,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    builder.Configuration.AddUserSecrets<Program>();
 }
 
 // Using Methods
