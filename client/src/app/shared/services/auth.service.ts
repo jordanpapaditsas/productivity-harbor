@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResponseDto } from '../../core/dto/system/api-response.dto';
+import { ApiResponseDto } from '../../core/dto/shared/api-response.dto';
 
 @Injectable({
   providedIn: 'root',
