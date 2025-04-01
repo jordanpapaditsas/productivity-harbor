@@ -28,7 +28,7 @@ builder.Services.AddIdentityApiEndpoints<User>(options => options.SignIn.Require
     .AddRoles<Role>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddScoped<ApplicationDbSeeder>();
+builder.Services.AddScoped<ApplicationDbSeed>();
 
 builder.Services.AddControllers();
 
@@ -48,7 +48,7 @@ using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-    var seeder = scope.ServiceProvider.GetRequiredService<ApplicationDbSeeder>();
+    var seeder = scope.ServiceProvider.GetRequiredService<ApplicationDbSeed>();
 
     await seeder.SeedRoles(roleManager);
     await seeder.SeedUsers(userManager);

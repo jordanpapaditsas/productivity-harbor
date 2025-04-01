@@ -1,4 +1,4 @@
-﻿namespace ProductivityHarborApi.Dtos
+﻿namespace ProductivityHarborApi.Dto
 {
     public class RegisterDto
     {

@@ -27,6 +27,7 @@ yarn-error.log
 !client/.vscode/launch.json
 !client/.vscode/extensions.json
 .history/*
+/client/src/app/config/appsettings.json
 
 # Miscellaneous
 /client/.angular/cache
