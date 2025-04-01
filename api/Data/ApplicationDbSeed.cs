@@ -5,12 +5,12 @@ using ProductivityHarborApi.Models;
 
 namespace ProductivityHarborApi.Data
 {
-    public class ApplicationDbSeeder
+    public class ApplicationDbSeed
     {
         private readonly string _phAdminPassword;
         private readonly string _adminPassword;
 
-        public ApplicationDbSeeder(IConfiguration configuration)
+        public ApplicationDbSeed(IConfiguration configuration)
         {
             _phAdminPassword = configuration["PhAdmin:Password"] ?? throw new ArgumentNullException(nameof(configuration), "PhAdmin password cannot be null");
             _adminPassword = configuration["Admin:Password"] ?? throw new ArgumentNullException(nameof(configuration), "Admin password cannot be null");
