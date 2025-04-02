@@ -1,4 +1,21 @@
-<mat-sidenav-container>
-  <mat-sidenav>Start</mat-sidenav>
-  <mat-sidenav-content>Main</mat-sidenav-content>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer [mode]="mode" [opened]="mode === 'side'" class="ph-sidenav">
+    <mat-nav-list>
+      <!-- Navigation Menu Components -->
+      <mat-list-item routerLink="/">Home</mat-list-item>
+      <mat-list-item routerLink="/about">About</mat-list-item>
+      <mat-list-item routerLink="/contact">Contact</mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <ph-hamburger-button [initialState]="mode === 'side'" [isClosed]="drawer.closedStart" (trigger)="drawer.toggle();"/>
+      <span class="title">My Application</span>
+    </mat-toolbar>
+
+    <div class="main-content">
+      <ng-container></ng-container>
+    </div>
+  </mat-sidenav-content>
 </mat-sidenav-container>

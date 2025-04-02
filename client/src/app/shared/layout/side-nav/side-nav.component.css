@@ -1,0 +1,12 @@
+.sidenav-container {
+  height: 100vh;
+}
+.ph-sidenav {
+  width: 15.6rem;
+}
+.title {
+  margin-left: 1rem;
+}
+.main-content {
+  padding: 1rem;
+}

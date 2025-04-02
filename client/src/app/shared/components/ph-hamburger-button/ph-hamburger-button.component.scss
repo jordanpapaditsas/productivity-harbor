@@ -1,0 +1,60 @@
+$width: 24px;
+$barHeight: 1px;
+$barColor: #0f0f0f;
+
+.menu {
+  padding-right: 1rem;
+  width: $width;
+  height: $width;
+  cursor: pointer;
+
+  .container {
+    position: relative;
+
+    .inner {
+      position: absolute;
+      width: $width - 2 * $barHeight;
+      left: 0;
+      top: 11px;
+      border: $barHeight solid $barColor;
+      transition: border-color .2s ease-in .2s;
+
+      &::before {
+        position: absolute;
+        content: '';
+        top: -6px;
+        left: -$barHeight;
+        width: $width - 2 * $barHeight;
+        border: $barHeight solid $barColor;
+        transition: top .2s ease-in .3s, transform ease-in .2s;
+      }
+
+      &::after {
+        position: absolute;
+        content: '';
+        top: 4px;
+        left: -$barHeight;
+        width: $width - 2 * $barHeight;
+        border: $barHeight solid $barColor;
+        transition: top .2s ease-in .3s, transform ease-in .2s;
+      }
+    }
+  }
+
+  &.active .container .inner {
+    border-color: transparent;
+    transition: border-color ease-in .1s;
+  }
+
+  &.active .container .inner::before {
+    top: -$barHeight;
+    transform: rotate(-45deg);
+    transition: top ease-out .2s, transform .2s ease-out .3s;
+  }
+
+  &.active .container .inner::after {
+    top: -$barHeight;
+    transform: rotate(45deg);
+    transition: top ease-out .2s, transform .2s ease-out .3s;
+  }
+}

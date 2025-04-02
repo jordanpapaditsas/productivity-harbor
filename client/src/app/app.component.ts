@@ -13,6 +13,4 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
 export class AppComponent {
   title = 'client';
   router = inject(Router);
-
-  constructor() {}
 }
