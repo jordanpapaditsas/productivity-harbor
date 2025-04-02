@@ -1,7 +1,9 @@
-﻿using ProductivityHarborApi.Models.Task;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using ProductivityHarborApi.Models.Task;
 
 namespace ProductivityHarborApi.Models.Shared
 {
+    [Table("productivityharbor_statuses")]
     public class Status : PhBaseModel
     {
         public Status() 

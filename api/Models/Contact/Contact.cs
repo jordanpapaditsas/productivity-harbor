@@ -1,7 +1,9 @@
-﻿using ProductivityHarborApi.Core.Enums.Contact;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using ProductivityHarborApi.Core.Enums.Contact;
 
 namespace ProductivityHarborApi.Models.Contact
 {
+    [Table("productivityharbor_contacts")]
     public class Contact : PhBaseModel
     {
         public Contact() 

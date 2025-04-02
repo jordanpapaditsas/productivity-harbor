@@ -1,7 +1,9 @@
-﻿using ProductivityHarborApi.Models.Shared;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using ProductivityHarborApi.Models.Shared;
 
 namespace ProductivityHarborApi.Models.Task
 {
+    [Table("productivityharbor_phtasks")]
     public class PhTask : PhBaseModel
     {
         public PhTask()
