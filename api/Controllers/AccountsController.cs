@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProductivityHarborApi.Data;
-using ProductivityHarborApi.Dtos;
-using ProductivityHarborApi.Models;
 
 namespace ProductivityHarborApi.Controllers
 {

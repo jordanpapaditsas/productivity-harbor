@@ -1,4 +1,4 @@
-﻿namespace ProductivityHarborApi.Dto
+﻿namespace ProductivityHarborApi.Core.Dto.Auth
 {
     public class RegisterDto
     {

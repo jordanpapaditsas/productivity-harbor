@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace ProductivityHarborApi.Models
+namespace ProductivityHarborApi.Models.User
 {
-    public class User: IdentityUser<Guid>
+    public class User : IdentityUser<Guid> 
     {
         public string? FullName { get; set; }
         public string? Avatar { get; set; }
@@ -10,8 +10,8 @@ namespace ProductivityHarborApi.Models
         public bool? IsActive { get; set; }
         public bool? IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public Guid? CreatedById { get; set; }
+        public Guid? CreatedByUserId { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public Guid? UpdatedById { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
     }
 }
