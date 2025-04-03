@@ -1,8 +1,9 @@
 .sidenav-container {
-  height: 100vh;
+  height: 60vh;
 }
 .ph-sidenav {
   width: 15.6rem;
+  background-color: rgb(192, 197, 192);
 }
 .title {
   margin-left: 1rem;
