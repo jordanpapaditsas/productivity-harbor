@@ -1,4 +1,4 @@
-.main-container {
+.header-container {
   background-color: rgb(223, 229, 233);
   display: flex;
   align-items: center;
@@ -11,4 +11,9 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.left-side-header {
+  display: flex;
+  align-items: center;
 }

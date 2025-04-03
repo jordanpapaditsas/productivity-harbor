@@ -4,6 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PhHamburgerButtonComponent } from '../../components/ph-hamburger-button/ph-hamburger-button.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-side-nav',
@@ -14,6 +15,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     MatListModule,
     MatToolbarModule,
     PhHamburgerButtonComponent,
+    HeaderComponent,
   ],
 })
 export class SideNavComponent implements OnInit {

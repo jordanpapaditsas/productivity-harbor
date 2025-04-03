@@ -1,10 +1,12 @@
-<mat-toolbar>
-  <ph-hamburger-button
-    [initialState]="mode === 'side'"
-    [isClosed]="drawer.closedStart"
-    (trigger)="drawer.toggle()"
-  />
-</mat-toolbar>
+<app-header>
+  <div class="hamburger-btn-container">
+    <ph-hamburger-button
+      [initialState]="mode === 'side'"
+      [isClosed]="drawer.closedStart"
+      (trigger)="drawer.toggle()"
+    />
+  </div>
+</app-header>
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #drawer

@@ -1,5 +1,5 @@
 .sidenav-container {
-  height: 60vh;
+  height: 85%;
 }
 .ph-sidenav {
   width: 15.6rem;
@@ -9,5 +9,6 @@
   margin-left: 1rem;
 }
 .main-content {
-  padding: 1rem;
+  height: 100%;
+  background-color: green;
 }
