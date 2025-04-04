@@ -4,11 +4,22 @@
 .ph-sidenav {
   width: 15.6rem;
   background-color: rgb(192, 197, 192);
+  min-width: 4rem;
 }
-.title {
-  margin-left: 1rem;
+
+.sidenav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
 }
+
 .main-content {
   height: 100%;
   background-color: green;
+  overflow: hidden;
+}
+
+.add-small-space-from-the-left {
+  --mat-list-list-item-leading-icon-start-space: 48px;
 }

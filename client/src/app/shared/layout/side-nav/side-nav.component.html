@@ -2,23 +2,61 @@
   <div class="hamburger-btn-container">
     <ph-hamburger-button
       [initialState]="mode === 'side'"
-      [isClosed]="drawer.closedStart"
-      (trigger)="drawer.toggle()"
+      [isClosed]="sidenav.closedStart"
+      (trigger)="onHamburgerMenuBtnClick(sidenav)"
     />
   </div>
 </app-header>
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
-    #drawer
+    #sidenav
     [mode]="mode"
     [opened]="mode === 'side'"
     class="ph-sidenav"
   >
     <mat-nav-list>
-      <!-- Navigation Menu Components -->
-      <mat-list-item routerLink="/">Home</mat-list-item>
-      <mat-list-item routerLink="/about">About</mat-list-item>
-      <mat-list-item routerLink="/contact">Contact</mat-list-item>
+      @for (item of menuItems(); track item.label) {
+      <a
+        mat-list-item
+        class="menu-item"
+        [routerLink]="item.route"
+        (click)="onMenuItemClick(item)"
+        routerLinkActive="selected-menu-item"
+        #rla="routerLinkActive"
+        [activated]="rla.isActive"
+      >
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+
+        @if (item.subItems) {
+        <span matListItemMeta>
+          @if (isSubMenuOpen()) {
+          <mat-icon>expand_less</mat-icon>
+          } @else {
+          <mat-icon>expand_more</mat-icon>
+          }
+        </span>
+        }
+      </a>
+
+      @if (item.subItems && isSubMenuOpen()) {
+      <div @expandSubMenu>
+        @for (subItem of item.subItems; track subItem.label) {
+        <a
+          mat-list-item
+          class="subMenu-item add-small-space-from-the-left"
+          [routerLink]="item.route + '/' + subItem.route"
+          (click)="onSubMenuItemClick(subItem)"
+          routerLinkActive="active"
+          #rla="routerLinkActive"
+          [activated]="rla.isActive"
+        >
+          <mat-icon matListItemIcon>{{ subItem.icon }}</mat-icon>
+          <span matListItemTitle>{{ subItem.label }}</span>
+        </a>
+        }
+      </div>
+      } }
     </mat-nav-list>
   </mat-sidenav>
 
