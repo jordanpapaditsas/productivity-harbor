@@ -1,9 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import {
-  MatDrawerMode,
-  MatSidenav,
-  MatSidenavModule,
-} from '@angular/material/sidenav';
+import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PhHamburgerButtonComponent } from '../../components/ph-hamburger-button/ph-hamburger-button.component';
@@ -14,12 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MenuItem } from '../../../core/interfaces/menu-item';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { SidenavService } from '../../services/sidenav.service';
 
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.css'],
+  styleUrls: ['./side-nav.component.scss'],
   imports: [
     MatSidenavModule,
     MatListModule,
@@ -52,8 +47,7 @@ export class SideNavComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private router: Router,
-    private sidenavService: SidenavService
+    private router: Router
   ) {
     this.breakpointObserver
       .observe([Breakpoints.Handset])
@@ -101,17 +95,7 @@ export class SideNavComponent implements OnInit {
     }
   }
 
-  onHamburgerMenuBtnClick(sidenav: MatSidenav) {
-    let drawer = this.sidenavService.setSidenav(sidenav);
-
-    if (drawer) {
-      drawer.toggle();
-    }
-
-    if (drawer.opened) {
-      this.isSideNavCollapsed.set(true);
-    } else {
-      this.isSideNavCollapsed.set(false);
-    }
+  onHamburgerMenuBtnClick() {
+    this.isSideNavCollapsed.set(!this.isSideNavCollapsed());
   }
 }

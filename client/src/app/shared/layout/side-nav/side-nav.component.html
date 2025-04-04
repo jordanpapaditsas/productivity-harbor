@@ -3,15 +3,16 @@
     <ph-hamburger-button
       [initialState]="mode === 'side'"
       [isClosed]="sidenav.closedStart"
-      (trigger)="onHamburgerMenuBtnClick(sidenav)"
+      (trigger)="onHamburgerMenuBtnClick()"
     />
   </div>
 </app-header>
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container autosize class="sidenav-container">
   <mat-sidenav
     #sidenav
     [mode]="mode"
-    [opened]="mode === 'side'"
+    [opened]="true"
+    [class.collapsed]="isSideNavCollapsed()"
     class="ph-sidenav"
   >
     <mat-nav-list>
@@ -24,6 +25,7 @@
         routerLinkActive="selected-menu-item"
         #rla="routerLinkActive"
         [activated]="rla.isActive"
+        [class.hide-label]="isSideNavCollapsed()"
       >
         <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
         <span matListItemTitle>{{ item.label }}</span>

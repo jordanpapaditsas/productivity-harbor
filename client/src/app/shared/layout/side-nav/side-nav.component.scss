@@ -1,10 +1,24 @@
 .sidenav-container {
   height: 85%;
 }
+
 .ph-sidenav {
   width: 15.6rem;
   background-color: rgb(192, 197, 192);
-  min-width: 4rem;
+  transition: width 0.2s ease-in-out;
+  &.collapsed {
+    width: 3rem;
+
+    .mat-list-item .mat-list-item-content {
+      padding: 0 1rem;
+    }
+  }
+}
+
+.hide-label {
+  span[matListItemTitle] {
+    display: none;
+  }
 }
 
 .sidenav-item {
