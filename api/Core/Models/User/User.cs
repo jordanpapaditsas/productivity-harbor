@@ -9,9 +9,9 @@ namespace ProductivityHarborApi.Core.Models.User
         public string? Token { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsDeleted { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
         public Guid? CreatedByUserId { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
         public Guid? UpdatedByUserId { get; set; }
     }
 }
