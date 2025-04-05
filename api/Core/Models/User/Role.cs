@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace ProductivityHarborApi.Models.User
+namespace ProductivityHarborApi.Core.Models.User
 {
     public class Role : IdentityRole<Guid>
     {

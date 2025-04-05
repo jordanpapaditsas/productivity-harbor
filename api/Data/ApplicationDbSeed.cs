@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ProductivityHarborApi.Common;
-using ProductivityHarborApi.Models.User;
+using ProductivityHarborApi.Core.Models.User;
+using ProductivityHarborApi.Core.utils;
 
 namespace ProductivityHarborApi.Data
 {

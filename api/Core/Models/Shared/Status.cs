@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using ProductivityHarborApi.Models.Task;
+using ProductivityHarborApi.Core.Models;
+using ProductivityHarborApi.Core.Models.Task;
 
-namespace ProductivityHarborApi.Models.Shared
+namespace ProductivityHarborApi.Core.Models.Shared
 {
     [Table("productivityharbor_statuses")]
     public class Status : PhBaseModel

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProductivityHarborApi.Models.Contact;
-using ProductivityHarborApi.Models.Shared;
-using ProductivityHarborApi.Models.Task;
-using ProductivityHarborApi.Models.User;
+using ProductivityHarborApi.Core.Models.Contact;
+using ProductivityHarborApi.Core.Models.Shared;
+using ProductivityHarborApi.Core.Models.Task;
+using ProductivityHarborApi.Core.Models.User;
 
 namespace ProductivityHarborApi.Data
 {

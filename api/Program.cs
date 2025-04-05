@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ProductivityHarborApi.Core.Models.User;
 using ProductivityHarborApi.Data;
-using ProductivityHarborApi.Models.User;
 using ProductivityHarborApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);

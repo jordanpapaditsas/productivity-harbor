@@ -1,4 +1,4 @@
-﻿namespace ProductivityHarborApi.Common
+﻿namespace ProductivityHarborApi.Core.utils
 {
     public class AppStaticData
     {
