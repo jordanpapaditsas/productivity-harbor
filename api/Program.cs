@@ -30,7 +30,11 @@ builder.Services.AddIdentityApiEndpoints<User>(options => options.SignIn.Require
 
 builder.Services.AddScoped<ApplicationDbSeed>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 
 builder.Services.AddOpenApi();
 

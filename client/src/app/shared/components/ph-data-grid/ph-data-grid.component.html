@@ -1,0 +1,57 @@
+<table mat-table [dataSource]="dataSource()">
+  @for (column of columns; track column.label) { @if(column.dataType ===
+  'string') {
+  <ng-container [matColumnDef]="column.label">
+    <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
+    <td
+      (click)="getCellData(row[column.dataField])"
+      mat-cell
+      *matCellDef="let row"
+    >
+      {{ row[column.dataField] }}
+    </td>
+  </ng-container>
+  } @if(column.dataType === 'number') {
+  <ng-container [matColumnDef]="column.label">
+    <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
+    <td
+      (click)="getCellData(row[column.dataField])"
+      mat-cell
+      *matCellDef="let row"
+    >
+      {{ row[column.dataField] }}
+    </td>
+  </ng-container>
+  } @if(column.dataType === 'boolean') {
+  <ng-container [matColumnDef]="column.label">
+    <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
+    <td
+      (click)="getCellData(row[column.dataField])"
+      mat-cell
+      *matCellDef="let row"
+    >
+      <mat-checkbox
+        [(ngModel)]="row[column.dataField]"
+        value=""
+        color="primary"
+        >{{ column.label }}</mat-checkbox
+      >
+    </td>
+  </ng-container>
+  } @if(column.dataType === 'datetime') {
+
+  <ng-container [matColumnDef]="column.label">
+    <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
+    <td
+      (click)="getCellData(row[column.dataField])"
+      mat-cell
+      *matCellDef="let row"
+    >
+      {{ row[column.dataField] }}
+    </td>
+  </ng-container>
+  } }
+
+  <tr mat-header-row *matHeaderRowDef="getVisibleColumns()"></tr>
+  <tr mat-row *matRowDef="let row; columns: getVisibleColumns()"></tr>
+</table>

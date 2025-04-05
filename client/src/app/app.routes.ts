@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '',
+    redirectTo: 'admin-home',
   },
   {
     path: 'admin-home',
@@ -32,6 +32,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/user/users-list/users-list.component').then(
         (m) => m.UsersListComponent
+      ),
+  },
+  {
+    path: 'users-edit',
+    loadComponent: () =>
+      import('./features/user/user-edit/user-edit.component').then(
+        (m) => m.UserEditComponent
       ),
   },
 ];
