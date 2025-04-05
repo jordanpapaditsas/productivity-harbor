@@ -3,6 +3,7 @@ import { inject, Injectable, OnInit } from '@angular/core';
 import { UserDto } from '../../core/dto/user/user.dto';
 import { AppConfigService } from '../../shared/services/app-config.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { Guid } from 'guid-typescript';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,11 @@ export class UserService implements OnInit {
 
   getAllUsersDataSource() {
     return this.httpClient.get<UserDto[]>(this.serviceUrl + '/getAllUsers', {
+      headers: this.headers,
+    });
+  }
+  deleteById(id: Guid) {
+    return this.httpClient.delete(this.serviceUrl + '/deleteById/' + id, {
       headers: this.headers,
     });
   }

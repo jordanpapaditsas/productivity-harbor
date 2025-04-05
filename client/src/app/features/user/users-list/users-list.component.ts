@@ -15,7 +15,6 @@ export class UsersListComponent implements OnInit {
   columns: Array<any> = [];
   usersLookupDataSource: any[] = [];
   private usersService = inject(UserService);
-  displayedColumns: Array<string> = [];
 
   ngOnInit() {
     this.getUsersDataSource();
@@ -30,7 +29,7 @@ export class UsersListComponent implements OnInit {
         dataField: 'Id',
         dataType: 'string',
         label: 'Id',
-        visible: false,
+        visible: true,
       },
       {
         dataField: 'UserName',
@@ -59,5 +58,19 @@ export class UsersListComponent implements OnInit {
       .subscribe((response: Array<UserDto>) => {
         this.usersDataSource = response;
       });
+  }
+
+  onSaveRowClicked(e: any) {}
+  onEditRowClicked(e: any) {}
+  async onDeleteRowClicked(row: UserDto) {
+    let result = await confirm(
+      `Are you sure you want to delete user ${row.FullName}?`
+    );
+
+    if (result) {
+      this.usersService.deleteById(row.Id).subscribe((response) => {
+        this.getUsersDataSource();
+      });
+    }
   }
 }

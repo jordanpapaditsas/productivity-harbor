@@ -1,57 +1,123 @@
-<table mat-table [dataSource]="dataSource()">
-  @for (column of columns; track column.label) { @if(column.dataType ===
-  'string') {
-  <ng-container [matColumnDef]="column.label">
-    <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
-    <td
-      (click)="getCellData(row[column.dataField])"
-      mat-cell
-      *matCellDef="let row"
-    >
-      {{ row[column.dataField] }}
-    </td>
-  </ng-container>
-  } @if(column.dataType === 'number') {
-  <ng-container [matColumnDef]="column.label">
-    <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
-    <td
-      (click)="getCellData(row[column.dataField])"
-      mat-cell
-      *matCellDef="let row"
-    >
-      {{ row[column.dataField] }}
-    </td>
-  </ng-container>
-  } @if(column.dataType === 'boolean') {
-  <ng-container [matColumnDef]="column.label">
-    <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
-    <td
-      (click)="getCellData(row[column.dataField])"
-      mat-cell
-      *matCellDef="let row"
-    >
-      <mat-checkbox
-        [(ngModel)]="row[column.dataField]"
-        value=""
-        color="primary"
-        [disabled]="true"
-      ></mat-checkbox>
-    </td>
-  </ng-container>
-  } @if(column.dataType === 'datetime') {
+<div class="">
+  <table class="ph-data-grid-table" mat-table [dataSource]="dataSource()">
+    @for (column of columns(); track column.label) { @if(column.dataType ===
+    'string') {
+    <ng-container [matColumnDef]="column.label">
+      <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
+        {{ column.label }}
+      </th>
+      <td
+        class="ph-data-grid-cell"
+        (click)="getCellData(row[column.dataField])"
+        mat-cell
+        *matCellDef="let row"
+      >
+        {{ row[column.dataField] }}
+      </td>
+    </ng-container>
+    } @if(column.dataType === 'number') {
+    <ng-container [matColumnDef]="column.label">
+      <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
+        {{ column.label }}
+      </th>
+      <td
+        class="ph-data-grid-cell"
+        (click)="getCellData(row[column.dataField])"
+        mat-cell
+        *matCellDef="let row"
+      >
+        {{ row[column.dataField] }}
+      </td>
+    </ng-container>
+    } @if(column.dataType === 'boolean') {
+    <ng-container [matColumnDef]="column.label">
+      <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
+        {{ column.label }}
+      </th>
+      <td
+        class="ph-data-grid-cell"
+        (click)="getCellData(row[column.dataField])"
+        mat-cell
+        *matCellDef="let row"
+      >
+        <mat-checkbox
+          [(ngModel)]="row[column.dataField]"
+          value=""
+          color="primary"
+          [disabled]="true"
+        ></mat-checkbox>
+      </td>
+    </ng-container>
+    } @if(column.dataType === 'datetime') {
 
-  <ng-container [matColumnDef]="column.label">
-    <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
-    <td
-      (click)="getCellData(row[column.dataField])"
-      mat-cell
-      *matCellDef="let row"
-    >
-      {{ row[column.dataField] }}
-    </td>
-  </ng-container>
-  } }
+    <ng-container [matColumnDef]="column.label">
+      <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
+        {{ column.label }}
+      </th>
+      <td
+        class="ph-data-grid-cell"
+        (click)="getCellData(row[column.dataField])"
+        mat-cell
+        *matCellDef="let row"
+      >
+        {{ row[column.dataField] }}
+      </td>
+    </ng-container>
+    } } @if (canEdit() || canDelete()) {
+    <ng-container matColumnDef="actions">
+      <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
+        Actions
+      </th>
+      <td class="ph-data-grid-cell" mat-cell *matCellDef="let row; index as i">
+        <div class="action-btns-container">
+          <button
+            *ngIf="canEdit() && !isRowInEditMode(row) && editingRowId === null"
+            mat-icon-button
+            color="primary"
+            (click)="onEditRowBtnClick(row)"
+            matTooltip="Edit"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
 
-  <tr mat-header-row *matHeaderRowDef="getVisibleColumns()"></tr>
-  <tr mat-row *matRowDef="let row; columns: getVisibleColumns()"></tr>
-</table>
+          <button
+            *ngIf="canSave() && isRowInEditMode(row)"
+            mat-icon-button
+            color="primary"
+            (click)="onSaveRowClick(row)"
+            matTooltip="Save"
+          >
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button
+            *ngIf="canEdit() && isRowInEditMode(row)"
+            mat-icon-button
+            color="primary"
+            (click)="onCancelEditRowClick(row)"
+            matTooltip="Cancel"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+
+          <button
+            *ngIf="
+              canDelete() && !isRowInEditMode(row) && editingRowId === null
+            "
+            mat-icon-button
+            color="warn"
+            (click)="onDeleteRowBtnClick(row)"
+            matTooltip="Delete"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    }
+
+    <tr mat-header-row *matHeaderRowDef="getVisibleColumns()"></tr>
+    <tr mat-row *matRowDef="let row; columns: getVisibleColumns()"></tr>
+  </table>
+</div>

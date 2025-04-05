@@ -1,0 +1,20 @@
+.ph-data-grid-table {
+  table-layout: fixed;
+  width: 90%;
+  border-collapse: collapse;
+  margin: 2%;
+  max-width: 90%;
+}
+
+.ph-data-grid-cell {
+  border: 1px solid rgb(0, 0, 0);
+  text-align: left;
+  padding: 0.5rem
+}
+
+.action-btns-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
