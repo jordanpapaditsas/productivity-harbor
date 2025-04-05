@@ -5,11 +5,9 @@
 .ph-sidenav {
   width: 16rem;
   background-color: rgb(192, 197, 192);
-  transition: 0.3s ease-in-out;
 
   &.collapsed {
     width: 3rem;
-    transition: 0.4s ease-in-out;
 
     .mat-list-item .mat-list-item-content {
       padding: 0 1rem;

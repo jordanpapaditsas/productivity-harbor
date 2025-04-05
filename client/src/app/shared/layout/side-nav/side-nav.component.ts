@@ -67,7 +67,6 @@ export class SideNavComponent implements OnInit {
         icon: 'home',
         label: 'Home',
         route: 'admin-home',
-        subItems: [],
       },
       {
         icon: 'group_work',

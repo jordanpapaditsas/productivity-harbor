@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AppStaticData } from '../../app-static-data';
 
 @Component({
   selector: 'app-footer',
@@ -8,7 +9,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   imports: [MatToolbarModule],
 })
 export class FooterComponent implements OnInit {
-  constructor() {}
+  developer: string = '';
+  year: any;
+  copyrightText: string = '';
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.developer = AppStaticData.developer;
+    this.year = new Date().getFullYear();
+    this.copyrightText = 'All rights reserved.';
+  }
 }
