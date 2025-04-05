@@ -34,8 +34,8 @@
         [(ngModel)]="row[column.dataField]"
         value=""
         color="primary"
-        >{{ column.label }}</mat-checkbox
-      >
+        [disabled]="true"
+      ></mat-checkbox>
     </td>
   </ng-container>
   } @if(column.dataType === 'datetime') {
