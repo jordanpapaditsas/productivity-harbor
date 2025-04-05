@@ -4,40 +4,39 @@
 
 .ph-sidenav {
   width: 16rem;
-  background-color: rgb(192, 197, 192);
+  box-shadow: 0 0 27px 0 rgba(159, 170, 172, 0.52);
+  border: 1px solid rgba(0,0,0,.05);
 
   &.collapsed {
     width: 3rem;
 
-    .mat-list-item .mat-list-item-content {
-      padding: 0 1rem;
-    }
     .add-small-space-from-the-left {
-      --mat-list-list-item-leading-icon-start-space: 16px;
+      --mat-list-list-item-leading-icon-start-space: 1rem;
     }
   }
 }
 
 .add-small-space-from-the-left {
-  --mat-list-list-item-leading-icon-start-space: 48px;
-}
-
-.hide-label {
-  span[matListItemTitle] {
-    display: none;
-  }
+  --mat-list-list-item-leading-icon-start-space: 2.5rem;
 }
 
 .sidenav-item {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
 
+.item-label {
+  font-size: 0.9rem;
 }
 
 .main-content {
   height: 100%;
-  background-color: green;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
+
+
 

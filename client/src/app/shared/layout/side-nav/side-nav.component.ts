@@ -52,7 +52,6 @@ export class SideNavComponent implements OnInit {
     this.breakpointObserver
       .observe([Breakpoints.Handset])
       .subscribe((result) => {
-        debugger;
         this.mode = result.matches ? 'over' : 'side';
       });
   }
@@ -88,6 +87,11 @@ export class SideNavComponent implements OnInit {
             label: 'Application Settings',
             route: 'application-settings',
           },
+          {
+            icon: 'people',
+            label: 'Users',
+            route: 'users-list',
+          },
         ],
       },
     ]);
@@ -116,7 +120,7 @@ export class SideNavComponent implements OnInit {
     }
   }
 
-  onHamburgerMenuBtnClick() {
+  onSideNavToggle() {
     this.isSideNavCollapsed.set(!this.isSideNavCollapsed());
   }
 }

@@ -27,4 +27,11 @@ export const routes: Routes = [
         (m) => m.AppSettingsComponent
       ),
   },
+  {
+    path: 'users-list',
+    loadComponent: () =>
+      import('./features/user/users-list/users-list.component').then(
+        (m) => m.UsersListComponent
+      ),
+  },
 ];

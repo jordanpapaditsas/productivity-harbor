@@ -3,7 +3,7 @@
     <ph-hamburger-button
       [initialState]="mode === 'side'"
       [isClosed]="sidenav.closedStart"
-      (trigger)="onHamburgerMenuBtnClick()"
+      (trigger)="onSideNavToggle()"
     />
   </div>
 </app-header>
@@ -22,17 +22,16 @@
         class="menu-item"
         [routerLink]="item.route"
         (click)="onMenuItemClick(item)"
-        [class.hide-label]="isSideNavCollapsed()"
       >
         <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-        <span matListItemTitle>{{ item.label }}</span>
+        <span class="item-label" matListItemTitle>{{ item.label }}</span>
 
         @if (item.subItems) {
         <span matListItemMeta>
           @if (isSubMenuOpen(item.label)) {
-          <mat-icon>expand_less</mat-icon>
-          } @else {
           <mat-icon>expand_more</mat-icon>
+          } @else {
+          <mat-icon>chevron_right</mat-icon>
           }
         </span>
         }
@@ -48,7 +47,7 @@
           (click)="onSubMenuItemClick(subItem)"
         >
           <mat-icon matListItemIcon>{{ subItem.icon }}</mat-icon>
-          <span matListItemTitle>{{ subItem.label }}</span>
+          <span class="item-label" matListItemTitle>{{ subItem.label }}</span>
         </a>
         }
       </div>

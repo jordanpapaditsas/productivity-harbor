@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AppStaticData } from '../../app-static-data';
+import { AppStaticData } from '../../../core/utils/app-static-data';
 
 @Component({
   selector: 'app-footer',
