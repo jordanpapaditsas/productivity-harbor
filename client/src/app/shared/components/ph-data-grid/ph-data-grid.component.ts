@@ -1,11 +1,20 @@
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
-import { Component, Input, input, OnInit, output } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  input,
+  OnInit,
+  output,
+  ViewChild,
+} from '@angular/core';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Guid } from 'guid-typescript';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'ph-data-grid',
@@ -17,10 +26,29 @@ import { Guid } from 'guid-typescript';
     MatCheckboxModule,
     FormsModule,
     MatIconModule,
+    MatPaginator,
+    MatPaginatorModule,
   ],
 })
 export class PhDataGridComponent implements OnInit {
-  dataSource = input<CdkTableDataSourceInput<any[]>>([]);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  private _dataSource!: any;
+  public get dataSource() {
+    return this._dataSource;
+  }
+  @Input()
+  public set dataSource(value: MatTableDataSource<any, MatPaginator>) {
+    if (!(value instanceof MatTableDataSource)) {
+      this._dataSource = new MatTableDataSource(value);
+    } else {
+      this._dataSource = value;
+    }
+    if (this._dataSource && this.paginator) {
+      this._dataSource.paginator = this.paginator;
+    }
+  }
+
   columns = input<
     Array<{
       dataField: string;

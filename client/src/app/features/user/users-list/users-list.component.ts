@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserDto } from '../../../core/dto/user/user.dto';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
 
@@ -11,7 +11,7 @@ import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-
   imports: [MatTableModule, PhDataGridComponent],
 })
 export class UsersListComponent implements OnInit {
-  usersDataSource: Array<any> = [];
+  usersDataSource: any;
   columns: Array<any> = [];
   usersLookupDataSource: any[] = [];
   private usersService = inject(UserService);
@@ -23,7 +23,6 @@ export class UsersListComponent implements OnInit {
   }
 
   initializeColumns() {
-    debugger;
     this.columns = [
       {
         dataField: 'Id',

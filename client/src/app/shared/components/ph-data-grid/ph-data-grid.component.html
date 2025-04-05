@@ -1,5 +1,5 @@
 <div class="">
-  <table class="ph-data-grid-table" mat-table [dataSource]="dataSource()">
+  <table class="ph-data-grid-table" mat-table [dataSource]="dataSource">
     @for (column of columns(); track column.label) { @if(column.dataType ===
     'string') {
     <ng-container [matColumnDef]="column.label">
@@ -120,4 +120,11 @@
     <tr mat-header-row *matHeaderRowDef="getVisibleColumns()"></tr>
     <tr mat-row *matRowDef="let row; columns: getVisibleColumns()"></tr>
   </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of users"
+  >
+  </mat-paginator>
 </div>

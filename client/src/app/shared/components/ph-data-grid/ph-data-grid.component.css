@@ -4,6 +4,7 @@
   border-collapse: collapse;
   margin: 2%;
   max-width: 90%;
+  height: 100%;
 }
 
 .ph-data-grid-cell {
