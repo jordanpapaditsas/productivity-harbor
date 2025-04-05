@@ -29,12 +29,10 @@ export class PhDataGridComponent implements OnInit {
   }
 
   getRowData(rowData: any) {
-    debugger;
     return rowData;
   }
 
   getCellData(columnData: any) {
-    debugger;
     return columnData;
   }
 }
