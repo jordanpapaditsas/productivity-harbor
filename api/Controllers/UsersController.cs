@@ -21,5 +21,18 @@ namespace ProductivityHarborApi.Controllers
 
             return Ok(users);
         }
+
+        [HttpGet("getUserById/{userId}")]
+        public async Task<IActionResult> GetUserById(Guid userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            return Ok(user);
+        }
     }
 }
