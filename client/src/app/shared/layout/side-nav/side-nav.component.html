@@ -22,9 +22,6 @@
         class="menu-item"
         [routerLink]="item.route"
         (click)="onMenuItemClick(item)"
-        routerLinkActive="selected-menu-item"
-        #rla="routerLinkActive"
-        [activated]="rla.isActive"
         [class.hide-label]="isSideNavCollapsed()"
       >
         <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
@@ -32,7 +29,7 @@
 
         @if (item.subItems) {
         <span matListItemMeta>
-          @if (isSubMenuOpen()) {
+          @if (isSubMenuOpen(item.label)) {
           <mat-icon>expand_less</mat-icon>
           } @else {
           <mat-icon>expand_more</mat-icon>
@@ -41,7 +38,7 @@
         }
       </a>
 
-      @if (item.subItems && isSubMenuOpen()) {
+      @if (item.subItems && isSubMenuOpen(item.label)) {
       <div @expandSubMenu>
         @for (subItem of item.subItems; track subItem.label) {
         <a
@@ -49,9 +46,6 @@
           class="subMenu-item add-small-space-from-the-left"
           [routerLink]="item.route + '/' + subItem.route"
           (click)="onSubMenuItemClick(subItem)"
-          routerLinkActive="active"
-          #rla="routerLinkActive"
-          [activated]="rla.isActive"
         >
           <mat-icon matListItemIcon>{{ subItem.icon }}</mat-icon>
           <span matListItemTitle>{{ subItem.label }}</span>

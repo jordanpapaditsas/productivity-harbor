@@ -3,16 +3,25 @@
 }
 
 .ph-sidenav {
-  width: 15.6rem;
+  width: 16rem;
   background-color: rgb(192, 197, 192);
-  transition: width 0.2s ease-in-out;
+  transition: 0.3s ease-in-out;
+
   &.collapsed {
     width: 3rem;
+    transition: 0.4s ease-in-out;
 
     .mat-list-item .mat-list-item-content {
       padding: 0 1rem;
     }
+    .add-small-space-from-the-left {
+      --mat-list-list-item-leading-icon-start-space: 16px;
+    }
   }
+}
+
+.add-small-space-from-the-left {
+  --mat-list-list-item-leading-icon-start-space: 48px;
 }
 
 .hide-label {
@@ -34,6 +43,3 @@
   overflow: hidden;
 }
 
-.add-small-space-from-the-left {
-  --mat-list-list-item-leading-icon-start-space: 48px;
-}

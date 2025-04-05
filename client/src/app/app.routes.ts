@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'admin-home',
+    redirectTo: '',
   },
   {
     path: 'admin-home',
@@ -18,6 +18,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/kanban/tasks-list/tasks-list.component').then(
         (m) => m.TasksListComponent
+      ),
+  },
+  {
+    path: 'application-settings',
+    loadComponent: () =>
+      import('./features/settings/app-settings/app-settings.component').then(
+        (m) => m.AppSettingsComponent
       ),
   },
 ];
