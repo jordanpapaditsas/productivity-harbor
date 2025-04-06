@@ -61,11 +61,13 @@ export class UsersListComponent implements OnInit {
       });
   }
 
+  onInsertRowClicked(e: any) {}
   onSaveRowClicked(e: any) {}
   onEditRowClicked(e: any) {}
   async onDeleteRowClicked(row: UserDto) {
+    debugger;
     let result = await confirm(
-      `Are you sure you want to delete user ${row.FullName}?`
+      `Are you sure you want to delete user ${row.UserName}?`
     );
 
     if (result) {

@@ -4,6 +4,7 @@
       class="ph-data-grid-toolbar-insert-btn"
       mat-mini-fab
       aria-label="Insert Button"
+      matTooltip="Insert"
       (click)="onInsertRowBtnClick()"
     >
       <mat-icon>add</mat-icon>
@@ -73,15 +74,16 @@
         {{ row[column.dataField] }}
       </td>
     </ng-container>
-    } } @if (canEdit() || canDelete()) {
-    <ng-container matColumnDef="actions">
+    } }
+    <ng-container *ngIf="canEdit() || canDelete()" matColumnDef="actions">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
         Actions
       </th>
       <td class="ph-data-grid-cell" mat-cell *matCellDef="let row; index as i">
         <div class="action-btns-container">
+          <!-- Edit Button -->
           <button
-            *ngIf="canEdit() && !isRowInEditMode(row) && !editingRowId"
+            *ngIf="canEdit() && !isRowInEditMode(row) && !_rowKeyId"
             mat-icon-button
             color="primary"
             (click)="onEditRowBtnClick(row)"
@@ -90,8 +92,9 @@
             <mat-icon>edit</mat-icon>
           </button>
 
+          <!-- Save and Cancel Buttons -->
           <button
-            *ngIf="canSave() && isRowInEditMode(row)"
+            *ngIf="canEdit() && isRowInEditMode(row)"
             mat-icon-button
             color="primary"
             (click)="onSaveRowBtnClick(row)"
@@ -107,11 +110,12 @@
             (click)="onCancelEditRowBtnClick(row)"
             matTooltip="Cancel"
           >
-            <mat-icon>cancel</mat-icon>
+            <mat-icon>redo</mat-icon>
           </button>
 
+          <!-- Delete Button -->
           <button
-            *ngIf="canDelete() && !isRowInEditMode(row) && !editingRowId"
+            *ngIf="canDelete() && !isRowInEditMode(row) && !_rowKeyId"
             mat-icon-button
             color="warn"
             (click)="onDeleteRowBtnClick(row)"
@@ -122,8 +126,6 @@
         </div>
       </td>
     </ng-container>
-
-    }
 
     <tr mat-header-row *matHeaderRowDef="getVisibleColumns()"></tr>
     <tr mat-row *matRowDef="let row; columns: getVisibleColumns()"></tr>

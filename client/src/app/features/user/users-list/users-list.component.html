@@ -1,10 +1,11 @@
 <ph-data-grid
   [dataSource]="usersDataSource"
   [columns]="columns"
-  [canSave]="true"
   [canEdit]="true"
   [canDelete]="true"
+  [canInsert]="true"
   (onEditRowClicked)="onEditRowClicked($event)"
   (onSaveRowClicked)="onSaveRowClicked($event)"
   (onDeleteRowClicked)="onDeleteRowClicked($event)"
+  (onInsertRowClicked)="onInsertRowClicked($event)"
 ></ph-data-grid>

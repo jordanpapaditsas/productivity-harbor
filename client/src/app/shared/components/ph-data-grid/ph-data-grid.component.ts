@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Guid } from 'guid-typescript';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'ph-data-grid',
@@ -33,6 +34,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatPaginator,
     MatPaginatorModule,
     MatToolbarModule,
+    MatTooltipModule,
   ],
 })
 export class PhDataGridComponent implements OnInit {
@@ -67,13 +69,12 @@ export class PhDataGridComponent implements OnInit {
   canInsert = input<boolean>(false);
   canEdit = input<boolean>(false);
   canDelete = input<boolean>(false);
-  canSave = input<boolean>(false);
   onSaveRowClicked = output<any>();
   onEditRowClicked = output<any>();
   onDeleteRowClicked = output<any>();
   onInsertRowClicked = output<any>();
 
-  editingRowId: string | Guid | null = null;
+  protected _rowKeyId: string | Guid | null = null;
 
   isInEditMode = signal<boolean>(false);
 
@@ -87,7 +88,7 @@ export class PhDataGridComponent implements OnInit {
       .map((x) => x.label);
 
     if (
-      (this.canEdit() || this.canDelete() || this.canSave()) &&
+      (this.canEdit() || this.canDelete()) &&
       !visibleColumns.includes('actions')
     ) {
       visibleColumns.push('actions');
@@ -105,30 +106,26 @@ export class PhDataGridComponent implements OnInit {
   }
 
   isRowInEditMode(row: any): boolean {
-    return this.editingRowId === row.Id;
+    return this._rowKeyId === row.Id;
   }
 
   onEditRowBtnClick(row: any) {
-    this.editingRowId = row.Id;
-    this.isInEditMode.set(true);
+    this._rowKeyId = row.Id;
     this.onEditRowClicked.emit(row);
   }
 
   onSaveRowBtnClick(row: any) {
-    this.editingRowId = null;
-    this.isInEditMode.set(false);
+    this._rowKeyId = null;
     this.onSaveRowClicked.emit(row);
   }
 
   onCancelEditRowBtnClick(row: any) {
-    this.isInEditMode.set(false);
-    this.editingRowId = null;
+    this._rowKeyId = null;
   }
 
   onDeleteRowBtnClick(row: any) {
-    if (this.editingRowId === row.Id) {
-      this.editingRowId = null;
-      this.isInEditMode.set(false);
+    if (this._rowKeyId === row.Id) {
+      this._rowKeyId = null;
     }
     this.onDeleteRowClicked.emit(row);
   }
