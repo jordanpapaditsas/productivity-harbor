@@ -26,8 +26,38 @@ export class UserService implements OnInit {
       headers: this.headers,
     });
   }
-  deleteById(id: Guid) {
-    return this.httpClient.delete(this.serviceUrl + '/deleteById/' + id, {
+
+  getUserById(userId: Guid) {
+    return this.httpClient.get<UserDto>(
+      this.serviceUrl + '/getUserById/' + userId,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  insertUser(user: UserDto) {
+    return this.httpClient.post<UserDto>(
+      this.serviceUrl + '/insertUser/',
+      user,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  updateUser(user: UserDto) {
+    return this.httpClient.put<UserDto>(
+      this.serviceUrl + '/updateUser/',
+      user,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  deleteById(userId: Guid) {
+    return this.httpClient.delete(this.serviceUrl + '/deleteById/' + userId, {
       headers: this.headers,
     });
   }

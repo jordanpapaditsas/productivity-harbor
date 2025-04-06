@@ -23,8 +23,14 @@
         mat-cell
         *matCellDef="let row"
       >
-        @if (isRowInEditMode(row) && column.allowEditing) {
-        <input matInput [(ngModel)]="row[column.dataField]" />
+        @if (isRowInEditMode(row) && column.allowEditing || isNewRow(row) &&
+        column.allowEditing) {
+        <input
+          cdkTrapFocus
+          [cdkTrapFocusAutoCapture]="true"
+          matInput
+          [(ngModel)]="row[column.dataField]"
+        />
         } @else {
         {{ row[column.dataField] }}
         }

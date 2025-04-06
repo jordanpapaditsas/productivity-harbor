@@ -22,6 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'ph-data-grid',
@@ -41,6 +42,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDatepickerModule,
     MatFormFieldModule,
     DatePipe,
+    A11yModule,
   ],
 })
 export class PhDataGridComponent implements OnInit {
@@ -139,6 +141,7 @@ export class PhDataGridComponent implements OnInit {
 
     this._rowKeyId = null;
 
+    this.refreshDataSource();
     this.onSavedRow.emit(row);
     this.cleanTempRowValues(this._tempRowValues[row.Id]);
   }
@@ -165,6 +168,7 @@ export class PhDataGridComponent implements OnInit {
   onInsertRowBtnClick() {
     const newRow: Record<string, any> = {};
     this.onInitNewRow.emit(newRow);
+    debugger;
 
     this._dataSource.data.unshift(newRow);
 
