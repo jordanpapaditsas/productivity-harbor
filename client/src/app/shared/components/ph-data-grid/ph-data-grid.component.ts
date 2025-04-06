@@ -69,14 +69,16 @@ export class PhDataGridComponent implements OnInit {
   canInsert = input<boolean>(false);
   canEdit = input<boolean>(false);
   canDelete = input<boolean>(false);
-  onSaveRowClicked = output<any>();
-  onEditRowClicked = output<any>();
-  onDeleteRowClicked = output<any>();
-  onInsertRowClicked = output<any>();
+  onSavingRow = output<any>();
+  onSavedRow = output<any>();
+  onEditRow = output<any>();
+  onDeleteRow = output<any>();
+  onInsertRow = output<any>();
+  onInitNewRow = output<any>();
 
   protected _rowKeyId: string | Guid | null = null;
 
-  isInEditMode = signal<boolean>(false);
+  // isNewRowInEditMode = signal<boolean>(false);
 
   constructor() {}
 
@@ -109,37 +111,49 @@ export class PhDataGridComponent implements OnInit {
     return this._rowKeyId === row.Id;
   }
 
+  isNewRow(row: any): boolean {
+    return row.Id === null || row.Id === undefined;
+  }
+
   onEditRowBtnClick(row: any) {
     this._rowKeyId = row.Id;
-    this.onEditRowClicked.emit(row);
+    this.onEditRow.emit(row);
   }
 
   onSaveRowBtnClick(row: any) {
-    this._rowKeyId = null;
-    this.onSaveRowClicked.emit(row);
+    if (!Object.keys(row).length) {
+      alert('Null'); // Need to pass validation some dialog warning message
+    } else {
+      this._rowKeyId = null;
+      this.onSavedRow.emit(row);
+    }
   }
 
   onCancelEditRowBtnClick(row: any) {
     this._rowKeyId = null;
+    if (this.isNewRow(row)) {
+      this.dataSource.data.shift();
+      this._dataSource.data = [...this.dataSource.data];
+    }
   }
 
-  onDeleteRowBtnClick(row: any) {
+  async onDeleteRowBtnClick(row: any) {
     if (this._rowKeyId === row.Id) {
       this._rowKeyId = null;
     }
-    this.onDeleteRowClicked.emit(row);
+
+    this.onDeleteRow.emit(row);
   }
   onInsertRowBtnClick() {
-    debugger;
-    let newRow: any[] = [];
-
-    newRow = this.columns();
+    const newRow: Record<string, any> = {};
+    this.onInitNewRow.emit(newRow);
+    // this.columns().forEach((column) => {
+    //   newRow[column.dataField] = null;
+    // });
 
     this._dataSource.data.unshift(newRow);
 
     this._dataSource.data = [...this._dataSource.data];
-    this.isInEditMode.set(true);
-    this.table.renderRows();
-    //this.onInsertRowClicked.emit(newRow);
+    this.onInsertRow.emit(newRow);
   }
 }

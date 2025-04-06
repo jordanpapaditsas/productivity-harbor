@@ -74,8 +74,8 @@
         {{ row[column.dataField] }}
       </td>
     </ng-container>
-    } }
-    <ng-container *ngIf="canEdit() || canDelete()" matColumnDef="actions">
+    } } @if (canEdit() || canDelete()) {
+    <ng-container matColumnDef="actions">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
         Actions
       </th>
@@ -83,7 +83,9 @@
         <div class="action-btns-container">
           <!-- Edit Button -->
           <button
-            *ngIf="canEdit() && !isRowInEditMode(row) && !_rowKeyId"
+            *ngIf="
+              canEdit() && !isRowInEditMode(row) && !_rowKeyId && !isNewRow(row)
+            "
             mat-icon-button
             color="primary"
             (click)="onEditRowBtnClick(row)"
@@ -94,7 +96,7 @@
 
           <!-- Save and Cancel Buttons -->
           <button
-            *ngIf="canEdit() && isRowInEditMode(row)"
+            *ngIf="canEdit() && isRowInEditMode(row) && !isNewRow(row)"
             mat-icon-button
             color="primary"
             (click)="onSaveRowBtnClick(row)"
@@ -104,7 +106,7 @@
           </button>
 
           <button
-            *ngIf="canEdit() && isRowInEditMode(row)"
+            *ngIf="canEdit() && isRowInEditMode(row) && !isNewRow(row)"
             mat-icon-button
             color="primary"
             (click)="onCancelEditRowBtnClick(row)"
@@ -115,7 +117,12 @@
 
           <!-- Delete Button -->
           <button
-            *ngIf="canDelete() && !isRowInEditMode(row) && !_rowKeyId"
+            *ngIf="
+              canDelete() &&
+              !isRowInEditMode(row) &&
+              !_rowKeyId &&
+              !isNewRow(row)
+            "
             mat-icon-button
             color="warn"
             (click)="onDeleteRowBtnClick(row)"
@@ -124,8 +131,32 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
+
+        @if (isNewRow(row)) {
+        <!-- Save and Cancel Buttons -->
+        <div class="action-btns-container">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="onSaveRowBtnClick(row)"
+            matTooltip="Save"
+          >
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="onCancelEditRowBtnClick(row)"
+            matTooltip="Cancel"
+          >
+            <mat-icon>redo</mat-icon>
+          </button>
+        </div>
+        }
       </td>
     </ng-container>
+    }
 
     <tr mat-header-row *matHeaderRowDef="getVisibleColumns()"></tr>
     <tr mat-row *matRowDef="let row; columns: getVisibleColumns()"></tr>
