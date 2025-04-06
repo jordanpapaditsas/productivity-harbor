@@ -1,8 +1,24 @@
+.ph-data-grid-container {
+  margin: 2%;
+}
+
+.ph-data-grid-toolbar {
+  background-color: var(--crm-blue-50);
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  padding: 0.5rem 0 0.5rem 0;
+  margin-bottom: 0.5rem;
+}
+
+.ph-data-grid-toolbar-insert-btn {
+  margin-right: 0.5rem;
+}
+
 .ph-data-grid-table {
   table-layout: fixed;
   width: 90%;
   border-collapse: collapse;
-  margin: 2%;
   max-width: 90%;
   height: 100%;
 }
@@ -19,3 +35,4 @@
   justify-content: center;
   gap: 2rem;
 }
+

@@ -1,5 +1,15 @@
-<div class="">
-  <table class="ph-data-grid-table" mat-table [dataSource]="dataSource">
+<div class="ph-data-grid-container">
+  <div class="ph-data-grid-toolbar">
+    <button
+      class="ph-data-grid-toolbar-insert-btn"
+      mat-mini-fab
+      aria-label="Insert Button"
+      (click)="onInsertRowBtnClick()"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <table #table class="ph-data-grid-table" mat-table [dataSource]="dataSource">
     @for (column of columns(); track column.label) { @if(column.dataType ===
     'string') {
     <ng-container [matColumnDef]="column.label">
@@ -8,7 +18,7 @@
       </th>
       <td
         class="ph-data-grid-cell"
-        (click)="getCellData(row[column.dataField])"
+        (click)="getColumnData(row[column.dataField])"
         mat-cell
         *matCellDef="let row"
       >
@@ -22,7 +32,7 @@
       </th>
       <td
         class="ph-data-grid-cell"
-        (click)="getCellData(row[column.dataField])"
+        (click)="getColumnData(row[column.dataField])"
         mat-cell
         *matCellDef="let row"
       >
@@ -36,7 +46,7 @@
       </th>
       <td
         class="ph-data-grid-cell"
-        (click)="getCellData(row[column.dataField])"
+        (click)="getColumnData(row[column.dataField])"
         mat-cell
         *matCellDef="let row"
       >
@@ -56,7 +66,7 @@
       </th>
       <td
         class="ph-data-grid-cell"
-        (click)="getCellData(row[column.dataField])"
+        (click)="getColumnData(row[column.dataField])"
         mat-cell
         *matCellDef="let row"
       >
@@ -71,7 +81,7 @@
       <td class="ph-data-grid-cell" mat-cell *matCellDef="let row; index as i">
         <div class="action-btns-container">
           <button
-            *ngIf="canEdit() && !isRowInEditMode(row) && editingRowId === null"
+            *ngIf="canEdit() && !isRowInEditMode(row) && !editingRowId"
             mat-icon-button
             color="primary"
             (click)="onEditRowBtnClick(row)"
@@ -84,7 +94,7 @@
             *ngIf="canSave() && isRowInEditMode(row)"
             mat-icon-button
             color="primary"
-            (click)="onSaveRowClick(row)"
+            (click)="onSaveRowBtnClick(row)"
             matTooltip="Save"
           >
             <mat-icon>save</mat-icon>
@@ -94,16 +104,14 @@
             *ngIf="canEdit() && isRowInEditMode(row)"
             mat-icon-button
             color="primary"
-            (click)="onCancelEditRowClick(row)"
+            (click)="onCancelEditRowBtnClick(row)"
             matTooltip="Cancel"
           >
             <mat-icon>cancel</mat-icon>
           </button>
 
           <button
-            *ngIf="
-              canDelete() && !isRowInEditMode(row) && editingRowId === null
-            "
+            *ngIf="canDelete() && !isRowInEditMode(row) && !editingRowId"
             mat-icon-button
             color="warn"
             (click)="onDeleteRowBtnClick(row)"
@@ -124,7 +132,7 @@
   <mat-paginator
     [pageSizeOptions]="[5, 10, 20]"
     showFirstLastButtons
-    aria-label="Select page of users"
+    aria-label="Select page of data grid"
   >
   </mat-paginator>
 </div>

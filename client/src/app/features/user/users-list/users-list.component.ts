@@ -29,24 +29,26 @@ export class UsersListComponent implements OnInit {
         dataType: 'string',
         label: 'Id',
         visible: true,
+        allowEditing: true,
       },
       {
         dataField: 'UserName',
         dataType: 'string',
         label: 'Username',
         visible: true,
+        allowEditing: true,
       },
       {
         dataField: 'IsActive',
         dataType: 'boolean',
         label: 'Active',
-        visible: true,
+        visible: false,
       },
       {
         dataField: 'CreatedAt',
         dataType: 'datetime',
         label: 'Created at',
-        visible: true,
+        visible: false,
       },
     ];
   }

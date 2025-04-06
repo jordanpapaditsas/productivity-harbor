@@ -1,20 +1,24 @@
-import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   Input,
   input,
   OnInit,
   output,
+  signal,
   ViewChild,
 } from '@angular/core';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import {
+  MatTable,
+  MatTableDataSource,
+  MatTableModule,
+} from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Guid } from 'guid-typescript';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'ph-data-grid',
@@ -28,10 +32,12 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     MatPaginator,
     MatPaginatorModule,
+    MatToolbarModule,
   ],
 })
 export class PhDataGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatTable) table!: MatTable<any>;
 
   private _dataSource!: any;
   public get dataSource() {
@@ -55,42 +61,46 @@ export class PhDataGridComponent implements OnInit {
       dataType: string;
       label: string;
       visible: boolean;
+      allowEditing?: boolean;
     }>
   >([]);
-
+  canInsert = input<boolean>(false);
   canEdit = input<boolean>(false);
   canDelete = input<boolean>(false);
   canSave = input<boolean>(false);
   onSaveRowClicked = output<any>();
   onEditRowClicked = output<any>();
   onDeleteRowClicked = output<any>();
+  onInsertRowClicked = output<any>();
 
   editingRowId: string | Guid | null = null;
+
+  isInEditMode = signal<boolean>(false);
 
   constructor() {}
 
   ngOnInit() {}
 
   getVisibleColumns() {
-    const cols = this.columns()
+    const visibleColumns = this.columns()
       .filter((x) => x.visible)
       .map((x) => x.label);
 
     if (
       (this.canEdit() || this.canDelete() || this.canSave()) &&
-      !cols.includes('actions')
+      !visibleColumns.includes('actions')
     ) {
-      cols.push('actions');
+      visibleColumns.push('actions');
     }
 
-    return cols;
+    return visibleColumns;
   }
 
   getRowData(rowData: any) {
     return rowData;
   }
 
-  getCellData(columnData: any) {
+  getColumnData(columnData: any) {
     return columnData;
   }
 
@@ -100,22 +110,39 @@ export class PhDataGridComponent implements OnInit {
 
   onEditRowBtnClick(row: any) {
     this.editingRowId = row.Id;
+    this.isInEditMode.set(true);
     this.onEditRowClicked.emit(row);
   }
 
-  onSaveRowClick(row: any) {
-    this.onSaveRowClicked.emit(row);
+  onSaveRowBtnClick(row: any) {
     this.editingRowId = null;
+    this.isInEditMode.set(false);
+    this.onSaveRowClicked.emit(row);
   }
 
-  onCancelEditRowClick(row: any) {
+  onCancelEditRowBtnClick(row: any) {
+    this.isInEditMode.set(false);
     this.editingRowId = null;
   }
 
   onDeleteRowBtnClick(row: any) {
-    this.onDeleteRowClicked.emit(row);
     if (this.editingRowId === row.Id) {
       this.editingRowId = null;
+      this.isInEditMode.set(false);
     }
+    this.onDeleteRowClicked.emit(row);
+  }
+  onInsertRowBtnClick() {
+    debugger;
+    let newRow: any[] = [];
+
+    newRow = this.columns();
+
+    this._dataSource.data.unshift(newRow);
+
+    this._dataSource.data = [...this._dataSource.data];
+    this.isInEditMode.set(true);
+    this.table.renderRows();
+    //this.onInsertRowClicked.emit(newRow);
   }
 }

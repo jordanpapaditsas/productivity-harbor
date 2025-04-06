@@ -35,7 +35,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'users-edit',
+    path: 'user-edit',
     loadComponent: () =>
       import('./features/user/user-edit/user-edit.component').then(
         (m) => m.UserEditComponent
