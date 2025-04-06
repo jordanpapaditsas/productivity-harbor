@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   Component,
   Input,
   input,
   OnInit,
   output,
-  signal,
   ViewChild,
 } from '@angular/core';
 import {
@@ -20,6 +19,9 @@ import { Guid } from 'guid-typescript';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'ph-data-grid',
@@ -35,13 +37,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatPaginatorModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    DatePipe,
   ],
 })
 export class PhDataGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<any>;
 
-  private _dataSource!: any;
   public get dataSource() {
     return this._dataSource;
   }
@@ -77,8 +82,8 @@ export class PhDataGridComponent implements OnInit {
   onInitNewRow = output<any>();
 
   protected _rowKeyId: string | Guid | null = null;
-
-  // isNewRowInEditMode = signal<boolean>(false);
+  private _tempRowValues: Record<string, any> = {};
+  private _dataSource!: any;
 
   constructor() {}
 
@@ -117,24 +122,37 @@ export class PhDataGridComponent implements OnInit {
 
   onEditRowBtnClick(row: any) {
     this._rowKeyId = row.Id;
+
+    if (!this._tempRowValues[row.Id]) {
+      this._tempRowValues[row.Id] = { ...row };
+    }
+
     this.onEditRow.emit(row);
   }
 
   onSaveRowBtnClick(row: any) {
+    debugger;
     if (!Object.keys(row).length) {
-      alert('Null'); // Need to pass validation some dialog warning message
-    } else {
-      this._rowKeyId = null;
-      this.onSavedRow.emit(row);
+      alert('Row is empty!');
+      return;
     }
+
+    this._rowKeyId = null;
+
+    this.onSavedRow.emit(row);
+    this.cleanTempRowValues(this._tempRowValues[row.Id]);
   }
 
   onCancelEditRowBtnClick(row: any) {
     this._rowKeyId = null;
     if (this.isNewRow(row)) {
       this.dataSource.data.shift();
-      this._dataSource.data = [...this.dataSource.data];
+      this.refreshDataSource();
+    } else if (this._tempRowValues[row.Id]) {
+      Object.assign(row, this._tempRowValues[row.Id]);
+      this.refreshDataSource();
     }
+    this.cleanTempRowValues(this._tempRowValues[row.Id]);
   }
 
   async onDeleteRowBtnClick(row: any) {
@@ -147,13 +165,22 @@ export class PhDataGridComponent implements OnInit {
   onInsertRowBtnClick() {
     const newRow: Record<string, any> = {};
     this.onInitNewRow.emit(newRow);
-    // this.columns().forEach((column) => {
-    //   newRow[column.dataField] = null;
-    // });
 
     this._dataSource.data.unshift(newRow);
 
-    this._dataSource.data = [...this._dataSource.data];
+    this.refreshDataSource();
     this.onInsertRow.emit(newRow);
+  }
+
+  refreshDataSource() {
+    if (this.dataSource && this._dataSource.data) {
+      this._dataSource.data = [...this.dataSource.data];
+    }
+  }
+
+  cleanTempRowValues(row: any) {
+    if (row && this._tempRowValues) {
+      delete this._tempRowValues[row.Id];
+    }
   }
 }

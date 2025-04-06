@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserDto } from '../../../core/dto/user/user.dto';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
 
@@ -29,7 +29,7 @@ export class UsersListComponent implements OnInit {
         dataType: 'string',
         label: 'Id',
         visible: true,
-        allowEditing: true,
+        allowEditing: false,
       },
       {
         dataField: 'UserName',
@@ -48,7 +48,8 @@ export class UsersListComponent implements OnInit {
         dataField: 'CreatedAt',
         dataType: 'datetime',
         label: 'Created at',
-        visible: false,
+        visible: true,
+        allowEditing: true,
       },
     ];
   }

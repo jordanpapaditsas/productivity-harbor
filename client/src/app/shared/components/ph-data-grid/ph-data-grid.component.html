@@ -23,7 +23,11 @@
         mat-cell
         *matCellDef="let row"
       >
+        @if (isRowInEditMode(row) && column.allowEditing) {
+        <input matInput [(ngModel)]="row[column.dataField]" />
+        } @else {
         {{ row[column.dataField] }}
+        }
       </td>
     </ng-container>
     } @if(column.dataType === 'number') {
@@ -71,7 +75,23 @@
         mat-cell
         *matCellDef="let row"
       >
-        {{ row[column.dataField] }}
+        @if (isRowInEditMode(row) && column.allowEditing) {
+        <mat-form-field>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="row[column.dataField]"
+          />
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        }@else {
+        {{ row[column.dataField] | date : "dd/MM/yyyy" }}
+        }
       </td>
     </ng-container>
     } } @if (canEdit() || canDelete()) {
