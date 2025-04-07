@@ -147,14 +147,13 @@ export class PhDataGridComponent implements OnInit {
       alert('Row is empty!');
       return;
     } else {
-      this.onSavedRow.emit(row);
-
       this.rowIndex.set(null);
       this.isRowInViewMode.set(true);
       if (row.Id) {
         this.rowKeys.delete(row.Id);
       }
 
+      this.onSavedRow.emit(row);
       this.refreshDataSource();
       this.cleanTempRowValues(row);
     }
@@ -180,6 +179,7 @@ export class PhDataGridComponent implements OnInit {
   }
 
   async onDeleteRowBtnClick(row: any) {
+    // Need to add warning popup message
     this.onDeleteRow.emit(row);
   }
 
