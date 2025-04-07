@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProductivityHarborApi.Core.Dto.User;
 using ProductivityHarborApi.Core.Models.User;
 using ProductivityHarborApi.Data;
 
@@ -31,6 +32,32 @@ namespace ProductivityHarborApi.Controllers
             {
                 return BadRequest("User not found.");
             }
+
+            return Ok(user);
+        }
+        
+        [HttpPost("insertUser")]
+        public async Task<IActionResult> InsertUser(UserDto userDto)
+        {
+            var user = new User();
+
+            if (userDto != null)
+            {
+                user.Avatar = userDto.Avatar;
+                user.UserName = userDto.UserName;
+                user.Email = userDto.Email;
+                user.PasswordHash = userDto.PasswordHash;
+                user.CreatedAt = userDto.CreatedAt;
+                user.UpdatedAt = userDto.UpdatedAt;
+                user.CreatedByUserId = userDto.CreatedByUserId;
+                user.UpdatedByUserId = userDto.UpdatedByUserId;
+                user.IsActive = userDto.IsActive;
+                user.IsDeleted = userDto.IsDeleted;
+                user.Token = userDto.Token;
+            } 
+                
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
             return Ok(user);
         }

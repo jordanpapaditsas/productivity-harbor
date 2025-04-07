@@ -22,7 +22,7 @@ export class AppStaticData {
   );
 
   // Strings
-  public static readonly developer: string = 'Iordanis Papaditsas';
+  public static readonly owner: string = 'Iordanis Papaditsas';
   public static readonly PhAdminRoleName = 'PhAdmin';
   public static readonly AdminRoleName = 'Admin';
   public static readonly UserRoleName = 'User';

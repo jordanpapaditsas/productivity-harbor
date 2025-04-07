@@ -1,5 +1,6 @@
 <div class="ph-data-grid-container">
   <div class="ph-data-grid-toolbar">
+    @if (canInsert()) {
     <button
       class="ph-data-grid-toolbar-insert-btn"
       mat-mini-fab
@@ -9,7 +10,9 @@
     >
       <mat-icon>add</mat-icon>
     </button>
+    }
   </div>
+  <!-- MAT TABLE -->
   <table #table class="ph-data-grid-table" mat-table [dataSource]="dataSource">
     @for (column of columns(); track column.label) { @if(column.dataType ===
     'string') {
@@ -21,10 +24,9 @@
         class="ph-data-grid-cell"
         (click)="getColumnData(row[column.dataField])"
         mat-cell
-        *matCellDef="let row"
+        *matCellDef="let row; index as i"
       >
-        @if (isRowInEditMode(row) && column.allowEditing || isNewRow(row) &&
-        column.allowEditing) {
+        @if (column.allowEditing && isRowInEditMode(row, i)) {
         <input
           cdkTrapFocus
           [cdkTrapFocusAutoCapture]="true"
@@ -36,6 +38,7 @@
         }
       </td>
     </ng-container>
+
     } @if(column.dataType === 'number') {
     <ng-container [matColumnDef]="column.label">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
@@ -45,11 +48,18 @@
         class="ph-data-grid-cell"
         (click)="getColumnData(row[column.dataField])"
         mat-cell
-        *matCellDef="let row"
+        *matCellDef="let row; index as i"
       >
+        @if (column.allowEditing && isRowInEditMode(row, i)) {
+        <input type="number" matInput />
+
+        } @else {
         {{ row[column.dataField] }}
+
+        }
       </td>
     </ng-container>
+
     } @if(column.dataType === 'boolean') {
     <ng-container [matColumnDef]="column.label">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
@@ -59,14 +69,18 @@
         class="ph-data-grid-cell"
         (click)="getColumnData(row[column.dataField])"
         mat-cell
-        *matCellDef="let row"
+        *matCellDef="let row; index as i"
       >
+        @if (column.allowEditing && isRowInEditMode(row, i)) {
         <mat-checkbox
           [(ngModel)]="row[column.dataField]"
           value=""
           color="primary"
           [disabled]="true"
         ></mat-checkbox>
+        } @else {
+        {{ row[column.dataField] }}
+        }
       </td>
     </ng-container>
     } @if(column.dataType === 'datetime') {
@@ -79,9 +93,9 @@
         class="ph-data-grid-cell"
         (click)="getColumnData(row[column.dataField])"
         mat-cell
-        *matCellDef="let row"
+        *matCellDef="let row; index as i"
       >
-        @if (isRowInEditMode(row) && column.allowEditing) {
+        @if (column.allowEditing && isRowInEditMode(row, i)) {
         <mat-form-field>
           <input
             matInput
@@ -109,12 +123,10 @@
         <div class="action-btns-container">
           <!-- Edit Button -->
           <button
-            *ngIf="
-              canEdit() && !isRowInEditMode(row) && !_rowKeyId && !isNewRow(row)
-            "
+            *ngIf="canEdit() && isRowInViewMode() && !isRowInEditMode(row, i)"
             mat-icon-button
             color="primary"
-            (click)="onEditRowBtnClick(row)"
+            (click)="onEditRowBtnClick(row, i)"
             matTooltip="Edit"
           >
             <mat-icon>edit</mat-icon>
@@ -122,7 +134,7 @@
 
           <!-- Save and Cancel Buttons -->
           <button
-            *ngIf="canEdit() && isRowInEditMode(row) && !isNewRow(row)"
+            *ngIf="canEdit() && !isRowInViewMode() && isRowInEditMode(row, i)"
             mat-icon-button
             color="primary"
             (click)="onSaveRowBtnClick(row)"
@@ -132,10 +144,10 @@
           </button>
 
           <button
-            *ngIf="canEdit() && isRowInEditMode(row) && !isNewRow(row)"
+            *ngIf="canEdit() && !isRowInViewMode() && isRowInEditMode(row, i)"
             mat-icon-button
             color="primary"
-            (click)="onCancelEditRowBtnClick(row)"
+            (click)="onCancelEditRowBtnClick(row, i)"
             matTooltip="Cancel"
           >
             <mat-icon>redo</mat-icon>
@@ -143,12 +155,7 @@
 
           <!-- Delete Button -->
           <button
-            *ngIf="
-              canDelete() &&
-              !isRowInEditMode(row) &&
-              !_rowKeyId &&
-              !isNewRow(row)
-            "
+            *ngIf="canDelete() && isRowInViewMode() && !isRowInEditMode(row, i)"
             mat-icon-button
             color="warn"
             (click)="onDeleteRowBtnClick(row)"
@@ -157,29 +164,6 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-
-        @if (isNewRow(row)) {
-        <!-- Save and Cancel Buttons -->
-        <div class="action-btns-container">
-          <button
-            mat-icon-button
-            color="primary"
-            (click)="onSaveRowBtnClick(row)"
-            matTooltip="Save"
-          >
-            <mat-icon>save</mat-icon>
-          </button>
-
-          <button
-            mat-icon-button
-            color="primary"
-            (click)="onCancelEditRowBtnClick(row)"
-            matTooltip="Cancel"
-          >
-            <mat-icon>redo</mat-icon>
-          </button>
-        </div>
-        }
       </td>
     </ng-container>
     }

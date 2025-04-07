@@ -3,6 +3,7 @@ import { UserDto } from '../../../core/dto/user/user.dto';
 import { MatTableModule } from '@angular/material/table';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
+import { Column } from '../../../core/types/column';
 
 @Component({
   selector: 'app-users-list',
@@ -12,7 +13,8 @@ import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-
 })
 export class UsersListComponent implements OnInit {
   usersDataSource: any;
-  columns: Array<any> = [];
+  user: UserDto = new UserDto();
+  columns: Array<Column> = [];
   usersLookupDataSource: any[] = [];
   private usersService = inject(UserService);
 
@@ -49,7 +51,6 @@ export class UsersListComponent implements OnInit {
         dataType: 'datetime',
         label: 'Created at',
         visible: true,
-        allowEditing: true,
       },
     ];
   }
@@ -62,8 +63,20 @@ export class UsersListComponent implements OnInit {
       });
   }
 
-  onInsertRowClicked(e: any) {}
-  onSaveRowClicked(e: any) {}
+  onInsertRowClicked(e: any) {
+    debugger;
+    if (e) {
+      this.user = new UserDto();
+    }
+  }
+  onSaveRowClicked(user: UserDto) {
+    debugger;
+    if (user) {
+      this.usersService.insertUser(user).subscribe((response: UserDto) => {
+        this.user = response;
+      });
+    }
+  }
   onEditRowClicked(e: any) {}
   async onDeleteRowClicked(row: UserDto) {
     debugger;
@@ -77,4 +90,5 @@ export class UsersListComponent implements OnInit {
       });
     }
   }
+  onInitNewRowClicked(e: any) {}
 }

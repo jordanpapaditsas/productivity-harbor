@@ -5,6 +5,7 @@ import {
   input,
   OnInit,
   output,
+  signal,
   ViewChild,
 } from '@angular/core';
 import {
@@ -15,7 +16,6 @@ import {
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { Guid } from 'guid-typescript';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -23,6 +23,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { A11yModule } from '@angular/cdk/a11y';
+import { Column } from '../../../core/types/column';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'ph-data-grid',
@@ -52,6 +54,8 @@ export class PhDataGridComponent implements OnInit {
   public get dataSource() {
     return this._dataSource;
   }
+
+  // INPUTS
   @Input()
   public set dataSource(value: MatTableDataSource<any, MatPaginator>) {
     if (!(value instanceof MatTableDataSource)) {
@@ -64,18 +68,12 @@ export class PhDataGridComponent implements OnInit {
     }
   }
 
-  columns = input<
-    Array<{
-      dataField: string;
-      dataType: string;
-      label: string;
-      visible: boolean;
-      allowEditing?: boolean;
-    }>
-  >([]);
+  columns = input<Column[]>([]);
   canInsert = input<boolean>(false);
   canEdit = input<boolean>(false);
   canDelete = input<boolean>(false);
+
+  // OUTPUTS
   onSavingRow = output<any>();
   onSavedRow = output<any>();
   onEditRow = output<any>();
@@ -83,9 +81,12 @@ export class PhDataGridComponent implements OnInit {
   onInsertRow = output<any>();
   onInitNewRow = output<any>();
 
-  protected _rowKeyId: string | Guid | null = null;
   private _tempRowValues: Record<string, any> = {};
   private _dataSource!: any;
+  rowIndex = signal<number | null>(null);
+  rowKeys: Set<Guid> = new Set();
+  isNewRow = signal<boolean>(false);
+  isRowInViewMode = signal<boolean>(true);
 
   constructor() {}
 
@@ -114,61 +115,80 @@ export class PhDataGridComponent implements OnInit {
     return columnData;
   }
 
-  isRowInEditMode(row: any): boolean {
-    return this._rowKeyId === row.Id;
+  isRowInEditMode(row: any, index: number) {
+    if (
+      row.Id === null ||
+      (row.Id === undefined && this.rowIndex() === index)
+    ) {
+      return true;
+    } else if (this.rowKeys.has(row.Id) && this.rowIndex() === index) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  isNewRow(row: any): boolean {
-    return row.Id === null || row.Id === undefined;
-  }
-
-  onEditRowBtnClick(row: any) {
-    this._rowKeyId = row.Id;
-
+  onEditRowBtnClick(row: any, index: number) {
     if (!this._tempRowValues[row.Id]) {
       this._tempRowValues[row.Id] = { ...row };
+    }
+
+    this.rowIndex.set(index);
+    this.isRowInViewMode.set(false);
+    if (!this.isNewRow()) {
+      this.rowKeys.add(row.Id);
     }
 
     this.onEditRow.emit(row);
   }
 
   onSaveRowBtnClick(row: any) {
-    debugger;
     if (!Object.keys(row).length) {
       alert('Row is empty!');
       return;
+    } else {
+      this.onSavedRow.emit(row);
+
+      this.rowIndex.set(null);
+      this.isRowInViewMode.set(true);
+      if (row.Id) {
+        this.rowKeys.delete(row.Id);
+      }
+
+      this.refreshDataSource();
+      this.cleanTempRowValues(row);
     }
-
-    this._rowKeyId = null;
-
-    this.refreshDataSource();
-    this.onSavedRow.emit(row);
-    this.cleanTempRowValues(this._tempRowValues[row.Id]);
   }
 
-  onCancelEditRowBtnClick(row: any) {
-    this._rowKeyId = null;
-    if (this.isNewRow(row)) {
+  onCancelEditRowBtnClick(row: any, index: number) {
+    if (!row.Id) {
       this.dataSource.data.shift();
-      this.refreshDataSource();
-    } else if (this._tempRowValues[row.Id]) {
-      Object.assign(row, this._tempRowValues[row.Id]);
-      this.refreshDataSource();
     }
-    this.cleanTempRowValues(this._tempRowValues[row.Id]);
+    if (this._tempRowValues[row.Id]) {
+      Object.assign(row, this._tempRowValues[row.Id]);
+    }
+
+    this.rowIndex.set(null);
+    this.isRowInViewMode.set(true);
+    this.isNewRow.set(false);
+    if (row.Id) {
+      this.rowKeys.delete(row.Id);
+    }
+
+    this.refreshDataSource();
+    this.cleanTempRowValues(row);
   }
 
   async onDeleteRowBtnClick(row: any) {
-    if (this._rowKeyId === row.Id) {
-      this._rowKeyId = null;
-    }
-
     this.onDeleteRow.emit(row);
   }
+
   onInsertRowBtnClick() {
     const newRow: Record<string, any> = {};
     this.onInitNewRow.emit(newRow);
-    debugger;
+    this.isRowInViewMode.set(false);
+    this.isNewRow.set(true);
+    this.rowIndex.set(0);
 
     this._dataSource.data.unshift(newRow);
 

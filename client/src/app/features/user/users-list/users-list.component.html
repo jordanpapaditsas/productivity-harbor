@@ -4,8 +4,9 @@
   [canEdit]="true"
   [canDelete]="true"
   [canInsert]="true"
-  (onEditRowClicked)="onEditRowClicked($event)"
-  (onSaveRowClicked)="onSaveRowClicked($event)"
+  (onEditRow)="onEditRowClicked($event)"
+  (onSavedRow)="onSaveRowClicked($event)"
   (onDeleteRow)="onDeleteRowClicked($event)"
-  (onInsertRowClicked)="onInsertRowClicked($event)"
+  (onInsertRow)="onInsertRowClicked($event)"
+  (onInitNewRow)="onInitNewRowClicked($event)"
 ></ph-data-grid>

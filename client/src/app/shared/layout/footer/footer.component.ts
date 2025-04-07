@@ -9,12 +9,12 @@ import { AppStaticData } from '../../../core/utils/app-static-data';
   imports: [MatToolbarModule],
 })
 export class FooterComponent implements OnInit {
-  developer: string = '';
+  owner: string = '';
   year: any;
   copyrightText: string = '';
 
   ngOnInit() {
-    this.developer = AppStaticData.developer;
+    this.owner = AppStaticData.owner;
     this.year = new Date().getFullYear();
     this.copyrightText = 'All rights reserved.';
   }
