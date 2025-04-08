@@ -118,6 +118,7 @@
         }
       </td>
     </ng-container>
+    <!-- Action Buttons -->
     } } @if (canEdit() || canDelete()) {
     <ng-container matColumnDef="actions">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
@@ -126,8 +127,8 @@
       <td class="ph-data-grid-cell" mat-cell *matCellDef="let row; index as i">
         <div class="action-btns-container">
           <!-- Edit Button -->
+          @if(canEdit() && isRowInViewMode() && !isRowInEditMode(row, i)) {
           <button
-            *ngIf="canEdit() && isRowInViewMode() && !isRowInEditMode(row, i)"
             mat-icon-button
             color="primary"
             (click)="onEditRowBtnClick(row, i)"
@@ -135,10 +136,11 @@
           >
             <mat-icon>edit</mat-icon>
           </button>
+          }
 
           <!-- Save and Cancel Buttons -->
+          @if(canEdit() && !isRowInViewMode() && isRowInEditMode(row, i)) {
           <button
-            *ngIf="canEdit() && !isRowInViewMode() && isRowInEditMode(row, i)"
             mat-icon-button
             color="primary"
             (click)="onSaveRowBtnClick(row)"
@@ -147,8 +149,8 @@
             <mat-icon>save</mat-icon>
           </button>
 
+          } @if (canEdit() && !isRowInViewMode() && isRowInEditMode(row, i)) {
           <button
-            *ngIf="canEdit() && !isRowInViewMode() && isRowInEditMode(row, i)"
             mat-icon-button
             color="primary"
             (click)="onCancelEditRowBtnClick(row, i)"
@@ -156,10 +158,11 @@
           >
             <mat-icon>redo</mat-icon>
           </button>
+          }
 
           <!-- Delete Button -->
+          @if (canDelete() && isRowInViewMode() && !isRowInEditMode(row, i)) {
           <button
-            *ngIf="canDelete() && isRowInViewMode() && !isRowInEditMode(row, i)"
             mat-icon-button
             color="warn"
             (click)="onDeleteRowBtnClick(row)"
@@ -167,6 +170,7 @@
           >
             <mat-icon>delete</mat-icon>
           </button>
+          }
         </div>
       </td>
     </ng-container>

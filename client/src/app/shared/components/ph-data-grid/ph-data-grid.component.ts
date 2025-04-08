@@ -185,16 +185,20 @@ export class PhDataGridComponent implements OnInit {
   }
 
   protected onInsertRowBtnClick() {
-    const newRow: Record<string, any> = {};
-    this.onInitNewRow.emit(newRow);
-    this.isRowInViewMode.set(false);
-    this.isNewRow.set(true);
-    this.rowIndex.set(0);
+    if (!this.isNewRow()) {
+      const newRow: Record<string, any> = {};
+      this.onInitNewRow.emit(newRow);
+      this.isRowInViewMode.set(false);
+      this.isNewRow.set(true);
+      this.rowIndex.set(0);
 
-    this._dataSource.data.unshift(newRow);
+      this._dataSource.data.unshift(newRow);
 
-    this.refreshDataSource();
-    this.onInsertRow.emit(newRow);
+      this.refreshDataSource();
+      this.onInsertRow.emit(newRow);
+    } else {
+      return;
+    }
   }
 
   public refreshDataSource() {
