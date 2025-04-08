@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MenuItem } from '../../../core/interfaces/menu-item';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-side-nav',
@@ -25,6 +26,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     MatIconModule,
     RouterLink,
     RouterModule,
+    MatTooltipModule,
   ],
   animations: [
     trigger('expandSubMenu', [
