@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,8 +9,15 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MenuItem } from '../../../core/interfaces/menu-item';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { animate, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-side-nav',
@@ -27,8 +34,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     RouterLink,
     RouterModule,
     MatTooltipModule,
+    CommonModule,
   ],
   animations: [
+    trigger('smoothExpandCollapse', [
+      state('expanded', style({ transform: 'translateX(0)', width: '16rem' })),
+      state(
+        'collapsed',
+        style({ transform: 'translateX(-10%)', width: '4rem' })
+      ),
+      transition('expanded <=> collapsed', [animate('300ms ease-in-out')]),
+    ]),
+    trigger('sidenavAnimation', [
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('1s ease-in-out', style({ transform: 'translateX(0)' })),
+      ]),
+    ]),
     trigger('expandSubMenu', [
       transition(':enter', [
         style({ opacity: 0, height: '0px' }),
@@ -46,6 +68,7 @@ export class SideNavComponent implements OnInit {
   menuItems = signal<MenuItem[]>([]);
   subMenuStates = signal<Record<string, boolean>>({});
   isSideNavCollapsed = signal<boolean>(false);
+  sidenavAnimationState = signal<string>('expanded');
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -124,5 +147,8 @@ export class SideNavComponent implements OnInit {
 
   onSideNavToggle() {
     this.isSideNavCollapsed.set(!this.isSideNavCollapsed());
+    this.sidenavAnimationState.set(
+      this.isSideNavCollapsed() ? 'collapsed' : 'expanded'
+    );
   }
 }

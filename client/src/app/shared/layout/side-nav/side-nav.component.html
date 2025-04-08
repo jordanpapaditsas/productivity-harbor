@@ -7,13 +7,15 @@
     />
   </div>
 </app-header>
-<mat-sidenav-container autosize class="sidenav-container">
+<mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #sidenav
     [mode]="mode"
     [opened]="true"
     [class.collapsed]="isSideNavCollapsed()"
     class="ph-sidenav"
+    @sidenavAnimation
+    [@smoothExpandCollapse]="sidenavAnimationState()"
   >
     <mat-nav-list>
       @for (item of menuItems(); track item.label) {
@@ -57,7 +59,9 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content
+    [ngStyle]="{ marginLeft: isSideNavCollapsed() ? '4rem' : '16rem' }"
+  >
     <div class="main-content">
       <ng-content></ng-content>
     </div>
