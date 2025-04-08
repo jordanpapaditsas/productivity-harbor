@@ -76,10 +76,14 @@
           [(ngModel)]="row[column.dataField]"
           value=""
           color="primary"
-          [disabled]="true"
         ></mat-checkbox>
         } @else {
-        {{ row[column.dataField] }}
+        <mat-checkbox
+          [(ngModel)]="row[column.dataField]"
+          value=""
+          color="primary"
+          [disabled]="true"
+        ></mat-checkbox>
         }
       </td>
     </ng-container>

@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProductivityHarborApi.Core.Dto.Task;
 using ProductivityHarborApi.Core.Dto.User;
+using ProductivityHarborApi.Core.Models.Task;
 using ProductivityHarborApi.Core.Models.User;
 using ProductivityHarborApi.Data;
 
 namespace ProductivityHarborApi.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
@@ -61,6 +64,7 @@ namespace ProductivityHarborApi.Controllers
 
             return Ok(user);
         }
+
         [HttpDelete("deleteById/{id}")]
         public async Task<IActionResult> DeleteById(Guid id)
         {

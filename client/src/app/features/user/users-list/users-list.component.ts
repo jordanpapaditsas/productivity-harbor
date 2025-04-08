@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { UserDto } from '../../../core/dto/user/user.dto';
 import { MatTableModule } from '@angular/material/table';
 import { UserService } from '../user.service';
@@ -12,6 +12,7 @@ import { Column } from '../../../core/types/column';
   imports: [MatTableModule, PhDataGridComponent],
 })
 export class UsersListComponent implements OnInit {
+  @ViewChild('usersGrid') usersGrid!: PhDataGridComponent;
   usersDataSource: any;
   user: UserDto = new UserDto();
   columns: Array<Column> = [];
@@ -44,7 +45,8 @@ export class UsersListComponent implements OnInit {
         dataField: 'IsActive',
         dataType: 'boolean',
         label: 'Active',
-        visible: false,
+        visible: true,
+        allowEditing: true,
       },
       {
         dataField: 'CreatedAt',
@@ -63,21 +65,23 @@ export class UsersListComponent implements OnInit {
       });
   }
 
-  onInsertRowClicked(e: any) {
+  onInsertRowClicked(user: UserDto) {
     debugger;
-    if (e) {
+    if (user) {
       this.user = new UserDto();
     }
   }
   onSaveRowClicked(user: UserDto) {
-    debugger;
     if (user) {
       this.usersService.insertUser(user).subscribe((response: UserDto) => {
         this.user = response;
+
+        this.getUsersDataSource();
       });
     }
   }
-  onEditRowClicked(e: any) {}
+  onEditRowClicked(user: UserDto) {}
+
   async onDeleteRowClicked(row: UserDto) {
     debugger;
     let result = await confirm(

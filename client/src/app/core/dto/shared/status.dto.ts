@@ -1,7 +1,7 @@
 import { Guid } from 'guid-typescript';
 
 export class StatusDto {
-  Id: Guid = Guid.createEmpty();
+  Id!: Guid;
   Name: string = '';
   Color: string = '';
   Priority?: string;

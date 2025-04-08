@@ -4,6 +4,7 @@ import { UserDto } from '../../core/dto/user/user.dto';
 import { AppConfigService } from '../../shared/services/app-config.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { Guid } from 'guid-typescript';
+import { PhTaskDto } from '../../core/dto/task/ph-task.dto';
 
 @Injectable({
   providedIn: 'root',

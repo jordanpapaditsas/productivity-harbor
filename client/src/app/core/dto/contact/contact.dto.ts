@@ -3,7 +3,7 @@ import { StageStatusEnum } from '../../enums/contact/stage-status.enum';
 import { ContactTypeEnum } from '../../enums/contact/contact-type.enum';
 
 export class ContactDto {
-  Id: Guid = Guid.createEmpty();
+  Id!: Guid;
   Name: string = '';
   Notes?: string;
   Email?: string;

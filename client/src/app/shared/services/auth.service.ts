@@ -6,14 +6,16 @@ import { AppConfigService } from './app-config.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private httpHeaders: HttpHeaders = new HttpHeaders();
   private httpClient = inject(HttpClient);
   private appConfigService = inject(AppConfigService);
+  private _headers: any;
 
   getHttpHeaders() {
-    return (this.httpHeaders = new HttpHeaders({
+    this._headers = new HttpHeaders({
       'Content-Type': 'application/json',
-    }));
+    });
+
+    return this._headers;
   }
 
   // baseUrl: string = 'http://localhost:5000/api';

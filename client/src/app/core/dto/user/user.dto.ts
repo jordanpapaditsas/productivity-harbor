@@ -1,7 +1,7 @@
 import { Guid } from 'guid-typescript';
 
 export class UserDto {
-  Id: Guid = Guid.createEmpty();
+  Id!: Guid;
   UserName?: string;
   PasswordHash?: string;
   Email?: string;
@@ -11,7 +11,7 @@ export class UserDto {
   IsActive?: boolean;
   IsDeleted?: boolean;
   CreatedAt: Date | string | number = new Date();
-  CreatedById?: Guid;
+  CreatedByUserId?: Guid;
   UpdatedAt?: Date | string | number;
-  UpdatedById?: Guid;
+  UpdatedByUserId?: Guid;
 }

@@ -1,6 +1,6 @@
 import { Guid } from 'guid-typescript';
 
 export class RoleDto {
-  Id: Guid = Guid.createEmpty();
+  Id!: Guid;
   Name?: string;
 }

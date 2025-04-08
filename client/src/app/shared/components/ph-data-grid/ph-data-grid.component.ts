@@ -92,7 +92,7 @@ export class PhDataGridComponent implements OnInit {
 
   ngOnInit() {}
 
-  getVisibleColumns() {
+  protected getVisibleColumns() {
     const visibleColumns = this.columns()
       .filter((x) => x.visible)
       .map((x) => x.label);
@@ -107,15 +107,15 @@ export class PhDataGridComponent implements OnInit {
     return visibleColumns;
   }
 
-  getRowData(rowData: any) {
+  protected getRowData(rowData: any) {
     return rowData;
   }
 
-  getColumnData(columnData: any) {
+  protected getColumnData(columnData: any) {
     return columnData;
   }
 
-  isRowInEditMode(row: any, index: number) {
+  protected isRowInEditMode(row: any, index: number) {
     if (
       row.Id === null ||
       (row.Id === undefined && this.rowIndex() === index)
@@ -128,21 +128,21 @@ export class PhDataGridComponent implements OnInit {
     }
   }
 
-  onEditRowBtnClick(row: any, index: number) {
+  protected onEditRowBtnClick(row: any, index: number) {
+    debugger;
     if (!this._tempRowValues[row.Id]) {
       this._tempRowValues[row.Id] = { ...row };
     }
 
     this.rowIndex.set(index);
     this.isRowInViewMode.set(false);
-    if (!this.isNewRow()) {
-      this.rowKeys.add(row.Id);
-    }
+
+    this.rowKeys.add(row.Id);
 
     this.onEditRow.emit(row);
   }
 
-  onSaveRowBtnClick(row: any) {
+  protected onSaveRowBtnClick(row: any) {
     if (!Object.keys(row).length) {
       alert('Row is empty!');
       return;
@@ -159,7 +159,7 @@ export class PhDataGridComponent implements OnInit {
     }
   }
 
-  onCancelEditRowBtnClick(row: any, index: number) {
+  protected onCancelEditRowBtnClick(row: any, index: number) {
     if (!row.Id) {
       this.dataSource.data.shift();
     }
@@ -178,12 +178,13 @@ export class PhDataGridComponent implements OnInit {
     this.cleanTempRowValues(row);
   }
 
-  async onDeleteRowBtnClick(row: any) {
+  protected async onDeleteRowBtnClick(row: any) {
     // Need to add warning popup message
     this.onDeleteRow.emit(row);
+    this.refreshDataSource();
   }
 
-  onInsertRowBtnClick() {
+  protected onInsertRowBtnClick() {
     const newRow: Record<string, any> = {};
     this.onInitNewRow.emit(newRow);
     this.isRowInViewMode.set(false);
@@ -196,13 +197,13 @@ export class PhDataGridComponent implements OnInit {
     this.onInsertRow.emit(newRow);
   }
 
-  refreshDataSource() {
+  public refreshDataSource() {
     if (this.dataSource && this._dataSource.data) {
       this._dataSource.data = [...this.dataSource.data];
     }
   }
 
-  cleanTempRowValues(row: any) {
+  private cleanTempRowValues(row: any) {
     if (row && this._tempRowValues) {
       delete this._tempRowValues[row.Id];
     }
