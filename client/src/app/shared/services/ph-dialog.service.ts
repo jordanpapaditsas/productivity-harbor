@@ -1,0 +1,43 @@
+import { Injectable } from '@angular/core';
+import { PhConfirmComponent } from '../components/ph-confirm/ph-confirm.component';
+import { MatDialog } from '@angular/material/dialog';
+import { PhDialogData } from '../../core/interfaces/ph-dialog-data';
+import { firstValueFrom, Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class PhDialogService {
+  constructor(private dialog: MatDialog) {}
+
+  // Method overloads
+  async confirmDialog(title: string, message: string): Promise<boolean>;
+  async confirmDialog(data: PhDialogData): Promise<boolean>;
+
+  async confirmDialog(
+    dataOrTitle: string | PhDialogData,
+    message?: string
+  ): Promise<boolean> {
+    let dialogData: PhDialogData;
+
+    if (typeof dataOrTitle === 'string') {
+      dialogData = {
+        Title: dataOrTitle,
+        Message: message || '',
+        ConfirmText: 'Yes',
+        CancelText: 'No',
+      };
+    } else {
+      dialogData = dataOrTitle;
+    }
+
+    const dialogRef = this.dialog.open(PhConfirmComponent, {
+      data: dialogData,
+      width: '400px',
+      height: 'auto',
+      disableClose: true,
+    });
+
+    return await firstValueFrom(dialogRef.afterClosed());
+  }
+}

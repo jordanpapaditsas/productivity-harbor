@@ -1,6 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import {
   Component,
+  inject,
   Input,
   input,
   OnInit,
@@ -25,6 +26,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { A11yModule } from '@angular/cdk/a11y';
 import { Column } from '../../../core/types/column';
 import { Guid } from 'guid-typescript';
+import { PhDialogService } from '../../services/ph-dialog.service';
 
 @Component({
   selector: 'ph-data-grid',
@@ -50,6 +52,7 @@ import { Guid } from 'guid-typescript';
 export class PhDataGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<any>;
+  private dialogService = inject(PhDialogService);
 
   public get dataSource() {
     return this._dataSource;
@@ -129,7 +132,6 @@ export class PhDataGridComponent implements OnInit {
   }
 
   protected onEditRowBtnClick(row: any, index: number) {
-    debugger;
     if (!this._tempRowValues[row.Id]) {
       this._tempRowValues[row.Id] = { ...row };
     }
@@ -179,17 +181,15 @@ export class PhDataGridComponent implements OnInit {
   }
 
   protected async onDeleteRowBtnClick(row: any) {
-    // Need to add warning popup message
-    // const dialogRef = this.dialog.open(PhPopupComponent);
-
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.onDeleteRow.emit(row);
-    //   } else {
-    //     return;
-    //   }
-    // });
-    this.onDeleteRow.emit(row);
+    let confirmation = await this.dialogService.confirmDialog(
+      'Warning Message',
+      'Are you sure you want to delete this row?'
+    );
+    if (confirmation) {
+      this.onDeleteRow.emit(row);
+    } else {
+      return;
+    }
     this.refreshDataSource();
   }
 

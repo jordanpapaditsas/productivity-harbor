@@ -5,6 +5,7 @@ import { UserDto } from '../../../core/dto/user/user.dto';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
 import { Column } from '../../../core/types/column';
+import { PhDialogService } from '../../../shared/services/ph-dialog.service';
 
 @Component({
   selector: 'app-users-list',
@@ -19,6 +20,7 @@ export class UsersListComponent implements OnInit {
   columns: Array<Column> = [];
   usersLookupDataSource: any[] = [];
   private usersService = inject(UserService);
+  private confirmService = inject(PhDialogService);
 
   ngOnInit() {
     this.getUsersDataSource();
@@ -82,13 +84,9 @@ export class UsersListComponent implements OnInit {
   }
   onEditRowClicked(user: UserDto) {}
 
-  async onDeleteRowClicked(row: UserDto) {
-    let result = await confirm(
-      `Are you sure you want to delete user ${row.UserName}?`
-    );
-
-    if (result) {
-      this.usersService.deleteById(row.Id).subscribe((response) => {
+  async onDeleteRowClicked(user: UserDto) {
+    if (user) {
+      this.usersService.deleteById(user.Id).subscribe((response) => {
         this.getUsersDataSource();
       });
     }
