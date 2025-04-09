@@ -65,6 +65,33 @@ namespace ProductivityHarborApi.Controllers
             return Ok(user);
         }
 
+        [HttpPut("updateUser")]
+        public async Task<IActionResult> UpdateUser(UserDto userDto)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userDto.Id);
+
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            user.Avatar = userDto.Avatar;
+            user.UserName = userDto.UserName;
+            user.Email = userDto.Email;
+            user.PasswordHash = userDto.PasswordHash;
+            user.CreatedAt = userDto.CreatedAt;
+            user.UpdatedAt = userDto.UpdatedAt;
+            user.CreatedByUserId = userDto.CreatedByUserId;
+            user.UpdatedByUserId = userDto.UpdatedByUserId;
+            user.IsActive = userDto.IsActive;
+            user.IsDeleted = userDto.IsDeleted;
+            user.Token = userDto.Token;
+      
+            await _context.SaveChangesAsync();
+
+            return Ok(user);
+        }
+
         [HttpDelete("deleteById/{id}")]
         public async Task<IActionResult> DeleteById(Guid id)
         {

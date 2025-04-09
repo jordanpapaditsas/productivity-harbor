@@ -151,6 +151,7 @@ export class PhDataGridComponent implements OnInit {
     } else {
       this.rowIndex.set(null);
       this.isRowInViewMode.set(true);
+      this.isNewRow.set(false);
       if (row.Id) {
         this.rowKeys.delete(row.Id);
       }

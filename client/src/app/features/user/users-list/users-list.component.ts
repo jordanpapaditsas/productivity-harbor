@@ -74,8 +74,14 @@ export class UsersListComponent implements OnInit {
     }
   }
   onSaveRowClicked(user: UserDto) {
-    if (user) {
+    if (!user.Id) {
       this.usersService.insertUser(user).subscribe((response: UserDto) => {
+        this.user = response;
+
+        this.getUsersDataSource();
+      });
+    } else if (user.Id) {
+      this.usersService.updateUser(user).subscribe((response: UserDto) => {
         this.user = response;
 
         this.getUsersDataSource();
@@ -84,7 +90,7 @@ export class UsersListComponent implements OnInit {
   }
   onEditRowClicked(user: UserDto) {}
 
-  async onDeleteRowClicked(user: UserDto) {
+  onDeleteRowClicked(user: UserDto) {
     if (user) {
       this.usersService.deleteById(user.Id).subscribe((response) => {
         this.getUsersDataSource();
