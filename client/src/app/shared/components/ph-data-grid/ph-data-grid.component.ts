@@ -180,6 +180,15 @@ export class PhDataGridComponent implements OnInit {
 
   protected async onDeleteRowBtnClick(row: any) {
     // Need to add warning popup message
+    // const dialogRef = this.dialog.open(PhPopupComponent);
+
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     this.onDeleteRow.emit(row);
+    //   } else {
+    //     return;
+    //   }
+    // });
     this.onDeleteRow.emit(row);
     this.refreshDataSource();
   }

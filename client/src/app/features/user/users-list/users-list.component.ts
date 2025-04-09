@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { UserDto } from '../../../core/dto/user/user.dto';
+import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
+import { UserDto } from '../../../core/dto/user/user.dto';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
 import { Column } from '../../../core/types/column';
@@ -9,7 +10,7 @@ import { Column } from '../../../core/types/column';
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css'],
-  imports: [MatTableModule, PhDataGridComponent],
+  imports: [MatTableModule, PhDataGridComponent, CommonModule],
 })
 export class UsersListComponent implements OnInit {
   @ViewChild('usersGrid') usersGrid!: PhDataGridComponent;
@@ -66,7 +67,6 @@ export class UsersListComponent implements OnInit {
   }
 
   onInsertRowClicked(user: UserDto) {
-    debugger;
     if (user) {
       this.user = new UserDto();
     }
@@ -83,7 +83,6 @@ export class UsersListComponent implements OnInit {
   onEditRowClicked(user: UserDto) {}
 
   async onDeleteRowClicked(row: UserDto) {
-    debugger;
     let result = await confirm(
       `Are you sure you want to delete user ${row.UserName}?`
     );

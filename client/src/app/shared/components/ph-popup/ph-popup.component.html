@@ -1,0 +1,8 @@
+<div class="ph-popup-backdrop">
+  <div class="popup-content" [ngStyle]="{ width: width(), height: height() }">
+    <div class="popup-header">
+      <h2>{{ title() }}</h2>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -6,6 +6,7 @@
   width: 16rem;
   box-shadow: 0 0 27px 0 rgba(159, 170, 172, 0.52);
   border: 1px solid rgba(0,0,0,.05);
+  z-index: 1 !important;
 
   &.collapsed {
     width: 4rem;

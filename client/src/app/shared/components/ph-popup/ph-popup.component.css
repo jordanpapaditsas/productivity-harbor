@@ -1,0 +1,30 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 9999 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ph-popup-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.popup-content {
+  background: white;
+  border-radius: 0.8rem;
+  padding: 1.5rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  max-width: 95vw;
+  width: 100%;
+  box-shadow: 0 0.3rem 1.7rem rgba(0, 0, 0, 0.2);
+  position: relative;
+}
