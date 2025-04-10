@@ -24,9 +24,10 @@
         class="menu-item"
         [routerLink]="item.route"
         (click)="onMenuItemClick(item)"
-        [matTooltip]="item.label"
       >
-        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <mat-icon [matTooltip]="item.label" matListItemIcon>{{
+          item.icon
+        }}</mat-icon>
         <span class="item-label" matListItemTitle>{{ item.label }}</span>
 
         @if (item.subItems) {
@@ -48,9 +49,10 @@
           class="subMenu-item add-small-space-from-the-left"
           [routerLink]="item.route + '/' + subItem.route"
           (click)="onSubMenuItemClick(subItem)"
-          [matTooltip]="subItem.label"
         >
-          <mat-icon matListItemIcon>{{ subItem.icon }}</mat-icon>
+          <mat-icon [matTooltip]="subItem.label" matListItemIcon>{{
+            subItem.icon
+          }}</mat-icon>
           <span class="item-label" matListItemTitle>{{ subItem.label }}</span>
         </a>
         }

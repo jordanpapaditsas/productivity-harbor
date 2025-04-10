@@ -5,6 +5,11 @@
   --crm-blue-200: #679df6;
   --crm-blue-300: #5491f5;
   --crm-blue-400: #4285f4;
+  --crm-fontSize-small: 0.5rem;
+  --crm-fontSize-normal: 1rem;
+  --crm-fontSize-medium: 1.2rem;
+  --crm-fontSize-medium-l: 1.5rem;
+  --crm-fontSize-large: 2rem;
 }
 
 html, body {

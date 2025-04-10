@@ -1,15 +1,17 @@
-<div class="popup-backdrop">
-  <div mat-dialog-title class="title-text">{{ data.Title }}</div>
-  <div mat-dialog-content class="popup-message">
-    {{ data.Message }}
-  </div>
+<div class="popup-container">
+  <div class="popup-inner-container">
+    <div mat-dialog-title class="title-text">{{ data.Title }}</div>
+    <div mat-dialog-content class="popup-message">
+      {{ data.Message }}
+    </div>
 
-  <div [align]="'end'" mat-dialog-actions class="action-buttons-container">
-    <button mat-button color="primary" (click)="onConfirm()">
-      {{ data.ConfirmText || "Confirm" }}
-    </button>
-    <button mat-button (click)="onCancel()">
-      {{ data.CancelText || "Cancel" }}
-    </button>
+    <div mat-dialog-actions class="action-buttons-container">
+      <button class="cancel-btn" mat-button (click)="onCancel()">
+        {{ data.CancelText }}
+      </button>
+      <button class="confirm-btn" mat-button (click)="onConfirm()">
+        {{ data.ConfirmText }}
+      </button>
+    </div>
   </div>
 </div>

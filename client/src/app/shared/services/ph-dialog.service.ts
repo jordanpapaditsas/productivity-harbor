@@ -24,8 +24,8 @@ export class PhDialogService {
       dialogData = {
         Title: dataOrTitle,
         Message: message || '',
-        ConfirmText: 'Yes',
-        CancelText: 'No',
+        ConfirmText: 'Confirm',
+        CancelText: 'Cancel',
       };
     } else {
       dialogData = dataOrTitle;
@@ -33,7 +33,7 @@ export class PhDialogService {
 
     const dialogRef = this.dialog.open(PhConfirmComponent, {
       data: dialogData,
-      width: '400px',
+      width: '500px',
       height: 'auto',
       disableClose: true,
     });
