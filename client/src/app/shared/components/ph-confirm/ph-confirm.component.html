@@ -1,5 +1,5 @@
 <div class="popup-container">
-  <div class="popup-inner-container">
+  <div [ngClass]="['popup-inner-container', popupType]">
     <div mat-dialog-title class="title-text">{{ data.Title }}</div>
     <div mat-dialog-content class="popup-message">
       {{ data.Message }}

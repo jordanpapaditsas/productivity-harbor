@@ -3,6 +3,7 @@ import { PhConfirmComponent } from '../components/ph-confirm/ph-confirm.componen
 import { MatDialog } from '@angular/material/dialog';
 import { PhDialogData } from '../../core/interfaces/ph-dialog-data';
 import { firstValueFrom, Observable } from 'rxjs';
+import { DialogTypeEnum } from '../../core/enums/dialog/dialog-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,17 @@ export class PhDialogService {
   constructor(private dialog: MatDialog) {}
 
   // Method overloads
-  async confirmDialog(title: string, message: string): Promise<boolean>;
+  async confirmDialog(
+    title: string,
+    message: string,
+    type: DialogTypeEnum
+  ): Promise<boolean>;
   async confirmDialog(data: PhDialogData): Promise<boolean>;
 
   async confirmDialog(
     dataOrTitle: string | PhDialogData,
-    message?: string
+    message?: string,
+    type?: DialogTypeEnum
   ): Promise<boolean> {
     let dialogData: PhDialogData;
 
@@ -26,6 +32,7 @@ export class PhDialogService {
         Message: message || '',
         ConfirmText: 'Confirm',
         CancelText: 'Cancel',
+        Type: type,
       };
     } else {
       dialogData = dataOrTitle;

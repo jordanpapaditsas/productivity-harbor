@@ -27,6 +27,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { Column } from '../../../core/types/column';
 import { Guid } from 'guid-typescript';
 import { PhDialogService } from '../../services/ph-dialog.service';
+import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
 
 @Component({
   selector: 'ph-data-grid',
@@ -184,7 +185,8 @@ export class PhDataGridComponent implements OnInit {
   protected async onDeleteRowBtnClick(row: any) {
     let confirmation = await this.dialogService.confirmDialog(
       'Warning Message',
-      'Are you sure you want to delete this row?'
+      'Are you sure you want to delete this row?',
+      DialogTypeEnum.Danger
     );
     if (confirmation) {
       this.onDeleteRow.emit(row);

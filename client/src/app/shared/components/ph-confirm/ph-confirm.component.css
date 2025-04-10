@@ -12,6 +12,16 @@
   border-top: 1.5rem solid var(--crm-blue-200)
 }
 
+.ph-warning {
+  border-top: 1.5rem solid orange;
+}
+.ph-danger {
+  border-top: 1.5rem solid red;
+}
+.ph-passive {
+  border-top: 1.5rem solid var(--crm-blue-200)
+}
+
 .title-text {
   text-align: center;
   width: 100%;
