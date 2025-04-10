@@ -92,8 +92,8 @@ namespace ProductivityHarborApi.Controllers
             return Ok(user);
         }
 
-        [HttpDelete("deleteById/{id}")]
-        public async Task<IActionResult> DeleteById(Guid id)
+        [HttpDelete("deleteUserById/{id}")]
+        public async Task<IActionResult> DeleteUserById(Guid id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
