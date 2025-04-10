@@ -5,7 +5,6 @@ import { UserDto } from '../../../core/dto/user/user.dto';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
 import { Column } from '../../../core/types/column';
-import { PhDialogService } from '../../../shared/services/ph-dialog.service';
 
 @Component({
   selector: 'app-users-list',
@@ -20,7 +19,6 @@ export class UsersListComponent implements OnInit {
   columns: Array<Column> = [];
   usersLookupDataSource: any[] = [];
   private usersService = inject(UserService);
-  private confirmService = inject(PhDialogService);
 
   ngOnInit() {
     this.getUsersDataSource();
@@ -62,7 +60,7 @@ export class UsersListComponent implements OnInit {
 
   getUsersDataSource() {
     this.usersService
-      .getAllUsersDataSource()
+      .getAllUsersData()
       .subscribe((response: Array<UserDto>) => {
         this.usersDataSource = response;
       });
@@ -73,6 +71,8 @@ export class UsersListComponent implements OnInit {
       this.user = new UserDto();
     }
   }
+  onInitNewRowClicked(e: any) {}
+
   onSaveRowClicked(user: UserDto) {
     if (!user.Id) {
       this.usersService.insertUser(user).subscribe((response: UserDto) => {
@@ -92,10 +92,9 @@ export class UsersListComponent implements OnInit {
 
   onDeleteRowClicked(user: UserDto) {
     if (user) {
-      this.usersService.deleteById(user.Id).subscribe((response) => {
+      this.usersService.deleteUserById(user.Id).subscribe((response) => {
         this.getUsersDataSource();
       });
     }
   }
-  onInitNewRowClicked(e: any) {}
 }

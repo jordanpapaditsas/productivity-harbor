@@ -15,7 +15,6 @@ export class UserEditComponent implements OnInit {
 
   @Input()
   public set userId(value: Guid) {
-    debugger;
     this._userId = value;
   }
 

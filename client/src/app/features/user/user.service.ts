@@ -1,28 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, OnInit } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { UserDto } from '../../core/dto/user/user.dto';
 import { AppConfigService } from '../../shared/services/app-config.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { Guid } from 'guid-typescript';
-import { PhTaskDto } from '../../core/dto/task/ph-task.dto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService implements OnInit {
+export class UserService {
   private httpClient = inject(HttpClient);
   private appConfigService = inject(AppConfigService);
   private authService = inject(AuthService);
+  private baseUrl = this.appConfigService.getBaseUrl();
+  private serviceUrl = this.baseUrl + 'Users';
+  private headers = this.authService.getHttpHeaders();
 
-  baseUrl = this.appConfigService.getBaseUrl();
-  serviceUrl = this.baseUrl + 'Users';
-  headers = this.authService.getHttpHeaders();
-
-  ngOnInit(): void {
-    this.getAllUsersDataSource();
-  }
-
-  getAllUsersDataSource() {
+  getAllUsersData() {
     return this.httpClient.get<UserDto[]>(this.serviceUrl + '/getAllUsers', {
       headers: this.headers,
     });
@@ -57,9 +51,12 @@ export class UserService implements OnInit {
     );
   }
 
-  deleteById(userId: Guid) {
-    return this.httpClient.delete(this.serviceUrl + '/deleteById/' + userId, {
-      headers: this.headers,
-    });
+  deleteUserById(userId: Guid) {
+    return this.httpClient.delete(
+      this.serviceUrl + '/deleteUserById/' + userId,
+      {
+        headers: this.headers,
+      }
+    );
   }
 }
