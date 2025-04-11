@@ -64,8 +64,6 @@
   <mat-sidenav-content
     [ngStyle]="{ marginLeft: isSideNavCollapsed() ? '4rem' : '16rem' }"
   >
-    <div class="main-content">
-      <ng-content></ng-content>
-    </div>
+    <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>
