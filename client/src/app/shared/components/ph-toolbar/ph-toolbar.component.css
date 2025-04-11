@@ -1,1 +1,26 @@
+/* Normal */
+.ph-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-shadow: 1rem 0.3rem 1rem var(--crm-blue-50);
+}
 
+.ph-toolbar-title {
+  margin: 0 auto;
+}
+
+.ph-toolbar-item-container {
+  display: flex;
+}
+
+.ph-toolbar-item {
+  border: none;
+  background: transparent;
+}
+
+/* Edit Mode */
+.ph-toolbar-edit {
+
+}

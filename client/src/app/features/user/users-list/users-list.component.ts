@@ -4,7 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { UserDto } from '../../../core/dto/user/user.dto';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
-import { Column } from '../../../core/types/column';
+import { Column } from '../../../core/interfaces/column';
 
 @Component({
   selector: 'app-users-list',

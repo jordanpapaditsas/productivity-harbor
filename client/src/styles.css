@@ -1,10 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --crm-blue-50: #8db5f8;
-  --crm-blue-100: #7aa9f7;
-  --crm-blue-200: #679df6;
-  --crm-blue-300: #5491f5;
-  --crm-blue-400: #4285f4;
+  --crm-blue-20: #BFD4E7;
+  --crm-blue-50: #80A9D1;
+  --crm-blue-100: #607E9C;
+  --crm-blue-200: #003D7A;
+  --crm-blue-300: #002951;
+  --crm-blue-400: #001E3C;
+  --crm-blue-500: #001830;
   --crm-fontSize-small: 0.5rem;
   --crm-fontSize-normal: 1rem;
   --crm-fontSize-medium: 1.2rem;

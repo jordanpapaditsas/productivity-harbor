@@ -17,13 +17,13 @@ export class PhConfirmComponent implements OnInit {
     public dialogRef: MatDialogRef<PhConfirmComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PhDialogData
   ) {
-    if (data.Type === DialogTypeEnum.Warning) {
+    if (data.type === DialogTypeEnum.Warning) {
       this.popupType = 'ph-warning';
-    } else if (data.Type === DialogTypeEnum.Danger) {
+    } else if (data.type === DialogTypeEnum.Danger) {
       this.popupType = 'ph-danger';
-    } else if (data.Type === DialogTypeEnum.Passive) {
+    } else if (data.type === DialogTypeEnum.Passive) {
       this.popupType = 'ph-passive';
-    } else if (data.Type === null) {
+    } else if (data.type === null) {
       this.popupType = 'popup-inner-container';
     }
   }

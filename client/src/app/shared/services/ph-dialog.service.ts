@@ -28,11 +28,11 @@ export class PhDialogService {
 
     if (typeof dataOrTitle === 'string') {
       dialogData = {
-        Title: dataOrTitle,
-        Message: message || '',
-        ConfirmText: 'Confirm',
-        CancelText: 'Cancel',
-        Type: type,
+        title: dataOrTitle,
+        message: message || '',
+        confirmText: 'Confirm',
+        cancelText: 'Cancel',
+        type: type,
       };
     } else {
       dialogData = dataOrTitle;

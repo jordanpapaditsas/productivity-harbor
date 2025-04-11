@@ -1,1 +1,7 @@
-<div class="admin-home-container"></div>
+<div class="admin-home-container">
+  <ph-toolbar
+    [toolbarTitle]="'Home'"
+    [canExit]="true"
+    (onExit)="onExitClicked($event)"
+  ></ph-toolbar>
+</div>

@@ -1,16 +1,16 @@
 <div class="popup-container">
   <div [ngClass]="['popup-inner-container', popupType]">
-    <div mat-dialog-title class="title-text">{{ data.Title }}</div>
+    <div mat-dialog-title class="title-text">{{ data.title }}</div>
     <div mat-dialog-content class="popup-message">
-      {{ data.Message }}
+      {{ data.message }}
     </div>
 
     <div mat-dialog-actions class="action-buttons-container">
       <button class="cancel-btn" mat-button (click)="onCancel()">
-        {{ data.CancelText }}
+        {{ data.cancelText }}
       </button>
       <button class="confirm-btn" mat-button (click)="onConfirm()">
-        {{ data.ConfirmText }}
+        {{ data.confirmText }}
       </button>
     </div>
   </div>

@@ -24,10 +24,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { A11yModule } from '@angular/cdk/a11y';
-import { Column } from '../../../core/types/column';
 import { Guid } from 'guid-typescript';
 import { PhDialogService } from '../../services/ph-dialog.service';
 import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
+import { Column } from '../../../core/interfaces/column';
 
 @Component({
   selector: 'ph-data-grid',
