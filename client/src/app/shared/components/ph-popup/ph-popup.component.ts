@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
-  EventEmitter,
+  computed,
   HostListener,
   input,
-  Input,
   output,
-  Output,
 } from '@angular/core';
 
 @Component({
@@ -21,14 +19,23 @@ export class PhPopupComponent {
   width = input<string>('600px');
   height = input<string>('600px');
   hideOnOutsideClick = input<boolean>(true);
-  onHiding = output<void>();
+  isFullScreenMode = input<boolean>(false);
+  hidePopup = output<void>();
+
+  popupWidth = computed(() =>
+    this.isFullScreenMode() ? '100vw' : this.width()
+  );
+  popupHeight = computed(() =>
+    this.isFullScreenMode() ? '100vh' : this.height()
+  );
 
   private closePopup() {
-    this.onHiding.emit();
+    this.hidePopup.emit();
   }
 
   @HostListener('document:click', ['$event'])
   onOutsideClick(event: MouseEvent) {
+    debugger;
     if (
       this.hideOnOutsideClick() &&
       !(

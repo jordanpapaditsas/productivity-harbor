@@ -1,3 +1,16 @@
-<p>
-  user-edit works!
-</p>
+<ph-toolbar
+  [isCalledFromEditScreen]="true"
+  [canExit]="true"
+  [canSave]="true"
+  [canEdit]="true"
+  [canDeactivate]="true"
+  [title]="'User Edit'"
+  (exit)="onUserEditExit($event)"
+></ph-toolbar>
+<ph-container>
+  <div class="inner-container">
+    <div class="user-avatar"></div>
+    <div class="user-profile-information"></div>
+    <div class="user-social-medias"></div>
+  </div>
+</ph-container>

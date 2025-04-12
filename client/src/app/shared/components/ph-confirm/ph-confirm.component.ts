@@ -5,7 +5,7 @@ import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-ph-confirm',
+  selector: 'ph-confirm',
   templateUrl: './ph-confirm.component.html',
   styleUrls: ['./ph-confirm.component.css'],
   imports: [NgClass],

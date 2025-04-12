@@ -6,10 +6,10 @@
     [canEdit]="true"
     [canDelete]="true"
     [canInsert]="true"
-    (onEditRow)="onEditRowClicked($event)"
-    (onSavedRow)="onSaveRowClicked($event)"
-    (onDeleteRow)="onDeleteRowClicked($event)"
-    (onInsertRow)="onInsertRowClicked($event)"
-    (onInitNewRow)="onInitNewRowClicked($event)"
+    (editRow)="onEditRowClicked($event)"
+    (savedRow)="onSaveRowClicked($event)"
+    (deleteRow)="onDeleteRowClicked($event)"
+    (insertRow)="onInsertRowClicked($event)"
+    (initNewRow)="onInitNewRowClicked($event)"
   ></ph-data-grid>
 </ph-container>

@@ -78,12 +78,12 @@ export class PhDataGridComponent implements OnInit {
   canDelete = input<boolean>(false);
 
   // OUTPUTS
-  onSavingRow = output<any>();
-  onSavedRow = output<any>();
-  onEditRow = output<any>();
-  onDeleteRow = output<any>();
-  onInsertRow = output<any>();
-  onInitNewRow = output<any>();
+  savingRow = output<any>();
+  savedRow = output<any>();
+  editRow = output<any>();
+  deleteRow = output<any>();
+  insertRow = output<any>();
+  initNewRow = output<any>();
 
   private _tempRowValues: Record<string, any> = {};
   private _dataSource!: any;
@@ -142,7 +142,7 @@ export class PhDataGridComponent implements OnInit {
 
     this.rowKeys.add(row.Id);
 
-    this.onEditRow.emit(row);
+    this.editRow.emit(row);
   }
 
   protected onSaveRowBtnClick(row: any) {
@@ -157,7 +157,7 @@ export class PhDataGridComponent implements OnInit {
         this.rowKeys.delete(row.Id);
       }
 
-      this.onSavedRow.emit(row);
+      this.savedRow.emit(row);
       this.refreshDataSource();
       this.cleanTempRowValues(row);
     }
@@ -189,7 +189,7 @@ export class PhDataGridComponent implements OnInit {
       DialogTypeEnum.Danger
     );
     if (confirmation) {
-      this.onDeleteRow.emit(row);
+      this.deleteRow.emit(row);
     } else {
       return;
     }
@@ -199,7 +199,7 @@ export class PhDataGridComponent implements OnInit {
   protected onInsertRowBtnClick() {
     if (!this.isNewRow()) {
       const newRow: Record<string, any> = {};
-      this.onInitNewRow.emit(newRow);
+      this.initNewRow.emit(newRow);
       this.isRowInViewMode.set(false);
       this.isNewRow.set(true);
       this.rowIndex.set(0);
@@ -207,7 +207,7 @@ export class PhDataGridComponent implements OnInit {
       this._dataSource.data.unshift(newRow);
 
       this.refreshDataSource();
-      this.onInsertRow.emit(newRow);
+      this.insertRow.emit(newRow);
     } else {
       return;
     }

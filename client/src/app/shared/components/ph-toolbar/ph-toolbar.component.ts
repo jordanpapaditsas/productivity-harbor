@@ -1,13 +1,4 @@
-import {
-  Component,
-  effect,
-  inject,
-  input,
-  Input,
-  OnInit,
-  output,
-  signal,
-} from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ToolbarItem } from '../../../core/interfaces/toolbar-item';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,7 +15,7 @@ import { CommonModule } from '@angular/common';
 })
 export class PhToolbarComponent implements OnInit {
   toolbarItems!: Array<ToolbarItem>;
-  toolbarTitle = input<string>('');
+  title = input<string>('');
   canExit = input<boolean>(false);
   canEdit = input<boolean>(false);
   canSave = input<boolean>(false);
@@ -32,11 +23,11 @@ export class PhToolbarComponent implements OnInit {
   canDeactivate = input<boolean>(false);
   isCalledFromEditScreen = input<boolean>(false);
 
-  onExit = output<any>();
-  onEdit = output<any>();
-  onSave = output<any>();
-  onDelete = output<any>();
-  onDeactivate = output<any>();
+  exit = output<MouseEvent>();
+  edit = output<MouseEvent>();
+  save = output<MouseEvent>();
+  delete = output<MouseEvent>();
+  deactivate = output<MouseEvent>();
   private dialogService = inject(PhDialogService);
 
   constructor() {}
@@ -50,9 +41,8 @@ export class PhToolbarComponent implements OnInit {
         position: 'before',
         visible: this.canEdit?.(),
         onItemClick: (e: MouseEvent) => {
-          debugger;
           this.refreshToolbarItems();
-          this.onEdit?.emit(e);
+          this.edit?.emit(e);
         },
       },
       {
@@ -62,9 +52,8 @@ export class PhToolbarComponent implements OnInit {
         position: 'before',
         visible: false || (!this.canEdit?.() && this.isCalledFromEditScreen()),
         onItemClick: (e: MouseEvent) => {
-          debugger;
           this.refreshToolbarItems();
-          this.onEdit?.emit(e);
+          this.edit?.emit(e);
         },
       },
       {
@@ -79,7 +68,7 @@ export class PhToolbarComponent implements OnInit {
             'Proceed to deactivate?',
             DialogTypeEnum.Warning
           );
-          this.onDeactivate?.emit(e);
+          this.deactivate?.emit(e);
         },
       },
       {
@@ -94,7 +83,7 @@ export class PhToolbarComponent implements OnInit {
             'Proceed to delete?',
             DialogTypeEnum.Danger
           );
-          this.onDelete?.emit(e);
+          this.delete?.emit(e);
         },
       },
       {
@@ -109,7 +98,7 @@ export class PhToolbarComponent implements OnInit {
             'Save changes?',
             DialogTypeEnum.Passive
           );
-          this.onSave?.emit(e);
+          this.save?.emit(e);
         },
       },
       {
@@ -119,7 +108,7 @@ export class PhToolbarComponent implements OnInit {
         position: 'after',
         visible: this.canExit?.() ?? false,
         onItemClick: (e: MouseEvent) => {
-          this.onExit?.emit(e);
+          this.exit?.emit(e);
         },
       },
     ];

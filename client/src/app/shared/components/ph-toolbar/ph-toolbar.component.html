@@ -1,6 +1,6 @@
 @if (!isCalledFromEditScreen()) {
 <mat-toolbar class="ph-toolbar">
-  <div class="ph-toolbar-title">{{ toolbarTitle() }}</div>
+  <div class="ph-toolbar-title">{{ title() }}</div>
   <!-- Items Before -->
   <div class="ph-toolbar-side item-before">
     @for (item of toolbarItems; track item.id) { @if (item.visible &&
@@ -36,7 +36,7 @@
 </mat-toolbar>
 } @else {
 <mat-toolbar class="ph-toolbar-edit">
-  <div class="ph-toolbar-title">{{ toolbarTitle() }}</div>
+  <div class="ph-toolbar-title">{{ title() }}</div>
   <!-- Items Before -->
   <div class="ph-toolbar-side item-before">
     @for (item of toolbarItems; track item.id) { @if (item.visible &&
