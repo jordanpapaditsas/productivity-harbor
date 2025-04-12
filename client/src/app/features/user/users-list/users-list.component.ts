@@ -5,12 +5,18 @@ import { UserDto } from '../../../core/dto/user/user.dto';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
 import { Column } from '../../../core/interfaces/column';
+import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css'],
-  imports: [MatTableModule, PhDataGridComponent, CommonModule],
+  imports: [
+    MatTableModule,
+    PhDataGridComponent,
+    CommonModule,
+    PhContainerComponent,
+  ],
 })
 export class UsersListComponent implements OnInit {
   @ViewChild('usersGrid') usersGrid!: PhDataGridComponent;

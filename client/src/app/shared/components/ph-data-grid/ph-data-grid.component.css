@@ -1,7 +1,3 @@
-.ph-data-grid-container {
-  margin: 2%;
-}
-
 .ph-data-grid-toolbar {
   background-color: var(--crm-blue-50);
   display: flex;

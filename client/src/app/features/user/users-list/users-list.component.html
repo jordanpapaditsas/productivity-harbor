@@ -1,13 +1,15 @@
-<ph-data-grid
-  #usersGrid
-  [dataSource]="usersDataSource"
-  [columns]="columns"
-  [canEdit]="true"
-  [canDelete]="true"
-  [canInsert]="true"
-  (onEditRow)="onEditRowClicked($event)"
-  (onSavedRow)="onSaveRowClicked($event)"
-  (onDeleteRow)="onDeleteRowClicked($event)"
-  (onInsertRow)="onInsertRowClicked($event)"
-  (onInitNewRow)="onInitNewRowClicked($event)"
-></ph-data-grid>
+<ph-container>
+  <ph-data-grid
+    #usersGrid
+    [dataSource]="usersDataSource"
+    [columns]="columns"
+    [canEdit]="true"
+    [canDelete]="true"
+    [canInsert]="true"
+    (onEditRow)="onEditRowClicked($event)"
+    (onSavedRow)="onSaveRowClicked($event)"
+    (onDeleteRow)="onDeleteRowClicked($event)"
+    (onInsertRow)="onInsertRowClicked($event)"
+    (onInitNewRow)="onInitNewRowClicked($event)"
+  ></ph-data-grid>
+</ph-container>

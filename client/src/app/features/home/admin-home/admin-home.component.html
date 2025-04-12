@@ -1,7 +1,10 @@
-<div class="admin-home-container">
+<ph-container>
   <ph-toolbar
     [toolbarTitle]="'Home'"
     [canExit]="true"
+    [canEdit]="true"
+    [canDelete]="true"
+    [canSave]="true"
     (onExit)="onExitClicked($event)"
   ></ph-toolbar>
-</div>
+</ph-container>

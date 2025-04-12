@@ -44,6 +44,7 @@ export class PhToolbarComponent implements OnInit {
         id: 4,
         label: 'Exit',
         icon: 'exit_to_app',
+        position: 'after',
         visible: this.canExit?.() ?? false,
         onItemClick: (e: MouseEvent) => {
           this.onExit?.emit(e);
@@ -53,6 +54,7 @@ export class PhToolbarComponent implements OnInit {
         id: 2,
         label: 'Edit',
         icon: 'edit',
+        position: 'before',
         visible: this.canEdit?.() ?? false,
         onItemClick: (e: MouseEvent) => {
           this.onEdit?.emit(e);
@@ -62,6 +64,7 @@ export class PhToolbarComponent implements OnInit {
         id: 3,
         label: 'Save',
         icon: 'save',
+        position: 'after',
         visible: this.canSave?.() ?? false,
         onItemClick: (e: MouseEvent) => {
           this.dialogService.confirmDialog(
@@ -76,6 +79,7 @@ export class PhToolbarComponent implements OnInit {
         id: 1,
         label: 'Delete',
         icon: 'delete',
+        position: 'before',
         visible: this.canDelete?.() ?? false,
         onItemClick: (e: MouseEvent) => {
           this.dialogService.confirmDialog(

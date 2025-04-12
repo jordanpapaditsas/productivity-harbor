@@ -1,25 +1,37 @@
-@if (!isCalledFromEditScreen) {
+@if (!isCalledFromEditScreen()) {
 <mat-toolbar class="ph-toolbar">
   <div class="ph-toolbar-title">{{ toolbarTitle() }}</div>
-  @for (item of toolbarItems; track item.id) { @if (item.visible) {
-  <div class="ph-toolbar-item-container">
-    <button
-      mat-icon-button
-      [matTooltip]="item.label"
-      class="ph-toolbar-item"
-      (click)="item.onItemClick($event)"
-    >
-      <mat-icon>{{ item.icon }}</mat-icon>
-    </button>
+  <!-- Items Before -->
+  <div class="ph-toolbar-side item-before">
+    @for (item of toolbarItems; track item.id) { @if (item.visible &&
+    item.position === 'before') {
+    <div class="ph-toolbar-item-container">
+      <button
+        mat-icon-button
+        [matTooltip]="item.label"
+        class="ph-toolbar-item"
+        (click)="item.onItemClick($event)"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </button>
+    </div>
+    } }
   </div>
-  }}
-</mat-toolbar>
-} @else {
-<mat-toolbar class="ph-toolbar-edit">
-  <div class="edit-btn-container">
-    <!-- Need to check the logic of edit screens edit / view mode -->
-    <button [ngClass]="{}"></button>
+  <!-- Items After -->
+  <div class="ph-toolbar-side item-after">
+    @for (item of toolbarItems; track item.id) { @if (item.visible &&
+    item.position === 'after') {
+    <div class="ph-toolbar-item-container">
+      <button
+        mat-icon-button
+        [matTooltip]="item.label"
+        class="ph-toolbar-item"
+        (click)="item.onItemClick($event)"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </button>
+    </div>
+    } }
   </div>
-  <div></div>
 </mat-toolbar>
 }
