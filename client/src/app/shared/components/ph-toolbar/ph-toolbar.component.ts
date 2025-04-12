@@ -1,5 +1,6 @@
 import {
   Component,
+  effect,
   inject,
   input,
   Input,
@@ -18,7 +19,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'ph-toolbar',
   templateUrl: './ph-toolbar.component.html',
-  styleUrls: ['./ph-toolbar.component.css'],
+  styleUrls: ['./ph-toolbar.component.scss'],
   imports: [MatToolbarModule, MatIconModule, MatTooltipModule, CommonModule],
 })
 export class PhToolbarComponent implements OnInit {
@@ -28,12 +29,14 @@ export class PhToolbarComponent implements OnInit {
   canEdit = input<boolean>(false);
   canSave = input<boolean>(false);
   canDelete = input<boolean>(false);
+  canDeactivate = input<boolean>(false);
   isCalledFromEditScreen = input<boolean>(false);
 
   onExit = output<any>();
   onEdit = output<any>();
   onSave = output<any>();
   onDelete = output<any>();
+  onDeactivate = output<any>();
   private dialogService = inject(PhDialogService);
 
   constructor() {}
@@ -41,27 +44,61 @@ export class PhToolbarComponent implements OnInit {
   ngOnInit() {
     this.toolbarItems = [
       {
-        id: 4,
-        label: 'Exit',
-        icon: 'exit_to_app',
-        position: 'after',
-        visible: this.canExit?.() ?? false,
-        onItemClick: (e: MouseEvent) => {
-          this.onExit?.emit(e);
-        },
-      },
-      {
-        id: 2,
+        id: 1,
         label: 'Edit',
         icon: 'edit',
         position: 'before',
-        visible: this.canEdit?.() ?? false,
+        visible: this.canEdit?.(),
         onItemClick: (e: MouseEvent) => {
+          debugger;
+          this.refreshToolbarItems();
           this.onEdit?.emit(e);
         },
       },
       {
+        id: 0,
+        label: 'View',
+        icon: 'remove_red_eye',
+        position: 'before',
+        visible: false || (!this.canEdit?.() && this.isCalledFromEditScreen()),
+        onItemClick: (e: MouseEvent) => {
+          debugger;
+          this.refreshToolbarItems();
+          this.onEdit?.emit(e);
+        },
+      },
+      {
+        id: 2,
+        label: 'Deactivate',
+        icon: 'power_off',
+        position: 'before',
+        visible: this.canDeactivate?.() ?? false,
+        onItemClick: (e: MouseEvent) => {
+          this.dialogService.confirmDialog(
+            'Warning Message',
+            'Proceed to deactivate?',
+            DialogTypeEnum.Warning
+          );
+          this.onDeactivate?.emit(e);
+        },
+      },
+      {
         id: 3,
+        label: 'Delete',
+        icon: 'delete',
+        position: 'after',
+        visible: this.canDelete?.() ?? false,
+        onItemClick: (e: MouseEvent) => {
+          this.dialogService.confirmDialog(
+            'Warning Message',
+            'Proceed to delete?',
+            DialogTypeEnum.Danger
+          );
+          this.onDelete?.emit(e);
+        },
+      },
+      {
+        id: 4,
         label: 'Save',
         icon: 'save',
         position: 'after',
@@ -76,22 +113,28 @@ export class PhToolbarComponent implements OnInit {
         },
       },
       {
-        id: 1,
-        label: 'Delete',
-        icon: 'delete',
-        position: 'before',
-        visible: this.canDelete?.() ?? false,
+        id: 5,
+        label: 'Exit',
+        icon: 'exit_to_app',
+        position: 'after',
+        visible: this.canExit?.() ?? false,
         onItemClick: (e: MouseEvent) => {
-          this.dialogService.confirmDialog(
-            'Warning Message',
-            'Proceed to delete?',
-            DialogTypeEnum.Danger
-          );
-          this.onDelete?.emit(e);
+          this.onExit?.emit(e);
         },
       },
     ];
 
     this.toolbarItems.sort((a, b) => a.id - b.id);
+  }
+
+  refreshToolbarItems() {
+    this.toolbarItems.forEach((item) => {
+      if (item.label === 'Edit') {
+        item.visible = !item.visible;
+      }
+      if (item.label === 'View') {
+        item.visible = !item.visible;
+      }
+    });
   }
 }

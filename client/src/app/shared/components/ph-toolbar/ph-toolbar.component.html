@@ -34,4 +34,40 @@
     } }
   </div>
 </mat-toolbar>
+} @else {
+<mat-toolbar class="ph-toolbar-edit">
+  <div class="ph-toolbar-title">{{ toolbarTitle() }}</div>
+  <!-- Items Before -->
+  <div class="ph-toolbar-side item-before">
+    @for (item of toolbarItems; track item.id) { @if (item.visible &&
+    item.position === 'before') {
+    <div class="ph-toolbar-item-container">
+      <button
+        mat-icon-button
+        [matTooltip]="item.label"
+        class="ph-toolbar-item"
+        (click)="item.onItemClick($event)"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </button>
+    </div>
+    } }
+  </div>
+  <!-- Items After -->
+  <div class="ph-toolbar-side item-after">
+    @for (item of toolbarItems; track item.id) { @if (item.visible &&
+    item.position === 'after') {
+    <div class="ph-toolbar-item-container">
+      <button
+        mat-icon-button
+        [matTooltip]="item.label"
+        class="ph-toolbar-item"
+        (click)="item.onItemClick($event)"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </button>
+    </div>
+    } }
+  </div>
+</mat-toolbar>
 }

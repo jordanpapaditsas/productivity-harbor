@@ -1,0 +1,71 @@
+/* Normal */
+.ph-toolbar {
+  display: grid;
+  grid-template-areas: "before center after";
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  box-shadow: 1rem 0.3rem 1rem var(--crm-blue-50);
+  padding: 0;
+
+  & mat-icon:hover {
+    cursor: pointer;
+    background-color: rgb(0, 0, 0);
+    border-radius: 0.5rem;
+    color: white;
+  }
+}
+
+.ph-toolbar-edit {
+  display: grid;
+  grid-template-areas: "before center after";
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 0;
+  background: #ffffff;
+  background: linear-gradient(90deg, rgb(123, 154, 199) 0%,
+    rgba(132, 164, 196, 1) 11%, rgb(111, 154, 192) 20%,
+    rgba(54, 115, 158, 1) 31%, rgba(38, 102, 150, 1) 41%,
+    rgb(53, 121, 160) 54%, rgb(60, 111, 158) 68%,
+    rgba(31, 85, 143, 1) 81%, rgba(31, 85, 143, 1) 93%);
+
+  & mat-icon {
+    color: white;
+  }
+  & .ph-toolbar-title {
+    color: white;
+  }
+  & mat-icon:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+}
+
+.ph-toolbar-title {
+  grid-area: center;
+  text-align: center;
+}
+
+.ph-toolbar-side {
+  display: flex;
+}
+
+.item-before {
+  grid-area: before;
+  justify-content: flex-start;
+}
+
+.item-after {
+  grid-area: after;
+  justify-content: flex-end;
+}
+
+.ph-toolbar-item {
+  border: none;
+  background: transparent;
+}
+
+/* Edit Mode */
+.ph-toolbar-edit {
+
+}

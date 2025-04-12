@@ -1,8 +1,10 @@
 <ph-container>
   <ph-toolbar
+    [isCalledFromEditScreen]="false"
     [toolbarTitle]="'Home'"
     [canExit]="true"
     [canEdit]="true"
+    [canDeactivate]="true"
     [canDelete]="true"
     [canSave]="true"
     (onExit)="onExitClicked($event)"
