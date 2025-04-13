@@ -16,5 +16,5 @@ export class UserDto {
   UpdatedAt?: Date | string | number;
   UpdatedByUserId?: Guid;
   Color?: string;
-  SocialMedia?: SocialMedia[];
+  SocialMediaLinks?: SocialMedia[];
 }

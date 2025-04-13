@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Xml;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductivityHarborApi.Core.Dto.Task;
@@ -48,7 +49,7 @@ namespace ProductivityHarborApi.Controllers
                 IsActive = user.IsActive,
                 IsDeleted = user.IsDeleted,
                 Color = user.Color,
-                SocialMedia = user.SocialMediaLinks.Select(link => new SocialMedia
+                SocialMediaLinks = user.SocialMediaLinks.Select(link => new SocialMedia
                 {
                     Url = link.Url,
                     Icon = link.Icon,
@@ -76,7 +77,7 @@ namespace ProductivityHarborApi.Controllers
                 user.IsActive = userDto.IsActive;
                 user.IsDeleted = userDto.IsDeleted;
                 user.Token = userDto.Token;
-                user.SocialMediaLinks = userDto.SocialMedia;
+                user.SocialMediaLinks = userDto.SocialMediaLinks;
                 user.Color = userDto.Color;
             } 
                 
@@ -90,7 +91,7 @@ namespace ProductivityHarborApi.Controllers
         public async Task<IActionResult> UpdateUser(UserDto userDto)
         {
             var actionUser = await _userManager.GetUserAsync(User);
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userDto.Id);
+            var user = await _context.Users.AsNoTracking().Include(x => x.SocialMediaLinks).FirstOrDefaultAsync(x => x.Id == userDto.Id);
 
             if (user == null)
             {
@@ -106,9 +107,10 @@ namespace ProductivityHarborApi.Controllers
                 user.IsActive = userDto.IsActive;
                 user.IsDeleted = userDto.IsDeleted;
                 user.Token = userDto.Token;
-                user.SocialMediaLinks = userDto.SocialMedia;
+                user.SocialMediaLinks = userDto.SocialMediaLinks;
                 user.Color = userDto.Color;
 
+                _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
                 return Ok(user);

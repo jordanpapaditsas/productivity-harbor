@@ -3,16 +3,38 @@
   height: 100%;
   display: grid;
   grid-template-columns: 0.5fr 1fr;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 0.1fr);
   row-gap: 2rem;
 }
 
+// Avatar (Grid Item)
 .avatar-container {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
   width: 80%;
   height: 100%;
   grid-column: 1;
-  grid-row: 1 span / 2;
+  grid-row: 2;
   box-shadow: 0 1rem 1rem 1rem #27272733;
+}
+
+
+// User Information (Grid Item)
+.user-information {
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  grid-column: 2;
+  grid-row: 1 / span 6;
+}
+
+// Social Media (Grid Item)
+.user-social-media {
+  width: 60%;
+  height: 100%;
+  grid-column: 1;
+  grid-row: 4;
 }
 
 .user-avatar-wrapper {
@@ -46,27 +68,11 @@
   transition: opacity 0.3s ease;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: var(--crm-fontSize-large);
 }
 
 .user-avatar-wrapper:hover, .user-avatar-overlay:hover {
   opacity: 1;
-}
-
-
-.user-information {
-  width: 100%;
-  height: 100%;
-  background-color: green;
-  grid-column: 2;
-  grid-row: 1 / span 3;
-}
-
-.user-social-media {
-  width: 60%;
-  height: 100%;
-  grid-column: 1;
-  grid-row: 2;
 }
 
 .social-media-container {
@@ -83,9 +89,15 @@
 .fa-brands.fa-facebook {
   color: rgb(60, 100, 175);
 }
+
 .fa-brands.fa-instagram {
   color: #E4405F;
 }
+
 .fa-brands.fa-linkedin {
   color: rgb(60, 100, 175);
+}
+
+.user-fullname {
+  font-size: var(--crm-fontSize-medium-l);
 }

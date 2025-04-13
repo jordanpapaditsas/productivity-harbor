@@ -81,7 +81,7 @@ export class UsersListComponent implements OnInit {
 
   onSaveRowClicked(user: UserDto) {
     if (!user.Id) {
-      this.usersService.insertUser(user).subscribe((response: UserDto) => {
+      this.usersService.createUser(user).subscribe((response: UserDto) => {
         this.user = response;
 
         this.getUsersDataSource();

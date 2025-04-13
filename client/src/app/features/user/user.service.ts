@@ -31,9 +31,9 @@ export class UserService {
     );
   }
 
-  insertUser(user: UserDto) {
+  createUser(user: UserDto) {
     return this.httpClient.post<UserDto>(
-      this.serviceUrl + '/insertUser/',
+      this.serviceUrl + '/createUser/',
       user,
       {
         headers: this.headers,

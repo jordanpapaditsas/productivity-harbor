@@ -92,8 +92,8 @@ export class PhToolbarComponent implements OnInit {
         icon: 'save',
         position: 'after',
         visible: this.canSave?.() ?? false,
-        onItemClick: (e: MouseEvent) => {
-          this.dialogService.confirmDialog(
+        onItemClick: async (e: MouseEvent) => {
+          await this.dialogService.confirmDialog(
             'Message',
             'Save changes?',
             DialogTypeEnum.Passive

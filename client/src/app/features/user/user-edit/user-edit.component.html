@@ -6,33 +6,21 @@
   [canDeactivate]="true"
   [title]="user.UserName ?? newUserTitle"
   (exit)="onUserEditExit($event)"
+  (save)="onUserEditSave($event)"
 ></ph-toolbar>
 <ph-container>
   <div class="inner-container">
     <!-- Avatar -->
-    @if (user.Avatar) {
     <div class="avatar-container">
-      <div class="user-avatar-wrapper" (click)="triggerAvatarUpload()">
-        <img [src]="user.Avatar" alt="User Avatar" class="user-avatar" />
-        <div class="user-avatar-overlay">
-          <i class="fa-solid fa-camera"></i>
-        </div>
-      </div>
-    </div>
-    <input
-      #fileInput
-      type="file"
-      accept="image/*"
-      style="display: none"
-      (change)="onAvatarChange($event)"
-      [disabled]="false"
-    />
-
-    }@else if (!user.Avatar) {
-    <div class="avatar-container">
-      <!-- Image-container carries the shadow of the user's avatar. Need to add Color property for user to populate with ngClass based on his color -->
       <div class="user-avatar-wrapper" (click)="triggerAvatarUpload()">
         <img
+          *ngIf="user.Avatar"
+          [src]="user.Avatar"
+          alt="User Avatar"
+          class="user-avatar"
+        />
+        <img
+          *ngIf="!user.Avatar"
           src="/assets/images/user-avatar-placeholder.jpg"
           alt="User Avatar"
           class="user-avatar"
@@ -41,6 +29,8 @@
           <i class="fa-solid fa-camera"></i>
         </div>
       </div>
+
+      <div class="user-fullname">{{ user.FullName }}</div>
     </div>
     <input
       #fileInput
@@ -50,7 +40,6 @@
       (change)="onAvatarChange($event)"
       [disabled]="false"
     />
-    }
 
     <!-- Profile Information -->
     <div class="user-information"></div>
@@ -58,7 +47,7 @@
     <div class="user-social-media">
       <fieldset>
         <legend>Social Media</legend>
-        @for (socialMedia of user.SocialMedia; track socialMedia.Id ) {
+        @for (socialMedia of user.SocialMediaLinks; track socialMedia.Id ) {
         <div class="social-media-container">
           <i class="sm-icon" [class]="socialMedia.Icon"></i>
           <div class="social-media-url">
