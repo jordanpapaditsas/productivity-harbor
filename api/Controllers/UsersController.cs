@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductivityHarborApi.Core.Dto.Task;
 using ProductivityHarborApi.Core.Dto.User;
@@ -8,13 +9,13 @@ using ProductivityHarborApi.Data;
 
 namespace ProductivityHarborApi.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController : PhBaseController
     {
         private readonly ApplicationDbContext _context;
-        public UsersController(ApplicationDbContext context)
+        private readonly UserManager<User> _userManager;
+        public UsersController(ApplicationDbContext context, UserManager<User> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -39,9 +40,11 @@ namespace ProductivityHarborApi.Controllers
             return Ok(user);
         }
         
-        [HttpPost("insertUser")]
-        public async Task<IActionResult> InsertUser(UserDto userDto)
+        [HttpPost("createUser")]
+        public async Task<IActionResult> CreateUser(UserDto userDto)
         {
+            var actionUser = await _userManager.GetUserAsync(User);
+
             var user = new User();
 
             if (userDto != null)
@@ -50,13 +53,11 @@ namespace ProductivityHarborApi.Controllers
                 user.UserName = userDto.UserName;
                 user.Email = userDto.Email;
                 user.PasswordHash = userDto.PasswordHash;
-                user.CreatedAt = userDto.CreatedAt;
-                user.UpdatedAt = userDto.UpdatedAt;
-                user.CreatedByUserId = userDto.CreatedByUserId;
-                user.UpdatedByUserId = userDto.UpdatedByUserId;
+                user.CreatedByUserId = actionUser?.Id;
                 user.IsActive = userDto.IsActive;
                 user.IsDeleted = userDto.IsDeleted;
                 user.Token = userDto.Token;
+                user.SocialMediaLinks = userDto.SocialMediaLinks;
             } 
                 
             _context.Users.Add(user);
@@ -68,28 +69,29 @@ namespace ProductivityHarborApi.Controllers
         [HttpPut("updateUser")]
         public async Task<IActionResult> UpdateUser(UserDto userDto)
         {
+            var actionUser = await _userManager.GetUserAsync(User);
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userDto.Id);
 
             if (user == null)
             {
                 return BadRequest("User not found.");
-            }
+            } 
+            else
+            {
+                user.Avatar = userDto.Avatar;
+                user.UserName = userDto.UserName;
+                user.Email = userDto.Email;
+                user.PasswordHash = userDto.PasswordHash;
+                user.UpdatedByUserId = actionUser?.Id;
+                user.IsActive = userDto.IsActive;
+                user.IsDeleted = userDto.IsDeleted;
+                user.Token = userDto.Token;
+                user.SocialMediaLinks = userDto.SocialMediaLinks;
 
-            user.Avatar = userDto.Avatar;
-            user.UserName = userDto.UserName;
-            user.Email = userDto.Email;
-            user.PasswordHash = userDto.PasswordHash;
-            user.CreatedAt = userDto.CreatedAt;
-            user.UpdatedAt = userDto.UpdatedAt;
-            user.CreatedByUserId = userDto.CreatedByUserId;
-            user.UpdatedByUserId = userDto.UpdatedByUserId;
-            user.IsActive = userDto.IsActive;
-            user.IsDeleted = userDto.IsDeleted;
-            user.Token = userDto.Token;
-      
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return Ok(user);
+                return Ok(user);
+            } 
         }
 
         [HttpDelete("deleteUserById/{id}")]
@@ -101,12 +103,13 @@ namespace ProductivityHarborApi.Controllers
             {
                 return BadRequest("User not found.");
             }
+            else
+            {
+                await _context.SaveChangesAsync();
+                _context.Remove(user);
 
-            _context.Remove(user);
-
-           await _context.SaveChangesAsync();
-
-            return Ok(user);
+                return Ok(user);
+            }
         }
     }
 }

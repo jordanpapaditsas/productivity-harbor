@@ -3,9 +3,7 @@ using ProductivityHarborApi.Data;
 
 namespace ProductivityHarborApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController] 
-    public class AccountsController : ControllerBase
+    public class AccountsController : PhBaseController
     {
         private readonly ApplicationDbContext _context;
 

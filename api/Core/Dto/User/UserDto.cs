@@ -1,4 +1,6 @@
-﻿namespace ProductivityHarborApi.Core.Dto.User
+﻿using ProductivityHarborApi.Core.Models.User;
+
+namespace ProductivityHarborApi.Core.Dto.User
 {
     public class UserDto
     {
@@ -15,6 +17,6 @@
         public Guid? CreatedByUserId { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
         public Guid? UpdatedByUserId { get; set; }
-
+        public ICollection<SocialMedia> SocialMediaLinks { get; set; } = new HashSet<SocialMedia>();
     }
 }
