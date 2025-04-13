@@ -3,7 +3,10 @@
 </ph-container> -->
 
 @if (isUserEditVisible) {
-<ph-popup [isFullScreenMode]="true">
-  <app-user-edit (exitScreen)="onExitClicked($event)"></app-user-edit>
+<ph-popup [hideOnOutsideClick]="false" [isFullScreenMode]="true">
+  <app-user-edit
+    [userId]="user.Id"
+    (exitScreen)="onExitClicked($event)"
+  ></app-user-edit>
 </ph-popup>
 }

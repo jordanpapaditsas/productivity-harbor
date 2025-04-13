@@ -4,13 +4,58 @@
   [canSave]="true"
   [canEdit]="true"
   [canDeactivate]="true"
-  [title]="'User Edit'"
+  [title]="user.UserName ?? newUserTitle"
   (exit)="onUserEditExit($event)"
 ></ph-toolbar>
 <ph-container>
   <div class="inner-container">
-    <div class="user-avatar"></div>
-    <div class="user-profile-information"></div>
+    <!-- Avatar -->
+    @if (user.Avatar) {
+    <div class="avatar-container">
+      <!-- Image-container carries the shadow of the user's avatar. Need to add Color property for user to populate with ngClass based on his color -->
+      <div class="user-avatar-wrapper" (click)="triggerAvatarUpload()">
+        <img [src]="user.Avatar" alt="User Avatar" class="user-avatar" />
+        <div class="user-avatar-overlay">
+          <i class="fa-solid fa-camera"></i>
+        </div>
+      </div>
+    </div>
+    <input
+      #fileInput
+      type="file"
+      accept="image/*"
+      style="display: none"
+      (change)="onAvatarChange($event)"
+      [disabled]="false"
+    />
+
+    }@else if (!user.Avatar) {
+    <div class="avatar-container">
+      <!-- Image-container carries the shadow of the user's avatar. Need to add Color property for user to populate with ngClass based on his color -->
+      <div class="user-avatar-wrapper" (click)="triggerAvatarUpload()">
+        <img
+          src="/assets/images/user-avatar-placeholder.jpg"
+          alt="User Avatar"
+          class="user-avatar"
+        />
+        <div class="user-avatar-overlay">
+          <i class="fa-solid fa-camera"></i>
+        </div>
+      </div>
+    </div>
+    <input
+      #fileInput
+      type="file"
+      accept="image/*"
+      style="display: none"
+      (change)="onAvatarChange($event)"
+      [disabled]="false"
+    />
+    }
+
+    <!-- Profile Information -->
+    <div class="user-information"></div>
+    <!-- Social Media Information -->
     <div class="user-social-medias"></div>
   </div>
 </ph-container>

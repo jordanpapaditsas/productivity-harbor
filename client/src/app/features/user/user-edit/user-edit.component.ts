@@ -1,33 +1,38 @@
 import {
   Component,
   effect,
+  ElementRef,
   EventEmitter,
   inject,
   input,
   OnInit,
   output,
+  ViewChild,
 } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../user.service';
 import { UserDto } from '../../../core/dto/user/user.dto';
 import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
 import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css'],
-  imports: [PhToolbarComponent, PhContainerComponent],
+  styleUrls: ['./user-edit.component.scss'],
+  imports: [PhToolbarComponent, PhContainerComponent, MatIconModule],
 })
 export class UserEditComponent implements OnInit {
+  @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
   userId = input<Guid | null>(null);
   private userService = inject(UserService);
-  user: UserDto = new UserDto();
-  newUserTitle: string = 'New User';
+  user!: UserDto;
+  newUserTitle!: string;
 
   exitScreen = output<EventEmitter<void>>();
 
   constructor() {
+    this.user = new UserDto();
     effect(() => {
       if (this.userId()) {
         this.userService.getUserById(this.userId()!).subscribe((response) => {
@@ -35,11 +40,32 @@ export class UserEditComponent implements OnInit {
         });
       }
     });
+    if (!this.user) {
+      this.newUserTitle = 'New User';
+    }
   }
 
   ngOnInit() {}
 
   onUserEditExit(e: any) {
     this.exitScreen.emit(e);
+  }
+
+  triggerAvatarUpload() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onAvatarChange(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        this.user.Avatar = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
   }
 }
