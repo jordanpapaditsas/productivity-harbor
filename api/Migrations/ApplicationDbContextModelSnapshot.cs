@@ -170,7 +170,7 @@ namespace ProductivityHarborApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("productivityharbor_contacts");
+                    b.ToTable("productivityharbor_contacts", (string)null);
                 });
 
             modelBuilder.Entity("ProductivityHarborApi.Core.Models.Shared.Status", b =>
@@ -207,7 +207,7 @@ namespace ProductivityHarborApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("productivityharbor_statuses");
+                    b.ToTable("productivityharbor_statuses", (string)null);
                 });
 
             modelBuilder.Entity("ProductivityHarborApi.Core.Models.Task.PhTask", b =>
@@ -245,7 +245,7 @@ namespace ProductivityHarborApi.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("productivityharbor_phtasks");
+                    b.ToTable("productivityharbor_phtasks", (string)null);
                 });
 
             modelBuilder.Entity("ProductivityHarborApi.Core.Models.User.Role", b =>
@@ -315,7 +315,7 @@ namespace ProductivityHarborApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("productivityharbor_socialmedialinks ");
+                    b.ToTable("productivityharbor_socialmedialinks ", (string)null);
                 });
 
             modelBuilder.Entity("ProductivityHarborApi.Core.Models.User.User", b =>
