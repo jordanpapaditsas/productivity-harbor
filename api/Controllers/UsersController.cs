@@ -30,14 +30,33 @@ namespace ProductivityHarborApi.Controllers
         [HttpGet("getUserById/{userId}")]
         public async Task<IActionResult> GetUserById(Guid userId)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            var user = await _context.Users.Include(x => x.SocialMediaLinks).FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user == null)
             {
                 return BadRequest("User not found.");
             }
 
-            return Ok(user);
+            var dto = new UserDto
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                Avatar = user.Avatar,
+                UserName = user.UserName,
+                Email = user.Email,
+                PasswordHash = user.PasswordHash,
+                IsActive = user.IsActive,
+                IsDeleted = user.IsDeleted,
+                Color = user.Color,
+                SocialMedia = user.SocialMediaLinks.Select(link => new SocialMedia
+                {
+                    Url = link.Url,
+                    Icon = link.Icon,
+                    Name = link.Name
+                }).ToList()
+            };
+
+            return Ok(dto);
         }
         
         [HttpPost("createUser")]
@@ -57,7 +76,8 @@ namespace ProductivityHarborApi.Controllers
                 user.IsActive = userDto.IsActive;
                 user.IsDeleted = userDto.IsDeleted;
                 user.Token = userDto.Token;
-                user.SocialMediaLinks = userDto.SocialMediaLinks;
+                user.SocialMediaLinks = userDto.SocialMedia;
+                user.Color = userDto.Color;
             } 
                 
             _context.Users.Add(user);
@@ -86,7 +106,8 @@ namespace ProductivityHarborApi.Controllers
                 user.IsActive = userDto.IsActive;
                 user.IsDeleted = userDto.IsDeleted;
                 user.Token = userDto.Token;
-                user.SocialMediaLinks = userDto.SocialMediaLinks;
+                user.SocialMediaLinks = userDto.SocialMedia;
+                user.Color = userDto.Color;
 
                 await _context.SaveChangesAsync();
 

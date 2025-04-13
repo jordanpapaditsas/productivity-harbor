@@ -13,6 +13,7 @@ namespace ProductivityHarborApi.Core.Models.User
         public Guid? CreatedByUserId { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
         public Guid? UpdatedByUserId { get; set; }
+        public string? Color { get; set; }
         public ICollection<SocialMedia> SocialMediaLinks { get; set; } = new HashSet<SocialMedia>();
 
     }

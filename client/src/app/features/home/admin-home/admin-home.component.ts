@@ -14,7 +14,7 @@ export class AdminHomeComponent implements OnInit {
   user: UserDto = new UserDto();
   isUserEditVisible: boolean = true;
   constructor() {
-    this.user.Id = Guid.parse('E52484FB-F255-4E49-1F44-08DD76D1306C');
+    this.user.Id = Guid.parse('eed6a6a2-09a2-4d3f-8163-87be46c9ac57');
   }
 
   ngOnInit() {}

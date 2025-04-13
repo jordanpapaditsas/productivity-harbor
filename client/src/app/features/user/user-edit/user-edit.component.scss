@@ -71,10 +71,21 @@
 
 .social-media-container {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 1rem;
+  margin-bottom: 0.6rem
 }
 
-.social-media-icons {
-  font-size: 1.5rem;
+.sm-icon {
+  font-size: 1.6rem;
+}
+
+.fa-brands.fa-facebook {
+  color: rgb(60, 100, 175);
+}
+.fa-brands.fa-instagram {
+  color: #E4405F;
+}
+.fa-brands.fa-linkedin {
+  color: rgb(60, 100, 175);
 }

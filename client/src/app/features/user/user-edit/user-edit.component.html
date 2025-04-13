@@ -60,10 +60,10 @@
         <legend>Social Media</legend>
         @for (socialMedia of user.SocialMedia; track socialMedia.Id ) {
         <div class="social-media-container">
-          <span class="social-media-icons"
-            ><i [class]="socialMedia.Icon"></i>
-            {{ socialMedia.Url }}
-          </span>
+          <i class="sm-icon" [class]="socialMedia.Icon"></i>
+          <div class="social-media-url">
+            <a [href]="socialMedia.Url">{{ socialMedia.Url }}</a>
+          </div>
         </div>
         }
       </fieldset>
