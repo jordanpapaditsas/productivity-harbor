@@ -1,4 +1,5 @@
 import { Guid } from 'guid-typescript';
+import { SocialMedia } from './social-media.dto';
 
 export class UserDto {
   Id!: Guid;
@@ -14,4 +15,6 @@ export class UserDto {
   CreatedByUserId?: Guid;
   UpdatedAt?: Date | string | number;
   UpdatedByUserId?: Guid;
+  Color?: string;
+  SocialMedia?: SocialMedia[];
 }

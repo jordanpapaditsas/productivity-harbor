@@ -35,7 +35,6 @@ export class PhPopupComponent {
 
   @HostListener('document:click', ['$event'])
   onOutsideClick(event: MouseEvent) {
-    debugger;
     if (
       this.hideOnOutsideClick() &&
       !(

@@ -12,7 +12,6 @@
     <!-- Avatar -->
     @if (user.Avatar) {
     <div class="avatar-container">
-      <!-- Image-container carries the shadow of the user's avatar. Need to add Color property for user to populate with ngClass based on his color -->
       <div class="user-avatar-wrapper" (click)="triggerAvatarUpload()">
         <img [src]="user.Avatar" alt="User Avatar" class="user-avatar" />
         <div class="user-avatar-overlay">
@@ -56,6 +55,18 @@
     <!-- Profile Information -->
     <div class="user-information"></div>
     <!-- Social Media Information -->
-    <div class="user-social-medias"></div>
+    <div class="user-social-media">
+      <fieldset>
+        <legend>Social Media</legend>
+        @for (socialMedia of user.SocialMedia; track socialMedia.Id ) {
+        <div class="social-media-container">
+          <span class="social-media-icons"
+            ><i [class]="socialMedia.Icon"></i>
+            {{ socialMedia.Url }}
+          </span>
+        </div>
+        }
+      </fieldset>
+    </div>
   </div>
 </ph-container>
