@@ -14,6 +14,7 @@ namespace ProductivityHarborApi.Data
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<PhTask> PhTasks { get; set; }
+        public DbSet<SocialMedia> SocialMediaLinks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
