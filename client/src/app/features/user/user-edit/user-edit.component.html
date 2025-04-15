@@ -30,7 +30,23 @@
         </div>
       </div>
 
+      @if (!isInEditMode()) {
       <div class="user-fullname">{{ user.FullName }}</div>
+      } @else {
+      <div class="flex-column">
+        <mat-label>Full Name</mat-label>
+        <ph-text-box [value]="user.FullName"></ph-text-box>
+      </div>
+
+      }
+      <div class="flexbox">
+        <mat-label>Color</mat-label>
+        <input type="color" [value]="user.Color" id="Color" name="Color" />
+      </div>
+      <div class="flexbox">
+        <mat-label>Active</mat-label>
+        <mat-checkbox [(ngModel)]="user.IsActive"></mat-checkbox>
+      </div>
     </div>
     <input
       #fileInput
@@ -42,13 +58,77 @@
     />
 
     <!-- Profile Information -->
-    <div class="user-information"></div>
+    <div class="user-information-container">
+      <div class="personal-info-box">
+        <div class="title-align">{{ personalInfoTitle }}</div>
+        <div class="personal-info-inner-box">
+          <div class="flex-column">
+            <mat-label>Username</mat-label>
+            <ph-text-box [value]="user.UserName"></ph-text-box>
+          </div>
+          <div class="flex-column">
+            <mat-label>Password</mat-label>
+            <ph-text-box [value]="user.PasswordHash"></ph-text-box>
+          </div>
+
+          <div class="flex-column user-portfolio">
+            <mat-label>Portfolio</mat-label>
+            <ph-text-box [value]="user.Portfolio"></ph-text-box>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-box">
+        <div class="title-align">{{ contactTitle }}</div>
+        <div class="contact-inner-box">
+          <div class="flex-column user-email">
+            <mat-label>Email</mat-label>
+            <ph-text-box [value]="user.Email"></ph-text-box>
+          </div>
+
+          <div class="flex-column user-home-phone">
+            <mat-label>Home Phone</mat-label>
+            <ph-text-box [value]="user.Phone?.home"></ph-text-box>
+          </div>
+
+          <div class="flex-column user-mobile-phone">
+            <mat-label>Mobile Phone</mat-label>
+            <ph-text-box [value]="user.Phone?.mobile"></ph-text-box>
+          </div>
+
+          <div class="flex-column user-work-phone">
+            <mat-label>Work Phone</mat-label>
+            <ph-text-box [value]="user.Phone?.work"></ph-text-box>
+          </div>
+
+          <div class="flex-column user-country">
+            <mat-label>Country</mat-label>
+            <ph-text-box [value]="user.Country"></ph-text-box>
+          </div>
+
+          <div class="flex-column user-city">
+            <mat-label>City</mat-label>
+            <ph-text-box [value]="user.Address?.city"></ph-text-box>
+          </div>
+
+          <div class="flex-column user-street">
+            <mat-label>Street</mat-label>
+            <ph-text-box [value]="user.Address?.street"></ph-text-box>
+          </div>
+
+          <div class="flex-column user-zip">
+            <mat-label>ZIP Code</mat-label>
+            <ph-text-box [value]="user.Address?.zip"></ph-text-box>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Social Media Information -->
-    <div class="user-social-media">
+    <div class="user-social-media-container">
       <fieldset>
         <legend>Social Media</legend>
         @for (socialMedia of user.SocialMediaLinks; track socialMedia.Id ) {
-        <div class="social-media-container">
+        <div class="social-media">
           <i class="sm-icon" [class]="socialMedia.Icon"></i>
           <div class="social-media-url">
             <a [href]="socialMedia.Url">{{ socialMedia.Url }}</a>

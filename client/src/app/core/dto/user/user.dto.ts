@@ -1,5 +1,7 @@
 import { Guid } from 'guid-typescript';
 import { SocialMedia } from './social-media.dto';
+import { Address } from '../../interfaces/address';
+import { Phone } from '../../interfaces/phone';
 
 export class UserDto {
   Id!: Guid;
@@ -17,4 +19,11 @@ export class UserDto {
   UpdatedByUserId?: Guid;
   Color?: string;
   SocialMediaLinks?: SocialMedia[];
+
+  // Need to pass them in models back
+  Phone?: Phone;
+  Portfolio?: string;
+  Address?: Address;
+  Country?: string;
+  Birthdate?: Date | string | number;
 }

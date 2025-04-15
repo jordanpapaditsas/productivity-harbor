@@ -6,6 +6,7 @@ import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
 import { Column } from '../../../core/interfaces/column';
 import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
+import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
 
 @Component({
   selector: 'app-users-list',

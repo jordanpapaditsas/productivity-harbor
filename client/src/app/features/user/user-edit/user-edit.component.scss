@@ -11,28 +11,25 @@
 .avatar-container {
   display: flex;
   align-items: center;
-  gap: 3rem;
-  width: 80%;
-  height: 100%;
+  justify-content: space-around;
+  width: 95%;
   grid-column: 1;
   grid-row: 2;
-  box-shadow: 0 1rem 1rem 1rem #27272733;
+  box-shadow: 0 0.5rem 1rem 1rem #27272733;
+  border-radius: 0.5rem;
 }
 
-
 // User Information (Grid Item)
-.user-information {
-  width: 100%;
-  height: 100%;
-  background-color: green;
+.user-information-container {
   grid-column: 2;
-  grid-row: 1 / span 6;
+  grid-row: 3 / span 6;
+  display: flex;
+  gap: 1rem;
 }
 
 // Social Media (Grid Item)
-.user-social-media {
+.user-social-media-container {
   width: 60%;
-  height: 100%;
   grid-column: 1;
   grid-row: 4;
 }
@@ -43,7 +40,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  box-shadow: 5px 10px 10px var(--crm-blue-100);
+  box-shadow: 0.2rem 0.5rem 0.5rem var(--crm-blue-100);
 }
 
 .user-avatar {
@@ -75,7 +72,7 @@
   opacity: 1;
 }
 
-.social-media-container {
+.social-media {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -100,4 +97,103 @@
 
 .user-fullname {
   font-size: var(--crm-fontSize-medium-l);
+}
+
+.contact-box, .personal-info-box {
+  width: 100%;
+  box-shadow: 0.1rem 0.2rem 0.5rem rgba(0, 0, 0, 0.5);
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+}
+
+// INNER GRID
+.contact-inner-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  height: 100%;
+  width: 100%;
+}
+
+.user-home-phone {
+  grid-column: 1;
+  grid-row: 1;
+}
+.user-work-phone {
+  grid-column: 2;
+  grid-row: 1;
+}
+.user-mobile-phone {
+  grid-column: 3;
+  grid-row: 1;
+}
+.user-email {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+// INNER GRID
+.personal-info-inner-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  height: 100%;
+  width: 100%;
+}
+
+.title-align {
+  text-align: left;
+  font-size: var(--crm-fontSize-medium-l);
+  margin-bottom: 1rem;
+  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: bold;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+::ng-deep .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background {
+  background-color: green !important;
+}
+
+@media screen and (max-width: 1350px) {
+  .inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2%;
+  }
+
+  // Avatar (Grid Item)
+.avatar-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+// User Information (Grid Item)
+.user-information-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 90%;
+}
+
+// Social Media (Grid Item)
+.user-social-media-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%
+}
 }

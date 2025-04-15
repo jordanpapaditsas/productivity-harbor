@@ -1,0 +1,12 @@
+.ph-textbox {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 2px 2px 8px rgba(17, 17, 17);
+  border: none;
+
+  &:focus-within {
+    outline: 0.2rem solid var(--crm-blue-100);
+  }
+}
+
+

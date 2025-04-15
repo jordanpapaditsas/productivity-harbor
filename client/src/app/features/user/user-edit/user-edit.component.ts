@@ -7,6 +7,7 @@ import {
   input,
   OnInit,
   output,
+  signal,
   ViewChild,
 } from '@angular/core';
 import { Guid } from 'guid-typescript';
@@ -16,6 +17,10 @@ import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-too
 import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
+import { MatLabel } from '@angular/material/input';
 
 @Component({
   selector: 'app-user-edit',
@@ -26,6 +31,10 @@ import { CommonModule } from '@angular/common';
     PhContainerComponent,
     MatIconModule,
     CommonModule,
+    PhTextBoxComponent,
+    MatCheckboxModule,
+    FormsModule,
+    MatLabel,
   ],
 })
 export class UserEditComponent implements OnInit {
@@ -34,6 +43,9 @@ export class UserEditComponent implements OnInit {
   private userService = inject(UserService);
   user!: UserDto;
   newUserTitle!: string;
+  contactTitle: string = 'Contact';
+  personalInfoTitle: string = 'Personal Info';
+  isInEditMode = signal<boolean>(false);
 
   exitScreen = output<EventEmitter<void>>();
 
