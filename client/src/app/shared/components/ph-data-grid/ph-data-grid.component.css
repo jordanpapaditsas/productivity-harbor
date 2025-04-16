@@ -1,5 +1,5 @@
 .ph-data-grid-toolbar {
-  background-color: var(--crm-blue-50);
+  background-color: var(--ph-blue-50);
   display: flex;
   flex-direction: row-reverse;
   width: 100%;

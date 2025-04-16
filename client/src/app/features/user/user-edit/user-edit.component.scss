@@ -65,7 +65,7 @@
   transition: opacity 0.3s ease;
   border-radius: 50%;
   cursor: pointer;
-  font-size: var(--crm-fontSize-large);
+  font-size: var(--ph-fontSize-large);
 }
 
 .user-avatar-wrapper:hover, .user-avatar-overlay:hover {
@@ -80,7 +80,7 @@
 }
 
 .sm-icon {
-  font-size: var(--crm-fontSize-medium-l);
+  font-size: var(--ph-fontSize-medium-l);
 }
 
 .fa-brands.fa-facebook {
@@ -96,7 +96,7 @@
 }
 
 .user-fullname {
-  font-size: var(--crm-fontSize-medium-l);
+  font-size: var(--ph-fontSize-medium-l);
 }
 
 .contact-box, .personal-info-box {
@@ -143,7 +143,7 @@
 
 .title-align {
   text-align: left;
-  font-size: var(--crm-fontSize-medium-l);
+  font-size: var(--ph-fontSize-medium-l);
   margin-bottom: 1rem;
   box-shadow: 1px 1px 1px 0px var(--ph-dark);
 }

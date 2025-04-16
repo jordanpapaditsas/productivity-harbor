@@ -9,7 +9,7 @@
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  border-top: 1.5rem solid var(--crm-blue-200)
+  border-top: 1.5rem solid var(--ph-blue-200)
 }
 
 .ph-warning {
@@ -25,13 +25,13 @@
 .title-text {
   text-align: center;
   width: 100%;
-  font-size: var(--crm-fontSize-medium-l);
+  font-size: var(--ph-fontSize-medium-l);
 }
 
 .popup-message {
   width: 100%;
   text-align: center;
-  font-size: var(--crm-fontSize-medium);
+  font-size: var(--ph-fontSize-medium);
 }
 
 .action-buttons-container {
