@@ -15,7 +15,7 @@
   width: 95%;
   grid-column: 1;
   grid-row: 2;
-  box-shadow: 0 0.5rem 1rem 1rem #27272733;
+  box-shadow: 0 0.5rem 1rem 1rem var(--ph-lightdark);
   border-radius: 0.5rem;
 }
 
@@ -40,7 +40,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  box-shadow: 0.2rem 0.5rem 0.5rem var(--crm-blue-100);
+  box-shadow: 0.2rem 0.5rem 0.5rem var(--ph-blue-200);
 }
 
 .user-avatar {
@@ -51,16 +51,16 @@
 }
 
 .user-avatar-overlay {
+  color: var(--ph-light);
+  background-color: var(--ph-shadow);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   opacity: 0;
   transition: opacity 0.3s ease;
   border-radius: 50%;
@@ -80,19 +80,19 @@
 }
 
 .sm-icon {
-  font-size: 1.6rem;
+  font-size: var(--crm-fontSize-medium-l);
 }
 
 .fa-brands.fa-facebook {
-  color: rgb(60, 100, 175);
+  color: var(--ph-blue-150);
 }
 
 .fa-brands.fa-instagram {
-  color: #E4405F;
+  color: var(--ph-red-100);
 }
 
 .fa-brands.fa-linkedin {
-  color: rgb(60, 100, 175);
+  color: var(--ph-blue-150);
 }
 
 .user-fullname {
@@ -101,7 +101,7 @@
 
 .contact-box, .personal-info-box {
   width: 100%;
-  box-shadow: 0.1rem 0.2rem 0.5rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0.1rem 0.2rem 0.5rem var(--ph-dark);
   padding: 0.7rem;
   border-radius: 0.5rem;
 }
@@ -145,7 +145,7 @@
   text-align: left;
   font-size: var(--crm-fontSize-medium-l);
   margin-bottom: 1rem;
-  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 1px 0px var(--ph-dark);
 }
 
 .flex-column {
@@ -162,7 +162,7 @@
 }
 
 ::ng-deep .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background {
-  background-color: green !important;
+  background-color: var(--ph-success) !important;
 }
 
 @media screen and (max-width: 1350px) {

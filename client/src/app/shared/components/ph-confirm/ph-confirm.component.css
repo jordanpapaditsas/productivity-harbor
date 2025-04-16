@@ -13,13 +13,13 @@
 }
 
 .ph-warning {
-  border-top: 1.5rem solid orange;
+  border-top: 1.5rem solid var(--ph-warning);
 }
 .ph-danger {
-  border-top: 1.5rem solid red;
+  border-top: 1.5rem solid var(--ph-danger);
 }
 .ph-passive {
-  border-top: 1.5rem solid var(--crm-blue-200)
+  border-top: 1.5rem solid (var(--ph-passive))
 }
 
 .title-text {
@@ -42,16 +42,16 @@
 }
 
 .confirm-btn {
-  background-color: green;
-  color: white;
+  background-color: var(--ph-success);
+  color: var(--ph-light);
   border: none;
   padding: 0.5rem;
   border-radius: 0.5rem;
   width: 4rem;
 }
 .cancel-btn {
-  background-color: red;
-  color: white;
+  background-color: var(--ph-danger);
+  color: var(--ph-light);
   border: none;
   padding: 0.5rem;
   border-radius: 0.5rem;

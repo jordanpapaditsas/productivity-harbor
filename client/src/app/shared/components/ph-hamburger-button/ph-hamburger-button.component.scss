@@ -1,6 +1,6 @@
 $width: 24px;
 $barHeight: 1px;
-$barColor: #0f0f0f;
+$barColor: var(--ph-dark);;
 
 .menu {
   padding-right: 1rem;

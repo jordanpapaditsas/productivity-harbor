@@ -1,5 +1,5 @@
 .header-container {
-  background: #ffffff;
+  background: var(--ph-light);
   background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%,
     rgba(132, 164, 196, 1) 11%, rgba(86, 134, 176, 1) 20%,
     rgba(54, 115, 158, 1) 31%, rgba(38, 102, 150, 1) 41%,
@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1rem;
+  font-size: var(--ph-fontSize-normal);
   height: 9%;
 }
 

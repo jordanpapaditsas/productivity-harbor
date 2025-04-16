@@ -6,6 +6,6 @@
 }
 
 .copyright-text {
-  color: black;
-  font-size: 0.9rem;
+  color: var(--ph-dark);
+  font-size: var(--ph-fontSize-normal)
 }

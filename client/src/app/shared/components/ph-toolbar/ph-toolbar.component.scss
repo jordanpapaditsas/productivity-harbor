@@ -9,9 +9,9 @@
 
   & mat-icon:hover {
     cursor: pointer;
-    background-color: rgb(0, 0, 0);
+    background-color: var(--ph-dark);
     border-radius: 0.5rem;
-    color: white;
+    color: var(--ph-light);
   }
 }
 
@@ -21,7 +21,7 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   padding: 0;
-  background: #ffffff;
+  background: var(--ph-light);
   background: linear-gradient(90deg, rgb(123, 154, 199) 0%,
     rgba(132, 164, 196, 1) 11%, rgb(111, 154, 192) 20%,
     rgba(54, 115, 158, 1) 31%, rgba(38, 102, 150, 1) 41%,
@@ -29,16 +29,15 @@
     rgba(31, 85, 143, 1) 81%, rgba(31, 85, 143, 1) 93%);
 
   & mat-icon {
-    color: white;
+    color: var(--ph-light);
   }
   & .ph-toolbar-title {
-    color: white;
+    color: var(--ph-light);
   }
   & mat-icon:hover {
-    color: black;
+    color: var(--ph-dark);;
     cursor: pointer;
   }
-
 }
 
 .ph-toolbar-title {

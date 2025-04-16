@@ -4,8 +4,8 @@
 
 .ph-sidenav {
   width: 16rem;
-  box-shadow: 0 0 27px 0 rgba(159, 170, 172, 0.52);
-  border: 1px solid rgba(0,0,0,.05);
+  box-shadow: 0 0 27px 0 var(--ph-lightdark);
+  border: 1px solid var(--ph-lightgray);
   z-index: 1 !important;
 
   &.collapsed {

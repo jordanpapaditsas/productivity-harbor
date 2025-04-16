@@ -1,17 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
 :root {
-  --crm-blue-20: #BFD4E7;
-  --crm-blue-50: #80A9D1;
-  --crm-blue-100: #547ca5;
-  --crm-blue-200: #064788;
-  --crm-blue-300: #043a70;
-  --crm-blue-400: #063869;
-  --crm-blue-500: #022344;
-  --crm-fontSize-small: 0.5rem;
-  --crm-fontSize-normal: 1rem;
-  --crm-fontSize-medium: 1.2rem;
-  --crm-fontSize-medium-l: 1.5rem;
-  --crm-fontSize-large: 2rem;
+  // BLUE
+  --ph-blue-20: #BFD4E7;
+  --ph-blue-50: #80A9D1;
+  --ph-blue-100: #6495ed;
+  --ph-blue-150: #3881ca;
+  --ph-blue-200: #064788;
+  --ph-blue-300: #043a70;
+  --ph-blue-400: #033669;
+  --ph-blue-500: #022344;
+
+  // RED
+  --ph-red-100: #E4405F;
+
+  // LIGHT & DARK
+  --ph-light: #ffffff;
+  --ph-lightgray: #cccccc;
+  --ph-gray: #a09e9e;
+  --ph-lightdark: #636363;
+  --ph-shadow: #00000080;
+  --ph-dark: #000000;
+
+  // BUTTONS
+  --ph-confirm: #057c05;
+  --ph-cancel: #99100b;
+
+  //ALERT BORDERS
+  --ph-success: #0a910a;
+  --ph-passive: #1659bd;
+  --ph-warning: #db9004;
+  --ph-danger: #cf0404;
+
+  // FONTS
+  --ph-fontSize-small: 0.5rem;
+  --ph-fontSize-normal: 1rem;
+  --ph-fontSize-medium: 1.2rem;
+  --ph-fontSize-medium-l: 1.5rem;
+  --ph-fontSize-large: 2rem;
 }
 
 html, body {

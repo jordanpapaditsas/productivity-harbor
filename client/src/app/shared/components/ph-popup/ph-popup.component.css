@@ -7,7 +7,7 @@
   align-items: center;
 }
 .ph-popup-content {
-  background: white;
+  background: var(--ph-light);
   max-height: 100vh;
   overflow-y: auto;
   max-width: 100vw;
@@ -18,7 +18,7 @@
 .ph-popup-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--ph-dark);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,15 +29,4 @@
   text-align: center;
   font-size: var(--crm-fontSize-medium-l);
 }
-/* OLD CSS */
-/* .popup-content {
-  background: white;
-  border-radius: 0.8rem;
-  padding: 1.5rem;
-  max-height: 90vh;
-  overflow-y: auto;
-  max-width: 95vw;
-  width: 100%;
-  box-shadow: 0 0.3rem 1.7rem rgba(0, 0, 0, 0.2);
-  position: relative;
-} */
+
