@@ -1,51 +1,94 @@
-@use "@angular/material" as mat;
-
-:root {
-  // BLUE
-  --ph-blue-20: #BFD4E7;
-  --ph-blue-50: #80A9D1;
-  --ph-blue-100: #6495ed;
-  --ph-blue-150: #3881ca;
-  --ph-blue-200: #064788;
-  --ph-blue-300: #043a70;
-  --ph-blue-400: #033669;
-  --ph-blue-500: #022344;
-
-  // RED
-  --ph-red-100: #E4405F;
-
-  // LIGHT & DARK
-  --ph-light: #ffffff;
-  --ph-lightgray: #cccccc;
-  --ph-gray: #a09e9e;
-  --ph-lightdark: #636363;
-  --ph-shadow: #00000080;
-  --ph-dark: #000000;
-
-  // BUTTONS
-  --ph-confirm: #057c05;
-  --ph-cancel: #99100b;
-
-  //ALERT BORDERS
-  --ph-success: #0a910a;
-  --ph-passive: #1659bd;
-  --ph-warning: #db9004;
-  --ph-danger: #cf0404;
-
-  // FONTS
-  --ph-fontSize-small: 0.5rem;
-  --ph-fontSize-normal: 1rem;
-  --ph-fontSize-medium: 1.2rem;
-  --ph-fontSize-medium-l: 1.5rem;
-  --ph-fontSize-large: 2rem;
-}
-
 html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   height: 100vh;
   width: 100vw;
+  scroll-behavior: smooth;
+}
+
+:root {
+  // Light Mode
+  --ph-text-lightMode: hsl(0, 0%, 6%);
+  --ph-iconLight-lightMode: hsl(0, 0%, 98%);
+  --ph-iconDark-lightMode: hsl(0, 2%, 12%);
+  --ph-background1-lightMode: hsl(0, 0%, 100%);
+  --ph-background2-lightMode: hsl(0, 0%, 89%);
+  --ph-header-lightMode: linear-gradient(to bottom, hsl(199, 55%, 58%), hsl(199, 54%, 43%), hsl(197, 72%, 31%));
+  --ph-footer-lightMode: hsl(0, 0%, 100%);
+  --ph-sideNav-lightMode: hsl(0, 7%, 92%);
+  --ph-success-lightMode: hsl(118, 92%, 31%);
+  --ph-passive-lightMode: hsl(202, 70%, 40%);
+  --ph-warning-lightMode: hsl(40, 70%, 49%);
+  --ph-danger-lightMode: hsl(0, 76%, 36%);
+  --ph-shadow-lightMode: 20px 20px 50px hsl(255, 36%, 17%, .35),
+  -30px -30px 50px hsl(26, 37%, 96%, .15);
+
+  //Dark Mode
+  --ph-text-darkMode: hsl(0, 4%, 95%);
+  --ph-iconLight-darkMode: hsl(0, 0%, 98%);
+  --ph-iconDark-darkMode: hsl(0, 2%, 12%);
+  --ph-background1-darkMode: hsl(0, 0%, 6%);
+  --ph-background2-darkMode: hsla(0, 2%, 11%, 0.329);
+  --ph-header-darkMode: linear-gradient(to bottom, hsl(199, 55%, 58%), hsl(199, 54%, 43%), hsl(197, 72%, 31%));
+  --ph-footer-darkMode: hsl(0, 0%, 2%);
+  --ph-sideNav-darkMode: hsl(0, 0%, 7%);
+  --ph-success-darkMode: hsl(118, 92%, 31%);
+  --ph-passive-darkMode: hsl(202, 70%, 40%);
+  --ph-warning-darkMode: hsl(40, 70%, 49%);
+  --ph-danger-darkMode: hsl(0, 76%, 36%);
+  --ph-shadow-darkMode: 20px 20px 50px hsla(300, 1%, 77%, 0.35),
+  -30px -30px 50px hsla(30, 8%, 95%, 0.15);
+
+  // Font Sizes
+  --ph-fontSize-xsmall: 0.5rem;
+  --ph-fontSize-small: 0.8rem;
+  --ph-fontSize-normal: 1rem;
+  --ph-fontSize-medium: 1.2rem;
+  --ph-fontSize-large: 1.5rem;
+  --ph-fontSize-xlarge: 2rem;
 }
 
 
+
+
+// OLD CSS
+// :root {
+//   // BLUE
+//   --ph-blue-20: #BFD4E7;
+//   --ph-blue-50: #80A9D1;
+//   --ph-blue-100: #6495ed;
+//   --ph-blue-150: #3881ca;
+//   --ph-blue-200: #064788;
+//   --ph-blue-300: #043a70;
+//   --ph-blue-400: #033669;
+//   --ph-blue-500: #022344;
+
+//   // RED
+//   --ph-red-100: #E4405F;
+
+//   // LIGHT & DARK
+//   --ph-light: #ffffff;
+//   --ph-lightgray: #cccccc;
+//   --ph-gray: #a09e9e;
+//   --ph-lightdark: #636363;
+//   --ph-shadow: #00000080;
+//   --ph-dark: #000000;
+
+//   // BUTTONS
+//   --ph-confirm: #057c05;
+//   --ph-cancel: #99100b;
+
+//   //ALERT BORDERS
+//   --ph-success: #0a910a;
+//   --ph-passive: #1659bd;
+//   --ph-warning: #db9004;
+//   --ph-danger: #cf0404;
+
+//   // FONTS
+//   --ph-fontSize-small: 0.5rem;
+//   --ph-fontSize-normal: 1rem;
+//   --ph-fontSize-medium: 1.2rem;
+//   --ph-fontSize-medium-l: 1.5rem;
+//   --ph-fontSize-large: 2rem;
+// }
