@@ -134,41 +134,6 @@ namespace ProductivityHarborApi.Controllers
                 user.Address = userDto.Address;
                 user.Country = userDto.Country;
 
-                // Need to fix it after i create the social media table in angular
-                //var userSocialMedia = await _context.UserSocialMediaLinksMap.Where(x => x.UserId == user.Id).ToListAsync();
-                
-                //if (userSocialMedia.Count > 0 && userDto.UserSocialMediaLinksMap.Count > 0)
-                //{
-                //    foreach(var item in userDto.SocialMediaLinks)
-                //    {
-                //        var dtoSocialMedia = userSocialMedia.FirstOrDefault(x => x.Id == item.Id && x.UserId == item.UserId);
-
-                //        foreach(var socialMedia in userSocialMedia)
-                //        {
-                //            if (dtoSocialMedia != null)
-                //            {
-                //                socialMedia.Icon = dtoSocialMedia.Icon;
-                //                socialMedia.Url = dtoSocialMedia.Url;
-                //                socialMedia.Name = dtoSocialMedia.Name;
-
-                //            }     
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //   foreach(var item in userDto.SocialMediaLinks)
-                //    {
-                //        var socialMedia = new SocialMedia();
-                //        socialMedia.UserId = actionUser?.Id;
-                //        socialMedia.Url = item.Url;
-                //        socialMedia.Name = item.Name;
-                //        socialMedia.Icon = item.Icon;
-
-                //        _context.SocialMediaLinks.Add(socialMedia);
-                //    } 
-                //}
-
                 _context.Users.Attach(user);
                 _context.Entry(user).State = EntityState.Modified;
                 _context.Entry(user).Reference(u => u.Phone).TargetEntry.State = EntityState.Modified;
