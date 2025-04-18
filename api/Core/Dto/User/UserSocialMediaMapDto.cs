@@ -5,5 +5,7 @@
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public Guid SocialMediaId { get; set; }
+        public string Url { get; set; } = string.Empty;
+
     }
 }

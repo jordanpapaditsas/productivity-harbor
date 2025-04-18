@@ -52,7 +52,6 @@ namespace ProductivityHarborApi.Controllers
 
             if (socialMediaDto != null) 
             {
-                socialMedia.Url = socialMediaDto.Url;
                 socialMedia.Icon = socialMediaDto.Icon;
                 socialMedia.Name = socialMediaDto.Name;
                 socialMedia.CreatedByUserId = actionUser?.Id;
@@ -76,7 +75,6 @@ namespace ProductivityHarborApi.Controllers
             }
             else
             {
-                socialMedia.Url = socialMediaDto.Url;
                 socialMedia.Icon = socialMediaDto.Icon;
                 socialMedia.Name = socialMediaDto.Name;
                 socialMedia.UpdatedByUserId = actionUser?.Id;
