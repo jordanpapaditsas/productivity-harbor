@@ -31,10 +31,10 @@ namespace ProductivityHarborApi.Controllers
             return Ok(socialMedia);
         }
 
-        [HttpGet("getSocialMediaByUserId/{userId}")]
-        public async Task<IActionResult> GetSocialMediaByUserId(Guid userId)
+        [HttpGet("getSocialMediaById/{id}")]
+        public async Task<IActionResult> GetSocialMediaByUserId(Guid id)
         {
-            var socialMedia = await _context.SocialMediaLinks.Where(x => x.UserId == userId).ToListAsync();
+            var socialMedia = await _context.SocialMediaLinks.FirstOrDefaultAsync(x => x.Id == id);
 
             if (socialMedia == null)
             {
@@ -55,7 +55,6 @@ namespace ProductivityHarborApi.Controllers
                 socialMedia.Url = socialMediaDto.Url;
                 socialMedia.Icon = socialMediaDto.Icon;
                 socialMedia.Name = socialMediaDto.Name;
-                socialMedia.UserId = socialMediaDto.UserId;
                 socialMedia.CreatedByUserId = actionUser?.Id;
             }
 
@@ -80,7 +79,6 @@ namespace ProductivityHarborApi.Controllers
                 socialMedia.Url = socialMediaDto.Url;
                 socialMedia.Icon = socialMediaDto.Icon;
                 socialMedia.Name = socialMediaDto.Name;
-                socialMedia.UserId = socialMediaDto.UserId;
                 socialMedia.UpdatedByUserId = actionUser?.Id;
             }
 

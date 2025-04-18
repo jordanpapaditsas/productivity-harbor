@@ -21,6 +21,7 @@ import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-te
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatLabel } from '@angular/material/input';
+import { SocialMediaDto } from '../../../core/dto/user/social-media.dto';
 
 @Component({
   selector: 'app-user-edit',
@@ -46,6 +47,7 @@ export class UserEditComponent implements OnInit {
   contactTitle: string = 'Contact';
   personalInfoTitle: string = 'Personal Info';
   isInEditMode = signal<boolean>(false);
+  socialMedia = signal<SocialMediaDto[]>([]);
 
   exitScreen = output<EventEmitter<void>>();
 

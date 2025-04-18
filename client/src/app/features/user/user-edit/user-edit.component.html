@@ -11,65 +11,71 @@
 <ph-container>
   <div class="main-container">
     <div class="left-side-container">
-      <div class="flexbox-center">
-        <!-- Avatar -->
-        <div
-          [style.box-shadow]="
-            user.Color ? '0.2rem 0.5rem 0.5rem ' + user.Color : ''
-          "
-          class="user-avatar-wrapper"
-          (click)="triggerAvatarUpload()"
-        >
-          <img
-            *ngIf="user.Avatar"
-            [src]="user.Avatar"
-            alt="User Avatar"
-            class="user-avatar"
-          />
-          <img
-            *ngIf="!user.Avatar"
-            src="/assets/images/user-avatar-placeholder.jpg"
-            alt="User Avatar"
-            class="user-avatar"
-          />
-          <div class="user-avatar-overlay">
-            <i class="fa-solid fa-camera"></i>
+      <div class="avatar-container">
+        <div class="flexbox-center">
+          <!-- Avatar -->
+          <div
+            [style.box-shadow]="
+              user.Color ? '0.2rem 0.5rem 0.5rem ' + user.Color : ''
+            "
+            class="user-avatar-wrapper"
+            (click)="triggerAvatarUpload()"
+          >
+            <img
+              *ngIf="user.Avatar"
+              [src]="user.Avatar"
+              alt="User Avatar"
+              class="user-avatar"
+            />
+            <img
+              *ngIf="!user.Avatar"
+              src="/assets/images/user-avatar-placeholder.jpg"
+              alt="User Avatar"
+              class="user-avatar"
+            />
+            <div class="user-avatar-overlay">
+              <i class="fa-solid fa-camera"></i>
+            </div>
           </div>
+
+          @if (!isInEditMode()) {
+          <div class="user-fullname">{{ user.FullName }}</div>
+          } @else {
+          <div class="flexbox-column">
+            <mat-label>Full Name</mat-label>
+            <ph-text-box [value]="user.FullName"></ph-text-box>
+          </div>
+
+          }
         </div>
 
-        @if (!isInEditMode()) {
-        <div class="user-fullname">{{ user.FullName }}</div>
-        } @else {
-        <div class="flexbox-column">
-          <mat-label>Full Name</mat-label>
-          <ph-text-box [value]="user.FullName"></ph-text-box>
+        <div class="flexbox-center">
+          <mat-label>Color</mat-label>
+          <input
+            type="color"
+            [value]="user.Color"
+            (change)="onColorChange($event)"
+            id="Color"
+            name="Color"
+          />
         </div>
-
-        }
-      </div>
-
-      <div class="flexbox-center">
-        <mat-label>Color</mat-label>
+        <div class="flexbox-center">
+          <mat-label>Active</mat-label>
+          <mat-checkbox [(ngModel)]="user.IsActive"></mat-checkbox>
+        </div>
         <input
-          type="color"
-          [value]="user.Color"
-          (change)="onColorChange($event)"
-          id="Color"
-          name="Color"
+          #fileInput
+          type="file"
+          accept="image/*"
+          style="display: none"
+          (change)="onAvatarChange($event)"
+          [disabled]="false"
         />
       </div>
-      <div class="flexbox-center">
-        <mat-label>Active</mat-label>
-        <mat-checkbox [(ngModel)]="user.IsActive"></mat-checkbox>
+
+      <div class="social-media-container">
+        {{ socialMedia() }}
       </div>
-      <input
-        #fileInput
-        type="file"
-        accept="image/*"
-        style="display: none"
-        (change)="onAvatarChange($event)"
-        [disabled]="false"
-      />
     </div>
 
     <div class="right-side-container">

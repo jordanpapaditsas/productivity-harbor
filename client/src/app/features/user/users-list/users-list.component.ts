@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { UserDto } from '../../../core/dto/user/user.dto';
@@ -7,6 +7,7 @@ import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-
 import { Column } from '../../../core/interfaces/column';
 import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
 import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
+import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
 
 @Component({
   selector: 'app-users-list',
@@ -17,10 +18,12 @@ import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-te
     PhDataGridComponent,
     CommonModule,
     PhContainerComponent,
+    PhToolbarComponent,
   ],
 })
 export class UsersListComponent implements OnInit {
   @ViewChild('usersGrid') usersGrid!: PhDataGridComponent;
+  title = signal<string>('Users');
   usersDataSource: any;
   user: UserDto = new UserDto();
   columns: Array<Column> = [];

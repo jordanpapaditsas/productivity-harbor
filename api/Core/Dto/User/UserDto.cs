@@ -23,6 +23,6 @@ namespace ProductivityHarborApi.Core.Dto.User
         public string? Portfolio { get; set; }
         public Phone? Phone { get; set; }
         public Address? Address { get; set; }
-        public List<SocialMedia> SocialMediaLinks { get; set; } = new List<SocialMedia>();
+        public List<UserSocialMediaMap> UserSocialMediaLinksMap { get; set; } = new List<UserSocialMediaMap>();
     }
 }

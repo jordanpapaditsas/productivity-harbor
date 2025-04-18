@@ -31,7 +31,7 @@ namespace ProductivityHarborApi.Controllers
         [HttpGet("getUserById/{userId}")]
         public async Task<IActionResult> GetUserById(Guid userId)
         {
-            var user = await _context.Users.Include(x => x.SocialMediaLinks).FirstOrDefaultAsync(x => x.Id == userId);
+            var user = await _context.Users.Include(x => x.UserSocialMediaLinksMap).FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user == null)
             {
@@ -64,12 +64,12 @@ namespace ProductivityHarborApi.Controllers
                 },
                 Country = user.Country,
                 BirthDate = user.BirthDate,
-                SocialMediaLinks = user.SocialMediaLinks.Select(link => new SocialMedia
-                {
-                    Url = link.Url,
-                    Icon = link.Icon,
-                    Name = link.Name
-                }).ToList()
+                //SocialMediaLinks = user.UserSocialMediaLinksMap.Select(link => new SocialMedia
+                //{
+                //    Url = link.Url,
+                //    Icon = link.Icon,
+                //    Name = link.Name
+                //}).ToList()
             };
 
             return Ok(dto);
@@ -92,7 +92,7 @@ namespace ProductivityHarborApi.Controllers
                 user.IsActive = userDto.IsActive;
                 user.IsDeleted = userDto.IsDeleted;
                 user.Token = userDto.Token;
-                user.SocialMediaLinks = userDto.SocialMediaLinks;
+                user.UserSocialMediaLinksMap = userDto.UserSocialMediaLinksMap;
                 user.Color = userDto.Color;
                 user.Portfolio = userDto.Portfolio;
                 user.BirthDate = userDto.BirthDate;
@@ -111,7 +111,7 @@ namespace ProductivityHarborApi.Controllers
         public async Task<IActionResult> UpdateUser(UserDto userDto)
         {
             var actionUser = await _userManager.GetUserAsync(User);
-            var user = await _context.Users.AsNoTracking().Include(x => x.SocialMediaLinks).FirstOrDefaultAsync(x => x.Id == userDto.Id);
+            var user = await _context.Users.AsNoTracking().Include(x => x.UserSocialMediaLinksMap).FirstOrDefaultAsync(x => x.Id == userDto.Id);
 
             if (user == null)
             {
@@ -135,39 +135,39 @@ namespace ProductivityHarborApi.Controllers
                 user.Country = userDto.Country;
 
                 // Need to fix it after i create the social media table in angular
-                var userSocialMedia = await _context.SocialMediaLinks.Where(x => x.UserId == user.Id).ToListAsync();
+                //var userSocialMedia = await _context.UserSocialMediaLinksMap.Where(x => x.UserId == user.Id).ToListAsync();
                 
-                if (userSocialMedia.Count > 0 && userDto.SocialMediaLinks.Count > 0)
-                {
-                    foreach(var item in userDto.SocialMediaLinks)
-                    {
-                        var dtoSocialMedia = userSocialMedia.FirstOrDefault(x => x.Id == item.Id && x.UserId == item.UserId);
+                //if (userSocialMedia.Count > 0 && userDto.UserSocialMediaLinksMap.Count > 0)
+                //{
+                //    foreach(var item in userDto.SocialMediaLinks)
+                //    {
+                //        var dtoSocialMedia = userSocialMedia.FirstOrDefault(x => x.Id == item.Id && x.UserId == item.UserId);
 
-                        foreach(var socialMedia in userSocialMedia)
-                        {
-                            if (dtoSocialMedia != null)
-                            {
-                                socialMedia.Icon = dtoSocialMedia.Icon;
-                                socialMedia.Url = dtoSocialMedia.Url;
-                                socialMedia.Name = dtoSocialMedia.Name;
+                //        foreach(var socialMedia in userSocialMedia)
+                //        {
+                //            if (dtoSocialMedia != null)
+                //            {
+                //                socialMedia.Icon = dtoSocialMedia.Icon;
+                //                socialMedia.Url = dtoSocialMedia.Url;
+                //                socialMedia.Name = dtoSocialMedia.Name;
 
-                            }     
-                        }
-                    }
-                }
-                else
-                {
-                   foreach(var item in userDto.SocialMediaLinks)
-                    {
-                        var socialMedia = new SocialMedia();
-                        socialMedia.UserId = actionUser?.Id;
-                        socialMedia.Url = item.Url;
-                        socialMedia.Name = item.Name;
-                        socialMedia.Icon = item.Icon;
+                //            }     
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //   foreach(var item in userDto.SocialMediaLinks)
+                //    {
+                //        var socialMedia = new SocialMedia();
+                //        socialMedia.UserId = actionUser?.Id;
+                //        socialMedia.Url = item.Url;
+                //        socialMedia.Name = item.Name;
+                //        socialMedia.Icon = item.Icon;
 
-                        _context.SocialMediaLinks.Add(socialMedia);
-                    } 
-                }
+                //        _context.SocialMediaLinks.Add(socialMedia);
+                //    } 
+                //}
 
                 _context.Users.Attach(user);
                 _context.Entry(user).State = EntityState.Modified;
