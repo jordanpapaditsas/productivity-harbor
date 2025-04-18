@@ -117,6 +117,11 @@ export class SideNavComponent implements OnInit {
             label: 'Users',
             route: 'users-list',
           },
+          {
+            icon: 'supervised_user_circle',
+            label: 'Social Media',
+            route: 'social-media',
+          },
         ],
       },
     ]);

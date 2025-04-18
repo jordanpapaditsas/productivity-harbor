@@ -1,5 +1,5 @@
 import { Guid } from 'guid-typescript';
-import { SocialMedia } from './social-media.dto';
+import { SocialMediaDto } from './social-media.dto';
 import { Address } from '../../interfaces/address';
 import { Phone } from '../../interfaces/phone';
 
@@ -18,7 +18,7 @@ export class UserDto {
   UpdatedAt?: Date | string | number;
   UpdatedByUserId?: Guid;
   Color?: string;
-  SocialMediaLinks: SocialMedia[] = [];
+  SocialMediaLinks: SocialMediaDto[] = [];
   Phone: Phone | undefined | null;
   Address: Address | undefined | null;
   Portfolio?: string;

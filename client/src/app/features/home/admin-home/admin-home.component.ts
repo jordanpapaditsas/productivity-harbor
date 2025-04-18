@@ -23,7 +23,7 @@ export class AdminHomeComponent implements OnInit {
 
   constructor() {
     this.user.Id = Guid.parse('eed6a6a2-09a2-4d3f-8163-87be46c9ac57');
-    this.isUserEditVisible = true;
+    this.isUserEditVisible = false;
   }
 
   ngOnInit() {}

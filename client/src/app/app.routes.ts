@@ -41,4 +41,11 @@ export const routes: Routes = [
         (m) => m.UserEditComponent
       ),
   },
+  {
+    path: 'social-media',
+    loadComponent: () =>
+      import('./features/settings/social-media/social-media.component').then(
+        (m) => m.SocialMediaComponent
+      ),
+  },
 ];

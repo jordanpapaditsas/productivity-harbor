@@ -1,6 +1,6 @@
 import { Guid } from 'guid-typescript';
 
-export class SocialMedia {
+export class SocialMediaDto {
   Id!: Guid | undefined;
   Url!: string;
   Name!: string;

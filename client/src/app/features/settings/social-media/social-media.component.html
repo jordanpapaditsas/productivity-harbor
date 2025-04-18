@@ -1,0 +1,14 @@
+<ph-toolbar [title]="title()"></ph-toolbar>
+<ph-container>
+  <ph-data-grid
+    [dataSource]="dataSource"
+    [columns]="columns()"
+    [canInsert]="true"
+    [canEdit]="true"
+    [canDelete]="true"
+    (insertRow)="onInsertRow($event)"
+    (editRow)="onEditRow($event)"
+    (savedRow)="onSaveRow($event)"
+    (deleteRow)="onDeleteRow($event)"
+  ></ph-data-grid>
+</ph-container>
