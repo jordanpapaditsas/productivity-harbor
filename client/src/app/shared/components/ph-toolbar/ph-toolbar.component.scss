@@ -4,14 +4,16 @@
   grid-template-areas: "before center after";
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  box-shadow: 1rem 0.3rem 1rem var(--ph-blue-50);
+  box-shadow: 0.5rem 0.3rem 1rem var(--ph-toolbar);
+  background: var(--ph-background1);
+  color: var(--ph-text);
   padding: 0;
 
   & mat-icon:hover {
     cursor: pointer;
-    background-color: var(--ph-dark);
+    background: var(--ph-toolbarButton);
     border-radius: 0.5rem;
-    color: var(--ph-light);
+    color: var(--ph-toolbarButton);
   }
 }
 
@@ -21,21 +23,16 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   padding: 0;
-  background: var(--ph-light);
-  background: linear-gradient(90deg, rgb(123, 154, 199) 0%,
-    rgba(132, 164, 196, 1) 11%, rgb(111, 154, 192) 20%,
-    rgba(54, 115, 158, 1) 31%, rgba(38, 102, 150, 1) 41%,
-    rgb(53, 121, 160) 54%, rgb(60, 111, 158) 68%,
-    rgba(31, 85, 143, 1) 81%, rgba(31, 85, 143, 1) 93%);
-
+  background: var(--ph-header);
   & mat-icon {
-    color: var(--ph-light);
+    color: var(--ph-toolbarButton);
+    transition: transform 0.3s ease-in-out;
   }
   & .ph-toolbar-title {
-    color: var(--ph-light);
+    color: var(--ph-toolbarButton);
   }
   & mat-icon:hover {
-    color: var(--ph-dark);;
+    transform: scale(1.3);
     cursor: pointer;
   }
 }
@@ -64,7 +61,3 @@
   background: transparent;
 }
 
-/* Edit Mode */
-.ph-toolbar-edit {
-
-}

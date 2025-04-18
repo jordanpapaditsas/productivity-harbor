@@ -1,2 +1,13 @@
-.admin-home-container {
+.main-container {
+  background: var(--ph-background1);
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
+}
+
+.main-container ::-webkit-scrollbar {
+  display: none;
 }

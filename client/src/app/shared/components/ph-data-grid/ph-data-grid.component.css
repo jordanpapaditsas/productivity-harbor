@@ -1,5 +1,5 @@
 .ph-data-grid-toolbar {
-  background-color: var(--ph-blue-50);
+  background: var(--ph-header);
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
@@ -17,12 +17,15 @@
   border-collapse: collapse;
   max-width: 90%;
   height: 100%;
+  background: var(--ph-background1);
+  color: var(--ph-text);
 }
 
 .ph-data-grid-cell {
-  border: 1px solid var(--ph-dark);
   text-align: left;
-  padding: 0.5rem
+  padding: 0.5rem;
+  color: var(--ph-text);
+  border: 1px solid var(--ph-text);
 }
 
 .action-btns-container {
@@ -32,3 +35,15 @@
   gap: 2rem;
 }
 
+.mat-paginator {
+  background: var(--ph-background1);
+  color: var(--ph-text);
+}
+
+::ng-deep .mat-mdc-paginator-icon {
+	fill: var(--ph-text) !important;
+}
+
+::ng-deep .mat-mdc-select-trigger {
+  color: var(--ph-text) !important;
+}

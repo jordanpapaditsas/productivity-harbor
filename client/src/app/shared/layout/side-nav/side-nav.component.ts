@@ -74,11 +74,11 @@ export class SideNavComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private router: Router
   ) {
-    this.breakpointObserver
-      .observe([Breakpoints.Handset])
-      .subscribe((result) => {
-        this.mode = result.matches ? 'over' : 'side';
-      });
+    // this.breakpointObserver
+    //   .observe([Breakpoints.Handset])
+    //   .subscribe((result) => {
+    //     this.mode = result.matches ? 'over' : 'side';
+    //   });
   }
 
   ngOnInit() {

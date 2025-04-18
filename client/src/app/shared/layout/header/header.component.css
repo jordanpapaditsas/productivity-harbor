@@ -1,10 +1,6 @@
 .header-container {
-  background: var(--ph-light);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%,
-    rgba(132, 164, 196, 1) 11%, rgba(86, 134, 176, 1) 20%,
-    rgba(54, 115, 158, 1) 31%, rgba(38, 102, 150, 1) 41%,
-    rgba(31, 102, 143, 1) 54%, rgba(31, 89, 143, 1) 68%,
-    rgba(31, 85, 143, 1) 81%, rgba(31, 85, 143, 1) 93%);
+  background: var(--ph-header);
+  color: var(--ph-text);
   display: flex;
   align-items: center;
   justify-content: space-between;

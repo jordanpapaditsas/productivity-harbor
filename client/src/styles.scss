@@ -7,38 +7,47 @@ html, body {
   scroll-behavior: smooth;
 }
 
+
+
 :root {
   // Light Mode
-  --ph-text-lightMode: hsl(0, 0%, 6%);
-  --ph-iconLight-lightMode: hsl(0, 0%, 98%);
-  --ph-iconDark-lightMode: hsl(0, 2%, 12%);
-  --ph-background1-lightMode: hsl(0, 0%, 100%);
-  --ph-background2-lightMode: hsl(0, 0%, 89%);
-  --ph-header-lightMode: linear-gradient(to bottom, hsl(199, 55%, 58%), hsl(199, 54%, 43%), hsl(197, 72%, 31%));
-  --ph-footer-lightMode: hsl(0, 0%, 100%);
-  --ph-sideNav-lightMode: hsl(0, 7%, 92%);
-  --ph-success-lightMode: hsl(118, 92%, 31%);
-  --ph-passive-lightMode: hsl(202, 70%, 40%);
-  --ph-warning-lightMode: hsl(40, 70%, 49%);
-  --ph-danger-lightMode: hsl(0, 76%, 36%);
-  --ph-shadow-lightMode: 20px 20px 50px hsl(255, 36%, 17%, .35),
-  -30px -30px 50px hsl(26, 37%, 96%, .15);
+  --ph-mainColor-light: hsl(202, 66%, 38%);
+  --ph-text-light: hsl(0, 0%, 6%);
+  --ph-icon-light: hsl(0, 2%, 11%);
+  --ph-background1-light: hsl(0, 0%, 100%);
+  --ph-background2-light: hsl(0, 0%, 89%);
+  --ph-header-light: linear-gradient(to right, hsl(198, 25%, 64%), hsl(199, 62%, 34%), hsl(204, 81%, 27%));
+  --ph-toolbar-light: hsl(0, 1%, 30%);
+  --ph-footer-light: hsl(0, 0%, 100%);
+  --ph-sideNav-light: hsl(0, 33%, 98%);
+  --ph-success-light: hsl(118, 92%, 31%);
+  --ph-passive-light: hsl(202, 70%, 40%);
+  --ph-warning-light: hsl(40, 70%, 49%);
+  --ph-danger-light: hsl(0, 76%, 36%);
+  --ph-shadow-light: hsla(0, 2%, 68%, 0.808);
+  --ph-deepShadow-light: hsla(0, 0%, 3%, 0.521);
+  --ph-instagram-light: hsl(349, 75%, 57%);
+  --ph-toolbarButton-light: hsl(0, 0%, 100%);
+
 
   //Dark Mode
-  --ph-text-darkMode: hsl(0, 4%, 95%);
-  --ph-iconLight-darkMode: hsl(0, 0%, 98%);
-  --ph-iconDark-darkMode: hsl(0, 2%, 12%);
-  --ph-background1-darkMode: hsl(0, 0%, 6%);
-  --ph-background2-darkMode: hsla(0, 2%, 11%, 0.329);
-  --ph-header-darkMode: linear-gradient(to bottom, hsl(199, 55%, 58%), hsl(199, 54%, 43%), hsl(197, 72%, 31%));
-  --ph-footer-darkMode: hsl(0, 0%, 2%);
-  --ph-sideNav-darkMode: hsl(0, 0%, 7%);
-  --ph-success-darkMode: hsl(118, 92%, 31%);
-  --ph-passive-darkMode: hsl(202, 70%, 40%);
-  --ph-warning-darkMode: hsl(40, 70%, 49%);
-  --ph-danger-darkMode: hsl(0, 76%, 36%);
-  --ph-shadow-darkMode: 20px 20px 50px hsla(300, 1%, 77%, 0.35),
-  -30px -30px 50px hsla(30, 8%, 95%, 0.15);
+  --ph-mainColor-dark: hsl(202, 69%, 43%);
+  --ph-text-dark: hsl(0, 4%, 95%);
+  --ph-icon-dark: hsl(0, 0%, 100%);
+  --ph-background1-dark: hsl(0, 0%, 8%);
+  --ph-background2-dark: hsla(0, 2%, 11%, 0.329);
+  --ph-header-dark: hsl(0, 0%, 8%);
+  --ph-toolbar-dark: hsla(0, 9%, 98%, 0.692);
+  --ph-footer-dark: hsl(0, 0%, 8%);
+  --ph-sideNav-dark: hsl(0, 0%, 8%);
+  --ph-success-dark: hsl(118, 92%, 31%);
+  --ph-passive-dark: hsl(202, 70%, 40%);
+  --ph-warning-dark: hsl(40, 70%, 49%);
+  --ph-danger-dark: hsl(0, 76%, 36%);
+  --ph-shadow-dark: hsla(0, 2%, 84%, 0.712);
+  --ph-deepShadow-dark: hsla(0, 1%, 19%, 0.521);
+  --ph-instagram-dark: hsl(349, 75%, 57%);
+  --ph-toolbarButton-dark: hsl(0, 0%, 100%);
 
   // Font Sizes
   --ph-fontSize-xsmall: 0.5rem;
@@ -48,6 +57,99 @@ html, body {
   --ph-fontSize-large: 1.5rem;
   --ph-fontSize-xlarge: 2rem;
 }
+
+@media(prefers-color-scheme: dark) {
+  :root {
+    --ph-mainColor: var(--ph-mainColor-dark);
+    --ph-text: var(--ph-text-dark);
+    --ph-icon: var(--ph-icon-dark);
+    --ph-background1: var(--ph-background1-dark);
+    --ph-background2: var(--ph-background2-dark);
+    --ph-header:var(--ph-header-dark);
+    --ph-toolbar:var(--ph-toolbar-dark);
+    --ph-footer:var(--ph-footer-dark);
+    --ph-sideNav:var(--ph-sideNav-dark);
+    --ph-success:var(--ph-success-dark);
+    --ph-passive:var(--ph-passive-dark);
+    --ph-warning:var(--ph-warning-dark);
+    --ph-danger:var(--ph-danger-dark);
+    --ph-shadow:var(--ph-shadow-dark);
+    --ph-deepShadow:var(--ph-deepShadow-dark);
+    --ph-instagram:var(--ph-instagram-dark);
+    --ph-toolbarButton:var(--ph-toolbarButton-dark);
+  }
+}
+
+@media(prefers-color-scheme: light) {
+  :root {
+    --ph-mainColor: var(--ph-mainColor-light);
+    --ph-text: var(--ph-text-light);
+    --ph-icon: var(--ph-icon-light);
+    --ph-background1: var(--ph-background1-light);
+    --ph-background2: var(--ph-background2-light);
+    --ph-header:var(--ph-header-light);
+    --ph-toolbar:var(--ph-toolbar-light);
+    --ph-footer:var(--ph-footer-light);
+    --ph-sideNav:var(--ph-sideNav-light);
+    --ph-success:var(--ph-success-light);
+    --ph-passive:var(--ph-passive-light);
+    --ph-warning:var(--ph-warning-light);
+    --ph-danger:var(--ph-danger-light);
+    --ph-shadow:var(--ph-shadow-light);
+    --ph-deepShadow:var(--ph-deepShadow-light);
+    --ph-instagram:var(--ph-instagram-light);
+    --ph-toolbarButton:var(--ph-toolbarButton-light);
+  }
+}
+
+[color-scheme="dark"] {
+  --ph-mainColor: var(--ph-mainColor-dark);
+  --ph-text: var(--ph-text-dark);
+  --ph-icon: var(--ph-icon-dark);
+  --ph-background1: var(--ph-background1-dark);
+  --ph-background2: var(--ph-background2-dark);
+  --ph-header:var(--ph-header-dark);
+  --ph-toolbar:var(--ph-toolbar-dark);
+  --ph-footer:var(--ph-footer-dark);
+  --ph-sideNav:var(--ph-sideNav-dark);
+  --ph-success:var(--ph-success-dark);
+  --ph-passive:var(--ph-passive-dark);
+  --ph-warning:var(--ph-warning-dark);
+  --ph-danger:var(--ph-danger-dark);
+  --ph-shadow:var(--ph-shadow-dark);
+  --ph-deepShadow:var(--ph-deepShadow-dark);
+  --ph-instagram:var(--ph-instagram-dark);
+  --ph-toolbarButton:var(--ph-toolbarButton-dark);
+
+  a:visited {
+    color: var(--ph-text) !important;
+  }
+}
+
+[color-scheme="light"] {
+  --ph-mainColor: var(--ph-mainColor-light);
+  --ph-text: var(--ph-text-light);
+  --ph-icon: var(--ph-icon-light);
+  --ph-background1: var(--ph-background1-light);
+  --ph-background2: var(--ph-background2-light);
+  --ph-header:var(--ph-header-light);
+  --ph-toolbar:var(--ph-toolbar-light);
+  --ph-footer:var(--ph-footer-light);
+  --ph-sideNav:var(--ph-sideNav-light);
+  --ph-success:var(--ph-success-light);
+  --ph-passive:var(--ph-passive-light);
+  --ph-warning:var(--ph-warning-light);
+  --ph-danger:var(--ph-danger-light);
+  --ph-shadow:var(--ph-shadow-light);
+  --ph-deepShadow:var(--ph-deepShadow-light);
+  --ph-instagram:var(--ph-instagram-light);
+  --ph-toolbarButton:var(--ph-toolbarButton-light);
+
+  a:visited {
+    color: var(--ph-text) !important;
+  }
+}
+
 
 
 

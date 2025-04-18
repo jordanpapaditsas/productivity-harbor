@@ -9,7 +9,7 @@
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  border-top: 1.5rem solid var(--ph-blue-200)
+  border-top: 1.5rem solid var(--ph-passive);
 }
 
 .ph-warning {
@@ -19,13 +19,13 @@
   border-top: 1.5rem solid var(--ph-danger);
 }
 .ph-passive {
-  border-top: 1.5rem solid (var(--ph-passive))
+  border-top: 1.5rem solid var(--ph-passive);
 }
 
 .title-text {
   text-align: center;
   width: 100%;
-  font-size: var(--ph-fontSize-medium-l);
+  font-size: var(--ph-fontSize-large);
 }
 
 .popup-message {
@@ -42,16 +42,16 @@
 }
 
 .confirm-btn {
-  background-color: var(--ph-success);
-  color: var(--ph-light);
+  background: var(--ph-success);
+  color: white;
   border: none;
   padding: 0.5rem;
   border-radius: 0.5rem;
   width: 4rem;
 }
 .cancel-btn {
-  background-color: var(--ph-danger);
-  color: var(--ph-light);
+  background: var(--ph-danger);
+  color: white;
   border: none;
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -62,3 +62,4 @@
   cursor: pointer;
   opacity: 0.7;
 }
+

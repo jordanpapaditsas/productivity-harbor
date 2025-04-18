@@ -1,12 +1,14 @@
-<!-- <ph-container>
-  <ph-toolbar [toolbarTitle]="'Home'"></ph-toolbar>
-</ph-container> -->
+<div class="main-container">
+  <ph-container>
+    <ph-toolbar [title]="'Home'"></ph-toolbar>
+  </ph-container>
 
-@if (isUserEditVisible) {
-<ph-popup [hideOnOutsideClick]="false" [isFullScreenMode]="true">
-  <app-user-edit
-    [userId]="user.Id"
-    (exitScreen)="onExitClicked($event)"
-  ></app-user-edit>
-</ph-popup>
-}
+  @if (isUserEditVisible) {
+  <ph-popup [hideOnOutsideClick]="false" [isFullScreenMode]="true">
+    <app-user-edit
+      [userId]="user.Id"
+      (exitScreen)="onExitClicked($event)"
+    ></app-user-edit>
+  </ph-popup>
+  }
+</div>

@@ -1,11 +1,11 @@
 .ph-textbox {
   padding: 0.5rem;
   border-radius: 0.5rem;
-  box-shadow: 2px 2px 8px var(--ph-dark);
+  box-shadow: 2px 2px 8px var(--ph-deepShadow);
   border: none;
 
   &:focus-within {
-    outline: 0.2rem solid var(--ph-blue-100);
+    outline: 0.2rem solid var(--ph-mainColor);
   }
 }
 

@@ -15,7 +15,7 @@
   width: 95%;
   grid-column: 1;
   grid-row: 2;
-  box-shadow: 0 0.5rem 1rem 1rem var(--ph-lightdark);
+  box-shadow: 0 0.5rem 1rem 1rem var(--ph-shadow);
   border-radius: 0.5rem;
 }
 
@@ -40,7 +40,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  box-shadow: 0.2rem 0.5rem 0.5rem var(--ph-blue-200);
+  box-shadow: 0.2rem 0.5rem 0.5rem var(--ph-mainColor);
 }
 
 .user-avatar {
@@ -51,8 +51,8 @@
 }
 
 .user-avatar-overlay {
-  color: var(--ph-light);
-  background-color: var(--ph-shadow);
+  color: white;
+  background: var(--ph-deepShadow);
   position: absolute;
   top: 0;
   left: 0;
@@ -80,28 +80,28 @@
 }
 
 .sm-icon {
-  font-size: var(--ph-fontSize-medium-l);
+  font-size: var(--ph-fontSize-large);
 }
 
 .fa-brands.fa-facebook {
-  color: var(--ph-blue-150);
+  color: var(--ph-passive);
 }
 
 .fa-brands.fa-instagram {
-  color: var(--ph-red-100);
+  color: var(--ph-instagram);
 }
 
 .fa-brands.fa-linkedin {
-  color: var(--ph-blue-150);
+  color: var(--ph-passive);
 }
 
 .user-fullname {
-  font-size: var(--ph-fontSize-medium-l);
+  font-size: var(--ph-fontSize-large);
 }
 
 .contact-box, .personal-info-box {
   width: 100%;
-  box-shadow: 0.1rem 0.2rem 0.5rem var(--ph-dark);
+  box-shadow: 0.1rem 0.2rem 0.5rem var(--ph-deepShadow);
   padding: 0.7rem;
   border-radius: 0.5rem;
 }
@@ -143,9 +143,9 @@
 
 .title-align {
   text-align: left;
-  font-size: var(--ph-fontSize-medium-l);
+  font-size: var(--ph-fontSize-large);
   margin-bottom: 1rem;
-  box-shadow: 1px 1px 1px 0px var(--ph-dark);
+  box-shadow: 1px 1px 1px 0px var(--ph-deepShadow);
 }
 
 .flex-column {
@@ -162,7 +162,8 @@
 }
 
 ::ng-deep .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background {
-  background-color: var(--ph-success) !important;
+  background: var(--ph-success) !important;
+  border: none !important;
 }
 
 @media screen and (max-width: 1350px) {

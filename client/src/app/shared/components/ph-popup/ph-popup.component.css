@@ -9,7 +9,8 @@
 } */
 
 .ph-popup-content {
-  background: var(--ph-light);
+  background: var(--ph-background1);
+  color: var(--ph-text);
   max-height: 100vh;
   overflow-y: auto;
   max-width: 100vw;
@@ -29,6 +30,6 @@
 
 .ph-popup-header {
   text-align: center;
-  font-size: var(--ph-fontSize-medium-l);
+  font-size: var(--ph-fontSize-large);
 }
 

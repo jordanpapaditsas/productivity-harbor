@@ -1,15 +1,17 @@
 .sidenav-container {
   height: 85%;
+  background: var(--ph-background1);
 }
 
 .ph-sidenav {
   width: 16rem;
-  box-shadow: 0 0 27px 0 var(--ph-lightdark);
-  border: 1px solid var(--ph-lightgray);
-  z-index: 1 !important;
+  background: var(--ph-sideNav) !important;
+  color: var(--ph-text);
+  border-radius: 0 !important;
+  z-index: -1 !important;
 
   &.collapsed {
-    width: 4rem;
+    width: 6rem;
 
     .add-small-space-from-the-left {
       --mat-list-list-item-leading-icon-start-space: 1rem;
@@ -29,5 +31,20 @@
 
 .item-label {
   font-size: 0.9rem;
+  color: var(--ph-text);
+}
+
+.menu-icon {
+  color: var(--ph-icon) !important;
+}
+
+.menu-icon:hover {
+  color: var(--ph-icon);
+}
+.menu-item:hover, .subMenu-item:hover {
+  background: var(--ph-shadow);
+}
+.menu-item:focus, .subMenu-item:focus {
+  background: var(--ph-shadow);
 }
 
