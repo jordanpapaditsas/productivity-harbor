@@ -89,7 +89,7 @@ namespace ProductivityHarborApi.Controllers
             return Ok(socialMedia);
         }
 
-        [HttpDelete("deleteSocialMediaById{socialMediaId}")]
+        [HttpDelete("deleteSocialMediaById/{socialMediaId}")]
         public async Task<IActionResult> DeleteSocialMediaById(Guid socialMediaId)
         {
             var socialMedia = await _context.SocialMediaLinks.FirstOrDefaultAsync(x => x.Id == socialMediaId);
@@ -100,6 +100,7 @@ namespace ProductivityHarborApi.Controllers
             }
             else
             {
+                _context.Remove(socialMedia);
                 await _context.SaveChangesAsync();
                 
                 return Ok(socialMedia);

@@ -17,11 +17,19 @@ export class SocialMediaComponent implements OnInit {
   columns = signal<Column[]>([]);
   title = signal<string>('Social Media');
   socialMediaService = inject(SocialMediaService);
-  socialMedia!: SocialMediaDto;
+  socialMedia: SocialMediaDto = new SocialMediaDto();
 
   ngOnInit() {
     this.getDataSource();
     this.initializeColumns();
+  }
+
+  getDataSource() {
+    this.socialMediaService
+      .getAllSocialMedia()
+      .subscribe((response: SocialMediaDto[]) => {
+        this.dataSource = response;
+      });
   }
 
   initializeColumns() {
@@ -50,14 +58,6 @@ export class SocialMediaComponent implements OnInit {
     );
   }
 
-  getDataSource() {
-    this.socialMediaService
-      .getAllSocialMedia()
-      .subscribe((response: SocialMediaDto[]) => {
-        this.dataSource = response;
-      });
-  }
-
   onInsertRow(socialMedia: SocialMediaDto) {
     this.socialMedia = new SocialMediaDto();
   }
@@ -84,5 +84,14 @@ export class SocialMediaComponent implements OnInit {
         });
     }
   }
-  onDeleteRow(e: any) {}
+  onDeleteRow(socialMedia: SocialMediaDto) {
+    debugger;
+    if (socialMedia.Id) {
+      this.socialMediaService
+        .deleteSocialMediaById(socialMedia.Id)
+        .subscribe((response) => {
+          this.getDataSource();
+        });
+    }
+  }
 }
