@@ -49,9 +49,19 @@ namespace ProductivityHarborApi.Controllers
                 IsActive = user.IsActive,
                 IsDeleted = user.IsDeleted,
                 Color = user.Color,
-                Address = user.Address,
                 Portfolio = user.Portfolio,
-                Phone = user.Phone,
+                Address = user.Address ?? new Address
+                {
+                    Street = string.Empty,
+                    City = string.Empty,
+                    Zip = string.Empty
+                },
+                Phone = user.Phone ?? new Phone
+                {
+                    Home = string.Empty,
+                    Mobile = string.Empty,
+                    Work = string.Empty
+                },
                 Country = user.Country,
                 BirthDate = user.BirthDate,
                 SocialMediaLinks = user.SocialMediaLinks.Select(link => new SocialMedia
@@ -117,7 +127,6 @@ namespace ProductivityHarborApi.Controllers
                 user.IsActive = userDto.IsActive;
                 user.IsDeleted = userDto.IsDeleted;
                 user.Token = userDto.Token;
-                user.SocialMediaLinks = userDto.SocialMediaLinks;
                 user.Color = userDto.Color;
                 user.Portfolio = userDto.Portfolio;
                 user.BirthDate = userDto.BirthDate;
@@ -125,7 +134,44 @@ namespace ProductivityHarborApi.Controllers
                 user.Address = userDto.Address;
                 user.Country = userDto.Country;
 
+                var userSocialMedia = await _context.SocialMediaLinks.Where(x => x.UserId == user.Id).ToListAsync();
+                
+                if (userSocialMedia.Count > 0 && userDto.SocialMediaLinks.Count > 0)
+                {
+                    foreach(var item in userDto.SocialMediaLinks)
+                    {
+                        var dtoSocialMedia = userSocialMedia.FirstOrDefault(x => x.Id == item.Id && x.UserId == item.UserId);
+
+                        foreach(var socialMedia in userSocialMedia)
+                        {
+                            if (dtoSocialMedia != null)
+                            {
+                                socialMedia.Icon = dtoSocialMedia.Icon;
+                                socialMedia.Url = dtoSocialMedia.Url;
+                                socialMedia.Name = dtoSocialMedia.Name;
+
+                            }     
+                        }
+                    }
+                }
+                else
+                {
+                   foreach(var item in userDto.SocialMediaLinks)
+                    {
+                        var socialMedia = new SocialMedia();
+                        socialMedia.UserId = actionUser?.Id;
+                        socialMedia.Url = item.Url;
+                        socialMedia.Name = item.Name;
+                        socialMedia.Icon = item.Icon;
+
+                        _context.SocialMediaLinks.Add(socialMedia);
+                    } 
+                }
+
+                _context.Users.Attach(user);
                 _context.Entry(user).State = EntityState.Modified;
+                _context.Entry(user).Reference(u => u.Phone).TargetEntry.State = EntityState.Modified;
+                _context.Entry(user).Reference(u => u.Address).TargetEntry.State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
                 return Ok(user);

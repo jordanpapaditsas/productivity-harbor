@@ -6,4 +6,5 @@
   [(ngModel)]="value"
   [readOnly]="readOnly"
   [disabled]="disabled"
+  (ngModelChange)="onValueChange($event)"
 />

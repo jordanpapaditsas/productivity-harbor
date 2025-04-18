@@ -9,133 +9,133 @@
   (save)="onUserEditSave($event)"
 ></ph-toolbar>
 <ph-container>
-  <div class="inner-container">
-    <!-- Avatar -->
-    <div class="avatar-container">
-      <div class="user-avatar-wrapper" (click)="triggerAvatarUpload()">
-        <img
-          *ngIf="user.Avatar"
-          [src]="user.Avatar"
-          alt="User Avatar"
-          class="user-avatar"
-        />
-        <img
-          *ngIf="!user.Avatar"
-          src="/assets/images/user-avatar-placeholder.jpg"
-          alt="User Avatar"
-          class="user-avatar"
-        />
-        <div class="user-avatar-overlay">
-          <i class="fa-solid fa-camera"></i>
+  <div class="main-container">
+    <div class="left-side-container">
+      <div class="flexbox-center">
+        <!-- Avatar -->
+        <div
+          [style.box-shadow]="
+            user.Color ? '0.2rem 0.5rem 0.5rem ' + user.Color : ''
+          "
+          class="user-avatar-wrapper"
+          (click)="triggerAvatarUpload()"
+        >
+          <img
+            *ngIf="user.Avatar"
+            [src]="user.Avatar"
+            alt="User Avatar"
+            class="user-avatar"
+          />
+          <img
+            *ngIf="!user.Avatar"
+            src="/assets/images/user-avatar-placeholder.jpg"
+            alt="User Avatar"
+            class="user-avatar"
+          />
+          <div class="user-avatar-overlay">
+            <i class="fa-solid fa-camera"></i>
+          </div>
         </div>
+
+        @if (!isInEditMode()) {
+        <div class="user-fullname">{{ user.FullName }}</div>
+        } @else {
+        <div class="flexbox-column">
+          <mat-label>Full Name</mat-label>
+          <ph-text-box [value]="user.FullName"></ph-text-box>
+        </div>
+
+        }
       </div>
 
-      @if (!isInEditMode()) {
-      <div class="user-fullname">{{ user.FullName }}</div>
-      } @else {
-      <div class="flex-column">
-        <mat-label>Full Name</mat-label>
-        <ph-text-box [value]="user.FullName"></ph-text-box>
-      </div>
-
-      }
-      <div class="flexbox">
+      <div class="flexbox-center">
         <mat-label>Color</mat-label>
-        <input type="color" [value]="user.Color" id="Color" name="Color" />
+        <input
+          type="color"
+          [value]="user.Color"
+          (change)="onColorChange($event)"
+          id="Color"
+          name="Color"
+        />
       </div>
-      <div class="flexbox">
+      <div class="flexbox-center">
         <mat-label>Active</mat-label>
         <mat-checkbox [(ngModel)]="user.IsActive"></mat-checkbox>
       </div>
+      <input
+        #fileInput
+        type="file"
+        accept="image/*"
+        style="display: none"
+        (change)="onAvatarChange($event)"
+        [disabled]="false"
+      />
     </div>
-    <input
-      #fileInput
-      type="file"
-      accept="image/*"
-      style="display: none"
-      (change)="onAvatarChange($event)"
-      [disabled]="false"
-    />
 
-    <!-- Profile Information -->
-    <div class="user-information-container">
-      <div class="personal-info-box">
-        <div class="title-align">{{ personalInfoTitle }}</div>
-        <div class="personal-info-inner-box">
-          <div class="flex-column">
+    <div class="right-side-container">
+      <div class="left-side-personal">
+        <div class="personal-info-container">
+          <div class="title-align title">{{ personalInfoTitle }}</div>
+          <div class="flexbox-column user-username">
             <mat-label>Username</mat-label>
             <ph-text-box [value]="user.UserName"></ph-text-box>
           </div>
-          <div class="flex-column">
+          <div class="flexbox-column user-password">
             <mat-label>Password</mat-label>
             <ph-text-box [value]="user.PasswordHash"></ph-text-box>
           </div>
 
-          <div class="flex-column user-portfolio">
+          <div class="flexbox-column user-portfolio">
             <mat-label>Portfolio</mat-label>
             <ph-text-box [value]="user.Portfolio"></ph-text-box>
           </div>
         </div>
       </div>
 
-      <div class="contact-box">
-        <div class="title-align">{{ contactTitle }}</div>
-        <div class="contact-inner-box">
-          <div class="flex-column user-email">
+      <div class="right-side-contact">
+        <div class="contact-info-container">
+          <div class="title-align title">{{ contactTitle }}</div>
+          <div class="flexbox-column user-email">
             <mat-label>Email</mat-label>
             <ph-text-box [value]="user.Email"></ph-text-box>
           </div>
 
-          <div class="flex-column user-home-phone">
+          <div class="flexbox-column user-home-phone">
             <mat-label>Home Phone</mat-label>
             <ph-text-box [value]="user.Phone?.Home"></ph-text-box>
           </div>
 
-          <div class="flex-column user-mobile-phone">
+          <div class="flexbox-column user-mobile-phone">
             <mat-label>Mobile Phone</mat-label>
             <ph-text-box [value]="user.Phone?.Mobile"></ph-text-box>
           </div>
 
-          <div class="flex-column user-work-phone">
+          <div class="flexbox-column user-work-phone">
             <mat-label>Work Phone</mat-label>
             <ph-text-box [value]="user.Phone?.Work"></ph-text-box>
           </div>
 
-          <div class="flex-column user-country">
+          <div class="flexbox-column user-country">
             <mat-label>Country</mat-label>
             <ph-text-box [value]="user.Country"></ph-text-box>
           </div>
 
-          <div class="flex-column user-city">
+          <div class="flexbox-column user-city">
             <mat-label>City</mat-label>
             <ph-text-box [value]="user.Address?.City"></ph-text-box>
           </div>
 
-          <div class="flex-column user-street">
+          <div class="flexbox-column user-street">
             <mat-label>Street</mat-label>
             <ph-text-box [value]="user.Address?.Street"></ph-text-box>
           </div>
 
-          <div class="flex-column user-zip">
+          <div class="flexbox-column user-zip">
             <mat-label>ZIP Code</mat-label>
             <ph-text-box [value]="user.Address?.Zip"></ph-text-box>
           </div>
         </div>
       </div>
-    </div>
-    <!-- Social Media Information -->
-    <div class="user-social-media-container">
-      <fieldset>
-        <legend>Social Media</legend>
-        @for (socialMedia of user.SocialMediaLinks; track socialMedia.Id ) {
-        <div class="social-media">
-          <i class="sm-icon" [class]="socialMedia.Icon"></i>
-          <div class="social-media-url">
-            <a [href]="socialMedia.Url">{{ socialMedia.Url }}</a>
-          </div>
-        </div>
-        }
-      </fieldset>
     </div>
   </div>
 </ph-container>

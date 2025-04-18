@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System.Reflection.Emit;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProductivityHarborApi.Core.Models;
 using ProductivityHarborApi.Core.Models.Contact;
@@ -20,6 +21,10 @@ namespace ProductivityHarborApi.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+
+            builder.Entity<User>().OwnsOne(u => u.Phone);
+            builder.Entity<User>().OwnsOne(u => u.Address);
         }
 
         public override int SaveChanges()

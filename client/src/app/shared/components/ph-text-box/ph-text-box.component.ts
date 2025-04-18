@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,12 +9,18 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule, CommonModule],
 })
 export class PhTextBoxComponent implements OnInit {
-  @Input() value: string | undefined = '';
+  @Input() value: string | null | undefined;
   @Input() placeholder: string = '';
   @Input() readOnly: boolean = false;
   @Input() disabled: boolean = false;
   @Input() customCssClass: string[] = [];
+
+  @Output() valueChange = new EventEmitter();
   constructor() {}
 
   ngOnInit() {}
+
+  onValueChange(e: any) {
+    this.valueChange.emit(e);
+  }
 }

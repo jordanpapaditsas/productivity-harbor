@@ -1,46 +1,114 @@
-.inner-container {
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.5fr;
+  grid-template-rows: minmax(100px, 1fr);
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 0.5fr 1fr;
-  grid-template-rows: repeat(4, 0.1fr);
-  row-gap: 2rem;
 }
 
-// Avatar (Grid Item)
-.avatar-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 95%;
+.left-side-container {
   grid-column: 1;
   grid-row: 2;
-  box-shadow: 0 0.5rem 1rem 1rem var(--ph-shadow);
-  border-radius: 0.5rem;
-}
-
-// User Information (Grid Item)
-.user-information-container {
-  grid-column: 2;
-  grid-row: 3 / span 6;
   display: flex;
+  justify-content: space-around;
   gap: 1rem;
+  box-shadow: 1rem 0.5rem 1rem var(--ph-deepShadow);
+  width: 80%;
 }
 
-// Social Media (Grid Item)
-.user-social-media-container {
-  width: 60%;
+.right-side-container {
+  grid-column: 2 / span 3;
+  grid-row: 2 / span 3;
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 97%;
+  padding: 0.5rem;
+  gap: 2rem;
+}
+
+ .left-side-personal, .right-side-contact {
+  box-shadow: 1rem 0.5rem 1rem 0.3rem var(--ph-deepShadow);
+  padding: 1rem;
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.personal-info-container, .contact-info-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(auto-fit, minmax(min(2rem, 100%), 1fr));
+  column-gap: 1rem;
+  row-gap: 1rem;
+  align-items: center;
+}
+
+.title {
+  grid-column: 1;
+  font-size: var(--ph-fontSize-large);
+  width: 100%;
+  font-weight: bold;
+  box-shadow: 0.2rem 0.2rem 0.2rem var(--ph-deepShadow);
+}
+
+.user-fullname {
+  font-size: var(--ph-fontSize-large);
+  margin-left: 0.5rem;
+}
+
+.user-username {
+  grid-column: 1;
+  grid-row: 2;
+}
+.user-password {
+  grid-column: 2;
+  grid-row: 2;
+}
+.user-portfolio {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.user-home-phone {
+  grid-column: 1;
+  grid-row: 2;
+}
+.user-mobile-phone {
+  grid-column: 2;
+  grid-row: 2;
+}
+.user-work-phone {
+  grid-column: 1;
+  grid-row: 3;
+}
+.user-country {
+  grid-column: 2;
+  grid-row: 3;
+}
+.user-city {
   grid-column: 1;
   grid-row: 4;
 }
+.user-street {
+  grid-column: 2;
+  grid-row: 4;
+}
+.user-zip {
+  grid-column: 1;
+  grid-row: 5;
+}
+.user-email {
+  grid-column: 2;
+  grid-row: 5;
+}
 
+// AVATAR CSS
 .user-avatar-wrapper {
   position: relative;
   bottom: 1rem;
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  box-shadow: 0.2rem 0.5rem 0.5rem var(--ph-mainColor);
 }
 
 .user-avatar {
@@ -72,129 +140,19 @@
   opacity: 1;
 }
 
-.social-media {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.6rem
-}
-
-.sm-icon {
-  font-size: var(--ph-fontSize-large);
-}
-
-.fa-brands.fa-facebook {
-  color: var(--ph-passive);
-}
-
-.fa-brands.fa-instagram {
-  color: var(--ph-instagram);
-}
-
-.fa-brands.fa-linkedin {
-  color: var(--ph-passive);
-}
-
-.user-fullname {
-  font-size: var(--ph-fontSize-large);
-}
-
-.contact-box, .personal-info-box {
-  width: 100%;
-  box-shadow: 0.1rem 0.2rem 0.5rem var(--ph-deepShadow);
-  padding: 0.7rem;
-  border-radius: 0.5rem;
-}
-
-// INNER GRID
-.contact-inner-box {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(4, 1fr);
-  height: 100%;
-  width: 100%;
-}
-
-.user-home-phone {
-  grid-column: 1;
-  grid-row: 1;
-}
-.user-work-phone {
-  grid-column: 2;
-  grid-row: 1;
-}
-.user-mobile-phone {
-  grid-column: 3;
-  grid-row: 1;
-}
-.user-email {
-  grid-column: 1;
-  grid-row: 3;
-}
-
-// INNER GRID
-.personal-info-inner-box {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(4, 1fr);
-  height: 100%;
-  width: 100%;
-}
-
-.title-align {
-  text-align: left;
-  font-size: var(--ph-fontSize-large);
-  margin-bottom: 1rem;
-  box-shadow: 1px 1px 1px 0px var(--ph-deepShadow);
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  font-weight: bold;
-}
-
-.flexbox {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 ::ng-deep .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background {
   background: var(--ph-success) !important;
   border: none !important;
 }
 
-@media screen and (max-width: 1350px) {
-  .inner-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 2%;
-  }
-
-  // Avatar (Grid Item)
-.avatar-container {
+.flexbox-column {
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.flexbox-center {
+  display: flex;
+  gap: 0.5rem;
   align-items: center;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-// User Information (Grid Item)
-.user-information-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 90%;
-}
-
-// Social Media (Grid Item)
-.user-social-media-container {
-  display: flex;
-  flex-direction: column;
-  width: 90%
-}
 }

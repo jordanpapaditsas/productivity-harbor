@@ -18,12 +18,10 @@ export class UserDto {
   UpdatedAt?: Date | string | number;
   UpdatedByUserId?: Guid;
   Color?: string;
-  SocialMediaLinks?: SocialMedia[];
-
-  // Need to pass them in models back
-  Phone?: Phone;
+  SocialMediaLinks: SocialMedia[] = [];
+  Phone: Phone | undefined | null;
+  Address: Address | undefined | null;
   Portfolio?: string;
-  Address?: Address;
-  Country?: string;
-  Birthdate?: Date | string | number;
+  Country!: string;
+  Birthdate!: Date | string | number;
 }

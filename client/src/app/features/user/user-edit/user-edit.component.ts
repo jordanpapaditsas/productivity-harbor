@@ -98,4 +98,8 @@ export class UserEditComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
+
+  onColorChange(e: any) {
+    this.user.Color = e.target.value;
+  }
 }
