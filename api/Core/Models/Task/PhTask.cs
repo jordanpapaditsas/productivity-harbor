@@ -10,11 +10,10 @@ namespace ProductivityHarborApi.Core.Models.Task
         public PhTask()
         {
             Id = Guid.NewGuid();
-            Status = new Status();
         }
         public Guid Id { get; set; }
         public int SerialNumber { get; set; }
         public  Guid StatusId { get; set; }
-        public  Status Status { get; set; } = new Status();
+        public  Status Status { get; set; }
     }
 }

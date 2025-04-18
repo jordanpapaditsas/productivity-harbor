@@ -10,10 +10,10 @@ namespace ProductivityHarborApi.Core.Models.User
             Id = Guid.NewGuid();
         }
         public Guid Id { get; set; }
-        public string Url { get; set; } = string.Empty;
-        public required Guid UserId { get; set; } 
-        public required User User { get; set; }
-        public required Guid SocialMediaId { get; set; }
-        public required SocialMedia SocialMedia { get; set; }
+        public string Url { get; set; } 
+        public  Guid UserId { get; set; }
+        public User User { get; set; }
+        public  Guid SocialMediaId { get; set; }
+        public SocialMedia SocialMedia { get; set; }
     }
 }
