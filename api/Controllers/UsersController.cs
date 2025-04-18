@@ -134,6 +134,7 @@ namespace ProductivityHarborApi.Controllers
                 user.Address = userDto.Address;
                 user.Country = userDto.Country;
 
+                // Need to fix it after i create the social media table in angular
                 var userSocialMedia = await _context.SocialMediaLinks.Where(x => x.UserId == user.Id).ToListAsync();
                 
                 if (userSocialMedia.Count > 0 && userDto.SocialMediaLinks.Count > 0)
