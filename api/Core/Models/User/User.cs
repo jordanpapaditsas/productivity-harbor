@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProductivityHarborApi.Core.Models.User
 {
@@ -14,7 +15,12 @@ namespace ProductivityHarborApi.Core.Models.User
         public DateTimeOffset? UpdatedAt { get; set; }
         public Guid? UpdatedByUserId { get; set; }
         public string? Color { get; set; }
+        public string? Phone { get; set; }
+        public string? Portfolio { get; set; }
+        public Address? Address { get; set; }
+        public string? Country { get; set; }
+        public DateTimeOffset? BirthDate { get; set; }
         public ICollection<SocialMedia> SocialMediaLinks { get; set; } = new HashSet<SocialMedia>();
-
+       
     }
 }
