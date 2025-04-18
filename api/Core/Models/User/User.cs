@@ -15,7 +15,7 @@ namespace ProductivityHarborApi.Core.Models.User
         public DateTimeOffset? UpdatedAt { get; set; }
         public Guid? UpdatedByUserId { get; set; }
         public string? Color { get; set; }
-        public string? Phone { get; set; }
+        public Phone? Phone { get; set; }
         public string? Portfolio { get; set; }
         public Address? Address { get; set; }
         public string? Country { get; set; }

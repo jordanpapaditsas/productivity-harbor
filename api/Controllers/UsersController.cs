@@ -49,6 +49,11 @@ namespace ProductivityHarborApi.Controllers
                 IsActive = user.IsActive,
                 IsDeleted = user.IsDeleted,
                 Color = user.Color,
+                Address = user.Address,
+                Portfolio = user.Portfolio,
+                Phone = user.Phone,
+                Country = user.Country,
+                BirthDate = user.BirthDate,
                 SocialMediaLinks = user.SocialMediaLinks.Select(link => new SocialMedia
                 {
                     Url = link.Url,
@@ -79,6 +84,11 @@ namespace ProductivityHarborApi.Controllers
                 user.Token = userDto.Token;
                 user.SocialMediaLinks = userDto.SocialMediaLinks;
                 user.Color = userDto.Color;
+                user.Portfolio = userDto.Portfolio;
+                user.BirthDate = userDto.BirthDate;
+                user.Phone = userDto.Phone;
+                user.Address = userDto.Address;
+                user.Country = userDto.Country;
             } 
                 
             _context.Users.Add(user);
@@ -109,6 +119,11 @@ namespace ProductivityHarborApi.Controllers
                 user.Token = userDto.Token;
                 user.SocialMediaLinks = userDto.SocialMediaLinks;
                 user.Color = userDto.Color;
+                user.Portfolio = userDto.Portfolio;
+                user.BirthDate = userDto.BirthDate;
+                user.Phone = userDto.Phone;
+                user.Address = userDto.Address;
+                user.Country = userDto.Country;
 
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();

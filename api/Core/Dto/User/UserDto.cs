@@ -18,6 +18,11 @@ namespace ProductivityHarborApi.Core.Dto.User
         public DateTimeOffset? UpdatedAt { get; set; }
         public Guid? UpdatedByUserId { get; set; }
         public string? Color { get; set; }
+        public DateTimeOffset? BirthDate { get; set; }
+        public string? Country { get; set; }
+        public string? Portfolio { get; set; }
+        public Phone? Phone { get; set; }
+        public Address? Address { get; set; }
         public List<SocialMedia> SocialMediaLinks { get; set; } = new List<SocialMedia>();
     }
 }
