@@ -57,7 +57,6 @@ export class SocialMediaService {
   }
 
   deleteSocialMediaById(socialMediaId: Guid) {
-    debugger;
     return this.httpClient.delete(
       this.serviceUrl + '/deleteSocialMediaById/' + socialMediaId,
       {

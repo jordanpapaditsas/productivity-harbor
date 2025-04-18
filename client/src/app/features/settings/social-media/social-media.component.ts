@@ -61,11 +61,8 @@ export class SocialMediaComponent implements OnInit {
   onInsertRow(socialMedia: SocialMediaDto) {
     this.socialMedia = new SocialMediaDto();
   }
-  onEditRow(socialMedia: SocialMediaDto) {
-    debugger;
-  }
+  onEditRow(socialMedia: SocialMediaDto) {}
   onSaveRow(socialMedia: SocialMediaDto) {
-    debugger;
     if (!socialMedia.Id) {
       this.socialMediaService
         .createSocialMedia(socialMedia)
@@ -85,7 +82,6 @@ export class SocialMediaComponent implements OnInit {
     }
   }
   onDeleteRow(socialMedia: SocialMediaDto) {
-    debugger;
     if (socialMedia.Id) {
       this.socialMediaService
         .deleteSocialMediaById(socialMedia.Id)
