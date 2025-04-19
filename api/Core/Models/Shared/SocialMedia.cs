@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using ProductivityHarborApi.Core.Models.Relations;
 
-namespace ProductivityHarborApi.Core.Models.User
+namespace ProductivityHarborApi.Core.Models.Shared
 {
     [Table("productivityharbor_socialmedialinks ")]
     public class SocialMedia: PhBaseModel

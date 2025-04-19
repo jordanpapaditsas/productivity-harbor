@@ -21,7 +21,11 @@ import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-te
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatLabel } from '@angular/material/input';
-import { SocialMediaDto } from '../../../core/dto/user/social-media.dto';
+import { SocialMediaDto } from '../../../core/dto/shared/social-media.dto';
+import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-media-map.dto';
+import { MatSelectModule } from '@angular/material/select';
+import { SocialMediaService } from '../../settings/social-media/social-media.service';
+import { UserSocialMediaMapService } from '../../../shared/services/relation-services/user-social-media.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -36,23 +40,30 @@ import { SocialMediaDto } from '../../../core/dto/user/social-media.dto';
     MatCheckboxModule,
     FormsModule,
     MatLabel,
+    MatSelectModule,
   ],
 })
 export class UserEditComponent implements OnInit {
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
   userId = input<Guid | null>(null);
   private userService = inject(UserService);
+  private socialMediaService = inject(SocialMediaService);
+  private userSocialMediaService = inject(UserSocialMediaMapService);
   user!: UserDto;
   newUserTitle!: string;
   contactTitle: string = 'Contact';
   personalInfoTitle: string = 'Personal Info';
   isInEditMode = signal<boolean>(false);
-  socialMedia = signal<SocialMediaDto[]>([]);
+  socialMediaLinks = signal<SocialMediaDto[]>([]);
 
   exitScreen = output<EventEmitter<void>>();
+  isSocialMediaFormVisible = signal<boolean>(false);
+  userSocialMedia!: UserSocialMediaMapDto;
 
   constructor() {
+    debugger;
     this.user = new UserDto();
+    this.userSocialMedia = new UserSocialMediaMapDto();
     effect(() => {
       if (this.userId()) {
         this.userService.getUserById(this.userId()!).subscribe((response) => {
@@ -65,21 +76,38 @@ export class UserEditComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getAllSocialMedia();
+  }
 
   onUserEditExit(e: any) {
     this.exitScreen.emit(e);
   }
 
+  getAllSocialMedia() {
+    this.socialMediaService
+      .getAllSocialMedia()
+      .subscribe((response: SocialMediaDto[]) => {
+        this.socialMediaLinks.set(response);
+      });
+  }
   onUserEditSave(e: any) {
     if (!this.user.Id) {
       this.userService.createUser(this.user).subscribe((response) => {
         this.user = response;
       });
     } else if (this.user.Id) {
-      this.userService.updateUser(this.user).subscribe((response) => {
-        this.user = response;
-      });
+      debugger;
+      this.userSocialMediaService
+        .createUserSocialMediaMap(this.userSocialMedia)
+        .subscribe((response) => {
+          this.userSocialMedia = response;
+
+          this.user.UserSocialMedia.push(this.userSocialMedia);
+          this.userService.updateUser(this.user).subscribe((response) => {
+            this.user = response;
+          });
+        });
     }
   }
 
@@ -103,5 +131,15 @@ export class UserEditComponent implements OnInit {
 
   onColorChange(e: any) {
     this.user.Color = e.target.value;
+  }
+
+  addSocialMedia(e: any) {
+    this.isSocialMediaFormVisible.set(true);
+  }
+
+  onSocialMediaSelectionChange(socialMedia: SocialMediaDto) {
+    debugger;
+    this.userSocialMedia.SocialMediaId = socialMedia.Id;
+    this.userSocialMedia.UserId = this.user.Id;
   }
 }

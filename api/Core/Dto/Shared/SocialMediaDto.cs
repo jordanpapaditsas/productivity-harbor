@@ -1,4 +1,4 @@
-﻿namespace ProductivityHarborApi.Core.Dto.User
+﻿namespace ProductivityHarborApi.Core.Dto.Shared
 {
     public class SocialMediaDto
     {

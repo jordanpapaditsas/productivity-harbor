@@ -1,4 +1,5 @@
-﻿using ProductivityHarborApi.Core.Models.User;
+﻿using ProductivityHarborApi.Core.Models.Owned;
+using ProductivityHarborApi.Core.Models.Relations;
 
 namespace ProductivityHarborApi.Core.Dto.User
 {

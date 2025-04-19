@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductivityHarborApi.Core.Models
+namespace ProductivityHarborApi.Core.Models.Shared
 {
     public class PhBaseModel
     {

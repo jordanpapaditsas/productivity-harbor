@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProductivityHarborApi.Core.Dto.User;
+using ProductivityHarborApi.Core.Dto.Shared;
+using ProductivityHarborApi.Core.Models.Shared;
 using ProductivityHarborApi.Core.Models.User;
 using ProductivityHarborApi.Data;
 
 namespace ProductivityHarborApi.Controllers
 {
-    public class SocialMediaLinksController : PhBaseController
+    public class SocialMediaController : PhBaseController
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
 
-        public SocialMediaLinksController(ApplicationDbContext context, UserManager<User> userManager)
+        public SocialMediaController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _userManager = userManager;
             _context = context;

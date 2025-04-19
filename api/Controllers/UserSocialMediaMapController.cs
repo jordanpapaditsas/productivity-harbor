@@ -1,24 +1,25 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProductivityHarborApi.Core.Dto.User;
+using ProductivityHarborApi.Core.Dto.Relations;
+using ProductivityHarborApi.Core.Models.Relations;
 using ProductivityHarborApi.Core.Models.User;
 using ProductivityHarborApi.Data;
 
 namespace ProductivityHarborApi.Controllers
 {
-    public class UserSocialMediaLinksMapController : PhBaseController
+    public class UserSocialMediaMapController : PhBaseController
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
-        public UserSocialMediaLinksMapController(ApplicationDbContext context, UserManager<User> userManager)
+        public UserSocialMediaMapController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _userManager = userManager;
             _context = context;
         }
 
-        [HttpGet("getAllUserSocialMediaLinksByUserId/{userId}")]
-        public async Task<IActionResult> GetAllUserSocialMediaLinksByUserId(Guid userId)
+        [HttpGet("getAllUserSocialMediaMapByUserId/{userId}")]
+        public async Task<IActionResult> GetAllUserSocialMediaMapByUserId(Guid userId)
         {
             var userSocialMedia = await _context.UserSocialMediaLinksMap.Where(x => x.UserId == userId).ToListAsync();
 
@@ -30,8 +31,8 @@ namespace ProductivityHarborApi.Controllers
             return Ok(userSocialMedia);
         }
 
-        [HttpPost("createUserSocialMedia")]
-        public async Task<IActionResult> CreateUserSocialMedia(UserSocialMediaMapDto userSocialMediaMapDto)
+        [HttpPost("createUserSocialMediaMap")]
+        public async Task<IActionResult> CreateUserSocialMediaMap(UserSocialMediaMapDto userSocialMediaMapDto)
         {
             var userSocial = new UserSocialMediaMap();
 
@@ -46,8 +47,8 @@ namespace ProductivityHarborApi.Controllers
 
         }       
         
-        [HttpPut("updateUserSocialMedia")]
-        public async Task<IActionResult> UpdateUserSocialMedia(UserSocialMediaMapDto userSocialMediaMapDto)
+        [HttpPut("updateUserSocialMediaMap")]
+        public async Task<IActionResult> UpdateUserSocialMediaMap(UserSocialMediaMapDto userSocialMediaMapDto)
         {
             var userSocialMedia = await _context.UserSocialMediaLinksMap
                 .FirstOrDefaultAsync(x => x.UserId == userSocialMediaMapDto.UserId && x.SocialMediaId == userSocialMediaMapDto.SocialMediaId);
@@ -66,8 +67,8 @@ namespace ProductivityHarborApi.Controllers
             return Ok(userSocialMedia);
         }
 
-        [HttpDelete("deleteUserSocialMedia/{id}")]
-        public async Task<IActionResult> DeleteUserSocialMedia(Guid id)
+        [HttpDelete("deleteUserSocialMediaMapById/{id}")]
+        public async Task<IActionResult> DeleteUserSocialMediaMapById(Guid id)
         {
             var userSocial = await _context.UserSocialMediaLinksMap.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -77,8 +78,8 @@ namespace ProductivityHarborApi.Controllers
             }
             else
             {
-                await _context.SaveChangesAsync();
                 _context.Remove(userSocial);
+                await _context.SaveChangesAsync();
 
                 return Ok(userSocial);
             }

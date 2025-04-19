@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProductivityHarborApi.Core.Dto.Task;
 using ProductivityHarborApi.Core.Dto.User;
-using ProductivityHarborApi.Core.Models.Task;
+using ProductivityHarborApi.Core.Models.Owned;
 using ProductivityHarborApi.Core.Models.User;
 using ProductivityHarborApi.Data;
 
@@ -63,13 +62,7 @@ namespace ProductivityHarborApi.Controllers
                     Work = string.Empty
                 },
                 Country = user.Country,
-                BirthDate = user.BirthDate,
-                //SocialMediaLinks = user.UserSocialMediaLinksMap.Select(link => new SocialMedia
-                //{
-                //    Url = link.Url,
-                //    Icon = link.Icon,
-                //    Name = link.Name
-                //}).ToList()
+                BirthDate = user.BirthDate, 
             };
 
             return Ok(dto);

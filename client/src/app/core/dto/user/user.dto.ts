@@ -1,7 +1,7 @@
 import { Guid } from 'guid-typescript';
-import { SocialMediaDto } from './social-media.dto';
 import { Address } from '../../interfaces/address';
 import { Phone } from '../../interfaces/phone';
+import { UserSocialMediaMapDto } from '../relations/user-social-media-map.dto';
 
 export class UserDto {
   Id!: Guid;
@@ -18,7 +18,7 @@ export class UserDto {
   UpdatedAt?: Date | string | number;
   UpdatedByUserId?: Guid;
   Color?: string;
-  SocialMediaLinks: SocialMediaDto[] = [];
+  UserSocialMedia: UserSocialMediaMapDto[] = [];
   Phone: Phone | undefined | null;
   Address: Address | undefined | null;
   Portfolio?: string;

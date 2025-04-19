@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using ProductivityHarborApi.Core.Models;
 using ProductivityHarborApi.Core.Models.Task;
 
 namespace ProductivityHarborApi.Core.Models.Shared

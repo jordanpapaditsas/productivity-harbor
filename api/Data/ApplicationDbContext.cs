@@ -1,8 +1,8 @@
 ﻿using System.Reflection.Emit;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProductivityHarborApi.Core.Models;
 using ProductivityHarborApi.Core.Models.Contact;
+using ProductivityHarborApi.Core.Models.Relations;
 using ProductivityHarborApi.Core.Models.Shared;
 using ProductivityHarborApi.Core.Models.Task;
 using ProductivityHarborApi.Core.Models.User;

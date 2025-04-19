@@ -74,7 +74,32 @@
       </div>
 
       <div class="social-media-container">
-        {{ socialMedia() }}
+        <div>
+          <button mat-button (click)="addSocialMedia($event)">
+            Add Social
+          </button>
+        </div>
+        <fieldset>
+          <legend>Social Media</legend>
+
+          @if (user.SocialMediaLinks) {
+          <div>{{ user.SocialMediaLinks }}</div>
+          } @else { @if (this.isSocialMediaFormVisible()) {
+          <div class="text-box-container">
+            <mat-select>
+              @for (socialMedia of socialMediaLinks(); track socialMedia.Id) {
+              <mat-option
+                (onSelectionChange)="onSocialMediaSelectionChange(socialMedia)"
+                [value]="socialMedia.Id"
+              >
+                {{ socialMedia.Name }}</mat-option
+              >
+              }
+            </mat-select>
+            <ph-text-box [(value)]="userSocialMedia.Url"></ph-text-box>
+          </div>
+          } }
+        </fieldset>
       </div>
     </div>
 

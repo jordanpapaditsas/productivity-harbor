@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using ProductivityHarborApi.Core.Models.Owned;
+using ProductivityHarborApi.Core.Models.Relations;
 
 namespace ProductivityHarborApi.Core.Models.User
 {

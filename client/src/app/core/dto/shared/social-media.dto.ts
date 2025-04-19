@@ -1,8 +1,7 @@
 import { Guid } from 'guid-typescript';
 
 export class SocialMediaDto {
-  Id!: Guid | undefined;
-  Url!: string;
+  Id!: Guid;
   Name!: string;
   Icon?: string;
 }

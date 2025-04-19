@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ProductivityHarborApi.Core.Models.User
+namespace ProductivityHarborApi.Core.Models.Owned
 {
     [Owned]
     public class Address
