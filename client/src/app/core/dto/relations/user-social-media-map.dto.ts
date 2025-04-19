@@ -5,4 +5,6 @@ export class UserSocialMediaMapDto {
   UserId?: Guid;
   SocialMediaId?: Guid;
   Url?: string;
+  Name?: string;
+  Icon?: string;
 }

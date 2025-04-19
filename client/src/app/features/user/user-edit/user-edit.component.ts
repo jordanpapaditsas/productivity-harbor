@@ -53,8 +53,10 @@ export class UserEditComponent implements OnInit {
 
   userId = input<Guid>();
   exitScreen = output<EventEmitter<void>>();
-  isInEditMode = signal<boolean>(false);
-  isSocialMediaForm = signal<boolean>(false);
+  isUserInEditMode = signal<boolean>(false);
+  isSocialMediaFormVisible = signal<boolean>(false);
+  socialMediaRowIndex = signal<number>(0);
+  rowKeys: Set<Guid> = new Set();
 
   user!: UserDto;
   userSocialMediaArray: any;
@@ -94,6 +96,13 @@ export class UserEditComponent implements OnInit {
   getUserDataSource() {
     this.userService.getUserById(this.userId()!).subscribe((response) => {
       this.user = response;
+      if (!this.user.Phone) {
+        this.user.Phone = { Home: '', Mobile: '', Work: '' };
+      }
+
+      if (!this.user.Address) {
+        this.user.Address = { Street: '', City: '', Zip: '' };
+      }
     });
   }
 
@@ -105,19 +114,19 @@ export class UserEditComponent implements OnInit {
     if (!this.user.Id) {
       this.userService.createUser(this.user).subscribe((response) => {
         this.user = response;
+        //TODO Toastr
       });
     } else if (this.user.Id) {
-      debugger;
-      this.user.UserSocialMediaLinksMap = [];
-      this.user.UserSocialMediaLinksMap.push(...this.userSocialMediaArray);
       this.userService.updateUser(this.user).subscribe((response) => {
         this.user = response;
+        //TODO Toastr
       });
     }
   }
 
   onEditClicked(e: any) {
-    this.isInEditMode.set(!this.isInEditMode());
+    this.isUserInEditMode.set(!this.isUserInEditMode());
+    //TODO Fix the view mode interface and the edit mode interface
   }
 
   triggerAvatarUpload() {
@@ -143,24 +152,28 @@ export class UserEditComponent implements OnInit {
   }
 
   addSocialMedia(e: any) {
-    this.isSocialMediaForm.set(true);
-    if (this.isSocialMediaForm()) {
+    this.isSocialMediaFormVisible.set(true);
+    if (this.isSocialMediaFormVisible()) {
       this.userSocialMedia = new UserSocialMediaMapDto();
       this.userSocialMediaArray.push(this.userSocialMedia);
     }
   }
 
   onClearSocialMediaFormClicked() {
-    this.isSocialMediaForm.set(false);
+    this.isSocialMediaFormVisible.set(false);
     this.userSocialMediaArray = [];
     this.userSocialMedia = new UserSocialMediaMapDto();
   }
 
-  async onSaveUserSocialMediaClicked(
-    userSocial: UserSocialMediaMapDto,
+  clearRowKeys(row: any) {
+    this.rowKeys.delete(row.Id);
+  }
+
+  async onSaveUserSocialMediaRowClicked(
+    userSocialMedia: UserSocialMediaMapDto,
     index: number
   ) {
-    if (!userSocial.Url) {
+    if (!userSocialMedia.Url) {
       let result = await this.dialogService.alertDialog(
         'Warning Message',
         'Please type a correct Url for your social media.',
@@ -169,19 +182,70 @@ export class UserEditComponent implements OnInit {
       return result;
     }
 
-    this.userSocialMedia = userSocial;
-    this.userSocialMediaService
-      .createUserSocialMediaMap(this.userSocialMedia)
-      .subscribe((response) => {
-        this.userSocialMedia = response;
+    debugger;
+    if (!userSocialMedia.Id) {
+      this.userSocialMediaService
+        .createUserSocialMediaMap(userSocialMedia)
+        .subscribe((response) => {
+          this.userSocialMedia = response;
 
-        this.getUserDataSource();
-        this.onClearSocialMediaFormClicked();
-      });
+          this.user.UserSocialMediaLinksMap.push(this.userSocialMedia);
+          //TODO Toastr?
+
+          // this.getUserDataSource();
+          this.onClearSocialMediaFormClicked();
+        });
+    } else {
+      this.userSocialMediaService
+        .updateUserSocialMediaMap(userSocialMedia)
+        .subscribe((response) => {
+          this.userSocialMedia = response;
+          //TODO Toastr?
+
+          this.rowKeys.delete(this.userSocialMedia.Id!);
+          this.clearRowKeys(this.userSocialMedia.Id);
+          // this.getUserDataSource();
+          this.onClearSocialMediaFormClicked();
+        });
+    }
   }
 
   onSocialMediaSelectionChange(socialMedia: SocialMediaDto) {
     this.userSocialMedia.SocialMediaId = socialMedia.Id;
     this.userSocialMedia.UserId = this.user.Id;
+    this.userSocialMedia.Icon = socialMedia.Icon;
+    this.userSocialMedia.Name = socialMedia.Name;
+  }
+
+  onEditSocialMediaRowClicked(
+    userSocialMedia: UserSocialMediaMapDto,
+    index: number
+  ) {
+    this.socialMediaRowIndex.set(index);
+    this.rowKeys.add(userSocialMedia.Id!);
+  }
+
+  async onDeleteSocialMediaRowClicked(
+    userSocialMedia: UserSocialMediaMapDto,
+    index: number
+  ) {
+    let result = await this.dialogService.confirmDialog(
+      'Warning Message',
+      'Are you sure you want to delete record?',
+      DialogTypeEnum.Danger
+    );
+
+    if (result) {
+      this.userSocialMediaService
+        .deleteUserSocialMediaMapById(userSocialMedia.Id!)
+        .subscribe((response) => {
+          //TODO toastr
+          this.getUserDataSource();
+        });
+    }
+  }
+
+  isSocialMediaRowInEditMode(row: any, index: number) {
+    return this.rowKeys.has(row.Id) && this.socialMediaRowIndex() === index;
   }
 }

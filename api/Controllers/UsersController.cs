@@ -24,25 +24,25 @@ namespace ProductivityHarborApi.Controllers
         [HttpGet("getAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var data = await _context.Users.ToListAsync();
 
-            return Ok(users);
+            return Ok(data);
         }
 
-        [HttpGet("getUserById/{userId}")]
-        public async Task<IActionResult> GetUserById(Guid userId)
+        [HttpGet("getUserById/{id}")]
+        public async Task<IActionResult> GetUserById(Guid id)
         {
-            var user = await _context.Users
+            var data = await _context.Users
                 .Include(x => x.UserSocialMediaLinksMap)
                 .ThenInclude(y => y.SocialMedia) 
-                .FirstOrDefaultAsync(x => x.Id == userId);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (user == null)
+            if (data == null)
             {
                 return BadRequest("User not found.");
             }
 
-            var userSocialMediaDtos = user.UserSocialMediaLinksMap
+            var userSocialMediaDto = data.UserSocialMediaLinksMap
                     .Select(x => new UserSocialMediaMapDto
                     {
                         Id = x.Id,
@@ -56,128 +56,128 @@ namespace ProductivityHarborApi.Controllers
 
             var userDto = new UserDto
             {
-                Id = user.Id,
-                FullName = user.FullName,
-                Avatar = user.Avatar,
-                UserName = user.UserName,
-                Email = user.Email,
-                IsActive = user.IsActive,
-                IsDeleted = user.IsDeleted,
-                Color = user.Color,
-                Portfolio = user.Portfolio,
-                Address = user.Address ?? new Address
+                Id = data.Id,
+                FullName = data.FullName,
+                Avatar = data.Avatar,
+                UserName = data.UserName,
+                Email = data.Email,
+                IsActive = data.IsActive,
+                IsDeleted = data.IsDeleted,
+                Color = data.Color,
+                Portfolio = data.Portfolio,
+                Address = data.Address ?? new Address
                 {
                     Street = string.Empty,
                     City = string.Empty,
                     Zip = string.Empty
                 },
-                Phone = user.Phone ?? new Phone
+                Phone = data.Phone ?? new Phone
                 {
                     Home = string.Empty,
                     Mobile = string.Empty,
                     Work = string.Empty
                 },
-                Country = user.Country,
-                BirthDate = user.BirthDate,
-                UserSocialMediaLinksMap = userSocialMediaDtos
+                Country = data.Country,
+                BirthDate = data.BirthDate,
+                UserSocialMediaLinksMap = userSocialMediaDto
             };
      
             return Ok(userDto);
         }
         
         [HttpPost("createUser")]
-        public async Task<IActionResult> CreateUser(UserDto userDto)
+        public async Task<IActionResult> CreateUser(UserDto dto)
         {
             var actionUser = await _userManager.GetUserAsync(User);
 
-            var user = new User();
+            var data = new User();
 
-            if (userDto != null)
+            if (dto != null)
             {
-                user.Avatar = userDto.Avatar;
-                user.UserName = userDto.UserName;
-                user.Email = userDto.Email;
-                user.PasswordHash = userDto.PasswordHash;
-                user.CreatedByUserId = actionUser?.Id;
-                user.IsActive = userDto.IsActive;
-                user.IsDeleted = userDto.IsDeleted;
-                user.Token = userDto.Token;
-                user.Color = userDto.Color;
-                user.Portfolio = userDto.Portfolio;
-                user.BirthDate = userDto.BirthDate;
-                user.Phone = userDto.Phone;
-                user.Address = userDto.Address;
-                user.Country = userDto.Country;
+                dto.Id = data.Id;
+                data.Avatar = dto.Avatar;
+                data.UserName = dto.UserName;
+                data.Email = dto.Email;
+                data.PasswordHash = dto.PasswordHash;
+                data.CreatedByUserId = actionUser?.Id;
+                data.IsActive = dto.IsActive;
+                data.IsDeleted = dto.IsDeleted;
+                data.Token = dto.Token;
+                data.Color = dto.Color;
+                data.Portfolio = dto.Portfolio;
+                data.BirthDate = dto.BirthDate;
+                data.Phone = dto.Phone;
+                data.Address = dto.Address;
+                data.Country = dto.Country;
             }
 
-            //if (userDto.UserSocialMediaLinksMap != null)
-            //{
-            //    user.UserSocialMediaLinksMap = userDto.UserSocialMediaLinksMap
-            //        .Select(dto => new UserSocialMediaMap
-            //        {
-            //            Url = dto.Url,
-            //        })
-            //        .ToList();
-            //}
-
-            _context.Users.Add(user);
+            _context.Users.Add(data);
             await _context.SaveChangesAsync();
 
-            return Ok(user);
+            return Ok(dto);
         }
 
         [HttpPut("updateUser")]
-        public async Task<IActionResult> UpdateUser(UserDto userDto)
+        public async Task<IActionResult> UpdateUser(UserDto dto)
         {
             var actionUser = await _userManager.GetUserAsync(User);
-            var user = await _context.Users.AsNoTracking().Include(x => x.UserSocialMediaLinksMap).FirstOrDefaultAsync(x => x.Id == userDto.Id);
+            var data = await _context.Users
+                .Include(x => x.UserSocialMediaLinksMap)
+                .Include(y => y.Phone)
+                .Include(z => z.Address)
+                .FirstOrDefaultAsync(x => x.Id == dto.Id);
 
-            if (user == null)
+            if (data == null)
             {
                 return BadRequest("User not found.");
             } 
             else
             {
-                user.Avatar = userDto.Avatar;
-                user.UserName = userDto.UserName;
-                user.Email = userDto.Email;
-                user.PasswordHash = userDto.PasswordHash;
-                user.UpdatedByUserId = actionUser?.Id;
-                user.IsActive = userDto.IsActive;
-                user.IsDeleted = userDto.IsDeleted;
-                user.Token = userDto.Token;
-                user.Color = userDto.Color;
-                user.Portfolio = userDto.Portfolio;
-                user.BirthDate = userDto.BirthDate;
-                user.Phone = userDto.Phone;
-                user.Address = userDto.Address;
-                user.Country = userDto.Country;
+                dto.Id = data.Id;
+                data.Avatar = dto.Avatar;
+                data.FullName = dto.FullName;
+                data.UserName = dto.UserName;
+                data.Email = dto.Email;
+                data.PasswordHash = dto.PasswordHash;
+                data.UpdatedByUserId = actionUser?.Id;
+                data.IsActive = dto.IsActive;
+                data.IsDeleted = dto.IsDeleted;
+                data.Token = dto.Token;
+                data.Color = dto.Color;
+                data.Portfolio = dto.Portfolio;
+                data.BirthDate = dto.BirthDate;
+                data.Phone = dto.Phone;
+                data.Address = dto.Address;
+                data.Country = dto.Country;
 
-                _context.Users.Attach(user);
-                _context.Entry(user).State = EntityState.Modified;
-                _context.Entry(user).Reference(u => u.Phone).TargetEntry.State = EntityState.Modified;
-                _context.Entry(user).Reference(u => u.Address).TargetEntry.State = EntityState.Modified;
                 await _context.SaveChangesAsync();
+                try
+                {
+                    return Ok(dto);
 
-                return Ok(user);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, "Error occurred" + ex.Message);
+                }
             } 
         }
 
         [HttpDelete("deleteUserById/{id}")]
         public async Task<IActionResult> DeleteUserById(Guid id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var data = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (user == null)
+            if (data == null)
             {
                 return BadRequest("User not found.");
             }
             else
             {
+                _context.Remove(data);
                 await _context.SaveChangesAsync();
-                _context.Remove(user);
 
-                return Ok(user);
+                return NoContent();
             }
         }
     }

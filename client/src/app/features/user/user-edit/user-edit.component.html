@@ -39,12 +39,12 @@
             </div>
           </div>
 
-          @if (!isInEditMode()) {
+          @if (!isUserInEditMode()) {
           <div class="user-fullname">{{ user.FullName }}</div>
           } @else {
           <div class="flexbox-column">
             <mat-label>Full Name</mat-label>
-            <ph-text-box [value]="user.FullName"></ph-text-box>
+            <ph-text-box [(value)]="user.FullName"></ph-text-box>
           </div>
 
           }
@@ -76,9 +76,9 @@
 
       <div class="social-media-container">
         <div class="action-btns">
-          @if (!this.isSocialMediaForm()) {
+          @if (!this.isSocialMediaFormVisible()) {
           <button
-            [disabled]="!isInEditMode()"
+            [disabled]="!isUserInEditMode()"
             class="add-social-btn"
             mat-button
             (click)="addSocialMedia($event)"
@@ -88,7 +88,7 @@
           </button>
           } @else {
           <button
-            [disabled]="!isInEditMode()"
+            [disabled]="!isUserInEditMode()"
             class="add-social-btn"
             mat-button
             (click)="onClearSocialMediaFormClicked()"
@@ -98,19 +98,52 @@
           </button>
           }
         </div>
-        @if (!isSocialMediaForm()) {
+        @if (!isSocialMediaFormVisible()) {
         <fieldset>
           <legend>Social Media</legend>
           <div class="user-social-media">
             @if(user.UserSocialMediaLinksMap &&
             user.UserSocialMediaLinksMap.length > 0) { @for (userSocialMedia of
-            user.UserSocialMediaLinksMap; track userSocialMedia.Url) {
+            user.UserSocialMediaLinksMap; track userSocialMedia.Id; let i =
+            $index;) {
             <div class="user-social-media-row">
               <i class="social-media-icon" [class]="userSocialMedia.Icon"></i>
-              <div class="user-social-media-url">
+              <div class="user-social-media-name">
                 {{ userSocialMedia.Name }}
               </div>
+
+              @if (!isSocialMediaRowInEditMode(userSocialMedia, i)) {
               <div class="user-social-media-url">{{ userSocialMedia.Url }}</div>
+              <button
+                [disabled]="!isUserInEditMode()"
+                class="edit-social-btn"
+                matTooltip="Edit"
+                mat-icon-button
+                (click)="onEditSocialMediaRowClicked(userSocialMedia, i)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                [disabled]="!isUserInEditMode()"
+                class="delete-social-btn"
+                mat-icon-button
+                (click)="onDeleteSocialMediaRowClicked(userSocialMedia, i)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              } @else if (isSocialMediaRowInEditMode(userSocialMedia, i)) {
+              <ph-text-box [(value)]="userSocialMedia.Url"></ph-text-box>
+              <div class="save-user-social-media">
+                <button
+                  matTooltip="Save"
+                  mat-icon-button
+                  (click)="onSaveUserSocialMediaRowClicked(userSocialMedia, i)"
+                >
+                  <mat-icon>save</mat-icon>
+                </button>
+              </div>
+              }
             </div>
             }}
           </div>
@@ -133,7 +166,11 @@
             <ph-text-box [(value)]="userSocialMedia.Url"></ph-text-box>
           </div>
           <div class="save-user-social-media">
-            <button (click)="onSaveUserSocialMediaClicked(userSocialMedia, i)">
+            <button
+              matTooltip="Save"
+              mat-icon-button
+              (click)="onSaveUserSocialMediaRowClicked(userSocialMedia, i)"
+            >
               <mat-icon>save</mat-icon>
             </button>
           </div>
@@ -149,16 +186,16 @@
           <div class="title-align title">{{ personalInfoTitle }}</div>
           <div class="flexbox-column user-username">
             <mat-label>Username</mat-label>
-            <ph-text-box [value]="user.UserName"></ph-text-box>
+            <ph-text-box [(value)]="user.UserName"></ph-text-box>
           </div>
           <div class="flexbox-column user-password">
             <mat-label>Password</mat-label>
-            <ph-text-box [value]="user.PasswordHash"></ph-text-box>
+            <ph-text-box [(value)]="user.PasswordHash"></ph-text-box>
           </div>
 
           <div class="flexbox-column user-portfolio">
             <mat-label>Portfolio</mat-label>
-            <ph-text-box [value]="user.Portfolio"></ph-text-box>
+            <ph-text-box [(value)]="user.Portfolio"></ph-text-box>
           </div>
         </div>
       </div>
@@ -168,42 +205,60 @@
           <div class="title-align title">{{ contactTitle }}</div>
           <div class="flexbox-column user-email">
             <mat-label>Email</mat-label>
-            <ph-text-box [value]="user.Email"></ph-text-box>
+            <ph-text-box [(value)]="user.Email"></ph-text-box>
           </div>
 
           <div class="flexbox-column user-home-phone">
             <mat-label>Home Phone</mat-label>
-            <ph-text-box [value]="user.Phone?.Home"></ph-text-box>
+            <ph-text-box
+              *ngIf="user?.Phone"
+              [(value)]="user.Phone!.Home"
+            ></ph-text-box>
           </div>
 
           <div class="flexbox-column user-mobile-phone">
             <mat-label>Mobile Phone</mat-label>
-            <ph-text-box [value]="user.Phone?.Mobile"></ph-text-box>
+            <ph-text-box
+              *ngIf="user?.Phone"
+              [(value)]="user.Phone!.Mobile"
+            ></ph-text-box>
           </div>
 
           <div class="flexbox-column user-work-phone">
             <mat-label>Work Phone</mat-label>
-            <ph-text-box [value]="user.Phone?.Work"></ph-text-box>
+            <ph-text-box
+              *ngIf="user?.Phone"
+              [(value)]="user.Phone!.Work"
+            ></ph-text-box>
           </div>
 
           <div class="flexbox-column user-country">
             <mat-label>Country</mat-label>
-            <ph-text-box [value]="user.Country"></ph-text-box>
+            <ph-text-box [(value)]="user.Country"></ph-text-box>
           </div>
 
           <div class="flexbox-column user-city">
             <mat-label>City</mat-label>
-            <ph-text-box [value]="user.Address?.City"></ph-text-box>
+            <ph-text-box
+              *ngIf="user?.Address"
+              [(value)]="user.Address!.City"
+            ></ph-text-box>
           </div>
 
           <div class="flexbox-column user-street">
             <mat-label>Street</mat-label>
-            <ph-text-box [value]="user.Address?.Street"></ph-text-box>
+            <ph-text-box
+              *ngIf="user?.Address"
+              [(value)]="user.Address!.Street"
+            ></ph-text-box>
           </div>
 
           <div class="flexbox-column user-zip">
             <mat-label>ZIP Code</mat-label>
-            <ph-text-box [value]="user.Address?.Zip"></ph-text-box>
+            <ph-text-box
+              *ngIf="user?.Address"
+              [(value)]="user.Address!.Zip"
+            ></ph-text-box>
           </div>
         </div>
       </div>

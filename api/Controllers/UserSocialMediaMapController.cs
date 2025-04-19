@@ -21,67 +21,74 @@ namespace ProductivityHarborApi.Controllers
         [HttpGet("getAllUserSocialMediaMapByUserId/{userId}")]
         public async Task<IActionResult> GetAllUserSocialMediaMapByUserId(Guid userId)
         {
-            var userSocialMedia = await _context.UserSocialMediaLinksMap.Where(x => x.UserId == userId).ToListAsync();
+            var data = await _context.UserSocialMediaLinksMap.Where(x => x.UserId == userId).Select(x => new UserSocialMediaMapDto
+            {
+                UserId = x.UserId,
+                SocialMediaId = x.SocialMediaId,
+                Url = x.Url,
+            }).ToListAsync();
 
-            if (userSocialMedia == null) 
+
+            if (data == null) 
             {
                 return NotFound("There are no social media for this user.");
             }
 
-            return Ok(userSocialMedia);
+            return Ok(data);
         }
 
         [HttpPost("createUserSocialMediaMap")]
-        public async Task<IActionResult> CreateUserSocialMediaMap(UserSocialMediaMapDto userSocialMediaMapDto)
+        public async Task<IActionResult> CreateUserSocialMediaMap(UserSocialMediaMapDto dto)
         {
-            var userSocial = new UserSocialMediaMap();
+            var data = new UserSocialMediaMap();
 
-            userSocial.Url = userSocialMediaMapDto.Url;
-            userSocial.UserId = userSocialMediaMapDto.UserId;
-            userSocial.SocialMediaId = userSocialMediaMapDto.SocialMediaId;
+            dto.Id = data.Id;
+            data.Url = dto.Url;
+            data.UserId = dto.UserId;
+            data.SocialMediaId = dto.SocialMediaId;
 
-            _context.UserSocialMediaLinksMap.Add(userSocial);
+            _context.UserSocialMediaLinksMap.Add(data);
             await _context.SaveChangesAsync();
 
-            return Ok(userSocial);
+            return Ok(dto);
 
         }       
         
         [HttpPut("updateUserSocialMediaMap")]
-        public async Task<IActionResult> UpdateUserSocialMediaMap(UserSocialMediaMapDto userSocialMediaMapDto)
+        public async Task<IActionResult> UpdateUserSocialMediaMap(UserSocialMediaMapDto dto)
         {
-            var userSocialMedia = await _context.UserSocialMediaLinksMap
-                .FirstOrDefaultAsync(x => x.UserId == userSocialMediaMapDto.UserId && x.SocialMediaId == userSocialMediaMapDto.SocialMediaId);
+            var data = await _context.UserSocialMediaLinksMap
+                .FirstOrDefaultAsync(x => x.UserId == dto.UserId && x.SocialMediaId == dto.SocialMediaId && x.Id == dto.Id);
 
-            if (userSocialMedia == null)
+            if (data == null)
             {
                 return NotFound("User social media not found.");
             }
 
-            userSocialMedia.Url = userSocialMediaMapDto.Url;
-            userSocialMedia.UserId = userSocialMediaMapDto.UserId;
-            userSocialMedia.SocialMediaId = userSocialMediaMapDto.SocialMediaId;
+            data.Url = dto.Url;
+            data.UserId = dto.UserId;
+            data.SocialMediaId = dto.SocialMediaId;
 
             await _context.SaveChangesAsync();
 
-            return Ok(userSocialMedia);
+            return Ok(dto);
         }
 
         [HttpDelete("deleteUserSocialMediaMapById/{id}")]
         public async Task<IActionResult> DeleteUserSocialMediaMapById(Guid id)
         {
-            var userSocial = await _context.UserSocialMediaLinksMap.FirstOrDefaultAsync(x => x.Id == id);
+            var data = await _context.UserSocialMediaLinksMap.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (userSocial == null)
+            if (data == null)
             {
                 return BadRequest("User social media not found.");
             }
             else
             {
-                _context.Remove(userSocial);
+                _context.Remove(data);
                 await _context.SaveChangesAsync();
 
-                return Ok(userSocial);
+                return NoContent();
             }
         }
     }

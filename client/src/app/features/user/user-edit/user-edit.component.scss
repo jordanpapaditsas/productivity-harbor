@@ -38,14 +38,19 @@
 
 .user-social-media-row {
   display: grid;
-  grid-template-columns: 0.1fr 0.2fr 1fr;
+  grid-template-columns: 50px 100px 250px 70px 60px;
   grid-row: repeat(1, 100px);
   align-items: center;
-  gap: 2rem;
 }
 
 .social-media-icon {
   font-size: var(--ph-fontSize-medium);
+}
+
+.edit-social-btn, .delete-social-btn {
+  width: 3rem;
+  height: 2rem;
+
 }
 
 .social-media-selectbox {
