@@ -182,7 +182,6 @@ export class UserEditComponent implements OnInit {
       return result;
     }
 
-    debugger;
     if (!userSocialMedia.Id) {
       this.userSocialMediaService
         .createUserSocialMediaMap(userSocialMedia)
@@ -192,7 +191,6 @@ export class UserEditComponent implements OnInit {
           this.user.UserSocialMediaLinksMap.push(this.userSocialMedia);
           //TODO Toastr?
 
-          // this.getUserDataSource();
           this.onClearSocialMediaFormClicked();
         });
     } else {
@@ -204,7 +202,6 @@ export class UserEditComponent implements OnInit {
 
           this.rowKeys.delete(this.userSocialMedia.Id!);
           this.clearRowKeys(this.userSocialMedia.Id);
-          // this.getUserDataSource();
           this.onClearSocialMediaFormClicked();
         });
     }
