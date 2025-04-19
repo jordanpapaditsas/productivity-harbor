@@ -1,6 +1,6 @@
 import { Guid } from 'guid-typescript';
 
-export class UserRoleDto {
+export class UserRoleMapDto {
   UserId!: Guid;
   RoleId!: Guid;
 }

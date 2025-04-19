@@ -18,7 +18,7 @@ export class UserDto {
   UpdatedAt?: Date | string | number;
   UpdatedByUserId?: Guid;
   Color?: string;
-  UserSocialMedia: UserSocialMediaMapDto[] = [];
+  UserSocialMediaMap: UserSocialMediaMapDto[] = [];
   Phone: Phone | undefined | null;
   Address: Address | undefined | null;
   Portfolio?: string;

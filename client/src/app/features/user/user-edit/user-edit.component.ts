@@ -8,7 +8,7 @@ import {
   OnInit,
   output,
   signal,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../user.service';
@@ -22,10 +22,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatLabel } from '@angular/material/input';
 import { SocialMediaDto } from '../../../core/dto/shared/social-media.dto';
-import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-media-map.dto';
 import { MatSelectModule } from '@angular/material/select';
 import { SocialMediaService } from '../../settings/social-media/social-media.service';
 import { UserSocialMediaMapService } from '../../../shared/services/relation-services/user-social-media.service';
+import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-media-map.dto';
 
 @Component({
   selector: 'app-user-edit',
@@ -44,26 +44,30 @@ import { UserSocialMediaMapService } from '../../../shared/services/relation-ser
   ],
 })
 export class UserEditComponent implements OnInit {
-  @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
-  userId = input<Guid | null>(null);
-  private userService = inject(UserService);
-  private socialMediaService = inject(SocialMediaService);
-  private userSocialMediaService = inject(UserSocialMediaMapService);
-  user!: UserDto;
+  fileInput = viewChild<ElementRef>('fileInput');
   newUserTitle!: string;
   contactTitle: string = 'Contact';
   personalInfoTitle: string = 'Personal Info';
-  isInEditMode = signal<boolean>(false);
-  socialMediaLinks = signal<SocialMediaDto[]>([]);
 
+  userId = input<Guid | null>(null);
   exitScreen = output<EventEmitter<void>>();
+  isInEditMode = signal<boolean>(false);
   isSocialMediaFormVisible = signal<boolean>(false);
+
+  user!: UserDto;
+  userSocialMediaArray: any[] = [];
   userSocialMedia!: UserSocialMediaMapDto;
+  socialMedia: SocialMediaDto[] = [];
+
+  private userService = inject(UserService);
+  private socialMediaService = inject(SocialMediaService);
+  private userSocialMediaService = inject(UserSocialMediaMapService);
 
   constructor() {
-    debugger;
     this.user = new UserDto();
     this.userSocialMedia = new UserSocialMediaMapDto();
+    this.userSocialMediaArray = [];
+
     effect(() => {
       if (this.userId()) {
         this.userService.getUserById(this.userId()!).subscribe((response) => {
@@ -80,39 +84,30 @@ export class UserEditComponent implements OnInit {
     this.getAllSocialMedia();
   }
 
+  getAllSocialMedia() {
+    this.socialMediaService.getAllSocialMedia().subscribe((response) => {
+      this.socialMedia = response;
+    });
+  }
+
   onUserEditExit(e: any) {
     this.exitScreen.emit(e);
   }
 
-  getAllSocialMedia() {
-    this.socialMediaService
-      .getAllSocialMedia()
-      .subscribe((response: SocialMediaDto[]) => {
-        this.socialMediaLinks.set(response);
-      });
-  }
   onUserEditSave(e: any) {
     if (!this.user.Id) {
       this.userService.createUser(this.user).subscribe((response) => {
         this.user = response;
       });
     } else if (this.user.Id) {
-      debugger;
-      this.userSocialMediaService
-        .createUserSocialMediaMap(this.userSocialMedia)
-        .subscribe((response) => {
-          this.userSocialMedia = response;
-
-          this.user.UserSocialMedia.push(this.userSocialMedia);
-          this.userService.updateUser(this.user).subscribe((response) => {
-            this.user = response;
-          });
-        });
+      this.userService.updateUser(this.user).subscribe((response) => {
+        this.user = response;
+      });
     }
   }
 
   triggerAvatarUpload() {
-    this.fileInput.nativeElement.click();
+    this.fileInput()?.nativeElement.click();
   }
 
   onAvatarChange(event: any) {
@@ -137,9 +132,5 @@ export class UserEditComponent implements OnInit {
     this.isSocialMediaFormVisible.set(true);
   }
 
-  onSocialMediaSelectionChange(socialMedia: SocialMediaDto) {
-    debugger;
-    this.userSocialMedia.SocialMediaId = socialMedia.Id;
-    this.userSocialMedia.UserId = this.user.Id;
-  }
+  onSocialMediaSelectionChange(socialMedia: SocialMediaDto) {}
 }

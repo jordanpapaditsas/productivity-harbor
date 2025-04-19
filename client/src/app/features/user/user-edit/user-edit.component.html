@@ -74,31 +74,25 @@
       </div>
 
       <div class="social-media-container">
-        <div>
-          <button mat-button (click)="addSocialMedia($event)">
-            Add Social
-          </button>
-        </div>
-        <fieldset>
+        <fieldset class="fieldset-container">
           <legend>Social Media</legend>
+          <div class="user-social-media">
+            @if(user.UserSocialMediaMap && user.UserSocialMediaMap.length > 0) {
+            @for (userSocialMedia of user.UserSocialMediaMap; track
+            userSocialMedia.Url) {
+            <div>{{ userSocialMedia.Url }}</div>
+            } } @else {
+            <!-- Καθε φορά που πατάω το add να ανοίγει 2 πεδία, ενα selectbox με τα social media και ένα Ph textbox για url.
+               Θα πρέπει να φτιάξω ένα array που θα τα αποθηκεύω εκεί μέσα, επίσης θέλω ένα object όπου θα παίρνει το id του social, του user και το url -->
 
-          @if (user.SocialMediaLinks) {
-          <div>{{ user.SocialMediaLinks }}</div>
-          } @else { @if (this.isSocialMediaFormVisible()) {
-          <div class="text-box-container">
-            <mat-select>
-              @for (socialMedia of socialMediaLinks(); track socialMedia.Id) {
-              <mat-option
-                (onSelectionChange)="onSocialMediaSelectionChange(socialMedia)"
-                [value]="socialMedia.Id"
-              >
-                {{ socialMedia.Name }}</mat-option
-              >
-              }
-            </mat-select>
-            <ph-text-box [(value)]="userSocialMedia.Url"></ph-text-box>
+            }
           </div>
-          } }
+
+          <div class="action-btns">
+            <button mat-button (click)="addSocialMedia($event)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
         </fieldset>
       </div>
     </div>
