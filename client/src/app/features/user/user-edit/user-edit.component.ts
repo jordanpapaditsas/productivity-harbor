@@ -26,6 +26,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { SocialMediaService } from '../../settings/social-media/social-media.service';
 import { UserSocialMediaMapService } from '../../../shared/services/relation-services/user-social-media.service';
 import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-media-map.dto';
+import { PhDialogService } from '../../../shared/services/ph-dialog.service';
+import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
 
 @Component({
   selector: 'app-user-edit',
@@ -49,19 +51,20 @@ export class UserEditComponent implements OnInit {
   contactTitle: string = 'Contact';
   personalInfoTitle: string = 'Personal Info';
 
-  userId = input<Guid | null>(null);
+  userId = input<Guid>();
   exitScreen = output<EventEmitter<void>>();
   isInEditMode = signal<boolean>(false);
-  isSocialMediaFormVisible = signal<boolean>(false);
+  isSocialMediaForm = signal<boolean>(false);
 
   user!: UserDto;
-  userSocialMediaArray: any[] = [];
+  userSocialMediaArray: any;
   userSocialMedia!: UserSocialMediaMapDto;
   socialMedia: SocialMediaDto[] = [];
 
   private userService = inject(UserService);
   private socialMediaService = inject(SocialMediaService);
   private userSocialMediaService = inject(UserSocialMediaMapService);
+  private dialogService = inject(PhDialogService);
 
   constructor() {
     this.user = new UserDto();
@@ -70,9 +73,7 @@ export class UserEditComponent implements OnInit {
 
     effect(() => {
       if (this.userId()) {
-        this.userService.getUserById(this.userId()!).subscribe((response) => {
-          this.user = response;
-        });
+        this.getUserDataSource();
       }
     });
     if (!this.user) {
@@ -90,20 +91,33 @@ export class UserEditComponent implements OnInit {
     });
   }
 
-  onUserEditExit(e: any) {
+  getUserDataSource() {
+    this.userService.getUserById(this.userId()!).subscribe((response) => {
+      this.user = response;
+    });
+  }
+
+  onExitClicked(e: any) {
     this.exitScreen.emit(e);
   }
 
-  onUserEditSave(e: any) {
+  onSaveClicked(e: any) {
     if (!this.user.Id) {
       this.userService.createUser(this.user).subscribe((response) => {
         this.user = response;
       });
     } else if (this.user.Id) {
+      debugger;
+      this.user.UserSocialMediaLinksMap = [];
+      this.user.UserSocialMediaLinksMap.push(...this.userSocialMediaArray);
       this.userService.updateUser(this.user).subscribe((response) => {
         this.user = response;
       });
     }
+  }
+
+  onEditClicked(e: any) {
+    this.isInEditMode.set(!this.isInEditMode());
   }
 
   triggerAvatarUpload() {
@@ -129,8 +143,45 @@ export class UserEditComponent implements OnInit {
   }
 
   addSocialMedia(e: any) {
-    this.isSocialMediaFormVisible.set(true);
+    this.isSocialMediaForm.set(true);
+    if (this.isSocialMediaForm()) {
+      this.userSocialMedia = new UserSocialMediaMapDto();
+      this.userSocialMediaArray.push(this.userSocialMedia);
+    }
   }
 
-  onSocialMediaSelectionChange(socialMedia: SocialMediaDto) {}
+  onClearSocialMediaFormClicked() {
+    this.isSocialMediaForm.set(false);
+    this.userSocialMediaArray = [];
+    this.userSocialMedia = new UserSocialMediaMapDto();
+  }
+
+  async onSaveUserSocialMediaClicked(
+    userSocial: UserSocialMediaMapDto,
+    index: number
+  ) {
+    if (!userSocial.Url) {
+      let result = await this.dialogService.alertDialog(
+        'Warning Message',
+        'Please type a correct Url for your social media.',
+        DialogTypeEnum.Danger
+      );
+      return result;
+    }
+
+    this.userSocialMedia = userSocial;
+    this.userSocialMediaService
+      .createUserSocialMediaMap(this.userSocialMedia)
+      .subscribe((response) => {
+        this.userSocialMedia = response;
+
+        this.getUserDataSource();
+        this.onClearSocialMediaFormClicked();
+      });
+  }
+
+  onSocialMediaSelectionChange(socialMedia: SocialMediaDto) {
+    this.userSocialMedia.SocialMediaId = socialMedia.Id;
+    this.userSocialMedia.UserId = this.user.Id;
+  }
 }

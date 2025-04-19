@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProductivityHarborApi.Core.Dto.Relations;
 using ProductivityHarborApi.Core.Dto.User;
 using ProductivityHarborApi.Core.Models.Owned;
+using ProductivityHarborApi.Core.Models.Relations;
 using ProductivityHarborApi.Core.Models.User;
 using ProductivityHarborApi.Data;
 
@@ -30,21 +32,35 @@ namespace ProductivityHarborApi.Controllers
         [HttpGet("getUserById/{userId}")]
         public async Task<IActionResult> GetUserById(Guid userId)
         {
-            var user = await _context.Users.Include(x => x.UserSocialMediaLinksMap).FirstOrDefaultAsync(x => x.Id == userId);
+            var user = await _context.Users
+                .Include(x => x.UserSocialMediaLinksMap)
+                .ThenInclude(y => y.SocialMedia) 
+                .FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user == null)
             {
                 return BadRequest("User not found.");
             }
 
-            var dto = new UserDto
+            var userSocialMediaDtos = user.UserSocialMediaLinksMap
+                    .Select(x => new UserSocialMediaMapDto
+                    {
+                        Id = x.Id,
+                        SocialMediaId = x.SocialMediaId,
+                        Url = x.Url,
+                        UserId = x.UserId,
+                        Icon = x.SocialMedia.Icon,
+                        Name = x.SocialMedia.Name
+                    })
+                    .ToList();
+
+            var userDto = new UserDto
             {
                 Id = user.Id,
                 FullName = user.FullName,
                 Avatar = user.Avatar,
                 UserName = user.UserName,
                 Email = user.Email,
-                PasswordHash = user.PasswordHash,
                 IsActive = user.IsActive,
                 IsDeleted = user.IsDeleted,
                 Color = user.Color,
@@ -62,10 +78,11 @@ namespace ProductivityHarborApi.Controllers
                     Work = string.Empty
                 },
                 Country = user.Country,
-                BirthDate = user.BirthDate, 
+                BirthDate = user.BirthDate,
+                UserSocialMediaLinksMap = userSocialMediaDtos
             };
-
-            return Ok(dto);
+     
+            return Ok(userDto);
         }
         
         [HttpPost("createUser")]
@@ -85,15 +102,24 @@ namespace ProductivityHarborApi.Controllers
                 user.IsActive = userDto.IsActive;
                 user.IsDeleted = userDto.IsDeleted;
                 user.Token = userDto.Token;
-                user.UserSocialMediaLinksMap = userDto.UserSocialMediaLinksMap;
                 user.Color = userDto.Color;
                 user.Portfolio = userDto.Portfolio;
                 user.BirthDate = userDto.BirthDate;
                 user.Phone = userDto.Phone;
                 user.Address = userDto.Address;
                 user.Country = userDto.Country;
-            } 
-                
+            }
+
+            //if (userDto.UserSocialMediaLinksMap != null)
+            //{
+            //    user.UserSocialMediaLinksMap = userDto.UserSocialMediaLinksMap
+            //        .Select(dto => new UserSocialMediaMap
+            //        {
+            //            Url = dto.Url,
+            //        })
+            //        .ToList();
+            //}
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 

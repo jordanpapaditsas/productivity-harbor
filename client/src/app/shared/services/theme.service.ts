@@ -12,7 +12,7 @@ export class ThemeService {
 
   getCurrentTheme() {
     this.currentTheme.set(
-      window.matchMedia('(prefers-color-scheme: dark)').matches
+      window.matchMedia('(prefers-color-scheme: light)').matches
         ? 'dark'
         : 'light'
     );

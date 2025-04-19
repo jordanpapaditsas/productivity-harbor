@@ -4,6 +4,7 @@ export interface PhDialogData {
   title: string;
   message: string;
   confirmText: string;
-  cancelText: string;
+  cancelText?: string;
   type?: DialogTypeEnum;
+  isAlert?: boolean;
 }

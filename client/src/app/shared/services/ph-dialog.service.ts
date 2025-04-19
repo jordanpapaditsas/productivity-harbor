@@ -47,4 +47,27 @@ export class PhDialogService {
 
     return await firstValueFrom(dialogRef.afterClosed());
   }
+
+  async alertDialog(
+    title: string,
+    message: string,
+    type: DialogTypeEnum
+  ): Promise<void> {
+    let dialogData: PhDialogData = {
+      title,
+      message,
+      confirmText: 'OK',
+      isAlert: true,
+      type,
+    };
+
+    const dialogRef = this.dialog.open(PhConfirmComponent, {
+      data: dialogData,
+      width: '500px',
+      height: 'auto',
+      disableClose: true,
+    });
+
+    await firstValueFrom(dialogRef.afterClosed());
+  }
 }

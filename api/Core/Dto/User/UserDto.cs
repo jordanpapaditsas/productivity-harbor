@@ -1,4 +1,5 @@
-﻿using ProductivityHarborApi.Core.Models.Owned;
+﻿using ProductivityHarborApi.Core.Dto.Relations;
+using ProductivityHarborApi.Core.Models.Owned;
 using ProductivityHarborApi.Core.Models.Relations;
 
 namespace ProductivityHarborApi.Core.Dto.User
@@ -24,6 +25,6 @@ namespace ProductivityHarborApi.Core.Dto.User
         public string? Portfolio { get; set; }
         public Phone? Phone { get; set; }
         public Address? Address { get; set; }
-        public List<UserSocialMediaMap> UserSocialMediaLinksMap { get; set; } = new List<UserSocialMediaMap>();
+        public List<UserSocialMediaMapDto>? UserSocialMediaLinksMap { get; set; } = new ();
     }
 }

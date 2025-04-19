@@ -5,6 +5,7 @@
       {{ data.message }}
     </div>
 
+    @if (!data.isAlert) {
     <div mat-dialog-actions class="action-buttons-container">
       <button class="cancel-btn" mat-button (click)="onCancel()">
         {{ data.cancelText }}
@@ -13,5 +14,12 @@
         {{ data.confirmText }}
       </button>
     </div>
+    } @else {
+    <div mat-dialog-actions class="action-buttons-container">
+      <button class="confirm-btn" mat-button (click)="onConfirm()">
+        {{ data.confirmText }}
+      </button>
+    </div>
+    }
   </div>
 </div>

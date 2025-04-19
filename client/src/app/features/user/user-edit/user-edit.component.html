@@ -5,8 +5,9 @@
   [canEdit]="true"
   [canDeactivate]="true"
   [title]="user.UserName ?? newUserTitle"
-  (exit)="onUserEditExit($event)"
-  (save)="onUserEditSave($event)"
+  (exit)="onExitClicked($event)"
+  (save)="onSaveClicked($event)"
+  (edit)="onEditClicked($event)"
 ></ph-toolbar>
 <ph-container>
   <div class="main-container">
@@ -74,26 +75,71 @@
       </div>
 
       <div class="social-media-container">
-        <fieldset class="fieldset-container">
+        <div class="action-btns">
+          @if (!this.isSocialMediaForm()) {
+          <button
+            [disabled]="!isInEditMode()"
+            class="add-social-btn"
+            mat-button
+            (click)="addSocialMedia($event)"
+          >
+            <mat-icon>add</mat-icon>
+            <span>Add Social Media</span>
+          </button>
+          } @else {
+          <button
+            [disabled]="!isInEditMode()"
+            class="add-social-btn"
+            mat-button
+            (click)="onClearSocialMediaFormClicked()"
+          >
+            <mat-icon>redo</mat-icon>
+            <span>Clear Form</span>
+          </button>
+          }
+        </div>
+        @if (!isSocialMediaForm()) {
+        <fieldset>
           <legend>Social Media</legend>
           <div class="user-social-media">
-            @if(user.UserSocialMediaMap && user.UserSocialMediaMap.length > 0) {
-            @for (userSocialMedia of user.UserSocialMediaMap; track
-            userSocialMedia.Url) {
-            <div>{{ userSocialMedia.Url }}</div>
-            } } @else {
-            <!-- Καθε φορά που πατάω το add να ανοίγει 2 πεδία, ενα selectbox με τα social media και ένα Ph textbox για url.
-               Θα πρέπει να φτιάξω ένα array που θα τα αποθηκεύω εκεί μέσα, επίσης θέλω ένα object όπου θα παίρνει το id του social, του user και το url -->
-
-            }
-          </div>
-
-          <div class="action-btns">
-            <button mat-button (click)="addSocialMedia($event)">
-              <mat-icon>add</mat-icon>
-            </button>
+            @if(user.UserSocialMediaLinksMap &&
+            user.UserSocialMediaLinksMap.length > 0) { @for (userSocialMedia of
+            user.UserSocialMediaLinksMap; track userSocialMedia.Url) {
+            <div class="user-social-media-row">
+              <i class="social-media-icon" [class]="userSocialMedia.Icon"></i>
+              <div class="user-social-media-url">
+                {{ userSocialMedia.Name }}
+              </div>
+              <div class="user-social-media-url">{{ userSocialMedia.Url }}</div>
+            </div>
+            }}
           </div>
         </fieldset>
+        } @else { @for (userSocialMedia of userSocialMediaArray; track
+        userSocialMedia.Id; let i = $index) {
+        <div class="add-social-media-form">
+          <div class="social-media-selectbox">
+            <mat-select>
+              @for (item of socialMedia; track item.Id) {
+              <mat-option
+                (click)="onSocialMediaSelectionChange(item)"
+                [value]="item.Id"
+                >{{ item.Name }}</mat-option
+              >
+              }
+            </mat-select>
+          </div>
+          <div class="social-media-url">
+            <ph-text-box [(value)]="userSocialMedia.Url"></ph-text-box>
+          </div>
+          <div class="save-user-social-media">
+            <button (click)="onSaveUserSocialMediaClicked(userSocialMedia, i)">
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        } }
       </div>
     </div>
 

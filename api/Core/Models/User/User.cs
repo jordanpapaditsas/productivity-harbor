@@ -21,7 +21,7 @@ namespace ProductivityHarborApi.Core.Models.User
         public Address? Address { get; set; }
         public string? Country { get; set; }
         public DateTimeOffset? BirthDate { get; set; }
-        public ICollection<UserSocialMediaMap> UserSocialMediaLinksMap { get; set; } = new HashSet<UserSocialMediaMap>();
+        public ICollection<UserSocialMediaMap>? UserSocialMediaLinksMap { get; set; } = new HashSet<UserSocialMediaMap>();
        
     }
 }
