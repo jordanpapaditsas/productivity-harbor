@@ -147,7 +147,11 @@ export class PhDataGridComponent implements OnInit {
 
   protected onSaveRowBtnClick(row: any) {
     if (!Object.keys(row).length) {
-      alert('Row is empty!');
+      this.dialogService.alertDialog(
+        'Warning Message',
+        'Row is empty!',
+        DialogTypeEnum.Warning
+      );
       return;
     } else {
       this.rowIndex.set(null);
@@ -185,7 +189,7 @@ export class PhDataGridComponent implements OnInit {
   protected async onDeleteRowBtnClick(row: any) {
     let confirmation = await this.dialogService.confirmDialog(
       'Warning Message',
-      'Are you sure you want to delete this row?',
+      'Are you sure you want to delete this record?',
       DialogTypeEnum.Danger
     );
     if (confirmation) {

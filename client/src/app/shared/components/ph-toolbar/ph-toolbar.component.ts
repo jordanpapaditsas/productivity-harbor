@@ -64,8 +64,8 @@ export class PhToolbarComponent implements OnInit {
         visible: this.canDeactivate?.() ?? false,
         onItemClick: (e: MouseEvent) => {
           this.dialogService.confirmDialog(
-            'Warning Message',
-            'Proceed to deactivate?',
+            'Confirm Deactivation',
+            'Are you sure you want to deactivate this item? This action can be reversed?',
             DialogTypeEnum.Warning
           );
           this.deactivate?.emit(e);
@@ -79,8 +79,8 @@ export class PhToolbarComponent implements OnInit {
         visible: this.canDelete?.() ?? false,
         onItemClick: (e: MouseEvent) => {
           this.dialogService.confirmDialog(
-            'Warning Message',
-            'Proceed to delete?',
+            'Confirm Deletion',
+            'Are you sure you want to permanently delete this item? This action cannot be undone.',
             DialogTypeEnum.Danger
           );
           this.delete?.emit(e);
@@ -94,8 +94,8 @@ export class PhToolbarComponent implements OnInit {
         visible: this.canSave?.() ?? false,
         onItemClick: async (e: MouseEvent) => {
           let result = await this.dialogService.confirmDialog(
-            'Message',
-            'Save changes?',
+            'Confirm Save',
+            'Do you want to save the changes?',
             DialogTypeEnum.Passive
           );
           if (result) {

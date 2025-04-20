@@ -5,7 +5,7 @@ import { Phone } from '../../interfaces/phone';
 export class UserDto {
   Id!: Guid;
   UserName?: string;
-  PasswordHash?: string;
+  Password?: string;
   Email?: string;
   FullName?: string;
   Avatar?: string;

@@ -22,18 +22,17 @@
             class="user-avatar-wrapper"
             (click)="triggerAvatarUpload()"
           >
+            @if (user.Avatar) {
+            <img [src]="user.Avatar" alt="User Avatar" class="user-avatar" />
+            } @else {
             <img
-              *ngIf="user.Avatar"
-              [src]="user.Avatar"
-              alt="User Avatar"
-              class="user-avatar"
-            />
-            <img
-              *ngIf="!user.Avatar"
+              style="box-shadow: 0 0 1rem var(--ph-deepShadow)"
               src="/assets/images/user-avatar-placeholder.jpg"
               alt="User Avatar"
               class="user-avatar"
             />
+            }
+
             <div class="user-avatar-overlay">
               <i class="fa-solid fa-camera"></i>
             </div>
@@ -188,10 +187,10 @@
             <mat-label>Username</mat-label>
             <ph-text-box [(value)]="user.UserName"></ph-text-box>
           </div>
-          <div class="flexbox-column user-password">
+          <!-- <div class="flexbox-column user-password">
             <mat-label>Password</mat-label>
-            <ph-text-box [(value)]="user.PasswordHash"></ph-text-box>
-          </div>
+            <ph-text-box [(value)]="user.Password"></ph-text-box>
+          </div> -->
 
           <div class="flexbox-column user-portfolio">
             <mat-label>Portfolio</mat-label>

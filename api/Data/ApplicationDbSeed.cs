@@ -71,6 +71,7 @@ namespace ProductivityHarborApi.Data
                         NormalizedUserName = AppStaticData.Users.PhAdminUserName.ToUpper(),
                         SecurityStamp = Guid.NewGuid().ToString(""),
                         PasswordHash = new PasswordHasher<User>().HashPassword(null, _phAdminPassword),
+                        IsActive = true,
                     },
                     new User
                     {

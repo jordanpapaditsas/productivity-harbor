@@ -98,7 +98,6 @@ namespace ProductivityHarborApi.Controllers
                 data.Avatar = dto.Avatar;
                 data.UserName = dto.UserName;
                 data.Email = dto.Email;
-                data.PasswordHash = dto.PasswordHash;
                 data.CreatedByUserId = actionUser?.Id;
                 data.IsActive = dto.IsActive;
                 data.IsDeleted = dto.IsDeleted;
@@ -138,7 +137,6 @@ namespace ProductivityHarborApi.Controllers
                 data.FullName = dto.FullName;
                 data.UserName = dto.UserName;
                 data.Email = dto.Email;
-                data.PasswordHash = dto.PasswordHash;
                 data.UpdatedByUserId = actionUser?.Id;
                 data.IsActive = dto.IsActive;
                 data.IsDeleted = dto.IsDeleted;

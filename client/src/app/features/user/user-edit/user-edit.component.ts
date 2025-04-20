@@ -28,6 +28,7 @@ import { UserSocialMediaMapService } from '../../../shared/services/relation-ser
 import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-media-map.dto';
 import { PhDialogService } from '../../../shared/services/ph-dialog.service';
 import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-edit',
@@ -67,6 +68,7 @@ export class UserEditComponent implements OnInit {
   private socialMediaService = inject(SocialMediaService);
   private userSocialMediaService = inject(UserSocialMediaMapService);
   private dialogService = inject(PhDialogService);
+  private toastr = inject(ToastrService);
 
   constructor() {
     this.user = new UserDto();
@@ -111,15 +113,22 @@ export class UserEditComponent implements OnInit {
   }
 
   onSaveClicked(e: any) {
+    debugger;
     if (!this.user.Id) {
-      this.userService.createUser(this.user).subscribe((response) => {
-        this.user = response;
-        //TODO Toastr
+      this.userService.createUser(this.user).subscribe({
+        next: (response) => {
+          this.user = response;
+          this.toastr.success('User created successfully.');
+        },
+        error: (error) => {},
       });
     } else if (this.user.Id) {
-      this.userService.updateUser(this.user).subscribe((response) => {
-        this.user = response;
-        //TODO Toastr
+      this.userService.updateUser(this.user).subscribe({
+        next: (response) => {
+          this.user = response;
+          this.toastr.success('User updated successfully.');
+        },
+        error: (error) => {},
       });
     }
   }
