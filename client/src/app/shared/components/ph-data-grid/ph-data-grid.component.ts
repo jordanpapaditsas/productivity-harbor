@@ -79,7 +79,7 @@ export class PhDataGridComponent implements OnInit {
 
     setTimeout(() => {
       this.renderCustomTemplate();
-    }, 500);
+    });
   }
 
   columns = input<Column[]>([]);
@@ -128,7 +128,6 @@ export class PhDataGridComponent implements OnInit {
     cellElement: HTMLTableCellElement,
     rowIndex: number
   ) {
-    debugger;
     if (this.isRowInEditMode(row, rowIndex)) {
       return;
     }
@@ -144,10 +143,35 @@ export class PhDataGridComponent implements OnInit {
     const rows = this._dataSource.data;
     const cols = this.columns();
 
-    let templateIndex = 0;
+    const containersByPosition = new Map<string, HTMLElement>();
+
+    this.cellTemplateContainer.forEach((ref: ElementRef) => {
+      const el: HTMLElement = ref.nativeElement;
+      const rowIndex = el.getAttribute('data-row');
+      const colLabel = el.getAttribute('data-col');
+      containersByPosition.set(`${rowIndex}-${colLabel}`, el);
+    });
 
     for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
-      for (let colIndex = 0; colIndex < cols.length; colIndex++) {}
+      const row = rows[rowIndex];
+
+      for (let colIndex = 0; colIndex < rows.length; colIndex++) {
+        const column = cols[colIndex];
+
+        if (!column.cellTemplate) {
+          continue;
+        }
+        if (this.isRowInEditMode(row, rowIndex)) {
+          continue;
+        }
+
+        const key = `${rowIndex}-${column.label}`;
+        const cellElement = containersByPosition.get(key);
+
+        if (cellElement) {
+          column.cellTemplate(row, { col: column, cell: cellElement });
+        }
+      }
     }
   }
 

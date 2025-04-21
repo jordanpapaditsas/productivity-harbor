@@ -59,7 +59,6 @@ export class UsersListComponent implements OnInit {
         visible: true,
         allowEditing: true,
         cellTemplate: (row: any, options: any) => {
-          debugger;
           options.cell.innerHTML = '';
           const anchor = document.createElement('a');
           anchor.textContent = row.UserName;
@@ -67,7 +66,15 @@ export class UsersListComponent implements OnInit {
           anchor.addEventListener('click', () => {
             this.onUserIdClick(row);
           });
+
+          const icon = document.createElement('span');
+          icon.classList.add('user-icon');
+          icon.innerHTML = '👤';
+          icon.style.marginLeft = '12px';
+          icon.style.fontSize = '18px';
+
           options.cell.append(anchor);
+          options.cell.append(icon);
         },
       },
       {
@@ -82,17 +89,6 @@ export class UsersListComponent implements OnInit {
         dataType: 'datetime',
         label: 'Created at',
         visible: true,
-        cellTemplate: (row: any, options: any) => {
-          debugger;
-          options.cell.innerHTML = '';
-          const anchor = document.createElement('a');
-          anchor.textContent = row.CreatedAt;
-          anchor.classList.add('link-name-navigation');
-          anchor.addEventListener('click', () => {
-            this.onUserIdClick(row);
-          });
-          options.cell.append(anchor);
-        },
       },
     ];
   }

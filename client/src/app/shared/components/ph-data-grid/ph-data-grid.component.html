@@ -29,6 +29,8 @@
       >
         <div
           #cellTemplateContainer
+          [attr.data-row]="i"
+          [attr.data-col]="column.label"
           [hidden]="column.allowEditing && isRowInEditMode(row, i)"
         ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
@@ -37,8 +39,9 @@
           [cdkTrapFocusAutoCapture]="true"
           matInput
           [(ngModel)]="row[column.dataField]"
+          (keyup.enter)="onSaveRowBtnClick(row)"
         />
-        } @else {
+        } @else if(!column.cellTemplate) {
         {{ row[column.dataField] }}
         }
       </td>
@@ -58,14 +61,15 @@
       >
         <div
           #cellTemplateContainer
+          [attr.data-row]="i"
+          [attr.data-col]="column.label"
           [hidden]="column.allowEditing && isRowInEditMode(row, i)"
         ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
-        <input type="number" matInput />
+        <input type="number" matInput (keyup.enter)="onSaveRowBtnClick(row)" />
 
-        } @else {
+        } @else if(!column.cellTemplate) {
         {{ row[column.dataField] }}
-
         }
       </td>
     </ng-container>
@@ -84,6 +88,8 @@
       >
         <div
           #cellTemplateContainer
+          [attr.data-row]="i"
+          [attr.data-col]="column.label"
           [hidden]="column.allowEditing && isRowInEditMode(row, i)"
         ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
@@ -92,7 +98,7 @@
           value=""
           color="primary"
         ></mat-checkbox>
-        } @else {
+        } @else if(!column.cellTemplate) {
         <mat-checkbox
           [(ngModel)]="row[column.dataField]"
           value=""
@@ -117,6 +123,8 @@
       >
         <div
           #cellTemplateContainer
+          [attr.data-row]="i"
+          [attr.data-col]="column.label"
           [hidden]="column.allowEditing && isRowInEditMode(row, i)"
         ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
@@ -125,6 +133,7 @@
             matInput
             [matDatepicker]="picker"
             [(ngModel)]="row[column.dataField]"
+            (keyup.enter)="onSaveRowBtnClick(row)"
           />
           <mat-hint>DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle
@@ -133,7 +142,7 @@
           ></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        } @else {
+        } @else if(!column.cellTemplate) {
         {{ row[column.dataField] | date : "dd/MM/yyyy" }}
         }
       </td>
