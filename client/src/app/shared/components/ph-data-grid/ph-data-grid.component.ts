@@ -1,13 +1,16 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import {
   Component,
+  ElementRef,
   inject,
   Input,
   input,
   OnInit,
   output,
+  QueryList,
   signal,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import {
   MatTable,
@@ -53,6 +56,9 @@ import { Column } from '../../../core/interfaces/column';
 export class PhDataGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<any>;
+  @ViewChildren('cellTemplateContainer')
+  cellTemplateContainer!: QueryList<ElementRef>;
+
   private dialogService = inject(PhDialogService);
 
   public get dataSource() {
@@ -70,6 +76,10 @@ export class PhDataGridComponent implements OnInit {
     if (this._dataSource && this.paginator) {
       this._dataSource.paginator = this.paginator;
     }
+
+    setTimeout(() => {
+      this.renderCustomTemplate();
+    }, 500);
   }
 
   columns = input<Column[]>([]);
@@ -118,16 +128,27 @@ export class PhDataGridComponent implements OnInit {
     cellElement: HTMLTableCellElement,
     rowIndex: number
   ) {
+    debugger;
     if (this.isRowInEditMode(row, rowIndex)) {
       return;
     }
 
     if (column.cellTemplate) {
-      cellElement.innerHTML = '';
       column.cellTemplate(row, { column, cell: cellElement });
     }
 
     this.cellClicked.emit({ row, column });
+  }
+
+  renderCustomTemplate() {
+    const rows = this._dataSource.data;
+    const cols = this.columns();
+
+    let templateIndex = 0;
+
+    for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+      for (let colIndex = 0; colIndex < cols.length; colIndex++) {}
+    }
   }
 
   protected isRowInEditMode(row: any, index: number) {

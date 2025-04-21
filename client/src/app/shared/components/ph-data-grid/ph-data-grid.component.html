@@ -27,6 +27,10 @@
         mat-cell
         *matCellDef="let row; index as i"
       >
+        <div
+          #cellTemplateContainer
+          [hidden]="column.allowEditing && isRowInEditMode(row, i)"
+        ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
         <input
           cdkTrapFocus
@@ -34,8 +38,6 @@
           matInput
           [(ngModel)]="row[column.dataField]"
         />
-        } @else if (column.cellTemplate) {
-        <div #cellTemplateContainer></div>
         } @else {
         {{ row[column.dataField] }}
         }
@@ -54,11 +56,13 @@
         mat-cell
         *matCellDef="let row; index as i"
       >
+        <div
+          #cellTemplateContainer
+          [hidden]="column.allowEditing && isRowInEditMode(row, i)"
+        ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
         <input type="number" matInput />
 
-        } @else if (column.cellTemplate) {
-        <div #cellTemplateContainer></div>
         } @else {
         {{ row[column.dataField] }}
 
@@ -78,14 +82,16 @@
         mat-cell
         *matCellDef="let row; index as i"
       >
+        <div
+          #cellTemplateContainer
+          [hidden]="column.allowEditing && isRowInEditMode(row, i)"
+        ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
         <mat-checkbox
           [(ngModel)]="row[column.dataField]"
           value=""
           color="primary"
         ></mat-checkbox>
-        } @else if (column.cellTemplate) {
-        <div #cellTemplateContainer></div>
         } @else {
         <mat-checkbox
           [(ngModel)]="row[column.dataField]"
@@ -109,6 +115,10 @@
         mat-cell
         *matCellDef="let row; index as i"
       >
+        <div
+          #cellTemplateContainer
+          [hidden]="column.allowEditing && isRowInEditMode(row, i)"
+        ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
         <mat-form-field>
           <input
@@ -123,8 +133,6 @@
           ></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        } @else if (column.cellTemplate) {
-        <div #cellTemplateContainer></div>
         } @else {
         {{ row[column.dataField] | date : "dd/MM/yyyy" }}
         }
