@@ -8,6 +8,9 @@ import { Column } from '../../../core/interfaces/column';
 import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
 import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
 import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
+import { PhPopupComponent } from '../../../shared/components/ph-popup/ph-popup.component';
+import { UserEditComponent } from '../user-edit/user-edit.component';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-users-list',
@@ -19,6 +22,8 @@ import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-too
     CommonModule,
     PhContainerComponent,
     PhToolbarComponent,
+    PhPopupComponent,
+    UserEditComponent,
   ],
 })
 export class UsersListComponent implements OnInit {
@@ -29,6 +34,8 @@ export class UsersListComponent implements OnInit {
   columns: Array<Column> = [];
   usersLookupDataSource: any[] = [];
   private usersService = inject(UserService);
+  isUserEditPopupVisible = signal<boolean>(false);
+  userId = signal<Guid>(Guid.parse(Guid.EMPTY));
 
   ngOnInit() {
     this.getUsersDataSource();
@@ -51,6 +58,17 @@ export class UsersListComponent implements OnInit {
         label: 'Username',
         visible: true,
         allowEditing: true,
+        cellTemplate: (row: any, options: any) => {
+          debugger;
+          options.cell.innerHTML = '';
+          const anchor = document.createElement('a');
+          anchor.textContent = row.UserName;
+          anchor.classList.add('link-name-navigation');
+          anchor.addEventListener('click', () => {
+            this.onUserIdClick(row);
+          });
+          options.cell.append(anchor);
+        },
       },
       {
         dataField: 'IsActive',
@@ -64,8 +82,24 @@ export class UsersListComponent implements OnInit {
         dataType: 'datetime',
         label: 'Created at',
         visible: true,
+        cellTemplate: (row: any, options: any) => {
+          debugger;
+          options.cell.innerHTML = '';
+          const anchor = document.createElement('a');
+          anchor.textContent = row.CreatedAt;
+          anchor.classList.add('link-name-navigation');
+          anchor.addEventListener('click', () => {
+            this.onUserIdClick(row);
+          });
+          options.cell.append(anchor);
+        },
       },
     ];
+  }
+
+  onUserIdClick(data: any) {
+    this.userId.set(data.Id);
+    this.isUserEditPopupVisible.set(true);
   }
 
   getUsersDataSource() {
@@ -77,9 +111,10 @@ export class UsersListComponent implements OnInit {
   }
 
   onInsertRowClicked(user: UserDto) {
-    if (user) {
-      this.user = new UserDto();
-    }
+    this.isUserEditPopupVisible.set(true);
+    // if (user) {
+    //   this.user = new UserDto();
+    // }
   }
   onInitNewRowClicked(e: any) {}
 
@@ -106,5 +141,9 @@ export class UsersListComponent implements OnInit {
         this.getUsersDataSource();
       });
     }
+  }
+
+  onUserEditExitClicked(e: any) {
+    this.isUserEditPopupVisible.set(false);
   }
 }

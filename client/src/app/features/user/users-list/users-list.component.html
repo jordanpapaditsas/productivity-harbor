@@ -14,3 +14,12 @@
     (initNewRow)="onInitNewRowClicked($event)"
   ></ph-data-grid>
 </ph-container>
+
+@if (isUserEditPopupVisible()) {
+<ph-popup [hideOnOutsideClick]="false" [isFullScreenMode]="true">
+  <app-user-edit
+    [userId]="userId()"
+    (exitScreen)="onUserEditExitClicked($event)"
+  ></app-user-edit>
+</ph-popup>
+}

@@ -21,8 +21,9 @@
         {{ column.label }}
       </th>
       <td
+        #cell
         class="ph-data-grid-cell"
-        (click)="getColumnData(row[column.dataField])"
+        (click)="getTableRowAndColumnData(row, column, cell, i)"
         mat-cell
         *matCellDef="let row; index as i"
       >
@@ -33,6 +34,8 @@
           matInput
           [(ngModel)]="row[column.dataField]"
         />
+        } @else if (column.cellTemplate) {
+        <div #cellTemplateContainer></div>
         } @else {
         {{ row[column.dataField] }}
         }
@@ -45,14 +48,17 @@
         {{ column.label }}
       </th>
       <td
+        #cell
         class="ph-data-grid-cell"
-        (click)="getColumnData(row[column.dataField])"
+        (click)="getTableRowAndColumnData(row, column, cell, i)"
         mat-cell
         *matCellDef="let row; index as i"
       >
         @if (column.allowEditing && isRowInEditMode(row, i)) {
         <input type="number" matInput />
 
+        } @else if (column.cellTemplate) {
+        <div #cellTemplateContainer></div>
         } @else {
         {{ row[column.dataField] }}
 
@@ -66,8 +72,9 @@
         {{ column.label }}
       </th>
       <td
+        #cell
         class="ph-data-grid-cell"
-        (click)="getColumnData(row[column.dataField])"
+        (click)="getTableRowAndColumnData(row, column, cell, i)"
         mat-cell
         *matCellDef="let row; index as i"
       >
@@ -77,6 +84,8 @@
           value=""
           color="primary"
         ></mat-checkbox>
+        } @else if (column.cellTemplate) {
+        <div #cellTemplateContainer></div>
         } @else {
         <mat-checkbox
           [(ngModel)]="row[column.dataField]"
@@ -94,8 +103,9 @@
         {{ column.label }}
       </th>
       <td
+        #cell
         class="ph-data-grid-cell"
-        (click)="getColumnData(row[column.dataField])"
+        (click)="getTableRowAndColumnData(row, column, cell, i)"
         mat-cell
         *matCellDef="let row; index as i"
       >
@@ -113,7 +123,9 @@
           ></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        }@else {
+        } @else if (column.cellTemplate) {
+        <div #cellTemplateContainer></div>
+        } @else {
         {{ row[column.dataField] | date : "dd/MM/yyyy" }}
         }
       </td>

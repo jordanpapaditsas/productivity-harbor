@@ -85,7 +85,7 @@ namespace ProductivityHarborApi.Data
 
             foreach (var user in users)
             {
-                var userExists = await userManager.Users.AnyAsync(x => x.UserName == user.UserName);
+                var userExists = await userManager.Users.AnyAsync(x => x.UserName == user.UserName || x.Id == user.Id);
 
                 if (!userExists)
                 {

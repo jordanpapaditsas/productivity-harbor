@@ -84,6 +84,7 @@ export class PhDataGridComponent implements OnInit {
   deleteRow = output<any>();
   insertRow = output<any>();
   initNewRow = output<any>();
+  cellClicked = output<any>();
 
   private _tempRowValues: Record<string, any> = {};
   private _dataSource!: any;
@@ -111,12 +112,22 @@ export class PhDataGridComponent implements OnInit {
     return visibleColumns;
   }
 
-  protected getRowData(rowData: any) {
-    return rowData;
-  }
+  protected getTableRowAndColumnData(
+    row: any,
+    column: Column,
+    cellElement: HTMLTableCellElement,
+    rowIndex: number
+  ) {
+    if (this.isRowInEditMode(row, rowIndex)) {
+      return;
+    }
 
-  protected getColumnData(columnData: any) {
-    return columnData;
+    if (column.cellTemplate) {
+      cellElement.innerHTML = '';
+      column.cellTemplate(row, { column, cell: cellElement });
+    }
+
+    this.cellClicked.emit({ row, column });
   }
 
   protected isRowInEditMode(row: any, index: number) {
