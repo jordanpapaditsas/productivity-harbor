@@ -67,14 +67,7 @@ export class UsersListComponent implements OnInit {
             this.onUserIdClick(row);
           });
 
-          const icon = document.createElement('span');
-          icon.classList.add('user-icon');
-          icon.innerHTML = '👤';
-          icon.style.marginLeft = '12px';
-          icon.style.fontSize = '18px';
-
           options.cell.append(anchor);
-          options.cell.append(icon);
         },
       },
       {

@@ -54,7 +54,7 @@ export class UserEditComponent implements OnInit {
 
   userId = input<Guid | undefined | null>();
   exitScreen = output<EventEmitter<void>>();
-  isUserInEditMode = signal<boolean>(false);
+  isUserInEditMode = signal<boolean>(true);
   isSocialMediaFormVisible = signal<boolean>(false);
   socialMediaRowIndex = signal<number>(0);
   rowKeys: Set<Guid> = new Set();

@@ -217,3 +217,20 @@
   display: flex;
   gap: 1rem;
 }
+
+.edit-mode, .view-mode {
+  width: 100%;
+  grid-column: 2;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-locked {
+  color: var(--ph-danger);
+}
+
+.edit-unlocked {
+  color: var(--ph-success);
+}

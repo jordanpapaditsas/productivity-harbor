@@ -11,6 +11,15 @@
   (deactivate)="onDeactivateClicked($event)"
 ></ph-toolbar>
 <ph-container>
+  @if (!isUserInEditMode()) {
+  <div class="view-mode">
+    <mat-icon class="view-locked">lock</mat-icon> View Mode
+  </div>
+  } @else {
+  <div class="edit-mode">
+    <mat-icon class="edit-unlocked">lock_open</mat-icon>Can Edit
+  </div>
+  }
   <div class="main-container">
     <div class="left-side-container">
       <div class="avatar-container">
@@ -58,11 +67,15 @@
             (change)="onColorChange($event)"
             id="Color"
             name="Color"
+            [disabled]="!isUserInEditMode()"
           />
         </div>
         <div class="flexbox-center">
           <mat-label>Active</mat-label>
-          <mat-checkbox [(ngModel)]="user.IsActive"></mat-checkbox>
+          <mat-checkbox
+            [disabled]="!isUserInEditMode()"
+            [(ngModel)]="user.IsActive"
+          ></mat-checkbox>
         </div>
         <input
           #fileInput
@@ -70,7 +83,7 @@
           accept="image/*"
           style="display: none"
           (change)="onAvatarChange($event)"
-          [disabled]="false"
+          [disabled]="!isUserInEditMode()"
         />
       </div>
 
@@ -186,8 +199,13 @@
           <div class="title-align title">{{ personalInfoTitle }}</div>
           <div class="flexbox-column user-username">
             <mat-label>Username</mat-label>
+            @if (!isUserInEditMode()) {
+            <div class="user-username">{{ user.UserName }}</div>
+            } @else {
             <ph-text-box [(value)]="user.UserName"></ph-text-box>
+            }
           </div>
+
           <!-- <div class="flexbox-column user-password">
             <mat-label>Password</mat-label>
             <ph-text-box [(value)]="user.Password"></ph-text-box>
@@ -195,7 +213,11 @@
 
           <div class="flexbox-column user-portfolio">
             <mat-label>Portfolio</mat-label>
+            @if (!isUserInEditMode()) {
+            <div class="user-portfolio">{{ user.Portfolio }}</div>
+            } @else {
             <ph-text-box [(value)]="user.Portfolio"></ph-text-box>
+            }
           </div>
         </div>
       </div>
@@ -203,62 +225,97 @@
       <div class="right-side-contact">
         <div class="contact-info-container">
           <div class="title-align title">{{ contactTitle }}</div>
+
           <div class="flexbox-column user-email">
             <mat-label>Email</mat-label>
+            @if(!isUserInEditMode()) {
+            <div class="user-email">{{ user.Email }}</div>
+            } @else {
             <ph-text-box [(value)]="user.Email"></ph-text-box>
+            }
           </div>
 
           <div class="flexbox-column user-home-phone">
             <mat-label>Home Phone</mat-label>
+            @if(!isUserInEditMode()) {
+            <div class="user-home-phone">{{ user.Phone!.Home }}</div>
+            } @else {
             <ph-text-box
               *ngIf="user?.Phone"
               [(value)]="user.Phone!.Home"
             ></ph-text-box>
+            }
           </div>
 
           <div class="flexbox-column user-mobile-phone">
             <mat-label>Mobile Phone</mat-label>
+            @if (!isUserInEditMode()) {
+            <div class="user-mobile-phone">
+              {{ user.Phone!.Mobile }}
+            </div>
+            } @else {
             <ph-text-box
               *ngIf="user?.Phone"
               [(value)]="user.Phone!.Mobile"
             ></ph-text-box>
+            }
           </div>
 
           <div class="flexbox-column user-work-phone">
             <mat-label>Work Phone</mat-label>
+            @if (!isUserInEditMode()) {
+            <div class="user-work-phone">{{ user.Phone!.Work }}</div>
+            } @else {
             <ph-text-box
               *ngIf="user?.Phone"
               [(value)]="user.Phone!.Work"
             ></ph-text-box>
+            }
           </div>
 
           <div class="flexbox-column user-country">
             <mat-label>Country</mat-label>
+            @if(!isUserInEditMode()) {
+            <div class="user-country">{{ user.Country }}</div>
+            } @else {
             <ph-text-box [(value)]="user.Country"></ph-text-box>
+            }
           </div>
 
           <div class="flexbox-column user-city">
             <mat-label>City</mat-label>
+            @if (!isUserInEditMode()) {
+            <div class="user-city">{{ user.Address!.City }}</div>
+            } @else {
             <ph-text-box
               *ngIf="user?.Address"
               [(value)]="user.Address!.City"
             ></ph-text-box>
+            }
           </div>
 
           <div class="flexbox-column user-street">
             <mat-label>Street</mat-label>
+            @if (!isUserInEditMode()) {
+            <div class="user-street">{{ user.Address!.Street }}</div>
+            } @else {
             <ph-text-box
               *ngIf="user?.Address"
               [(value)]="user.Address!.Street"
             ></ph-text-box>
+            }
           </div>
 
           <div class="flexbox-column user-zip">
             <mat-label>ZIP Code</mat-label>
+            @if (!isUserInEditMode()) {
+            <div class="user-zip">{{ user.Address!.Zip }}</div>
+            } @else {
             <ph-text-box
               *ngIf="user?.Address"
               [(value)]="user.Address!.Zip"
             ></ph-text-box>
+            }
           </div>
         </div>
       </div>
