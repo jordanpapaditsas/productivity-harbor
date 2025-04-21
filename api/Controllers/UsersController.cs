@@ -113,7 +113,15 @@ namespace ProductivityHarborApi.Controllers
             _context.Users.Add(data);
             await _context.SaveChangesAsync();
 
-            return Ok(dto);
+            try
+            {
+                return Ok(dto);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error occurred" + ex.Message);
+            }
         }
 
         [HttpPut("updateUser")]

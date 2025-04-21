@@ -31,6 +31,7 @@ import { Guid } from 'guid-typescript';
 import { PhDialogService } from '../../services/ph-dialog.service';
 import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
 import { Column } from '../../../core/interfaces/column';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ph-data-grid',
@@ -83,7 +84,8 @@ export class PhDataGridComponent implements OnInit {
   }
 
   columns = input<Column[]>([]);
-  canInsert = input<boolean>(false);
+  canInsertRow = input<boolean>(false);
+  canCreate = input<boolean>(false);
   canEdit = input<boolean>(false);
   canDelete = input<boolean>(false);
 
@@ -93,8 +95,7 @@ export class PhDataGridComponent implements OnInit {
   editRow = output<any>();
   deleteRow = output<any>();
   insertRow = output<any>();
-  initNewRow = output<any>();
-  cellClicked = output<any>();
+  create = output();
 
   private _tempRowValues: Record<string, any> = {};
   private _dataSource!: any;
@@ -103,7 +104,7 @@ export class PhDataGridComponent implements OnInit {
   isNewRow = signal<boolean>(false);
   isRowInViewMode = signal<boolean>(true);
 
-  constructor() {}
+  private toastr = inject(ToastrService);
 
   ngOnInit() {}
 
@@ -135,8 +136,6 @@ export class PhDataGridComponent implements OnInit {
     if (column.cellTemplate) {
       column.cellTemplate(row, { column, cell: cellElement });
     }
-
-    this.cellClicked.emit({ row, column });
   }
 
   renderCustomTemplate() {
@@ -218,6 +217,7 @@ export class PhDataGridComponent implements OnInit {
       }
 
       this.savedRow.emit(row);
+      this.toastr.success('Record has been saved successfully.');
       this.refreshDataSource();
       this.cleanTempRowValues(row);
     }
@@ -243,13 +243,14 @@ export class PhDataGridComponent implements OnInit {
   }
 
   protected async onDeleteRowBtnClick(row: any) {
-    let confirmation = await this.dialogService.confirmDialog(
+    let result = await this.dialogService.confirmDialog(
       'Warning Message',
       'Are you sure you want to delete this record?',
       DialogTypeEnum.Danger
     );
-    if (confirmation) {
+    if (result) {
       this.deleteRow.emit(row);
+      this.toastr.success('Record has been deleted successfully');
     } else {
       return;
     }
@@ -259,18 +260,20 @@ export class PhDataGridComponent implements OnInit {
   protected onInsertRowBtnClick() {
     if (!this.isNewRow()) {
       const newRow: Record<string, any> = {};
-      this.initNewRow.emit(newRow);
       this.isRowInViewMode.set(false);
       this.isNewRow.set(true);
       this.rowIndex.set(0);
 
       this._dataSource.data.unshift(newRow);
-
-      this.refreshDataSource();
       this.insertRow.emit(newRow);
+      this.refreshDataSource();
     } else {
       return;
     }
+  }
+
+  protected onCreate() {
+    this.create.emit();
   }
 
   public refreshDataSource() {

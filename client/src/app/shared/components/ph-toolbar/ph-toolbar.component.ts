@@ -62,13 +62,17 @@ export class PhToolbarComponent implements OnInit {
         icon: 'power_off',
         position: 'before',
         visible: this.canDeactivate?.() ?? false,
-        onItemClick: (e: MouseEvent) => {
-          this.dialogService.confirmDialog(
+        onItemClick: async (e: MouseEvent) => {
+          let result = await this.dialogService.confirmDialog(
             'Confirm Deactivation',
             'Are you sure you want to deactivate this item? This action can be reversed?',
             DialogTypeEnum.Warning
           );
-          this.deactivate?.emit(e);
+          if (result) {
+            this.deactivate?.emit(e);
+          } else {
+            return;
+          }
         },
       },
       {
@@ -77,13 +81,17 @@ export class PhToolbarComponent implements OnInit {
         icon: 'delete',
         position: 'after',
         visible: this.canDelete?.() ?? false,
-        onItemClick: (e: MouseEvent) => {
-          this.dialogService.confirmDialog(
+        onItemClick: async (e: MouseEvent) => {
+          let result = await this.dialogService.confirmDialog(
             'Confirm Deletion',
             'Are you sure you want to permanently delete this item? This action cannot be undone.',
             DialogTypeEnum.Danger
           );
-          this.delete?.emit(e);
+          if (result) {
+            this.delete?.emit(e);
+          } else {
+            return;
+          }
         },
       },
       {

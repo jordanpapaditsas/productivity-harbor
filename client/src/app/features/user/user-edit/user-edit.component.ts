@@ -52,7 +52,7 @@ export class UserEditComponent implements OnInit {
   contactTitle: string = 'Contact';
   personalInfoTitle: string = 'Personal Info';
 
-  userId = input<Guid>();
+  userId = input<Guid | undefined | null>();
   exitScreen = output<EventEmitter<void>>();
   isUserInEditMode = signal<boolean>(false);
   isSocialMediaFormVisible = signal<boolean>(false);
@@ -71,13 +71,14 @@ export class UserEditComponent implements OnInit {
   private toastr = inject(ToastrService);
 
   constructor() {
-    this.user = new UserDto();
-    this.userSocialMedia = new UserSocialMediaMapDto();
-    this.userSocialMediaArray = [];
+    this.initializeUserDto();
 
     effect(() => {
+      debugger;
       if (this.userId()) {
         this.getUserDataSource();
+      } else {
+        this.initializeUserDto();
       }
     });
     if (!this.user) {
@@ -89,6 +90,14 @@ export class UserEditComponent implements OnInit {
     this.getAllSocialMedia();
   }
 
+  initializeUserDto() {
+    this.user = new UserDto();
+    this.userSocialMedia = new UserSocialMediaMapDto();
+    this.userSocialMediaArray = [];
+    this.user.Address = { Street: '', City: '', Zip: '' };
+    this.user.Phone = { Home: '', Mobile: '', Work: '' };
+  }
+
   getAllSocialMedia() {
     this.socialMediaService.getAllSocialMedia().subscribe((response) => {
       this.socialMedia = response;
@@ -98,13 +107,6 @@ export class UserEditComponent implements OnInit {
   getUserDataSource() {
     this.userService.getUserById(this.userId()!).subscribe((response) => {
       this.user = response;
-      if (!this.user.Phone) {
-        this.user.Phone = { Home: '', Mobile: '', Work: '' };
-      }
-
-      if (!this.user.Address) {
-        this.user.Address = { Street: '', City: '', Zip: '' };
-      }
     });
   }
 
@@ -113,7 +115,6 @@ export class UserEditComponent implements OnInit {
   }
 
   onSaveClicked(e: any) {
-    debugger;
     if (!this.user.Id) {
       this.userService.createUser(this.user).subscribe({
         next: (response) => {
@@ -253,5 +254,19 @@ export class UserEditComponent implements OnInit {
 
   isSocialMediaRowInEditMode(row: any, index: number) {
     return this.rowKeys.has(row.Id) && this.socialMediaRowIndex() === index;
+  }
+
+  async onDeactivateClicked(e: any) {
+    if (this.user) {
+      this.user.IsActive = false;
+
+      this.userService.updateUser(this.user).subscribe({
+        next: (response) => {
+          this.user = response;
+          this.toastr.success('User deactivated successfully.');
+        },
+        error: (error) => {},
+      });
+    }
   }
 }

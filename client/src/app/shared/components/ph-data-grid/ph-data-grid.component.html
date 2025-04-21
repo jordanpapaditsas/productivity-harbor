@@ -1,12 +1,22 @@
 <div class="ph-data-grid-container">
   <div class="ph-data-grid-toolbar">
-    @if (canInsert()) {
+    @if (canInsertRow()) {
     <button
       class="ph-data-grid-toolbar-insert-btn"
       mat-mini-fab
       aria-label="Insert Button"
       matTooltip="Insert"
       (click)="onInsertRowBtnClick()"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+    } @else if (canCreate()) {
+    <button
+      class="ph-data-grid-toolbar-insert-btn"
+      mat-mini-fab
+      aria-label="Insert Button"
+      matTooltip="Insert"
+      (click)="onCreate()"
     >
       <mat-icon>add</mat-icon>
     </button>

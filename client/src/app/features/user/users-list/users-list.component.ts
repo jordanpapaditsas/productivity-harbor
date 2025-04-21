@@ -35,7 +35,7 @@ export class UsersListComponent implements OnInit {
   usersLookupDataSource: any[] = [];
   private usersService = inject(UserService);
   isUserEditPopupVisible = signal<boolean>(false);
-  userId = signal<Guid>(Guid.parse(Guid.EMPTY));
+  userId = signal<Guid | null | undefined>(undefined);
 
   ngOnInit() {
     this.getUsersDataSource();
@@ -105,14 +105,10 @@ export class UsersListComponent implements OnInit {
         this.usersDataSource = response;
       });
   }
-
-  onInsertRowClicked(user: UserDto) {
+  onCreateNewUser(e: any) {
+    this.userId.set(undefined);
     this.isUserEditPopupVisible.set(true);
-    // if (user) {
-    //   this.user = new UserDto();
-    // }
   }
-  onInitNewRowClicked(e: any) {}
 
   onSaveRowClicked(user: UserDto) {
     if (!user.Id) {
@@ -133,8 +129,11 @@ export class UsersListComponent implements OnInit {
 
   onDeleteRowClicked(user: UserDto) {
     if (user) {
-      this.usersService.deleteUserById(user.Id).subscribe((response) => {
-        this.getUsersDataSource();
+      this.usersService.deleteUserById(user.Id).subscribe({
+        next: (response) => {
+          this.getUsersDataSource();
+        },
+        error: (error) => {},
       });
     }
   }
