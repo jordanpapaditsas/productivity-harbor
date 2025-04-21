@@ -115,7 +115,10 @@ export class UserEditComponent implements OnInit {
   }
 
   onSaveClicked(e: any) {
+    debugger;
     if (!this.user.Id) {
+      debugger;
+      this.user.UserSocialMediaLinksMap = this.userSocialMediaArray;
       this.userService.createUser(this.user).subscribe({
         next: (response) => {
           this.user = response;
@@ -162,6 +165,7 @@ export class UserEditComponent implements OnInit {
   }
 
   addSocialMedia(e: any) {
+    debugger;
     this.isSocialMediaFormVisible.set(true);
     if (this.isSocialMediaFormVisible()) {
       this.userSocialMedia = new UserSocialMediaMapDto();
@@ -191,29 +195,34 @@ export class UserEditComponent implements OnInit {
       );
       return result;
     }
+    debugger;
 
-    if (!userSocialMedia.Id) {
-      this.userSocialMediaService
-        .createUserSocialMediaMap(userSocialMedia)
-        .subscribe((response) => {
-          this.userSocialMedia = response;
-
-          this.user.UserSocialMediaLinksMap.push(this.userSocialMedia);
-          //TODO Toastr?
-
-          this.onClearSocialMediaFormClicked();
-        });
+    if (!this.user.Id) {
+      this.isSocialMediaFormVisible.set(false);
     } else {
-      this.userSocialMediaService
-        .updateUserSocialMediaMap(userSocialMedia)
-        .subscribe((response) => {
-          this.userSocialMedia = response;
-          //TODO Toastr?
+      if (!userSocialMedia.Id) {
+        this.userSocialMediaService
+          .createUserSocialMediaMap(userSocialMedia)
+          .subscribe((response) => {
+            this.userSocialMedia = response;
 
-          this.rowKeys.delete(this.userSocialMedia.Id!);
-          this.clearRowKeys(this.userSocialMedia.Id);
-          this.onClearSocialMediaFormClicked();
-        });
+            this.user.UserSocialMediaLinksMap.push(this.userSocialMedia);
+            //TODO Toastr?
+
+            this.onClearSocialMediaFormClicked();
+          });
+      } else {
+        this.userSocialMediaService
+          .updateUserSocialMediaMap(userSocialMedia)
+          .subscribe((response) => {
+            this.userSocialMedia = response;
+            //TODO Toastr?
+
+            this.rowKeys.delete(this.userSocialMedia.Id!);
+            this.clearRowKeys(this.userSocialMedia.Id);
+            this.onClearSocialMediaFormClicked();
+          });
+      }
     }
   }
 
