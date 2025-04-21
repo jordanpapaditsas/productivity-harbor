@@ -1,5 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   inject,
@@ -151,24 +152,26 @@ export class PhDataGridComponent implements OnInit {
       containersByPosition.set(`${rowIndex}-${colLabel}`, el);
     });
 
+    debugger;
     for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
       const row = rows[rowIndex];
 
-      for (let colIndex = 0; colIndex < rows.length; colIndex++) {
+      for (let colIndex = 0; colIndex < cols.length; colIndex++) {
         const column = cols[colIndex];
 
-        if (!column.cellTemplate) {
-          continue;
-        }
         if (this.isRowInEditMode(row, rowIndex)) {
           continue;
         }
 
-        const key = `${rowIndex}-${column.label}`;
-        const cellElement = containersByPosition.get(key);
+        if (column) {
+          const key = `${rowIndex}-${column.label}`;
+          const cellElement = containersByPosition.get(key);
 
-        if (cellElement) {
-          column.cellTemplate(row, { col: column, cell: cellElement });
+          if (column.cellTemplate) {
+            if (cellElement) {
+              column.cellTemplate(row, { col: column, cell: cellElement });
+            }
+          }
         }
       }
     }
