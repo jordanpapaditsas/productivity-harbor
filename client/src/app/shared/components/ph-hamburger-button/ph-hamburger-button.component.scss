@@ -1,9 +1,9 @@
-$width: 24px;
+$width: 25px;
 $barHeight: 1px;
 $barColor: var(--ph-icon);;
 
 .menu {
-  padding-right: 1rem;
+  padding-right: 0.5rem;
   width: $width;
   height: $width;
   cursor: pointer;
@@ -15,14 +15,14 @@ $barColor: var(--ph-icon);;
       position: absolute;
       width: $width - 2 * $barHeight;
       left: 0;
-      top: 11px;
+      top: 0.7rem;
       border: $barHeight solid $barColor;
       transition: border-color .2s ease-in .2s;
 
       &::before {
         position: absolute;
         content: '';
-        top: -6px;
+        top: -8px;
         left: -$barHeight;
         width: $width - 2 * $barHeight;
         border: $barHeight solid $barColor;
@@ -32,7 +32,7 @@ $barColor: var(--ph-icon);;
       &::after {
         position: absolute;
         content: '';
-        top: 4px;
+        top: 6px;
         left: -$barHeight;
         width: $width - 2 * $barHeight;
         border: $barHeight solid $barColor;
