@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   effect,
   ElementRef,
@@ -55,14 +56,15 @@ export class UserEditComponent implements OnInit {
   userId = input<Guid | undefined | null>();
   exitScreen = output<EventEmitter<void>>();
   isUserInEditMode = signal<boolean>(true);
+  user!: UserDto;
+  socialMedia: SocialMediaDto[] = [];
+
   isSocialMediaFormVisible = signal<boolean>(false);
   socialMediaRowIndex = signal<number>(0);
   rowKeys: Set<Guid> = new Set();
 
-  user!: UserDto;
-  userSocialMediaArray: any;
-  userSocialMedia!: UserSocialMediaMapDto;
-  socialMedia: SocialMediaDto[] = [];
+  userSocialMediaTempArray: any;
+  userSocialMediaDto!: UserSocialMediaMapDto;
 
   private userService = inject(UserService);
   private socialMediaService = inject(SocialMediaService);
@@ -92,8 +94,8 @@ export class UserEditComponent implements OnInit {
 
   initializeUserDto() {
     this.user = new UserDto();
-    this.userSocialMedia = new UserSocialMediaMapDto();
-    this.userSocialMediaArray = [];
+    this.userSocialMediaDto = new UserSocialMediaMapDto();
+    this.userSocialMediaTempArray = [];
     this.user.Address = { Street: '', City: '', Zip: '' };
     this.user.Phone = { Home: '', Mobile: '', Work: '' };
   }
@@ -115,10 +117,8 @@ export class UserEditComponent implements OnInit {
   }
 
   onSaveClicked(e: any) {
-    debugger;
     if (!this.user.Id) {
-      debugger;
-      this.user.UserSocialMediaLinksMap = this.userSocialMediaArray;
+      this.user.UserSocialMediaLinksMap = this.userSocialMediaTempArray;
       this.userService.createUser(this.user).subscribe({
         next: (response) => {
           this.user = response;
@@ -127,6 +127,7 @@ export class UserEditComponent implements OnInit {
         error: (error) => {},
       });
     } else if (this.user.Id) {
+      debugger;
       this.userService.updateUser(this.user).subscribe({
         next: (response) => {
           this.user = response;
@@ -139,7 +140,6 @@ export class UserEditComponent implements OnInit {
 
   onEditClicked(e: any) {
     this.isUserInEditMode.set(!this.isUserInEditMode());
-    //TODO Fix the view mode interface and the edit mode interface
   }
 
   triggerAvatarUpload() {
@@ -164,73 +164,54 @@ export class UserEditComponent implements OnInit {
     this.user.Color = e.target.value;
   }
 
-  addSocialMedia(e: any) {
+  async onDeactivateClicked(e: any) {
+    if (this.user) {
+      this.user.IsActive = false;
+
+      this.userService.updateUserStatus(this.user).subscribe({
+        next: (response) => {
+          this.user = response;
+          this.toastr.success('User deactivated successfully.');
+        },
+        error: (error) => {},
+      });
+    }
+  }
+
+  addUserSocialMedia(e: any) {
     debugger;
     this.isSocialMediaFormVisible.set(true);
-    if (this.isSocialMediaFormVisible()) {
-      this.userSocialMedia = new UserSocialMediaMapDto();
-      this.userSocialMediaArray.push(this.userSocialMedia);
+    this.userSocialMediaDto = new UserSocialMediaMapDto();
+  }
+
+  onSaveUserSocialMediaRowClicked(userSocialMedia: UserSocialMediaMapDto) {
+    debugger;
+    this.userSocialMediaDto = userSocialMedia;
+    if (this.user.Id) {
+      this.userSocialMediaTempArray.push(this.userSocialMediaDto);
+      this.user.UserSocialMediaLinksMap.push(...this.userSocialMediaTempArray);
+      this.isSocialMediaFormVisible.set(false);
+    } else {
+      this.userSocialMediaTempArray.push(this.userSocialMediaDto);
+      this.isSocialMediaFormVisible.set(false);
     }
   }
 
   onClearSocialMediaFormClicked() {
     this.isSocialMediaFormVisible.set(false);
-    this.userSocialMediaArray = [];
-    this.userSocialMedia = new UserSocialMediaMapDto();
+    this.userSocialMediaTempArray = [];
+    this.userSocialMediaDto = new UserSocialMediaMapDto();
   }
 
   clearRowKeys(row: any) {
     this.rowKeys.delete(row.Id);
   }
 
-  async onSaveUserSocialMediaRowClicked(
-    userSocialMedia: UserSocialMediaMapDto,
-    index: number
-  ) {
-    if (!userSocialMedia.Url) {
-      let result = await this.dialogService.alertDialog(
-        'Warning Message',
-        'Please type a correct Url for your social media.',
-        DialogTypeEnum.Danger
-      );
-      return result;
-    }
-    debugger;
-
-    if (!this.user.Id) {
-      this.isSocialMediaFormVisible.set(false);
-    } else {
-      if (!userSocialMedia.Id) {
-        this.userSocialMediaService
-          .createUserSocialMediaMap(userSocialMedia)
-          .subscribe((response) => {
-            this.userSocialMedia = response;
-
-            this.user.UserSocialMediaLinksMap.push(this.userSocialMedia);
-            //TODO Toastr?
-
-            this.onClearSocialMediaFormClicked();
-          });
-      } else {
-        this.userSocialMediaService
-          .updateUserSocialMediaMap(userSocialMedia)
-          .subscribe((response) => {
-            this.userSocialMedia = response;
-            //TODO Toastr?
-
-            this.rowKeys.delete(this.userSocialMedia.Id!);
-            this.clearRowKeys(this.userSocialMedia.Id);
-            this.onClearSocialMediaFormClicked();
-          });
-      }
-    }
-  }
-
   onSocialMediaSelectionChange(socialMedia: SocialMediaDto) {
-    this.userSocialMedia.SocialMediaId = socialMedia.Id;
-    this.userSocialMedia.UserId = this.user.Id;
-    this.userSocialMedia.Icon = socialMedia.Icon;
-    this.userSocialMedia.Name = socialMedia.Name;
+    this.userSocialMediaDto.SocialMediaId = socialMedia.Id;
+    this.userSocialMediaDto.UserId = this.user.Id;
+    this.userSocialMediaDto.Icon = socialMedia.Icon;
+    this.userSocialMediaDto.Name = socialMedia.Name;
   }
 
   onEditSocialMediaRowClicked(
@@ -241,41 +222,7 @@ export class UserEditComponent implements OnInit {
     this.rowKeys.add(userSocialMedia.Id!);
   }
 
-  async onDeleteSocialMediaRowClicked(
-    userSocialMedia: UserSocialMediaMapDto,
-    index: number
-  ) {
-    let result = await this.dialogService.confirmDialog(
-      'Warning Message',
-      'Are you sure you want to delete record?',
-      DialogTypeEnum.Danger
-    );
-
-    if (result) {
-      this.userSocialMediaService
-        .deleteUserSocialMediaMapById(userSocialMedia.Id!)
-        .subscribe((response) => {
-          //TODO toastr
-          this.getUserDataSource();
-        });
-    }
-  }
-
   isSocialMediaRowInEditMode(row: any, index: number) {
     return this.rowKeys.has(row.Id) && this.socialMediaRowIndex() === index;
-  }
-
-  async onDeactivateClicked(e: any) {
-    if (this.user) {
-      this.user.IsActive = false;
-
-      this.userService.updateUser(this.user).subscribe({
-        next: (response) => {
-          this.user = response;
-          this.toastr.success('User deactivated successfully.');
-        },
-        error: (error) => {},
-      });
-    }
   }
 }

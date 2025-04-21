@@ -110,6 +110,19 @@ namespace ProductivityHarborApi.Controllers
                 data.Country = dto.Country;
             }
 
+            if (dto.UserSocialMediaLinksMap.Count > 0)
+            {
+                foreach (var item in dto.UserSocialMediaLinksMap)
+                {
+                    var userSocialMedia = new UserSocialMediaMap();
+                    userSocialMedia.SocialMediaId = item.SocialMediaId;
+                    userSocialMedia.Url = item.Url;
+                    userSocialMedia.UserId = data.Id;
+
+                    _context.UserSocialMediaLinksMap.Add(userSocialMedia);
+                }
+            }
+
             _context.Users.Add(data);
             await _context.SaveChangesAsync();
 
@@ -156,9 +169,29 @@ namespace ProductivityHarborApi.Controllers
                 data.Address = dto.Address;
                 data.Country = dto.Country;
 
-                await _context.SaveChangesAsync();
+                if (dto.UserSocialMediaLinksMap.Count > 0)
+                {
+                    foreach (var item in data.UserSocialMediaLinksMap)
+                    {
+                        data.UserSocialMediaLinksMap.Remove(item);
+                    }
+
+                    foreach (var item in dto.UserSocialMediaLinksMap)
+                    {
+                        var userSocialMedia = new UserSocialMediaMap();
+                        userSocialMedia.Url = item.Url;
+                        userSocialMedia.UserId = item.UserId;
+                        userSocialMedia.SocialMediaId = item.SocialMediaId;
+
+                        data.UserSocialMediaLinksMap.Add(userSocialMedia);
+                    }
+                    _context.UserSocialMediaLinksMap.AddRange(data.UserSocialMediaLinksMap);
+
+                }
                 try
                 {
+                    await _context.SaveChangesAsync();
+               
                     return Ok(dto);
 
                 }
@@ -167,6 +200,34 @@ namespace ProductivityHarborApi.Controllers
                     return StatusCode(500, "Error occurred" + ex.Message);
                 }
             } 
+        }
+
+        [HttpPut("updateUserStatus")]
+        public async Task<IActionResult> UpdateUserStatus(UserDto dto)
+        {
+            var actionUser = await _userManager.GetUserAsync(User);
+            var data = await _context.Users.FirstOrDefaultAsync(x => x.Id == dto.Id);
+
+            if (data == null)
+            {
+                return BadRequest("User not found.");
+            }
+            else
+            {
+                data.IsActive = dto.IsActive;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Ok(dto);
+
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, "Error occurred" + ex.Message);
+                }
+            }
         }
 
         [HttpDelete("deleteUserById/{id}")]

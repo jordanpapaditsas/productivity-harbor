@@ -6,6 +6,10 @@ namespace ProductivityHarborApi.Core.Models.User
 {
     public class User : IdentityUser<Guid> 
     {
+        public User() 
+        {
+            Id = Guid.NewGuid();
+        }
         public string? FullName { get; set; }
         public string? Avatar { get; set; }
         public string? Token { get; set; }

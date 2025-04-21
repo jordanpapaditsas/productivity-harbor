@@ -94,7 +94,7 @@
             [disabled]="!isUserInEditMode()"
             class="add-social-btn"
             mat-button
-            (click)="addSocialMedia($event)"
+            (click)="addUserSocialMedia($event)"
           >
             <mat-icon>add</mat-icon>
             <span>Add Social Media</span>
@@ -115,54 +115,24 @@
         <fieldset>
           <legend>Social Media</legend>
           <div class="user-social-media">
-            @if(user.UserSocialMediaLinksMap &&
-            user.UserSocialMediaLinksMap.length > 0) { @for (userSocialMedia of
-            user.UserSocialMediaLinksMap; track userSocialMedia.Id; let i =
-            $index;) {
-            <div class="user-social-media-row">
-              <i class="social-media-icon" [class]="userSocialMedia.Icon"></i>
-              <div class="user-social-media-name">
-                {{ userSocialMedia.Name }}
-              </div>
-
-              @if (!isSocialMediaRowInEditMode(userSocialMedia, i)) {
-              <div class="user-social-media-url">{{ userSocialMedia.Url }}</div>
-              <button
-                [disabled]="!isUserInEditMode()"
-                class="edit-social-btn"
-                matTooltip="Edit"
-                mat-icon-button
-                (click)="onEditSocialMediaRowClicked(userSocialMedia, i)"
-              >
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button
-                [disabled]="!isUserInEditMode()"
-                class="delete-social-btn"
-                mat-icon-button
-                (click)="onDeleteSocialMediaRowClicked(userSocialMedia, i)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
-
-              } @else if (isSocialMediaRowInEditMode(userSocialMedia, i)) {
-              <ph-text-box [(value)]="userSocialMedia.Url"></ph-text-box>
-              <div class="save-user-social-media">
-                <button
-                  matTooltip="Save"
-                  mat-icon-button
-                  (click)="onSaveUserSocialMediaRowClicked(userSocialMedia, i)"
-                >
-                  <mat-icon>save</mat-icon>
-                </button>
-              </div>
-              }
+            @if (!user.Id) { @for (userSocialMedia of userSocialMediaTempArray;
+            track userSocialMedia.Url;) {
+            <div class="flexbox-center">
+              <div>{{ userSocialMedia.Name }}</div>
+              <div>{{ userSocialMedia.Url }}</div>
             </div>
-            }}
+
+            } } @else { @for (userSocialMedia of user.UserSocialMediaLinksMap;
+            track userSocialMedia.Id;) {
+            <div class="flexbox-center">
+              <div>{{ userSocialMedia.Name }}</div>
+              <div>{{ userSocialMedia.Url }}</div>
+            </div>
+
+            } }
           </div>
         </fieldset>
-        } @else { @for (userSocialMedia of userSocialMediaArray; track
-        userSocialMedia.Id; let i = $index) {
+        } @else {
         <div class="add-social-media-form">
           <div class="social-media-selectbox">
             <mat-select>
@@ -176,20 +146,19 @@
             </mat-select>
           </div>
           <div class="social-media-url">
-            <ph-text-box [(value)]="userSocialMedia.Url"></ph-text-box>
+            <ph-text-box [(value)]="userSocialMediaDto.Url"></ph-text-box>
           </div>
           <div class="save-user-social-media">
             <button
               matTooltip="Save"
               mat-icon-button
-              (click)="onSaveUserSocialMediaRowClicked(userSocialMedia, i)"
+              (click)="onSaveUserSocialMediaRowClicked(userSocialMediaDto)"
             >
               <mat-icon>save</mat-icon>
             </button>
           </div>
         </div>
-
-        } }
+        }
       </div>
     </div>
 

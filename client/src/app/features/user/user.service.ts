@@ -51,6 +51,16 @@ export class UserService {
     );
   }
 
+  updateUserStatus(user: UserDto) {
+    return this.httpClient.put<UserDto>(
+      this.serviceUrl + '/updateUserStatus/',
+      user,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
   deleteUserById(userId: Guid) {
     return this.httpClient.delete(
       this.serviceUrl + '/deleteUserById/' + userId,
