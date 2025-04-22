@@ -24,8 +24,9 @@
   </div>
   <!-- MAT TABLE -->
   <table #table class="ph-data-grid-table" mat-table [dataSource]="dataSource">
-    @for (column of columns(); track column.label) { @if(column.dataType ===
-    'string') {
+    @for (column of columns(); track column.label) {
+    <!-- String -->
+    @if(column.dataType === 'string') {
     <ng-container [matColumnDef]="column.label">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
         {{ column.label }}
@@ -56,8 +57,37 @@
         }
       </td>
     </ng-container>
+    }
+    <!-- Lookup  -->
+    @if (column.dataType === 'lookup') {
+    <ng-container [matColumnDef]="column.label">
+      <th class="ph-data-grid-cell" mat-header-cell *matHeaderRowDef>
+        {{ column.label }}
+      </th>
+      <td
+        #cell
+        class="ph-data-grid-cell"
+        mat-cell
+        *matCellDef="let row; index as i"
+        (click)="getTableRowAndColumnData(row, column, cell, i)"
+      >
+        <div
+          #cellTemplateContainer
+          [attr.data-row]="i"
+          [attr.data-col]="column.label"
+          [hidden]="column.allowEditing && isRowInEditMode(row, i)"
+        ></div>
+        @if (column.allowEditing && isRowInEditMode(row, i)) {
 
-    } @if(column.dataType === 'number') {
+        <!-- ph-selectbox -->
+        } @else if(!column.cellTemplate) {
+        {{ row[column.dataField] }}
+        }
+      </td>
+    </ng-container>
+    }
+    <!-- Number -->
+    @if(column.dataType === 'number') {
     <ng-container [matColumnDef]="column.label">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
         {{ column.label }}
@@ -65,9 +95,9 @@
       <td
         #cell
         class="ph-data-grid-cell"
-        (click)="getTableRowAndColumnData(row, column, cell, i)"
         mat-cell
         *matCellDef="let row; index as i"
+        (click)="getTableRowAndColumnData(row, column, cell, i)"
       >
         <div
           #cellTemplateContainer
@@ -84,7 +114,9 @@
       </td>
     </ng-container>
 
-    } @if(column.dataType === 'boolean') {
+    }
+    <!-- Boolean  -->
+    @if(column.dataType === 'boolean') {
     <ng-container [matColumnDef]="column.label">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
         {{ column.label }}
@@ -118,7 +150,9 @@
         }
       </td>
     </ng-container>
-    } @if(column.dataType === 'datetime') {
+    }
+    <!-- Datetime -->
+    @if(column.dataType === 'datetime') {
 
     <ng-container [matColumnDef]="column.label">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
@@ -157,8 +191,9 @@
         }
       </td>
     </ng-container>
+    } }
     <!-- Action Buttons -->
-    } } @if (canEdit() || canDelete()) {
+    @if (canEdit() || canDelete()) {
     <ng-container matColumnDef="actions">
       <th class="ph-data-grid-cell" mat-header-cell *matHeaderCellDef>
         Actions
