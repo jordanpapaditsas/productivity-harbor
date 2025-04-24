@@ -32,7 +32,6 @@ export class AdminHomeComponent implements OnInit {
 
   onSelectionChange(e: any) {
     debugger;
-    console.log(e);
   }
 
   onValueChange(e: any) {

@@ -27,7 +27,7 @@
     @for (item of dataSource(); track item.Id;) {
     <mat-option
       [value]="item[this.displayExpr()!]"
-      (onSelectionChange)="onSelectionChanged(item)"
+      (click)="onSelectionChanged(item)"
     >
       {{ item[this.displayExpr()!] }}
     </mat-option>

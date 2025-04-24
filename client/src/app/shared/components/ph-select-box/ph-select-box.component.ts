@@ -56,6 +56,7 @@ export class PhSelectBoxComponent implements OnInit {
   ngOnInit() {}
 
   onSelectionChanged(item: any) {
+    debugger;
     this.selectionChanged.emit(item);
   }
 
