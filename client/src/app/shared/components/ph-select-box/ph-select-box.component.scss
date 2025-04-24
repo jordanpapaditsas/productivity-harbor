@@ -1,0 +1,16 @@
+.ph-input-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+
+.ph-cancel-btn {
+  border: none !important;
+  background: transparent !important;
+  transition: 0.3s ease-in-out;
+}
+.ph-cancel-btn:hover {
+  cursor: pointer;
+  color: var(--ph-danger);
+}

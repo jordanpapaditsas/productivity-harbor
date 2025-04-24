@@ -1,0 +1,36 @@
+<mat-form-field>
+  <div class="ph-input-container">
+    <!-- With search enabled -->
+    @if (searchEnabled()) {
+    <input
+      matInput
+      type="text"
+      [placeholder]="placeholder()"
+      [matAutocomplete]="auto"
+      class="ph-select-box-input"
+      [ngModel]="inputText()"
+      (ngModelChange)="onInputTextChange($event)"
+    />
+    @if (this.showClearButton() && this.inputText()) {
+    <button class="ph-cancel-btn" (click)="this.inputText.set('')" mat-button>
+      <mat-icon>cancel</mat-icon>
+    </button>
+    } @else {
+    <mat-icon>arrow_drop_down</mat-icon>
+    } }
+
+    <!-- Without search enabled -->
+    @else { }
+  </div>
+
+  <mat-autocomplete #auto="matAutocomplete">
+    @for (item of dataSource(); track item.Id;) {
+    <mat-option
+      [value]="item[this.displayExpr()!]"
+      (onSelectionChange)="onSelectionChanged(item)"
+    >
+      {{ item[this.displayExpr()!] }}
+    </mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>

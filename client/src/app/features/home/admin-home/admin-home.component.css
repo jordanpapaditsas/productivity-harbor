@@ -11,3 +11,11 @@
 .main-container ::-webkit-scrollbar {
   display: none;
 }
+
+.select-box-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50rem;
+  padding: 1rem;
+}
