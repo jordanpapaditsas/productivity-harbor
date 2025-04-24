@@ -1,7 +1,7 @@
 <mat-form-field>
+  @if (searchEnabled()) {
   <div class="ph-input-container">
     <!-- With search enabled -->
-    @if (searchEnabled()) {
     <input
       matInput
       type="text"
@@ -17,10 +17,7 @@
     </button>
     } @else {
     <mat-icon>arrow_drop_down</mat-icon>
-    } }
-
-    <!-- Without search enabled -->
-    @else { }
+    }
   </div>
 
   <mat-autocomplete #auto="matAutocomplete">
@@ -33,4 +30,18 @@
     </mat-option>
     }
   </mat-autocomplete>
+  }
+  <!-- Without search enabled -->
+  @else {
+  <mat-select>
+    @for (item of dataSource(); track item.Id;) {
+    <mat-option
+      [value]="item[this.displayExpr()!]"
+      (click)="onSelectionChanged(item)"
+    >
+      {{ item[this.displayExpr()!] }}
+    </mat-option>
+    }
+  </mat-select>
+  }
 </mat-form-field>

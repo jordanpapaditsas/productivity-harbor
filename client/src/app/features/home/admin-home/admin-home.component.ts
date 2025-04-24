@@ -30,9 +30,7 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  onSelectionChange(e: any) {
-    debugger;
-  }
+  onSelectionChange(e: any) {}
 
   onValueChange(e: any) {
     debugger;

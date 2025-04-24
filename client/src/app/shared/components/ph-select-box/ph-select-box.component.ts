@@ -2,9 +2,11 @@ import {
   Component,
   computed,
   effect,
+  EventEmitter,
   Input,
   input,
   OnInit,
+  Output,
   output,
   signal,
 } from '@angular/core';
@@ -30,7 +32,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
   ],
 })
 export class PhSelectBoxComponent implements OnInit {
-  value = input<any>();
   inputText = signal<string>('');
   dataSource = input<any>(null);
   displayExpr = input<string>();
@@ -40,7 +41,7 @@ export class PhSelectBoxComponent implements OnInit {
   placeholder = input<string>('');
 
   selectionChanged = output<any>();
-  valueChanged = output<any>();
+  @Output() valueChange = new EventEmitter<any>();
 
   constructor() {
     effect(() => {
@@ -56,14 +57,10 @@ export class PhSelectBoxComponent implements OnInit {
   ngOnInit() {}
 
   onSelectionChanged(item: any) {
-    debugger;
     this.selectionChanged.emit(item);
   }
 
-  onValueChange() {
-    if (this.valueExpr() && this.value()) {
-    }
-  }
+  onValueChange(item: any) {}
 
   onInputTextChange(e: any) {
     this.inputText.set(e);

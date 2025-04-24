@@ -8,13 +8,11 @@
       class="select-box-container"
       [placeholder]="'Select'"
       [dataSource]="dataSource()"
-      [value]="user.Id"
       displayExpr="UserName"
       valueExpr="Id"
       [searchEnabled]="true"
       [showClearButton]="true"
       (selectionChanged)="onSelectionChange($event)"
-      (valueChanged)="onValueChange($event)"
     ></ph-select-box>
   </div>
 </div>
