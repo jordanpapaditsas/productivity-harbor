@@ -3,16 +3,20 @@
   <div class="ph-input-container">
     <!-- With search enabled -->
     <input
+      class="ph-select-box-input"
       matInput
       type="text"
       [placeholder]="placeholder()"
       [matAutocomplete]="auto"
-      class="ph-select-box-input"
-      [ngModel]="inputText()"
-      (ngModelChange)="onInputTextChange($event)"
+      [(ngModel)]="value"
+      (ngModelChange)="onValueChange()"
     />
-    @if (this.showClearButton() && this.inputText()) {
-    <button class="ph-cancel-btn" (click)="this.inputText.set('')" mat-button>
+    @if (this.showClearButton()) {
+    <button
+      class="ph-cancel-btn"
+      mat-button
+      (click)="onClearButtonClick(value)"
+    >
       <mat-icon>cancel</mat-icon>
     </button>
     } @else {
@@ -20,10 +24,13 @@
     }
   </div>
 
-  <mat-autocomplete #auto="matAutocomplete">
+  <mat-autocomplete
+    [displayWith]="displayFn.bind(this)"
+    #auto="matAutocomplete"
+  >
     @for (item of dataSource(); track item.Id;) {
     <mat-option
-      [value]="item[this.displayExpr()!]"
+      [value]="item[this.valueExpr()!]"
       (click)="onSelectionChanged(item)"
     >
       {{ item[this.displayExpr()!] }}

@@ -32,7 +32,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
   ],
 })
 export class PhSelectBoxComponent implements OnInit {
-  inputText = signal<string>('');
+  @Input() value: any;
   dataSource = input<any>(null);
   displayExpr = input<string>();
   valueExpr = input<string>();
@@ -60,17 +60,37 @@ export class PhSelectBoxComponent implements OnInit {
     this.selectionChanged.emit(item);
   }
 
-  onValueChange(item: any) {}
+  onValueChange() {
+    if (this.valueExpr()) {
+      let selectedItem = this.dataSource().find(
+        (item: any) => item[this.valueExpr()!] === this.value
+      );
 
-  onInputTextChange(e: any) {
-    this.inputText.set(e);
+      if (selectedItem) {
+        this.valueChange.emit(selectedItem[this.valueExpr()!]);
+      }
+    }
   }
 
-  // private _getLookupFromItem(item: any) {
-  //   if (this.displayExpr() && Object.hasOwn(item, this.displayExpr()!)) {
-  //     return item[this.displayExpr()!];
-  //   } else {
-  //     return '';
-  //   }
-  // }
+  displayFn(value: any) {
+    if (!value && !this.dataSource()) {
+      return '';
+    } else {
+      let selectedItem = this.dataSource().find(
+        (item: any) => item[this.valueExpr()!] === value
+      );
+
+      if (!selectedItem) {
+        return '';
+      } else {
+        return selectedItem[this.displayExpr()!];
+      }
+    }
+  }
+
+  onClearButtonClick(item: any) {
+    this.value = item;
+
+    this.value = null;
+  }
 }
