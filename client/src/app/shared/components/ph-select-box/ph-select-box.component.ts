@@ -1,6 +1,5 @@
 import {
   Component,
-  computed,
   effect,
   EventEmitter,
   Input,
@@ -34,6 +33,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 export class PhSelectBoxComponent implements OnInit {
   @Input() value: any;
   dataSource = input<any>(null);
+  filteredDataSource = signal<any>(null);
   displayExpr = input<string>();
   valueExpr = input<string>();
   searchEnabled = input<boolean>();
@@ -46,6 +46,7 @@ export class PhSelectBoxComponent implements OnInit {
   constructor() {
     effect(() => {
       if (this.dataSource()) {
+        this.filteredDataSource.set(this.dataSource());
         this.dataSource().forEach((item: any) => {
           if (this.displayExpr()) {
             return item[this.displayExpr()!];
@@ -60,20 +61,18 @@ export class PhSelectBoxComponent implements OnInit {
     this.selectionChanged.emit(item);
   }
 
-  onValueChange() {
-    if (this.valueExpr()) {
-      let selectedItem = this.dataSource().find(
-        (item: any) => item[this.valueExpr()!] === this.value
-      );
+  onInputValueChange(inputVal: any) {
+    let searchVal = inputVal.toLowerCase();
 
-      if (selectedItem) {
-        this.valueChange.emit(selectedItem[this.valueExpr()!]);
-      }
-    }
+    const filteredData = this.dataSource().filter((item: any) =>
+      item[this.displayExpr()!].toLowerCase().includes(searchVal)
+    );
+
+    this.filteredDataSource.set(filteredData);
   }
 
   displayFn(value: any) {
-    if (!value && !this.dataSource()) {
+    if (!value || !this.dataSource()) {
       return '';
     } else {
       let selectedItem = this.dataSource().find(
@@ -83,14 +82,20 @@ export class PhSelectBoxComponent implements OnInit {
       if (!selectedItem) {
         return '';
       } else {
+        this.valueChange.emit(selectedItem[this.valueExpr()!]);
         return selectedItem[this.displayExpr()!];
       }
     }
   }
 
-  onClearButtonClick(item: any) {
-    this.value = item;
-
+  onClearButtonClick() {
     this.value = null;
+    if (!this.filteredDataSource()) {
+      this.filteredDataSource.set(this.dataSource());
+    }
+  }
+
+  populateDataSource() {
+    this.filteredDataSource.set(this.dataSource());
   }
 }

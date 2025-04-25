@@ -9,14 +9,11 @@
       [placeholder]="placeholder()"
       [matAutocomplete]="auto"
       [(ngModel)]="value"
-      (ngModelChange)="onValueChange()"
+      (ngModelChange)="onInputValueChange(value)"
+      (click)="populateDataSource()"
     />
     @if (this.showClearButton()) {
-    <button
-      class="ph-cancel-btn"
-      mat-button
-      (click)="onClearButtonClick(value)"
-    >
+    <button class="ph-cancel-btn" mat-button (click)="onClearButtonClick()">
       <mat-icon>cancel</mat-icon>
     </button>
     } @else {
@@ -28,7 +25,7 @@
     [displayWith]="displayFn.bind(this)"
     #auto="matAutocomplete"
   >
-    @for (item of dataSource(); track item.Id;) {
+    @for (item of filteredDataSource(); track item.Id;) {
     <mat-option
       [value]="item[this.valueExpr()!]"
       (click)="onSelectionChanged(item)"
@@ -41,7 +38,7 @@
   <!-- Without search enabled -->
   @else {
   <mat-select>
-    @for (item of dataSource(); track item.Id;) {
+    @for (item of filteredDataSource(); track item.Id;) {
     <mat-option
       [value]="item[this.displayExpr()!]"
       (click)="onSelectionChanged(item)"
