@@ -1,4 +1,6 @@
 <input
+  cdkTrapFocus
+  [cdkTrapFocusAutoCapture]="true"
   class="ph-textbox"
   [ngClass]="customCssClass"
   matInput
@@ -7,4 +9,5 @@
   [readOnly]="readOnly"
   [disabled]="disabled"
   (ngModelChange)="onValueChange($event)"
+  (keyup.enter)="onKeyupEnter($event)"
 />

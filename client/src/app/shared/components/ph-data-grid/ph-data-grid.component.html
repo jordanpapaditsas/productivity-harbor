@@ -45,13 +45,10 @@
           [hidden]="column.allowEditing && isRowInEditMode(row, i)"
         ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
-        <input
-          cdkTrapFocus
-          [cdkTrapFocusAutoCapture]="true"
-          matInput
-          [(ngModel)]="row[column.dataField]"
-          (keyup.enter)="onSaveRowBtnClick(row)"
-        />
+        <ph-text-box
+          [(value)]="row[column.dataField]"
+          (keyUpEnter)="onSaveRowBtnClick(row)"
+        ></ph-text-box>
         } @else if(!column.cellTemplate) {
         {{ row[column.dataField] }}
         }
@@ -78,8 +75,13 @@
           [hidden]="column.allowEditing && isRowInEditMode(row, i)"
         ></div>
         @if (column.allowEditing && isRowInEditMode(row, i)) {
-
-        <!-- ph-selectbox -->
+        <!-- ph-select-box -->
+        <ph-select-box
+          [dataSource]="column.lookup?.dataSource"
+          [(value)]="row[column.dataField]"
+          [valueExpr]="column.lookup?.valueExpr"
+          [displayExpr]="column.lookup?.displayExpr"
+        ></ph-select-box>
         } @else if(!column.cellTemplate) {
         {{ row[column.dataField] }}
         }

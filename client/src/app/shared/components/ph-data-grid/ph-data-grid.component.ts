@@ -1,6 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   inject,
@@ -33,6 +32,8 @@ import { PhDialogService } from '../../services/ph-dialog.service';
 import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
 import { Column } from '../../../core/interfaces/column';
 import { ToastrService } from 'ngx-toastr';
+import { PhSelectBoxComponent } from '../ph-select-box/ph-select-box.component';
+import { PhTextBoxComponent } from '../ph-text-box/ph-text-box.component';
 
 @Component({
   selector: 'ph-data-grid',
@@ -53,6 +54,8 @@ import { ToastrService } from 'ngx-toastr';
     MatFormFieldModule,
     DatePipe,
     A11yModule,
+    PhSelectBoxComponent,
+    PhTextBoxComponent,
   ],
 })
 export class PhDataGridComponent implements OnInit {
