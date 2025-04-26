@@ -3,13 +3,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ThemeService } from '../../services/theme.service';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [MatToolbarModule, MatIconModule, MatTooltipModule],
+  imports: [MatToolbarModule, MatIconModule],
   animations: [
     trigger('switchTheme', [
       transition(':enter', [
