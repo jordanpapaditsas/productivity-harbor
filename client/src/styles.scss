@@ -7,8 +7,6 @@ html, body {
   scroll-behavior: smooth;
 }
 
-
-
 :root {
   // Light Mode
   --ph-mainColor-light: hsl(202, 66%, 38%);
@@ -28,6 +26,7 @@ html, body {
   --ph-deepShadow-light: hsla(0, 0%, 3%, 0.521);
   --ph-instagram-light: hsl(349, 75%, 57%);
   --ph-toolbarButton-light: hsl(0, 0%, 100%);
+  --ph-theme-switcher-light: hsl(44, 82%, 52%);
 
 
   //Dark Mode
@@ -48,6 +47,7 @@ html, body {
   --ph-deepShadow-dark: hsla(0, 1%, 19%, 0.521);
   --ph-instagram-dark: hsl(349, 75%, 57%);
   --ph-toolbarButton-dark: hsl(0, 0%, 100%);
+  --ph-theme-switcher-dark: hsl(0, 0%, 100%);
 
   // Font Sizes
   --ph-fontSize-xsmall: 0.5rem;
@@ -77,6 +77,7 @@ html, body {
     --ph-deepShadow:var(--ph-deepShadow-dark);
     --ph-instagram:var(--ph-instagram-dark);
     --ph-toolbarButton:var(--ph-toolbarButton-dark);
+    --ph-theme-switcher:var(--ph-theme-switcher-dark);
   }
 }
 
@@ -99,6 +100,7 @@ html, body {
     --ph-deepShadow:var(--ph-deepShadow-light);
     --ph-instagram:var(--ph-instagram-light);
     --ph-toolbarButton:var(--ph-toolbarButton-light);
+    --ph-theme-switcher:var(--ph-theme-switcher-light);
   }
 }
 
@@ -120,6 +122,7 @@ html, body {
   --ph-deepShadow:var(--ph-deepShadow-dark);
   --ph-instagram:var(--ph-instagram-dark);
   --ph-toolbarButton:var(--ph-toolbarButton-dark);
+  --ph-theme-switcher:var(--ph-theme-switcher-dark);
 
   a:visited {
     color: var(--ph-text) !important;
@@ -144,6 +147,7 @@ html, body {
   --ph-deepShadow:var(--ph-deepShadow-light);
   --ph-instagram:var(--ph-instagram-light);
   --ph-toolbarButton:var(--ph-toolbarButton-light);
+  --ph-theme-switcher:var(--ph-theme-switcher-light);
 
   a:visited {
     color: var(--ph-text) !important;

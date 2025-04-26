@@ -18,3 +18,10 @@
   display: flex;
   align-items: center;
 }
+
+.theme-switcher {
+  background: none;
+  border: none;
+  color: var(--ph-theme-switcher);
+  cursor: pointer;
+}
