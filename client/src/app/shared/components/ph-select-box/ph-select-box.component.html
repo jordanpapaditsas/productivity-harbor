@@ -1,45 +1,53 @@
-<mat-form-field>
-  @if (searchEnabled()) {
-  <div class="ph-input-container">
-    <!-- With search enabled -->
-    <input
-      class="ph-select-box-input"
-      matInput
-      type="text"
-      [placeholder]="placeholder()"
-      [matAutocomplete]="auto"
-      [(ngModel)]="value"
-      (ngModelChange)="onInputValueChange(value)"
-      (click)="populateDataSource()"
-    />
-    @if (this.showClearButton()) {
-    <button class="ph-cancel-btn" mat-button (click)="onClearButtonClick()">
-      <mat-icon>cancel</mat-icon>
-    </button>
-    } @else {
-    <mat-icon>arrow_drop_down</mat-icon>
-    }
-  </div>
+@if (searchEnabled()) {
+<div class="ph-input-container">
+  <!-- With search enabled -->
+  <input
+    [ngClass]="customCssClass"
+    class="ph-select-box-input"
+    matInput
+    type="text"
+    [placeholder]="placeholder()"
+    [matAutocomplete]="auto"
+    [(ngModel)]="_value"
+    (ngModelChange)="onInputValueChange(_value)"
+    (click)="populateDataSource()"
+    [disabled]="disabled()"
+  />
+  @if (this.showClearButton()) {
+  <button
+    [disabled]="disabled()"
+    [class]="[!disabled() ? 'ph-cancel-btn' : 'ph-cancel-btn-disabled']"
+    mat-button
+    (click)="onClearButtonClick()"
+  >
+    <mat-icon>cancel</mat-icon>
+  </button>
+  } @else {
+  <mat-icon>arrow_drop_down</mat-icon>
+  }
+</div>
 
-  <mat-autocomplete
-    [displayWith]="displayFn.bind(this)"
-    #auto="matAutocomplete"
+<mat-autocomplete [displayWith]="displayFn.bind(this)" #auto="matAutocomplete">
+  @for (item of filteredDataSource(); track item.Id;) {
+  <mat-option
+    [value]="item[this.valueExpr()!]"
+    (click)="onSelectionChanged(item)"
+  >
+    {{ item[this.displayExpr()!] }}
+  </mat-option>
+  }
+</mat-autocomplete>
+}
+<!-- Without search enabled -->
+@else {
+<div class="ph-mat-select-container" [ngClass]="customCssClass">
+  <mat-select
+    [disabled]="disabled()"
+    [value]="selectedValue[this.displayExpr()!]"
   >
     @for (item of filteredDataSource(); track item.Id;) {
     <mat-option
-      [value]="item[this.valueExpr()!]"
-      (click)="onSelectionChanged(item)"
-    >
-      {{ item[this.displayExpr()!] }}
-    </mat-option>
-    }
-  </mat-autocomplete>
-  }
-  <!-- Without search enabled -->
-  @else {
-  <mat-select>
-    @for (item of filteredDataSource(); track item.Id;) {
-    <mat-option
+      [disabled]="disabled()"
       [value]="item[this.displayExpr()!]"
       (click)="onSelectionChanged(item)"
     >
@@ -47,5 +55,6 @@
     </mat-option>
     }
   </mat-select>
-  }
-</mat-form-field>
+</div>
+
+}

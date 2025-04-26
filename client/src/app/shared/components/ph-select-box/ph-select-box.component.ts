@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ph-select-box',
@@ -28,10 +29,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatInputModule,
     MatIconModule,
     MatAutocompleteModule,
+    CommonModule,
   ],
 })
 export class PhSelectBoxComponent implements OnInit {
-  @Input() value: any;
+  value = input.required<any>();
+  _value: any;
+  selectedValue: any;
   dataSource = input<any>(null);
   filteredDataSource = signal<any>(null);
   displayExpr = input<string>();
@@ -39,19 +43,32 @@ export class PhSelectBoxComponent implements OnInit {
   searchEnabled = input<boolean>();
   showClearButton = input<boolean>();
   placeholder = input<string>('');
+  disabled = input<boolean>(false);
+  @Input() customCssClass!: string;
 
   selectionChanged = output<any>();
-  @Output() valueChange = new EventEmitter<any>();
+  valueChange = output<any>();
 
   constructor() {
     effect(() => {
       if (this.dataSource()) {
+        this._value = this.value();
         this.filteredDataSource.set(this.dataSource());
         this.dataSource().forEach((item: any) => {
           if (this.displayExpr()) {
             return item[this.displayExpr()!];
           }
         });
+      }
+      if (!this.searchEnabled() && this.dataSource()) {
+        this.filteredDataSource.set(this.dataSource());
+        this.selectedValue = this.dataSource().find(
+          (item: any) => this._value === item[this.valueExpr()!]
+        );
+
+        if (this.selectedValue) {
+          return this.selectedValue;
+        }
       }
     });
   }
@@ -89,7 +106,7 @@ export class PhSelectBoxComponent implements OnInit {
   }
 
   onClearButtonClick() {
-    this.value = null;
+    this._value = null;
     if (!this.filteredDataSource()) {
       this.filteredDataSource.set(this.dataSource());
     }

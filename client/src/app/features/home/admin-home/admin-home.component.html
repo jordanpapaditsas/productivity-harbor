@@ -2,4 +2,16 @@
   <ph-container>
     <ph-toolbar [title]="'Home'"></ph-toolbar>
   </ph-container>
+  <ph-select-box
+    [customCssClass]="'custom'"
+    [dataSource]="dataSource()"
+    [(value)]="user()!.Id"
+    valueExpr="Id"
+    displayExpr="FullName"
+    [showClearButton]="false"
+    [searchEnabled]="false"
+    (valueChange)="OnUserValueChange($event)"
+    (selectionChanged)="onUserSelectionChange($event)"
+    [disabled]="false"
+  ></ph-select-box>
 </div>
