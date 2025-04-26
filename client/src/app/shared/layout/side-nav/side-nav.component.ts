@@ -109,8 +109,8 @@ export class SideNavComponent implements OnInit {
         subItems: [
           {
             icon: 'settings_applications',
-            label: 'Application Settings',
-            route: 'application-settings',
+            label: 'Application Options',
+            route: 'application-options',
           },
           {
             icon: 'people',

@@ -21,10 +21,10 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'application-settings',
+    path: 'application-options',
     loadComponent: () =>
-      import('./features/settings/app-settings/app-settings.component').then(
-        (m) => m.AppSettingsComponent
+      import('./features/settings/app-options/app-options.component').then(
+        (m) => m.AppOptionsComponent
       ),
   },
   {

@@ -1,14 +1,14 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { routes } from '../app.routes';
+import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   MAT_DATE_LOCALE,
   provideNativeDateAdapter,
 } from '@angular/material/core';
 import { provideToastr } from 'ngx-toastr';
-import { serverErrorInterceptor } from '../core/interceptors/server-error.interceptor';
+import { serverErrorInterceptor } from './core/interceptors/server-error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
