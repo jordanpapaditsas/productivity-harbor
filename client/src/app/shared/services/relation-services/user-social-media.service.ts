@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AppConfigService } from '../app-config.service';
+import { AppSettingsService } from '../app-settings.service';
 import { AuthService } from '../auth.service';
 import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-media-map.dto';
 import { Guid } from 'guid-typescript';
@@ -10,9 +10,9 @@ import { Guid } from 'guid-typescript';
 })
 export class UserSocialMediaMapService {
   private httpClient = inject(HttpClient);
-  private appConfigService = inject(AppConfigService);
+  private appSettingsService = inject(AppSettingsService);
   private authService = inject(AuthService);
-  private baseUrl = this.appConfigService.getBaseUrl();
+  private baseUrl = this.appSettingsService.getBaseUrl();
   private serviceUrl = this.baseUrl + 'UserSocialMediaMap';
   private headers = this.authService.getHttpHeaders();
 

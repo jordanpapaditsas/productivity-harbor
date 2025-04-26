@@ -1,1 +1,6 @@
-export class AppSettingsDto {}
+export class AppSettingsDto {
+  AppServiceUrl!: string;
+  AppVersion?: string;
+  AppName?: string;
+  AppLogo?: string;
+}

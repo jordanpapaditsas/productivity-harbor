@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AppConfigService } from './app-config.service';
+import { AppSettingsService } from './app-settings.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private httpClient = inject(HttpClient);
-  private appConfigService = inject(AppConfigService);
+  private appSettingsService = inject(AppSettingsService);
   private _headers: any;
 
   getHttpHeaders() {

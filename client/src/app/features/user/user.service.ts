@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { UserDto } from '../../core/dto/user/user.dto';
-import { AppConfigService } from '../../shared/services/app-config.service';
+import { AppSettingsService } from '../../shared/services/app-settings.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { Guid } from 'guid-typescript';
 
@@ -10,9 +10,9 @@ import { Guid } from 'guid-typescript';
 })
 export class UserService {
   private httpClient = inject(HttpClient);
-  private appConfigService = inject(AppConfigService);
+  private appSettingsService = inject(AppSettingsService);
   private authService = inject(AuthService);
-  private baseUrl = this.appConfigService.getBaseUrl();
+  private baseUrl = this.appSettingsService.getBaseUrl();
   private serviceUrl = this.baseUrl + 'Users';
   private headers = this.authService.getHttpHeaders();
 
