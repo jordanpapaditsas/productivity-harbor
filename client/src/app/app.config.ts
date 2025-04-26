@@ -1,4 +1,9 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  inject,
+  provideAppInitializer,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
@@ -9,6 +14,7 @@ import {
 } from '@angular/material/core';
 import { provideToastr } from 'ngx-toastr';
 import { serverErrorInterceptor } from './core/interceptors/server-error.interceptor';
+import { AppSettingsService } from './shared/services/app-settings.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,6 +28,10 @@ export const appConfig: ApplicationConfig = {
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
+    }),
+    provideAppInitializer(() => {
+      const appSettings = inject(AppSettingsService);
+      appSettings.loadSettings();
     }),
   ],
 };

@@ -12,7 +12,7 @@ export class UserSocialMediaMapService {
   private httpClient = inject(HttpClient);
   private appSettingsService = inject(AppSettingsService);
   private authService = inject(AuthService);
-  private baseUrl = this.appSettingsService.getBaseUrl();
+  private baseUrl = this.appSettingsService.getAppService();
   private serviceUrl = this.baseUrl + 'UserSocialMediaMap';
   private headers = this.authService.getHttpHeaders();
 
