@@ -152,7 +152,6 @@ export class PhDataGridComponent implements OnInit {
       containersByPosition.set(`${rowIndex}-${colLabel}`, el);
     });
 
-    debugger;
     for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
       const row = rows[rowIndex];
 

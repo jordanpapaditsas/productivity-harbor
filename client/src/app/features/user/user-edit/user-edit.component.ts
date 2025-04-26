@@ -76,7 +76,6 @@ export class UserEditComponent implements OnInit {
     this.initializeUserDto();
 
     effect(() => {
-      debugger;
       if (this.userId()) {
         this.getUserDataSource();
       } else {
@@ -127,7 +126,6 @@ export class UserEditComponent implements OnInit {
         error: (error) => {},
       });
     } else if (this.user.Id) {
-      debugger;
       this.userService.updateUser(this.user).subscribe({
         next: (response) => {
           this.user = response;
@@ -179,13 +177,11 @@ export class UserEditComponent implements OnInit {
   }
 
   addUserSocialMedia(e: any) {
-    debugger;
     this.isSocialMediaFormVisible.set(true);
     this.userSocialMediaDto = new UserSocialMediaMapDto();
   }
 
   onSaveUserSocialMediaRowClicked(userSocialMedia: UserSocialMediaMapDto) {
-    debugger;
     this.userSocialMediaDto = userSocialMedia;
     if (this.user.Id) {
       this.userSocialMediaTempArray.push(this.userSocialMediaDto);
