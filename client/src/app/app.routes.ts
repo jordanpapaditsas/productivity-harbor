@@ -7,6 +7,13 @@ export const routes: Routes = [
     redirectTo: 'admin-home',
   },
   {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/login/login.component').then(
+        (m) => m.LoginComponent
+      ),
+  },
+  {
     path: 'admin-home',
     loadComponent: () =>
       import('./features/home/admin-home/admin-home.component').then(

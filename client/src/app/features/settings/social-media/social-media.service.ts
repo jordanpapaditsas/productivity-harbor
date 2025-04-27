@@ -9,7 +9,7 @@ import { Guid } from 'guid-typescript';
   providedIn: 'root',
 })
 export class SocialMediaService {
-  private httpClient = inject(HttpClient);
+  private http = inject(HttpClient);
   private appSettingsService = inject(AppSettingsService);
   private authService = inject(AuthService);
   private baseUrl = this.appSettingsService.getAppService();
@@ -19,7 +19,7 @@ export class SocialMediaService {
   constructor() {}
 
   getAllSocialMedia() {
-    return this.httpClient.get<SocialMediaDto[]>(
+    return this.http.get<SocialMediaDto[]>(
       this.serviceUrl + '/getAllSocialMedia',
       {
         headers: this.headers,
@@ -28,7 +28,7 @@ export class SocialMediaService {
   }
 
   createSocialMedia(socialMedia: SocialMediaDto) {
-    return this.httpClient.post<SocialMediaDto>(
+    return this.http.post<SocialMediaDto>(
       this.serviceUrl + '/createSocialMedia/',
       socialMedia,
       {
@@ -38,7 +38,7 @@ export class SocialMediaService {
   }
 
   updateSocialMedia(socialMedia: SocialMediaDto) {
-    return this.httpClient.put<SocialMediaDto>(
+    return this.http.put<SocialMediaDto>(
       this.serviceUrl + '/updateSocialMedia/',
       socialMedia,
       {
@@ -48,7 +48,7 @@ export class SocialMediaService {
   }
 
   deleteSocialMediaById(socialMediaId: Guid) {
-    return this.httpClient.delete(
+    return this.http.delete(
       this.serviceUrl + '/deleteSocialMediaById/' + socialMediaId,
       {
         headers: this.headers,

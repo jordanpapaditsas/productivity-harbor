@@ -9,7 +9,7 @@ import { Guid } from 'guid-typescript';
   providedIn: 'root',
 })
 export class UserSocialMediaMapService {
-  private httpClient = inject(HttpClient);
+  private http = inject(HttpClient);
   private appSettingsService = inject(AppSettingsService);
   private authService = inject(AuthService);
   private baseUrl = this.appSettingsService.getAppService();
@@ -19,7 +19,7 @@ export class UserSocialMediaMapService {
   constructor() {}
 
   getAllUserSocialMediaMapByUserId(userId: Guid) {
-    return this.httpClient.get<UserSocialMediaMapDto[]>(
+    return this.http.get<UserSocialMediaMapDto[]>(
       this.serviceUrl + '/getAllUserSocialMediaMapByUserId/' + userId,
       {
         headers: this.headers,
@@ -28,7 +28,7 @@ export class UserSocialMediaMapService {
   }
 
   createUserSocialMediaMap(socialMedia: UserSocialMediaMapDto) {
-    return this.httpClient.post<UserSocialMediaMapDto>(
+    return this.http.post<UserSocialMediaMapDto>(
       this.serviceUrl + '/createUserSocialMediaMap/',
       socialMedia,
       {
@@ -38,7 +38,7 @@ export class UserSocialMediaMapService {
   }
 
   updateUserSocialMediaMap(socialMedia: UserSocialMediaMapDto) {
-    return this.httpClient.put<UserSocialMediaMapDto>(
+    return this.http.put<UserSocialMediaMapDto>(
       this.serviceUrl + '/updateUserSocialMediaMap/',
       socialMedia,
       {
@@ -48,7 +48,7 @@ export class UserSocialMediaMapService {
   }
 
   deleteUserSocialMediaMapById(id: Guid) {
-    return this.httpClient.delete(
+    return this.http.delete(
       this.serviceUrl + '/deleteUserSocialMediaMapById/' + id,
       {
         headers: this.headers,

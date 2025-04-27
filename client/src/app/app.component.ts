@@ -14,6 +14,6 @@ export class AppComponent {
   router = inject(Router);
 
   constructor() {
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 }

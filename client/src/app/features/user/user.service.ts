@@ -9,7 +9,7 @@ import { Guid } from 'guid-typescript';
   providedIn: 'root',
 })
 export class UserService {
-  private httpClient = inject(HttpClient);
+  private http = inject(HttpClient);
   private appSettingsService = inject(AppSettingsService);
   private authService = inject(AuthService);
   private baseUrl = this.appSettingsService.getAppService();
@@ -17,42 +17,31 @@ export class UserService {
   private headers = this.authService.getHttpHeaders();
 
   getAllUsersData() {
-    return this.httpClient.get<UserDto[]>(this.serviceUrl + '/getAllUsers', {
+    return this.http.get<UserDto[]>(this.serviceUrl + '/getAllUsers', {
       headers: this.headers,
     });
   }
 
   getUserById(userId: Guid) {
-    return this.httpClient.get<UserDto>(
-      this.serviceUrl + '/getUserById/' + userId,
-      {
-        headers: this.headers,
-      }
-    );
+    return this.http.get<UserDto>(this.serviceUrl + '/getUserById/' + userId, {
+      headers: this.headers,
+    });
   }
 
   createUser(user: UserDto) {
-    return this.httpClient.post<UserDto>(
-      this.serviceUrl + '/createUser/',
-      user,
-      {
-        headers: this.headers,
-      }
-    );
+    return this.http.post<UserDto>(this.serviceUrl + '/createUser/', user, {
+      headers: this.headers,
+    });
   }
 
   updateUser(user: UserDto) {
-    return this.httpClient.put<UserDto>(
-      this.serviceUrl + '/updateUser/',
-      user,
-      {
-        headers: this.headers,
-      }
-    );
+    return this.http.put<UserDto>(this.serviceUrl + '/updateUser/', user, {
+      headers: this.headers,
+    });
   }
 
   updateUserStatus(user: UserDto) {
-    return this.httpClient.put<UserDto>(
+    return this.http.put<UserDto>(
       this.serviceUrl + '/updateUserStatus/',
       user,
       {
@@ -62,11 +51,8 @@ export class UserService {
   }
 
   deleteUserById(userId: Guid) {
-    return this.httpClient.delete(
-      this.serviceUrl + '/deleteUserById/' + userId,
-      {
-        headers: this.headers,
-      }
-    );
+    return this.http.delete(this.serviceUrl + '/deleteUserById/' + userId, {
+      headers: this.headers,
+    });
   }
 }
