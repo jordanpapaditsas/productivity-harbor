@@ -20,7 +20,7 @@ export class AuthService {
   private _isUserLoggedIn = signal<boolean>(false);
 
   constructor() {
-    localStorage.getItem('token');
+    // localStorage.getItem('token');
   }
 
   getHttpHeaders() {
@@ -30,16 +30,6 @@ export class AuthService {
     });
 
     return this._headers;
-  }
-
-  isLoggedIn(): boolean {
-    if (!this.user()?.Token || this.user()?.Token !== '') {
-      this._isUserLoggedIn.set(false);
-      return false;
-    } else {
-      this._isUserLoggedIn.set(true);
-      return true;
-    }
   }
 
   login(login: LoginDto): Observable<ApiResponseDto> {
@@ -67,5 +57,9 @@ export class AuthService {
       localStorage.removeItem('token');
       this._isUserLoggedIn.set(false);
     }
+  }
+
+  isAuthenticated(): boolean {
+    return this._isUserLoggedIn();
   }
 }

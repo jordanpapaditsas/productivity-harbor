@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,7 @@ export const routes: Routes = [
       import('./features/home/admin-home/admin-home.component').then(
         (m) => m.AdminHomeComponent
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'kanban',
@@ -26,6 +28,7 @@ export const routes: Routes = [
       import('./features/kanban/tasks-list/tasks-list.component').then(
         (m) => m.TasksListComponent
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'application-options',
@@ -33,6 +36,7 @@ export const routes: Routes = [
       import('./features/settings/app-options/app-options.component').then(
         (m) => m.AppOptionsComponent
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'users-list',
@@ -40,6 +44,7 @@ export const routes: Routes = [
       import('./features/user/users-list/users-list.component').then(
         (m) => m.UsersListComponent
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'user-edit',
@@ -47,6 +52,7 @@ export const routes: Routes = [
       import('./features/user/user-edit/user-edit.component').then(
         (m) => m.UserEditComponent
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'social-media',
@@ -54,5 +60,6 @@ export const routes: Routes = [
       import('./features/settings/social-media/social-media.component').then(
         (m) => m.SocialMediaComponent
       ),
+    canActivate: [AuthGuard],
   },
 ];
