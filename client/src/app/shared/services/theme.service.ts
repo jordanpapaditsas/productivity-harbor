@@ -7,23 +7,16 @@ export class ThemeService {
   currentTheme = signal<string>('');
 
   constructor() {
-    this.getWindowContentLoaded();
     this.getCurrentTheme();
   }
 
   getCurrentTheme() {
-    const browserTheme = window.matchMedia('(prefers-color-scheme: dark)')
-      .matches
-      ? 'dark'
-      : 'light';
-    const storedTheme = localStorage.getItem('productivity-harbor.theme');
-
-    if (!storedTheme || storedTheme !== browserTheme) {
-      this.currentTheme.set(browserTheme);
-      localStorage.setItem('productivity-harbor.theme', browserTheme);
-    } else {
-      this.currentTheme.set(storedTheme);
-    }
+    this.currentTheme.set(
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
+    );
+    localStorage.setItem('productivity-harbor.theme', `${this.currentTheme()}`);
 
     return this.currentTheme();
   }
