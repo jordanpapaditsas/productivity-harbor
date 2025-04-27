@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideAppInitializer(() => {
       const appSettings = inject(AppSettingsService);
-      appSettings.loadSettings();
+      return appSettings.loadSettings();
     }),
   ],
 };

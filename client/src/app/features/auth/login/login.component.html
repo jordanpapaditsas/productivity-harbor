@@ -1,15 +1,17 @@
+@if (!isLoading()) {
 <div class="form-container">
   <ph-text-box
-    [(value)]="user.UserName"
+    [(value)]="loginDto.UserName"
     [placeholder]="'Username'"
   ></ph-text-box>
   <ph-text-box
-    [(value)]="user.Password"
+    [(value)]="loginDto.Password"
     [placeholder]="'Password'"
   ></ph-text-box>
-  <button
-    mat-icon-button
-    matSuffix
-    (click)="onLoginClick(user.UserName, user.Password)"
-  ></button>
+  <button mat-icon-button matSuffix (click)="login()"></button>
 </div>
+} @else {
+<div class="form-container">
+  <ph-loading-spinner></ph-loading-spinner>
+</div>
+}

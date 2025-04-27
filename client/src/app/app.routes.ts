@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'admin-home',
+    redirectTo: 'login',
   },
   {
     path: 'login',

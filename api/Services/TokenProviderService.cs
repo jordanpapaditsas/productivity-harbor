@@ -25,7 +25,6 @@ namespace ProductivityHarborApi.Services
             {
                 new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new(JwtRegisteredClaimNames.Email, user.Email),
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
