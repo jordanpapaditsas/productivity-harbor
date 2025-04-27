@@ -18,6 +18,7 @@ export class AuthService {
   private _headers: any;
   private headers = this.getHttpHeaders();
   private _isUserLoggedIn = signal<boolean>(false);
+  readonly isAuthenticated = computed(() => this._isUserLoggedIn());
 
   constructor() {
     // localStorage.getItem('token');
@@ -57,9 +58,5 @@ export class AuthService {
       localStorage.removeItem('token');
       this._isUserLoggedIn.set(false);
     }
-  }
-
-  isAuthenticated(): boolean {
-    return this._isUserLoggedIn();
   }
 }

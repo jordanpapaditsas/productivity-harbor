@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     this.theme.set(this.themeService.getCurrentTheme());
   }
 

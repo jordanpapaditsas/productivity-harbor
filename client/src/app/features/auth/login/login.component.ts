@@ -32,22 +32,24 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isLoading.set(true);
-    this.authService.login(this.loginDto).subscribe({
-      next: (response) => {
-        if (response.IsSuccess) {
-          console.log(response.Message);
+    setTimeout(() => {
+      this.authService.login(this.loginDto).subscribe({
+        next: (response) => {
+          if (response.IsSuccess) {
+            this.isLoading.set(false);
+            console.log(response.Message);
+            this.router.navigate(['/admin-home']);
+          } else {
+            console.log(response.Error);
+            this.isLoading.set(false);
+          }
+        },
+        error: (error) => {
+          console.log('Server Error', error);
           this.isLoading.set(false);
-          this.router.navigate(['/admin-home']); //Need to add a check for what user role is logged in so redirect him to the correct home
-        } else {
-          console.log(response.Error);
-          this.isLoading.set(false);
-        }
-      },
-      error: (error) => {
-        console.log('Server Error', error);
-        this.isLoading.set(false);
-      },
-    });
+        },
+      });
+    }, 300);
   }
 
   logout() {

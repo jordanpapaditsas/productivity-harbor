@@ -1,4 +1,8 @@
+@if (isAuthenticated()) {
 <app-side-nav>
   <router-outlet></router-outlet>
 </app-side-nav>
 <app-footer></app-footer>
+} @else {
+<app-login></app-login>
+}

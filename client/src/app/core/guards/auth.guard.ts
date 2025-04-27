@@ -23,15 +23,8 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean | Promise<boolean> | Observable<boolean> {
     if (this.authService.isAuthenticated()) {
-      debugger;
       return true;
     } else {
-      this.dialogService.alertDialog(
-        'Login Message',
-        'Access denied! Please log in first.',
-
-        DialogTypeEnum.Danger
-      );
       this.router.navigate(['/login']);
       return false;
     }
