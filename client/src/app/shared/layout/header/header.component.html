@@ -8,25 +8,19 @@
     </div>
   </div>
   <div class="right-side-header">
-    @if (theme() === 'light') {
     <button
-      @switchTheme
       mat-button
       class="theme-switcher"
       (click)="onThemeSwitcherClicked()"
     >
-      <mat-icon>brightness_high</mat-icon>
+      @if (this.theme() === 'light') {
+      <mat-icon @switchTheme>brightness_high</mat-icon>
+      } @else {
+
+      <mat-icon @switchTheme>brightness_2</mat-icon>
+      }
     </button>
-    } @else if (theme() === 'dark') {
-    <button
-      @switchTheme
-      mat-button
-      class="theme-switcher"
-      (click)="onThemeSwitcherClicked()"
-    >
-      <mat-icon>brightness_2</mat-icon>
-    </button>
-    }
+
     <span>Username</span>
     <span>Avatar</span>
   </div>
