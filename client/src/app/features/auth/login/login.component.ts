@@ -32,24 +32,22 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isLoading.set(true);
-    setTimeout(() => {
-      this.authService.login(this.loginDto).subscribe({
-        next: (response) => {
-          if (response.IsSuccess) {
-            this.isLoading.set(false);
-            console.log(response.Message);
-            this.router.navigate(['/admin-home']);
-          } else {
-            console.log(response.Error);
-            this.isLoading.set(false);
-          }
-        },
-        error: (error) => {
-          console.log('Server Error', error);
+    this.authService.login(this.loginDto).subscribe({
+      next: (response) => {
+        if (response.IsSuccess) {
           this.isLoading.set(false);
-        },
-      });
-    }, 300);
+          console.log(response.Message);
+          this.router.navigate(['/admin-home']);
+        } else {
+          console.log(response.Error);
+          this.isLoading.set(false);
+        }
+      },
+      error: (error) => {
+        console.log('Server Error', error);
+        this.isLoading.set(false);
+      },
+    });
   }
 
   logout() {

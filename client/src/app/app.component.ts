@@ -16,5 +16,7 @@ export class AppComponent {
   private authService = inject(AuthService);
   isAuthenticated = this.authService.isAuthenticated;
 
-  constructor() {}
+  constructor() {
+    debugger;
+  }
 }
