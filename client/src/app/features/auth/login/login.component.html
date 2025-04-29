@@ -1,14 +1,33 @@
 @if (!isLoading()) {
 <div class="form-container">
-  <ph-text-box
-    [(value)]="loginDto.UserName"
-    [placeholder]="'Username'"
-  ></ph-text-box>
-  <ph-text-box
-    [(value)]="loginDto.Password"
-    [placeholder]="'Password'"
-  ></ph-text-box>
-  <button mat-icon-button matSuffix (click)="login()"></button>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="username-container">
+      <input
+        type="text"
+        placeholder="Username"
+        formControlName="username"
+        [class.invalid]="
+          loginForm.get('username')?.invalid &&
+          (loginForm.get('username')?.dirty ||
+            loginForm.get('username')?.touched)
+        "
+      />
+    </div>
+    <div class="password-container">
+      <input
+        type="text"
+        formControlName="password"
+        [class.invalid]="
+          loginForm.get('password')?.invalid &&
+          (loginForm.get('password')?.dirty ||
+            loginForm.get('password')?.touched)
+        "
+      />
+    </div>
+    <div class="submit-btn-container">
+      <button type="submit" (click)="login()">Login</button>
+    </div>
+  </form>
 </div>
 } @else {
 <div class="form-container">
