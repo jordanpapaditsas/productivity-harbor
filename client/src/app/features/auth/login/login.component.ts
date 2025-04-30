@@ -11,6 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { FooterComponent } from '../../../shared/layout/footer/footer.component';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ import {
     MatIconModule,
     PhLoadingSpinnerComponent,
     ReactiveFormsModule,
+    FooterComponent,
   ],
 })
 export class LoginComponent implements OnInit {

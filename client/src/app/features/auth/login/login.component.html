@@ -1,41 +1,50 @@
 @if (!isLoading()) {
-<div class="form-container">
-  <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
-    <div class="username-container">
-      <input
-        class="ph-username-field"
-        type="text"
-        placeholder="Username"
-        formControlName="username"
-        [class.invalid]="
-          loginForm.get('username')?.invalid &&
-          (loginForm.get('username')?.dirty ||
-            loginForm.get('username')?.touched)
-        "
-      />
-    </div>
-    <div class="password-container">
-      <input
-        class="ph-password-field"
-        type="text"
-        formControlName="password"
-        placeholder="Password"
-        [class.invalid]="
-          loginForm.get('password')?.invalid &&
-          (loginForm.get('password')?.dirty ||
-            loginForm.get('password')?.touched)
-        "
-      />
-    </div>
-    <div class="submit-btn-container">
-      <button class="ph-login-btn" type="submit" (click)="login()">
-        Login
-      </button>
-    </div>
-  </form>
+<div class="main-container">
+  <div class="login-container">
+    <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="fields-container">
+        <img
+          class="ph-login-logo"
+          src="/assets/logos/productivity-harbor-logo-white-transparent.png"
+        />
+        <input
+          class="ph-username-field"
+          type="text"
+          placeholder="Username"
+          formControlName="username"
+          [class.invalid]="
+            loginForm.get('username')?.invalid &&
+            (loginForm.get('username')?.dirty ||
+              loginForm.get('username')?.touched)
+          "
+        />
+        <input
+          class="ph-password-field"
+          type="text"
+          placeholder="Password"
+          formControlName="password"
+          [class.invalid]="
+            loginForm.get('password')?.invalid &&
+            (loginForm.get('password')?.dirty ||
+              loginForm.get('password')?.touched)
+          "
+        />
+        <button class="ph-login-btn" type="submit" (click)="login()">
+          Login
+        </button>
+      </div>
+      <!-- <div class="username-container"></div>
+      <div class="password-container"></div>
+      <div class="submit-btn-container"></div> -->
+    </form>
+  </div>
+  <app-footer></app-footer>
 </div>
+
 } @else {
-<div class="form-container">
-  <ph-loading-spinner></ph-loading-spinner>
+<div class="login-container">
+  <div class="ph-form">
+    <ph-loading-spinner></ph-loading-spinner>
+  </div>
 </div>
 }

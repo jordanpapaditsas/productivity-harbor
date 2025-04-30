@@ -27,6 +27,7 @@ html, body {
   --ph-instagram-light: hsl(349, 75%, 57%);
   --ph-toolbarButton-light: hsl(0, 0%, 100%);
   --ph-theme-switcher-light: hsl(44, 82%, 52%);
+  --ph-loginButton-light: hsl(203, 84%, 32%);
 
 
   //Dark Mode
@@ -48,6 +49,7 @@ html, body {
   --ph-instagram-dark: hsl(349, 75%, 57%);
   --ph-toolbarButton-dark: hsl(0, 0%, 100%);
   --ph-theme-switcher-dark: hsl(0, 0%, 100%);
+  --ph-loginButton-dark: hsl(203, 84%, 32%);
 
   // Font Sizes
   --ph-fontSize-xsmall: 0.5rem;
@@ -78,6 +80,7 @@ html, body {
     --ph-instagram:var(--ph-instagram-dark);
     --ph-toolbarButton:var(--ph-toolbarButton-dark);
     --ph-theme-switcher:var(--ph-theme-switcher-dark);
+    --ph-loginButton:var(--ph-loginButton-dark);
   }
 }
 
@@ -101,6 +104,7 @@ html, body {
     --ph-instagram:var(--ph-instagram-light);
     --ph-toolbarButton:var(--ph-toolbarButton-light);
     --ph-theme-switcher:var(--ph-theme-switcher-light);
+    --ph-loginButton:var(--ph-loginButton-light);
   }
 }
 
@@ -123,6 +127,7 @@ html, body {
   --ph-instagram:var(--ph-instagram-dark);
   --ph-toolbarButton:var(--ph-toolbarButton-dark);
   --ph-theme-switcher:var(--ph-theme-switcher-dark);
+  --ph-loginButton:var(--ph-loginButton-dark);
 
   a:visited {
     color: var(--ph-text) !important;
@@ -148,6 +153,7 @@ html, body {
   --ph-instagram:var(--ph-instagram-light);
   --ph-toolbarButton:var(--ph-toolbarButton-light);
   --ph-theme-switcher:var(--ph-theme-switcher-light);
+  --ph-loginButton:var(--ph-loginButton-light);
 
   a:visited {
     color: var(--ph-text) !important;

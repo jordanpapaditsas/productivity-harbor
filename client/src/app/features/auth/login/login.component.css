@@ -1,38 +1,64 @@
-.form-container {
+.main-container {
+  width: 100%;
+  height: 94.3%;
+}
+
+.login-container {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-content: center;
-  flex-wrap: wrap;
-  height: 100%;
-  width: 100%;
-}
-
-.invalid {
-  border: 1px solid var(--ph-danger);
+  background: var(--ph-header-light);
 }
 
 .ph-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
   gap: 2rem;
 }
 
-.ph-username-field, .ph-password-field {
-  border-radius: 1rem;
-  height: 2rem;
+.ph-login-logo {
+  object-fit: cover;
+  width: 250px;
+  height: 120px;
 }
 
-.submit-btn-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.ph-username-field, .ph-password-field {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem var(--ph-deepShadow);
+  &:focus-within {
+    outline: 0.2rem solid var(--ph-mainColor);
+  }
 }
 
 .ph-login-btn {
-  padding: 0.3rem;
-  border-radius: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
   border: none;
-  background: var(--ph-mainColor);
+  background: var(--ph-loginButton);
   color: var(--ph-text);
+  width: 100%;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: background 0.5s
 }
+.ph-login-btn:hover {
+  background: rgba(0,0,0,0.4);
+}
+
+.invalid {
+  box-shadow: 0.1rem 0.1rem 0.4rem 0.1rem var(--ph-danger);
+
+}
+
