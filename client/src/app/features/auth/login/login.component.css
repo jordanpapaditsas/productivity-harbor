@@ -11,4 +11,28 @@
   border: 1px solid var(--ph-danger);
 }
 
+.ph-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
 
+.ph-username-field, .ph-password-field {
+  border-radius: 1rem;
+  height: 2rem;
+}
+
+.submit-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ph-login-btn {
+  padding: 0.3rem;
+  border-radius: 1rem;
+  border: none;
+  background: var(--ph-mainColor);
+  color: var(--ph-text);
+}

@@ -1,8 +1,9 @@
 @if (!isLoading()) {
 <div class="form-container">
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
+  <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="username-container">
       <input
+        class="ph-username-field"
         type="text"
         placeholder="Username"
         formControlName="username"
@@ -15,8 +16,10 @@
     </div>
     <div class="password-container">
       <input
+        class="ph-password-field"
         type="text"
         formControlName="password"
+        placeholder="Password"
         [class.invalid]="
           loginForm.get('password')?.invalid &&
           (loginForm.get('password')?.dirty ||
@@ -25,7 +28,9 @@
       />
     </div>
     <div class="submit-btn-container">
-      <button type="submit" (click)="login()">Login</button>
+      <button class="ph-login-btn" type="submit" (click)="login()">
+        Login
+      </button>
     </div>
   </form>
 </div>
