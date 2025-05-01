@@ -5,12 +5,22 @@ import { ThemeService } from '../../services/theme.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from '../../services/auth.service';
 import { UserDto } from '../../../core/dto/user/user.dto';
+import { MatMenuModule } from '@angular/material/menu';
+import { PhPopupComponent } from '../../components/ph-popup/ph-popup.component';
+import { UserEditComponent } from '../../../features/user/user-edit/user-edit.component';
+import { UserService } from '../../../features/user/user.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [MatToolbarModule, MatIconModule],
+  imports: [
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    PhPopupComponent,
+    UserEditComponent,
+  ],
   animations: [
     trigger('switchTheme', [
       transition(':enter', [
@@ -22,9 +32,12 @@ import { UserDto } from '../../../core/dto/user/user.dto';
 })
 export class HeaderComponent implements OnInit {
   protected theme = signal<string>('');
+  protected user = signal<UserDto | undefined>(undefined);
+  protected isUserEditPopupVisible = signal<boolean>(false);
+
   private themeService = inject(ThemeService);
   private authService = inject(AuthService);
-  protected user = signal<UserDto | undefined>(undefined);
+  private userService = inject(UserService);
 
   constructor() {
     this.themeService.getWindowContentLoaded();
@@ -36,6 +49,18 @@ export class HeaderComponent implements OnInit {
     this.user.set(this.authService.user());
   }
 
+  getUserDataSource() {
+    debugger;
+    this.userService.getUserById(this.user()!.Id).subscribe({
+      next: (response: UserDto) => {
+        this.user.set(response);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
   onThemeSwitcherClicked() {
     if (this.theme() === 'light') {
       this.themeService.setTheme('dark');
@@ -44,5 +69,22 @@ export class HeaderComponent implements OnInit {
       this.themeService.setTheme('light');
       this.theme.set('light');
     }
+  }
+
+  onLogoutClick() {
+    this.authService.logout();
+  }
+
+  onProfileClick(user: UserDto) {
+    if (user) {
+      this.user()!.Id === user.Id;
+
+      this.isUserEditPopupVisible.set(true);
+    }
+  }
+
+  onExitScreen(e: any) {
+    this.isUserEditPopupVisible.set(false);
+    this.getUserDataSource();
   }
 }

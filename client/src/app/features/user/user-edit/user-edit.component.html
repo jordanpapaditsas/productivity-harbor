@@ -63,7 +63,7 @@
           <mat-label>Color</mat-label>
           <input
             type="color"
-            [value]="user.Color"
+            [value]="user.Color ? user.Color : '#ffffff'"
             (change)="onColorChange($event)"
             id="Color"
             name="Color"
@@ -138,6 +138,7 @@
             <mat-select>
               @for (item of socialMedia; track item.Id) {
               <mat-option
+                [disabled]="!isUserInEditMode()"
                 (click)="onSocialMediaSelectionChange(item)"
                 [value]="item.Id"
                 >{{ item.Name }}</mat-option

@@ -36,3 +36,10 @@
   height: 150px;
   object-fit: cover;
 }
+
+.user-avatar-btn {
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}

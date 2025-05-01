@@ -57,6 +57,7 @@ export class AuthService {
       this.user()!.Token = '';
       localStorage.removeItem('token');
       this._isUserLoggedIn.set(false);
+      window.location.reload();
     }
   }
 }

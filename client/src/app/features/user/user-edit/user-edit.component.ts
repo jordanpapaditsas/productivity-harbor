@@ -68,8 +68,6 @@ export class UserEditComponent implements OnInit {
 
   private userService = inject(UserService);
   private socialMediaService = inject(SocialMediaService);
-  private userSocialMediaService = inject(UserSocialMediaMapService);
-  private dialogService = inject(PhDialogService);
   private toastr = inject(ToastrService);
 
   constructor() {

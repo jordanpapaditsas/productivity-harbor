@@ -1,12 +1,11 @@
-/* For now commented out, need to check if its working */
-/* :host {
+:host {
   position: fixed;
   inset: 0;
-  z-index: 9999 !important;
+  z-index: 2 !important;
   display: flex;
   justify-content: center;
   align-items: center;
-} */
+}
 
 .ph-popup-content {
   background: var(--ph-background1);

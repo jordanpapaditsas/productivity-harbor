@@ -30,6 +30,21 @@
     </button>
 
     <span>{{ user()?.UserName }}</span>
-    <img [src]="user()?.Avatar" alt="User Avatar" class="user-avatar" />
+    <button class="user-avatar-btn" mat-button [matMenuTriggerFor]="userMenu">
+      <img [src]="user()?.Avatar" alt="User Avatar" class="user-avatar" />
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button (click)="onProfileClick(user()!)" mat-menu-item>Profile</button>
+      <button (click)="onLogoutClick()" mat-menu-item>Logout</button>
+    </mat-menu>
   </div>
 </mat-toolbar>
+
+@if (isUserEditPopupVisible()) {
+<ph-popup [isFullScreenMode]="true">
+  <app-user-edit
+    [userId]="user()!.Id"
+    (exitScreen)="onExitScreen($event)"
+  ></app-user-edit>
+</ph-popup>
+}

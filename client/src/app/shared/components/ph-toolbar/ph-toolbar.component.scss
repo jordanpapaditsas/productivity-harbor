@@ -24,6 +24,7 @@
   align-items: center;
   padding: 0;
   background: var(--ph-header);
+  box-shadow: 0.5rem 0.3rem 1rem var(--ph-shadow);
   & mat-icon {
     color: var(--ph-toolbarButton);
     transition: transform 0.3s ease-in-out;

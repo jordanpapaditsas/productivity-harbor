@@ -55,6 +55,14 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'user-edit:id',
+    loadComponent: () =>
+      import('./features/user/user-edit/user-edit.component').then(
+        (m) => m.UserEditComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'social-media',
     loadComponent: () =>
       import('./features/settings/social-media/social-media.component').then(
