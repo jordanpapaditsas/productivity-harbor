@@ -23,9 +23,20 @@
   transition: background 0.5s;
   align-items: center;
 }
+.change-pass-btn-disabled {
+  background: gray;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 .change-pass-btn:hover {
   cursor: pointer;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.616);
 }
 
 .left-side-container {

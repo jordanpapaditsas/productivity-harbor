@@ -16,13 +16,20 @@
     <mat-icon class="view-locked">lock</mat-icon> View Mode
   </div>
 
-  } @else {
+  }
+  <!--  -->
+  @else {
   <div class="edit-mode">
     <mat-icon class="edit-unlocked">lock_open</mat-icon>Can Edit
   </div>
   }
   <div class="change-password">
-    <button class="change-pass-btn" [disabled]="!isUserInEditMode()">
+    <button
+      [class]="
+        !isUserInEditMode() ? 'change-pass-btn-disabled' : 'change-pass-btn'
+      "
+      [disabled]="!isUserInEditMode()"
+    >
       Change Password
       <mat-icon>vpn_key</mat-icon>
     </button>
