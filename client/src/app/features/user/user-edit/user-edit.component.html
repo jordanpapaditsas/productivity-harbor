@@ -135,7 +135,7 @@
         } @else {
         <div class="add-social-media-form">
           <div class="social-media-selectbox">
-            <mat-select>
+            <mat-select [placeholder]="'Select Social'">
               @for (item of socialMedia; track item.Id) {
               <mat-option
                 [disabled]="!isUserInEditMode()"

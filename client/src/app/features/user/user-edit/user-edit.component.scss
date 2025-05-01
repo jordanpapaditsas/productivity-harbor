@@ -201,6 +201,13 @@
   border: none !important;
 }
 
+::ng-deep .mat-mdc-select-placeholder {
+  color: var(--ph-text);
+}
+::ng-deep .mat-mdc-select-arrow svg {
+  color: var(--ph-text);
+}
+
 .flexbox-column {
   display: flex;
   flex-direction: column;
