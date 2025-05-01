@@ -1,42 +1,48 @@
 @if (!isLoading()) {
 <div class="main-container">
   <div class="login-container">
-    <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
-      <div class="fields-container">
-        <img
-          class="ph-login-logo"
-          src="/assets/logos/productivity-harbor-logo-white-transparent.png"
-        />
-        <input
-          class="ph-username-field"
-          type="text"
-          placeholder="Username"
-          formControlName="username"
-          [class.invalid]="
-            loginForm.get('username')?.invalid &&
-            (loginForm.get('username')?.dirty ||
-              loginForm.get('username')?.touched)
-          "
-        />
-        <input
-          class="ph-password-field"
-          type="text"
-          placeholder="Password"
-          formControlName="password"
-          [class.invalid]="
-            loginForm.get('password')?.invalid &&
-            (loginForm.get('password')?.dirty ||
-              loginForm.get('password')?.touched)
-          "
-        />
-        <button class="ph-login-btn" type="submit" (click)="login()">
-          Login
-        </button>
+    <div class="ph-form-box">
+      <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="fields-container">
+          <img
+            class="ph-login-logo"
+            src="/assets/logos/productivity-harbor-logo-white-transparent.png"
+          />
+          <input
+            class="ph-username-field"
+            type="text"
+            placeholder="Username"
+            formControlName="username"
+            [class.invalid]="
+              loginForm.get('username')?.invalid &&
+              (loginForm.get('username')?.dirty ||
+                loginForm.get('username')?.touched)
+            "
+          />
+          <input
+            class="ph-password-field"
+            type="text"
+            placeholder="Password"
+            formControlName="password"
+            [class.invalid]="
+              loginForm.get('password')?.invalid &&
+              (loginForm.get('password')?.dirty ||
+                loginForm.get('password')?.touched)
+            "
+          />
+          <button class="ph-login-btn" type="submit">Login</button>
+        </div>
+      </form>
+      @if (isUserCredentialsNotValidErrorVisible()) {
+      <div class="ph-error-message">
+        {{ incorrectCredentialsMessage }}
       </div>
-      <!-- <div class="username-container"></div>
-      <div class="password-container"></div>
-      <div class="submit-btn-container"></div> -->
-    </form>
+      } @else if (isUserNotFoundErrorVisible()) {
+      <div class="ph-error-message">
+        {{ accountNotFound }}
+      </div>
+      }
+    </div>
   </div>
   <app-footer></app-footer>
 </div>
