@@ -62,19 +62,20 @@
   }
 }
 
-.ph-password-container {
+.ph-password-container, .ph-username-container {
   position: relative;
   width: 100%;
 }
 
 .ph-password-eye-reveal {
   position: absolute;
-  right: -0.7rem;
+  right: 0.5rem;
   top: 0.5rem;
   cursor: pointer;
 }
 
 .ph-login-btn {
+  box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem var(--ph-deepShadow);
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: none;

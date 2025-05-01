@@ -52,8 +52,11 @@ export class LoginComponent implements OnInit {
 
   private buildForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      username: [localStorage.getItem('username') || '', Validators.required],
       password: ['', Validators.required],
+    });
+    this.loginForm.get('username')?.valueChanges.subscribe((value) => {
+      localStorage.setItem('username', value);
     });
   }
 

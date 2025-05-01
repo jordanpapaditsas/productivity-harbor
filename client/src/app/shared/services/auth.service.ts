@@ -10,7 +10,7 @@ import { ApiResponseDto } from '../../core/dto/shared/api-response.dto';
   providedIn: 'root',
 })
 export class AuthService {
-  private user = signal<UserDto | undefined>(undefined);
+  public user = signal<UserDto | undefined>(undefined);
   private http = inject(HttpClient);
   private appSettingsService = inject(AppSettingsService);
   private baseUrl = this.appSettingsService.getAppService();

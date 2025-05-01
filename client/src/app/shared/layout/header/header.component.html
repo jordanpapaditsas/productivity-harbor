@@ -4,7 +4,15 @@
       <ng-content></ng-content>
     </div>
     <div class="logo-container">
-      <img src="/assets/logos/productivity-harbor-logo.png" alt="" />
+      @if(this.theme() === 'light') {
+      <img src="/assets/logos/productivity-harbor-logo.png" alt="App Logo" />
+      } @else if(this.theme() === 'dark') {
+      <img
+        class="ph-app-logo"
+        src="/assets/logos/productivity-harbor-logo-white-transparent.png"
+        alt="App Logo"
+      />
+      }
     </div>
   </div>
   <div class="right-side-header">
@@ -21,7 +29,7 @@
       }
     </button>
 
-    <span>Username</span>
-    <span>Avatar</span>
+    <span>{{ user()?.UserName }}</span>
+    <img [src]="user()?.Avatar" alt="User Avatar" class="user-avatar" />
   </div>
 </mat-toolbar>

@@ -8,23 +8,28 @@
             class="ph-login-logo"
             src="/assets/logos/productivity-harbor-logo-white-transparent.png"
           />
-          <input
-            class="ph-username-field"
-            type="text"
-            placeholder="Username"
-            formControlName="username"
-            [class.invalid]="
-              loginForm.get('username')?.invalid &&
-              (loginForm.get('username')?.dirty ||
-                loginForm.get('username')?.touched)
-            "
-          />
+          <div class="ph-username-container">
+            <input
+              class="ph-username-field"
+              type="text"
+              placeholder="Username"
+              formControlName="username"
+              autocomplete="username"
+              [class.invalid]="
+                loginForm.get('username')?.invalid &&
+                (loginForm.get('username')?.dirty ||
+                  loginForm.get('username')?.touched)
+              "
+            />
+          </div>
+
           <div class="ph-password-container">
             <input
               class="ph-password-field"
               [type]="changeType() ? 'password' : 'text'"
               placeholder="Password"
               formControlName="password"
+              autocomplete="password"
               [class.invalid]="
                 loginForm.get('password')?.invalid &&
                 (loginForm.get('password')?.dirty ||

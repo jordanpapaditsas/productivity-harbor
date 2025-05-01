@@ -3,6 +3,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ThemeService } from '../../services/theme.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { AuthService } from '../../services/auth.service';
+import { UserDto } from '../../../core/dto/user/user.dto';
 
 @Component({
   selector: 'app-header',
@@ -19,15 +21,19 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ],
 })
 export class HeaderComponent implements OnInit {
-  theme = signal<string>('');
-  themeService = inject(ThemeService);
+  protected theme = signal<string>('');
+  private themeService = inject(ThemeService);
+  private authService = inject(AuthService);
+  protected user = signal<UserDto | undefined>(undefined);
 
   constructor() {
     this.themeService.getWindowContentLoaded();
   }
 
   ngOnInit() {
+    debugger;
     this.theme.set(this.themeService.getCurrentTheme());
+    this.user.set(this.authService.user());
   }
 
   onThemeSwitcherClicked() {

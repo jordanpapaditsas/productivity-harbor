@@ -13,7 +13,7 @@ $barColor: var(--ph-icon);;
 
     .inner {
       position: absolute;
-      width: $width - 2 * $barHeight;
+      width: $width - 0 * $barHeight;
       left: 0;
       top: 0.7rem;
       border: $barHeight solid $barColor;
