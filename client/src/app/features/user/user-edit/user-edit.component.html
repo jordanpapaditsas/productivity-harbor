@@ -15,11 +15,19 @@
   <div class="view-mode">
     <mat-icon class="view-locked">lock</mat-icon> View Mode
   </div>
+
   } @else {
   <div class="edit-mode">
     <mat-icon class="edit-unlocked">lock_open</mat-icon>Can Edit
   </div>
   }
+  <div class="change-password">
+    <button class="change-pass-btn" [disabled]="!isUserInEditMode()">
+      Change Password
+      <mat-icon>vpn_key</mat-icon>
+    </button>
+  </div>
+
   <div class="main-container">
     <div class="left-side-container">
       <div class="avatar-container">
