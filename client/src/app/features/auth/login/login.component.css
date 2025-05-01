@@ -55,9 +55,23 @@
   border-radius: 0.5rem;
   border: none;
   box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem var(--ph-deepShadow);
+  width: 100%;
+
   &:focus-within {
     outline: 0.2rem solid var(--ph-mainColor);
   }
+}
+
+.ph-password-container {
+  position: relative;
+  width: 100%;
+}
+
+.ph-password-eye-reveal {
+  position: absolute;
+  right: -0.7rem;
+  top: 0.5rem;
+  cursor: pointer;
 }
 
 .ph-login-btn {

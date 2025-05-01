@@ -19,17 +19,25 @@
                 loginForm.get('username')?.touched)
             "
           />
-          <input
-            class="ph-password-field"
-            type="text"
-            placeholder="Password"
-            formControlName="password"
-            [class.invalid]="
-              loginForm.get('password')?.invalid &&
-              (loginForm.get('password')?.dirty ||
-                loginForm.get('password')?.touched)
-            "
-          />
+          <div class="ph-password-container">
+            <input
+              class="ph-password-field"
+              [type]="changeType() ? 'password' : 'text'"
+              placeholder="Password"
+              formControlName="password"
+              [class.invalid]="
+                loginForm.get('password')?.invalid &&
+                (loginForm.get('password')?.dirty ||
+                  loginForm.get('password')?.touched)
+              "
+            />
+            <span class="ph-password-eye-reveal" (click)="viewPassword()"
+              ><i
+                [class]="isPasswordVisible() ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              ></i
+            ></span>
+          </div>
+
           <button class="ph-login-btn" type="submit">Login</button>
         </div>
       </form>

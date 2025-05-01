@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
     '  The username or password you entered is incorrect. Please check your credentials and try again.';
   protected accountNotFound: string =
     'No account found with the provided username. Please verify your entry or create a new account.';
+  protected isPasswordVisible = signal<boolean>(true);
+  protected changeType = signal<boolean>(true);
 
   constructor(private formBuilder: FormBuilder) {
     this.loginDto = new LoginDto();
@@ -87,5 +89,10 @@ export class LoginComponent implements OnInit {
         },
       });
     }
+  }
+
+  viewPassword() {
+    this.isPasswordVisible.set(!this.isPasswordVisible());
+    this.changeType.set(!this.changeType());
   }
 }
