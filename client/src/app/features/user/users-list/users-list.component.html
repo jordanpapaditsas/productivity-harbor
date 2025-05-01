@@ -7,10 +7,12 @@
     [canEdit]="true"
     [canDelete]="true"
     [canCreate]="true"
+    [canRefresh]="true"
     (editRow)="onEditRowClicked($event)"
     (savedRow)="onSaveRowClicked($event)"
     (deleteRow)="onDeleteRowClicked($event)"
     (create)="onCreateNewUser($event)"
+    (refresh)="onRefreshClicked($event)"
   ></ph-data-grid>
 </ph-container>
 

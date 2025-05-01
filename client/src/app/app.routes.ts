@@ -47,15 +47,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'user-edit',
-    loadComponent: () =>
-      import('./features/user/user-edit/user-edit.component').then(
-        (m) => m.UserEditComponent
-      ),
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'user-edit:id',
+    path: 'user-edit/:id',
     loadComponent: () =>
       import('./features/user/user-edit/user-edit.component').then(
         (m) => m.UserEditComponent

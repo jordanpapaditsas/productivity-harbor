@@ -29,7 +29,7 @@
       }
     </button>
 
-    <span>{{ user()?.UserName }}</span>
+    <span class="ph-header-username">Welcome, {{ user()?.UserName }}</span>
     <button class="user-avatar-btn" mat-button [matMenuTriggerFor]="userMenu">
       <img [src]="user()?.Avatar" alt="User Avatar" class="user-avatar" />
     </button>

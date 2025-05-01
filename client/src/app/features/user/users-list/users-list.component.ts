@@ -136,4 +136,8 @@ export class UsersListComponent implements OnInit {
     this.isUserEditPopupVisible.set(false);
     this.getUsersDataSource();
   }
+
+  onRefreshClicked(e: any) {
+    this.getUsersDataSource();
+  }
 }

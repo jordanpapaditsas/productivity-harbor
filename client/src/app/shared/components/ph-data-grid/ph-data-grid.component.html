@@ -20,6 +20,16 @@
     >
       <mat-icon>add</mat-icon>
     </button>
+    } @if (canRefresh()) {
+    <button
+      class="ph-data-grid-toolbar-refresh-btn"
+      mat-mini-fab
+      aria-label="Refresh Button"
+      matTooltip="Refresh"
+      (click)="refreshDataSource()"
+    >
+      <mat-icon>refresh</mat-icon>
+    </button>
     }
   </div>
   <!-- MAT TABLE -->

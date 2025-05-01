@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PhPopupComponent } from '../../components/ph-popup/ph-popup.component';
 import { UserEditComponent } from '../../../features/user/user-edit/user-edit.component';
 import { UserService } from '../../../features/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -44,20 +45,13 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     this.theme.set(this.themeService.getCurrentTheme());
     this.user.set(this.authService.user());
   }
 
-  getUserDataSource() {
-    debugger;
-    this.userService.getUserById(this.user()!.Id).subscribe({
-      next: (response: UserDto) => {
-        this.user.set(response);
-      },
-      error: (error) => {
-        console.log(error);
-      },
+  getUser() {
+    this.userService.getUserById(this.user()!.Id).subscribe((response) => {
+      this.user.set(response);
     });
   }
 
@@ -78,13 +72,12 @@ export class HeaderComponent implements OnInit {
   onProfileClick(user: UserDto) {
     if (user) {
       this.user()!.Id === user.Id;
-
       this.isUserEditPopupVisible.set(true);
     }
   }
 
   onExitScreen(e: any) {
     this.isUserEditPopupVisible.set(false);
-    this.getUserDataSource();
+    this.getUser();
   }
 }

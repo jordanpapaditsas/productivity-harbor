@@ -92,6 +92,7 @@ export class PhDataGridComponent implements OnInit {
   canCreate = input<boolean>(false);
   canEdit = input<boolean>(false);
   canDelete = input<boolean>(false);
+  canRefresh = input<boolean>(false);
 
   // OUTPUTS
   savingRow = output<any>();
@@ -100,6 +101,7 @@ export class PhDataGridComponent implements OnInit {
   deleteRow = output<any>();
   insertRow = output<any>();
   create = output();
+  refresh = output<any>();
 
   private _tempRowValues: Record<string, any> = {};
   private _dataSource!: any;
@@ -284,6 +286,7 @@ export class PhDataGridComponent implements OnInit {
   public refreshDataSource() {
     if (this.dataSource && this._dataSource.data) {
       this._dataSource.data = [...this.dataSource.data];
+      this.refresh.emit(this._dataSource.data);
     }
   }
 
