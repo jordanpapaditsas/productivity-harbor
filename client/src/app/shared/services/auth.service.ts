@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { LoginDto } from '../../core/dto/auth/login.dto';
 import { UserDto } from '../../core/dto/user/user.dto';
 import { ApiResponseDto } from '../../core/dto/shared/api-response.dto';
+import { ChangePasswordDto } from '../../core/dto/auth/change-password.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -59,5 +60,15 @@ export class AuthService {
       this._isUserLoggedIn.set(false);
       window.location.reload();
     }
+  }
+
+  changePassword(changePasswordDto: ChangePasswordDto) {
+    return this.http.post<ChangePasswordDto>(
+      this.serviceUrl + '/changePassword',
+      changePasswordDto,
+      {
+        headers: this.headers,
+      }
+    );
   }
 }

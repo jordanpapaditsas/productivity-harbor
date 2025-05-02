@@ -29,6 +29,7 @@
         !isUserInEditMode() ? 'change-pass-btn-disabled' : 'change-pass-btn'
       "
       [disabled]="!isUserInEditMode()"
+      (click)="onChangePasswordClicked($event)"
     >
       Change Password
       <mat-icon>vpn_key</mat-icon>
@@ -307,3 +308,13 @@
     </div>
   </div>
 </ph-container>
+
+@if (isChangePasswordPopupVisible()) {
+<ph-popup
+  [isFullScreenMode]="false"
+  [hideOnOutsideClick]="true"
+  (hidePopup)="onHideChangePasswordPopup($event)"
+>
+  <app-change-password [userId]="userId()!"></app-change-password>
+</ph-popup>
+}

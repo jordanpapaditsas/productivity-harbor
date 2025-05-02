@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   effect,
   ElementRef,
@@ -25,11 +24,10 @@ import { MatLabel } from '@angular/material/input';
 import { SocialMediaDto } from '../../../core/dto/shared/social-media.dto';
 import { MatSelectModule } from '@angular/material/select';
 import { SocialMediaService } from '../../settings/social-media/social-media.service';
-import { UserSocialMediaMapService } from '../../../shared/services/relation-services/user-social-media.service';
 import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-media-map.dto';
-import { PhDialogService } from '../../../shared/services/ph-dialog.service';
-import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
 import { ToastrService } from 'ngx-toastr';
+import { PhPopupComponent } from '../../../shared/components/ph-popup/ph-popup.component';
+import { ChangePasswordComponent } from '../../auth/change-password/change-password.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -45,6 +43,8 @@ import { ToastrService } from 'ngx-toastr';
     FormsModule,
     MatLabel,
     MatSelectModule,
+    PhPopupComponent,
+    ChangePasswordComponent,
   ],
 })
 export class UserEditComponent implements OnInit {
@@ -60,6 +60,7 @@ export class UserEditComponent implements OnInit {
   socialMedia: SocialMediaDto[] = [];
 
   isSocialMediaFormVisible = signal<boolean>(false);
+  isChangePasswordPopupVisible = signal<boolean>(false);
   socialMediaRowIndex = signal<number>(0);
   rowKeys: Set<Guid> = new Set();
 
@@ -218,5 +219,13 @@ export class UserEditComponent implements OnInit {
 
   isSocialMediaRowInEditMode(row: any, index: number) {
     return this.rowKeys.has(row.Id) && this.socialMediaRowIndex() === index;
+  }
+
+  onChangePasswordClicked(e: any) {
+    this.isChangePasswordPopupVisible.set(true);
+  }
+
+  onHideChangePasswordPopup(e: any) {
+    this.isChangePasswordPopupVisible.set(false);
   }
 }
