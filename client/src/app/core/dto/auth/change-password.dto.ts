@@ -1,7 +1,7 @@
-import { UserDto } from '../user/user.dto';
+import { Guid } from 'guid-typescript';
 
 export class ChangePasswordDto {
-  User!: UserDto;
-  currentPassword!: string;
-  newPassword!: string;
+  UserId!: Guid;
+  CurrentPassword!: string;
+  NewPassword!: string;
 }

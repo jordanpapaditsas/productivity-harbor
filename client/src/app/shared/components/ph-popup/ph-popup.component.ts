@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   computed,
+  ElementRef,
   HostListener,
   input,
   output,
+  ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -32,16 +34,19 @@ export class PhPopupComponent {
   private closePopup() {
     this.hidePopup.emit();
   }
+  @ViewChild('popupContent', { static: true })
+  popupContent!: ElementRef;
 
   @HostListener('document:click', ['$event'])
   onOutsideClick(event: MouseEvent) {
-    if (
-      this.hideOnOutsideClick() &&
-      !(
-        event.target instanceof Element &&
-        event.target.closest('.popup-content')
-      )
-    ) {
+    if (!this.hideOnOutsideClick()) {
+      return;
+    }
+    const clickedInside = this.popupContent.nativeElement.contains(
+      event.target
+    );
+
+    if (!clickedInside) {
       this.closePopup();
     }
   }

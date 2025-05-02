@@ -83,5 +83,32 @@ namespace ProductivityHarborApi.Controllers
             }
         }
 
+        [HttpPost("changePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto dto)
+        {
+            var apiResponse = new ApiResponseDto();
+
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == dto.UserId);
+
+            var result = await _userManager.ChangePasswordAsync(user, dto.CurrentPassword, dto.NewPassword);
+
+            if (result.Succeeded) 
+            {
+                apiResponse.IsSuccess = true;
+                apiResponse.StatusCode = 200;
+                apiResponse.Message = "Password changed successfully!";
+
+                return Ok(apiResponse);
+            }
+            else
+            {
+                apiResponse.IsSuccess = false;
+                apiResponse.StatusCode = 400;
+                apiResponse.Message = "Couldn't change password. Please try again.";
+
+                return BadRequest(apiResponse);
+            }
+        }
+
     }
 }

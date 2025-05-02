@@ -57,11 +57,16 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changePassword() {
-    if (this.changePasswordForm.valid) {
-      this.changePasswordDto.User = this.user();
-      this.changePasswordDto.currentPassword =
+    debugger;
+    if (
+      this.changePasswordForm.valid &&
+      this.changePasswordForm.value.newPassword ===
+        this.changePasswordForm.value.confirmPassword
+    ) {
+      this.changePasswordDto.UserId = this.user().Id;
+      this.changePasswordDto.CurrentPassword =
         this.changePasswordForm.value.currentPassword;
-      this.changePasswordDto.newPassword =
+      this.changePasswordDto.NewPassword =
         this.changePasswordForm.value.newPassword;
 
       this.authService.changePassword(this.changePasswordDto).subscribe({
@@ -69,10 +74,13 @@ export class ChangePasswordComponent implements OnInit {
           this.toastr.success('Password changed successfully!');
         },
         error: (error) => {
-          this.toastr.error("Couldn't change password. Please try again.");
           console.log(error);
         },
       });
+    } else {
+      this.toastr.error(
+        'New password and confirmation do not match. Please try again.'
+      );
     }
   }
 }
