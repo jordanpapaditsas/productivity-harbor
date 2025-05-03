@@ -28,6 +28,7 @@ import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-m
 import { ToastrService } from 'ngx-toastr';
 import { PhPopupComponent } from '../../../shared/components/ph-popup/ph-popup.component';
 import { ChangePasswordComponent } from '../../auth/change-password/change-password.component';
+import { PhButtonComponent } from '../../../shared/components/ph-button/ph-button.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -45,6 +46,7 @@ import { ChangePasswordComponent } from '../../auth/change-password/change-passw
     MatSelectModule,
     PhPopupComponent,
     ChangePasswordComponent,
+    PhButtonComponent,
   ],
 })
 export class UserEditComponent implements OnInit {

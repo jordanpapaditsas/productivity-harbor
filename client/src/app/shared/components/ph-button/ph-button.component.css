@@ -1,0 +1,14 @@
+.default-button-style {
+  border: none;
+  background: var(--ph-mainColor);
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: background 0.2s ease-in-out;
+  width: 100%;
+  height: 100%;
+}
+.default-button-style:hover {
+  cursor: pointer;
+  background: rgba(6, 88, 155, 0.575);
+}

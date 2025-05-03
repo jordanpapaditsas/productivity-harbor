@@ -1,4 +1,11 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../../user/user.service';
 import { UserDto } from '../../../core/dto/user/user.dto';
@@ -12,16 +19,24 @@ import {
 import { ChangePasswordDto } from '../../../core/dto/auth/change-password.dto';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
+import { PhButtonComponent } from '../../../shared/components/ph-button/ph-button.component';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css'],
-  imports: [MatLabel, ReactiveFormsModule],
+  imports: [
+    MatLabel,
+    ReactiveFormsModule,
+    PhToolbarComponent,
+    PhButtonComponent,
+  ],
 })
 export class ChangePasswordComponent implements OnInit {
   changePasswordForm!: FormGroup;
   public userId = input<Guid | null>(null);
+  public exitClicked = output();
   protected user = signal<UserDto>(new UserDto());
   protected changePasswordDto: ChangePasswordDto = new ChangePasswordDto();
 
@@ -82,5 +97,9 @@ export class ChangePasswordComponent implements OnInit {
         'New password and confirmation do not match. Please try again.'
       );
     }
+  }
+
+  onExitClick(e: any) {
+    this.exitClicked.emit(e);
   }
 }

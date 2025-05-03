@@ -1,0 +1,9 @@
+<button
+  [type]="type()"
+  (click)="onClick($event)"
+  [class]="[customCssClass ? customCssClass : 'default-button-style']"
+  [disabled]="disabled()"
+>
+  {{ text() }}
+  <i [class]="icon()"></i>
+</button>

@@ -24,7 +24,16 @@
   </div>
   }
   <div class="change-password">
-    <button
+    <ph-button
+      [customCssClass]="[
+        !isUserInEditMode() ? 'change-pass-btn-disabled' : 'change-pass-btn'
+      ]"
+      [text]="'Change Password'"
+      [disabled]="!isUserInEditMode()"
+      (click)="onChangePasswordClicked($event)"
+      [icon]="'fa fa-key'"
+    ></ph-button>
+    <!-- <button
       [class]="
         !isUserInEditMode() ? 'change-pass-btn-disabled' : 'change-pass-btn'
       "
@@ -33,7 +42,7 @@
     >
       Change Password
       <mat-icon>vpn_key</mat-icon>
-    </button>
+    </button> -->
   </div>
 
   <div class="main-container">
@@ -314,7 +323,12 @@
   [isFullScreenMode]="false"
   [hideOnOutsideClick]="true"
   (hidePopup)="onHideChangePasswordPopup($event)"
+  [width]="'500px'"
+  [height]="'500px'"
 >
-  <app-change-password [userId]="userId()!"></app-change-password>
+  <app-change-password
+    [userId]="userId()!"
+    (exitClicked)="onHideChangePasswordPopup($event)"
+  ></app-change-password>
 </ph-popup>
 }

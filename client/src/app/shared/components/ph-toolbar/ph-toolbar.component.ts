@@ -21,6 +21,7 @@ export class PhToolbarComponent implements OnInit {
   canSave = input<boolean>(false);
   canDelete = input<boolean>(false);
   canDeactivate = input<boolean>(false);
+  canView = input<boolean>(false);
   isCalledFromEditScreen = input<boolean>(false);
 
   exit = output<MouseEvent>();
@@ -39,7 +40,7 @@ export class PhToolbarComponent implements OnInit {
         label: 'Edit',
         icon: 'edit',
         position: 'before',
-        visible: this.canEdit?.(),
+        visible: this.canEdit?.() ?? false,
         onItemClick: (e: MouseEvent) => {
           this.refreshToolbarItems();
           this.edit?.emit(e);
@@ -50,7 +51,15 @@ export class PhToolbarComponent implements OnInit {
         label: 'View',
         icon: 'remove_red_eye',
         position: 'before',
-        visible: false || (!this.canEdit?.() && this.isCalledFromEditScreen()),
+        visible:
+          (this.isCalledFromEditScreen() &&
+            this.canView() &&
+            !this.canEdit()) ??
+          false,
+        // false ||
+        // (!this.canEdit?.() &&
+        //   this.isCalledFromEditScreen() &&
+        //   this.canView()),
         onItemClick: (e: MouseEvent) => {
           this.refreshToolbarItems();
           this.edit?.emit(e);
