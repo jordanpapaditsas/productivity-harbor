@@ -1,12 +1,18 @@
 <input
-  cdkTrapFocus
-  class="ph-textbox"
+  #input
+  [value]="value"
   [ngClass]="customCssClass"
-  matInput
+  [type]="type"
   [placeholder]="placeholder"
-  [(ngModel)]="value"
   [readOnly]="readOnly"
   [disabled]="disabled"
+  [(ngModel)]="value"
+  class="ph-textbox"
+  cdkTrapFocus
+  matInput
   (ngModelChange)="onValueChange($event)"
   (keyup.enter)="onKeyupEnter($event)"
+  (focus)="onFocus()"
+  (blur)="onTouched($event)"
+  (input)="onInput($event.target)"
 />

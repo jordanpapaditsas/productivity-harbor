@@ -21,6 +21,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
 import { PhButtonComponent } from '../../../shared/components/ph-button/ph-button.component';
+import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
 
 @Component({
   selector: 'app-change-password',
@@ -31,6 +32,7 @@ import { PhButtonComponent } from '../../../shared/components/ph-button/ph-butto
     ReactiveFormsModule,
     PhToolbarComponent,
     PhButtonComponent,
+    PhTextBoxComponent,
   ],
 })
 export class ChangePasswordComponent implements OnInit {
@@ -75,14 +77,14 @@ export class ChangePasswordComponent implements OnInit {
     debugger;
     if (
       this.changePasswordForm.valid &&
-      this.changePasswordForm.value.newPassword ===
-        this.changePasswordForm.value.confirmPassword
+      this.changePasswordForm.value.newPassword.value ===
+        this.changePasswordForm.value.confirmPassword.value
     ) {
       this.changePasswordDto.UserId = this.user().Id;
       this.changePasswordDto.CurrentPassword =
-        this.changePasswordForm.value.currentPassword;
+        this.changePasswordForm.value.currentPassword.value;
       this.changePasswordDto.NewPassword =
-        this.changePasswordForm.value.newPassword;
+        this.changePasswordForm.value.newPassword.value;
 
       this.authService.changePassword(this.changePasswordDto).subscribe({
         next: (response) => {
