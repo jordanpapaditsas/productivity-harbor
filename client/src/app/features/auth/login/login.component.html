@@ -9,33 +9,35 @@
             src="/assets/logos/productivity-harbor-logo-white-transparent.png"
           />
           <div class="ph-username-container">
-            <input
-              class="ph-username-field"
-              type="text"
-              placeholder="Username"
+            <ph-text-box
+              [placeholder]="'Username'"
               formControlName="username"
-              autocomplete="username"
-              [class.invalid]="
+              [autocomplete]="'username'"
+              [customCssClass]="[
                 loginForm.get('username')?.invalid &&
                 (loginForm.get('username')?.dirty ||
                   loginForm.get('username')?.touched)
-              "
-            />
+                  ? 'invalid'
+                  : 'ph-username-field'
+              ]"
+            ></ph-text-box>
           </div>
 
           <div class="ph-password-container">
-            <input
-              class="ph-password-field"
-              [type]="changeType() ? 'password' : 'text'"
-              placeholder="Password"
+            <ph-text-box
+              [placeholder]="'Password'"
               formControlName="password"
-              autocomplete="password"
-              [class.invalid]="
+              [autocomplete]="'password'"
+              [type]="changeType() ? 'password' : 'text'"
+              [customCssClass]="[
                 loginForm.get('password')?.invalid &&
                 (loginForm.get('password')?.dirty ||
                   loginForm.get('password')?.touched)
-              "
-            />
+                  ? 'invalid'
+                  : 'ph-password-field'
+              ]"
+            ></ph-text-box>
+
             <span class="ph-password-eye-reveal" (click)="viewPassword()"
               ><i
                 [class]="isPasswordVisible() ? 'fa fa-eye' : 'fa fa-eye-slash'"

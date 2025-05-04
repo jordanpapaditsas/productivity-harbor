@@ -90,8 +90,8 @@
   background: rgba(0,0,0,0.4);
 }
 
-.invalid {
-  box-shadow: 0.1rem 0.1rem 0.3rem 0.2rem var(--ph-danger);
+::ng-deep .invalid {
+  box-shadow: 0.1rem 0.1rem 0.3rem 0.2rem var(--ph-danger) !important;
 }
 
 .ph-error-message {

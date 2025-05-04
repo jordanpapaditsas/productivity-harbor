@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { FooterComponent } from '../../../shared/layout/footer/footer.component';
+import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ import { FooterComponent } from '../../../shared/layout/footer/footer.component'
     PhLoadingSpinnerComponent,
     ReactiveFormsModule,
     FooterComponent,
+    PhTextBoxComponent,
   ],
 })
 export class LoginComponent implements OnInit {
@@ -51,17 +53,16 @@ export class LoginComponent implements OnInit {
   }
 
   private buildForm() {
+    debugger;
     this.loginForm = this.formBuilder.group({
       username: [localStorage.getItem('username') || '', Validators.required],
       password: ['', Validators.required],
-    });
-    this.loginForm.get('username')?.valueChanges.subscribe((value) => {
-      localStorage.setItem('username', value);
     });
   }
 
   protected login() {
     // Nullifying error messages
+    debugger;
     this.isUserNotFoundErrorVisible.set(false);
     this.isUserCredentialsNotValidErrorVisible.set(false);
 
@@ -73,6 +74,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginDto).subscribe({
         next: (response) => {
           if (response.IsSuccess) {
+            localStorage.setItem('username', this.loginDto.UserName);
             this.isLoading.set(false);
             console.log(response.Message);
             this.router.navigate(['/admin-home']);

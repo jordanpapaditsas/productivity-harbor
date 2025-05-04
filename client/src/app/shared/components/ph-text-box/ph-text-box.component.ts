@@ -33,6 +33,7 @@ export class PhTextBoxComponent implements OnInit {
   @Input() disabled: boolean = false;
   @Input() customCssClass: string[] = [];
   @Input() type: string = '';
+  @Input() autocomplete: string = '';
 
   @Output() valueChange = new EventEmitter();
   @Output() keyUpEnter = new EventEmitter();
@@ -55,11 +56,10 @@ export class PhTextBoxComponent implements OnInit {
     this.value = value;
   }
 
-  onInput(value: any) {
-    if (value) {
-      if (this.onChange) {
-        this.onChange(value);
-      }
+  onInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (this.onChange) {
+      this.onChange(input.value);
     }
   }
 
