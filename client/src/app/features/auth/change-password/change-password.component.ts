@@ -77,18 +77,18 @@ export class ChangePasswordComponent implements OnInit {
     debugger;
     if (
       this.changePasswordForm.valid &&
-      this.changePasswordForm.value.newPassword.value ===
-        this.changePasswordForm.value.confirmPassword.value
+      this.changePasswordForm.value.newPassword ===
+        this.changePasswordForm.value.confirmPassword
     ) {
       this.changePasswordDto.UserId = this.user().Id;
       this.changePasswordDto.CurrentPassword =
-        this.changePasswordForm.value.currentPassword.value;
+        this.changePasswordForm.value.currentPassword;
       this.changePasswordDto.NewPassword =
-        this.changePasswordForm.value.newPassword.value;
+        this.changePasswordForm.value.newPassword;
 
       this.authService.changePassword(this.changePasswordDto).subscribe({
         next: (response) => {
-          this.toastr.success('Password changed successfully!');
+          this.toastr.success('Password has changed successfully!');
         },
         error: (error) => {
           console.log(error);
