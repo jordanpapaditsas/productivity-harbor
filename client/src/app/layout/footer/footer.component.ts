@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppStaticData } from '../../core/utils/app-static-data';
 
@@ -12,6 +12,7 @@ export class FooterComponent implements OnInit {
   owner: string = '';
   year: any;
   copyrightText: string = '';
+  isLoginPage = input<boolean>(false);
 
   ngOnInit() {
     this.owner = AppStaticData.appName;

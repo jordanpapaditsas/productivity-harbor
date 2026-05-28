@@ -1,4 +1,4 @@
-<mat-toolbar class="footer-container">
+<mat-toolbar [class]="!isLoginPage() ? 'footer-container' : 'footer-login'">
   <span class="copyright-text"
     >© {{ year }} {{ owner }}. {{ copyrightText }}</span
   >

@@ -6,6 +6,14 @@
   color: var(--ph-text);
   background: var(--ph-background1);
 }
+.footer-login {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 6%;
+  color: #ffff;
+  background: var(--ph-header-light);
+}
 
 .copyright-text {
   font-size: var(--ph-fontSize-small)

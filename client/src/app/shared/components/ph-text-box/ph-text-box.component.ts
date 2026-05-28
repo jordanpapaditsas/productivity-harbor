@@ -5,6 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
+  input,
   Input,
   OnInit,
   Output,
@@ -34,6 +35,7 @@ export class PhTextBoxComponent implements OnInit {
   @Input() customCssClass: string[] = [];
   @Input() type: string = '';
   @Input() autocomplete: string = '';
+  tabIndex = input<number>(0);
 
   @Output() valueChange = new EventEmitter();
   @Output() keyUpEnter = new EventEmitter();

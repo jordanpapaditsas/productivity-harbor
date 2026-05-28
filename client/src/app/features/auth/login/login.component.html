@@ -1,71 +1,74 @@
 @if (!isLoading()) {
-<div class="main-container">
+  <div class="main-container">
+    <div class="login-container">
+      <div class="ph-form-box">
+        <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="fields-container">
+            <img
+              class="ph-login-logo"
+              src="/assets/logos/productivity-harbor-logo-white-transparent.png"
+            />
+            <div class="ph-username-container">
+              <ph-text-box
+                [tabIndex]="1"
+                [placeholder]="'Username'"
+                formControlName="username"
+                [autocomplete]="'username'"
+                [customCssClass]="[
+                  loginForm.get('username')?.invalid &&
+                  (loginForm.get('username')?.dirty ||
+                    loginForm.get('username')?.touched)
+                    ? 'ph-username-field invalid'
+                    : 'ph-username-field',
+                ]"
+              ></ph-text-box>
+            </div>
+
+            <div class="ph-password-container">
+              <ph-text-box
+                [tabIndex]="2"
+                [placeholder]="'Password'"
+                formControlName="password"
+                [autocomplete]="'password'"
+                [type]="changeType() ? 'password' : 'text'"
+                [customCssClass]="[
+                  loginForm.get('password')?.invalid &&
+                  (loginForm.get('password')?.dirty ||
+                    loginForm.get('password')?.touched)
+                    ? 'ph-password-field invalid'
+                    : 'ph-password-field',
+                ]"
+              ></ph-text-box>
+
+              <span class="ph-password-eye-reveal" (click)="viewPassword()"
+                ><i
+                  [class]="
+                    isPasswordVisible() ? 'fa fa-eye' : 'fa fa-eye-slash'
+                  "
+                ></i
+              ></span>
+            </div>
+
+            <button class="ph-login-btn" type="submit">Login</button>
+          </div>
+        </form>
+        @if (isUserCredentialsNotValidErrorVisible()) {
+          <div class="ph-error-message">
+            {{ incorrectCredentialsMessage }}
+          </div>
+        } @else if (isUserNotFoundErrorVisible()) {
+          <div class="ph-error-message">
+            {{ accountNotFound }}
+          </div>
+        }
+      </div>
+    </div>
+    <app-footer [isLoginPage]="true"></app-footer>
+  </div>
+} @else {
   <div class="login-container">
-    <div class="ph-form-box">
-      <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
-        <div class="fields-container">
-          <img
-            class="ph-login-logo"
-            src="/assets/logos/productivity-harbor-logo-white-transparent.png"
-          />
-          <div class="ph-username-container">
-            <ph-text-box
-              [placeholder]="'Username'"
-              formControlName="username"
-              [autocomplete]="'username'"
-              [customCssClass]="[
-                loginForm.get('username')?.invalid &&
-                (loginForm.get('username')?.dirty ||
-                  loginForm.get('username')?.touched)
-                  ? 'ph-username-field invalid'
-                  : 'ph-username-field'
-              ]"
-            ></ph-text-box>
-          </div>
-
-          <div class="ph-password-container">
-            <ph-text-box
-              [placeholder]="'Password'"
-              formControlName="password"
-              [autocomplete]="'password'"
-              [type]="changeType() ? 'password' : 'text'"
-              [customCssClass]="[
-                loginForm.get('password')?.invalid &&
-                (loginForm.get('password')?.dirty ||
-                  loginForm.get('password')?.touched)
-                  ? 'ph-password-field invalid'
-                  : 'ph-password-field'
-              ]"
-            ></ph-text-box>
-
-            <span class="ph-password-eye-reveal" (click)="viewPassword()"
-              ><i
-                [class]="isPasswordVisible() ? 'fa fa-eye' : 'fa fa-eye-slash'"
-              ></i
-            ></span>
-          </div>
-
-          <button class="ph-login-btn" type="submit">Login</button>
-        </div>
-      </form>
-      @if (isUserCredentialsNotValidErrorVisible()) {
-      <div class="ph-error-message">
-        {{ incorrectCredentialsMessage }}
-      </div>
-      } @else if (isUserNotFoundErrorVisible()) {
-      <div class="ph-error-message">
-        {{ accountNotFound }}
-      </div>
-      }
+    <div class="ph-form">
+      <ph-loading-spinner></ph-loading-spinner>
     </div>
   </div>
-  <app-footer></app-footer>
-</div>
-
-} @else {
-<div class="login-container">
-  <div class="ph-form">
-    <ph-loading-spinner></ph-loading-spinner>
-  </div>
-</div>
 }
