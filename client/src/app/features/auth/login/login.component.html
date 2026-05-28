@@ -24,9 +24,18 @@
                 ]"
               ></ph-text-box>
             </div>
-            <div class="field-required-container">
-              <span class="field-required">*</span> Username cannot be empty!
-            </div>
+            @if (
+              loginForm.get("username")?.invalid &&
+              (loginForm.get("username")?.dirty ||
+                loginForm.get("username")?.touched)
+            ) {
+              @if (loginForm.get("username")?.hasError("required")) {
+                <div class="field-required-container">
+                  <span class="field-required">*</span> Username cannot be
+                  empty!
+                </div>
+              }
+            }
 
             <div class="ph-password-container">
               <ph-text-box
@@ -52,11 +61,25 @@
                 ></i
               ></span>
             </div>
-            <div class="field-required-container">
-              <span class="field-required">*</span> Password cannot be empty!
-            </div>
-
-            <button class="ph-login-btn" type="submit">Login</button>
+            @if (
+              loginForm.get("password")?.invalid &&
+              (loginForm.get("password")?.dirty ||
+                loginForm.get("password")?.touched)
+            ) {
+              @if (loginForm.get("password")?.hasError("required")) {
+                <div class="field-required-container">
+                  <span class="field-required">*</span> Password cannot be
+                  empty!
+                </div>
+              }
+            }
+            <button
+              class="ph-login-btn"
+              [disabled]="!loginForm.valid"
+              type="submit"
+            >
+              Login
+            </button>
           </div>
         </form>
         @if (isUserCredentialsNotValidErrorVisible()) {
