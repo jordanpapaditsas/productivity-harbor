@@ -31,8 +31,7 @@
             ) {
               @if (loginForm.get("username")?.hasError("required")) {
                 <div class="field-required-container">
-                  <span class="field-required">*</span> Username cannot be
-                  empty!
+                  <span class="field-required">*</span>Username is required!
                 </div>
               }
             }
@@ -68,8 +67,8 @@
             ) {
               @if (loginForm.get("password")?.hasError("required")) {
                 <div class="field-required-container">
-                  <span class="field-required">*</span> Password cannot be
-                  empty!
+                  <span class="field-required">*</span
+                  ><span>Password is required!</span>
                 </div>
               }
             }

@@ -119,6 +119,8 @@
   color: var(--ph-danger);
 }
 .field-required-container {
+  display: flex;
+  gap: 0.5rem;
   margin-left: 0.5rem;
   position: relative;
   color: var(--ph-danger);
