@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, input, OnInit, output, signal } from '@angular/core';
 
 @Component({
   selector: 'ph-button',
   templateUrl: './ph-button.component.html',
   styleUrls: ['./ph-button.component.css'],
-  imports: [CommonModule],
+  imports: [],
 })
 export class PhButtonComponent implements OnInit {
   text = input<string>('');

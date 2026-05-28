@@ -12,9 +12,9 @@
 ></ph-toolbar>
 <ph-container>
   @if (!isUserInEditMode()) {
-  <div class="view-mode">
-    <mat-icon class="view-locked">lock</mat-icon> View Mode
-  </div>
+    <div class="view-mode">
+      <mat-icon class="view-locked">lock</mat-icon> View Mode
+    </div>
 
   }
   <!--  -->
@@ -22,40 +22,40 @@
   <div class="edit-mode">
     <mat-icon class="edit-unlocked">lock_open</mat-icon>Can Edit
   </div>
-  }
-  <div class="change-password">
-    <ph-button
+}
+<div class="change-password">
+  <ph-button
       [customCssClass]="[
         !isUserInEditMode() ? 'change-pass-btn-disabled' : 'change-pass-btn'
       ]"
-      [text]="'Change Password'"
-      [disabled]="!isUserInEditMode()"
-      (click)="onChangePasswordClicked($event)"
-      [icon]="'fa fa-key'"
-    ></ph-button>
-  </div>
+    [text]="'Change Password'"
+    [disabled]="!isUserInEditMode()"
+    (click)="onChangePasswordClicked($event)"
+    [icon]="'fa fa-key'"
+  ></ph-button>
+</div>
 
-  <div class="main-container">
-    <div class="left-side-container">
-      <div class="avatar-container">
-        <div class="flexbox-center">
-          <!-- Avatar -->
-          <div
+<div class="main-container">
+  <div class="left-side-container">
+    <div class="avatar-container">
+      <div class="flexbox-center">
+        <!-- Avatar -->
+        <div
             [style.box-shadow]="
               user.Color ? '0.2rem 0.5rem 0.5rem ' + user.Color : ''
             "
-            class="user-avatar-wrapper"
-            (click)="triggerAvatarUpload()"
+          class="user-avatar-wrapper"
+          (click)="triggerAvatarUpload()"
           >
-            @if (user.Avatar) {
+          @if (user.Avatar) {
             <img [src]="user.Avatar" alt="User Avatar" class="user-avatar" />
-            } @else {
+          } @else {
             <img
               style="box-shadow: 0 0 1rem var(--ph-deepShadow)"
               src="/assets/images/user-avatar-placeholder.jpg"
               alt="User Avatar"
               class="user-avatar"
-            />
+              />
             }
 
             <div class="user-avatar-overlay">
@@ -64,12 +64,12 @@
           </div>
 
           @if (!isUserInEditMode()) {
-          <div class="user-fullname">{{ user.FullName }}</div>
+            <div class="user-fullname">{{ user.FullName }}</div>
           } @else {
-          <div class="flexbox-column">
-            <mat-label>Full Name</mat-label>
-            <ph-text-box [(value)]="user.FullName"></ph-text-box>
-          </div>
+            <div class="flexbox-column">
+              <mat-label>Full Name</mat-label>
+              <ph-text-box [(value)]="user.FullName"></ph-text-box>
+            </div>
 
           }
         </div>
@@ -83,242 +83,248 @@
             id="Color"
             name="Color"
             [disabled]="!isUserInEditMode()"
-          />
-        </div>
-        <div class="flexbox-center">
-          <mat-label>Active</mat-label>
-          <mat-checkbox
-            [disabled]="!isUserInEditMode()"
-            [(ngModel)]="user.IsActive"
-          ></mat-checkbox>
-        </div>
-        <input
-          #fileInput
-          type="file"
-          accept="image/*"
-          style="display: none"
-          (change)="onAvatarChange($event)"
-          [disabled]="!isUserInEditMode()"
-        />
-      </div>
-
-      <div class="social-media-container">
-        <div class="action-btns">
-          @if (!this.isSocialMediaFormVisible()) {
-          <button
-            [disabled]="!isUserInEditMode()"
-            class="add-social-btn"
-            mat-button
-            (click)="addUserSocialMedia($event)"
-          >
-            <mat-icon>add</mat-icon>
-            <span>Add Social Media</span>
-          </button>
-          } @else {
-          <button
-            [disabled]="!isUserInEditMode()"
-            class="add-social-btn"
-            mat-button
-            (click)="onClearSocialMediaFormClicked()"
-          >
-            <mat-icon>redo</mat-icon>
-            <span>Clear Form</span>
-          </button>
-          }
-        </div>
-        @if (!isSocialMediaFormVisible()) {
-        <fieldset>
-          <legend>Social Media</legend>
-          <div class="user-social-media">
-            @if (!user.Id) { @for (userSocialMedia of userSocialMediaTempArray;
-            track userSocialMedia.Url;) {
-            <div class="flexbox-center">
-              <div>{{ userSocialMedia.Name }}</div>
-              <div>{{ userSocialMedia.Url }}</div>
-            </div>
-
-            } } @else { @for (userSocialMedia of user.UserSocialMediaLinksMap;
-            track userSocialMedia.Id;) {
-            <div class="flexbox-center">
-              <div>{{ userSocialMedia.Name }}</div>
-              <div>{{ userSocialMedia.Url }}</div>
-            </div>
-
-            } }
+            />
           </div>
-        </fieldset>
-        } @else {
-        <div class="add-social-media-form">
-          <div class="social-media-selectbox">
-            <mat-select [placeholder]="'Select Social'">
-              @for (item of socialMedia; track item.Id) {
-              <mat-option
-                [disabled]="!isUserInEditMode()"
-                (click)="onSocialMediaSelectionChange(item)"
-                [value]="item.Id"
-                >{{ item.Name }}</mat-option
-              >
+          <div class="flexbox-center">
+            <mat-label>Active</mat-label>
+            <mat-checkbox
+              [disabled]="!isUserInEditMode()"
+              [(ngModel)]="user.IsActive"
+            ></mat-checkbox>
+          </div>
+          <input
+            #fileInput
+            type="file"
+            accept="image/*"
+            style="display: none"
+            (change)="onAvatarChange($event)"
+            [disabled]="!isUserInEditMode()"
+            />
+          </div>
+
+          <div class="social-media-container">
+            <div class="action-btns">
+              @if (!this.isSocialMediaFormVisible()) {
+                <button
+                  [disabled]="!isUserInEditMode()"
+                  class="add-social-btn"
+                  mat-button
+                  (click)="addUserSocialMedia($event)"
+                  >
+                  <mat-icon>add</mat-icon>
+                  <span>Add Social Media</span>
+                </button>
+              } @else {
+                <button
+                  [disabled]="!isUserInEditMode()"
+                  class="add-social-btn"
+                  mat-button
+                  (click)="onClearSocialMediaFormClicked()"
+                  >
+                  <mat-icon>redo</mat-icon>
+                  <span>Clear Form</span>
+                </button>
               }
-            </mat-select>
-          </div>
-          <div class="social-media-url">
-            <ph-text-box [(value)]="userSocialMediaDto.Url"></ph-text-box>
-          </div>
-          <div class="save-user-social-media">
-            <button
-              matTooltip="Save"
-              mat-icon-button
-              (click)="onSaveUserSocialMediaRowClicked(userSocialMediaDto)"
-            >
-              <mat-icon>save</mat-icon>
-            </button>
-          </div>
-        </div>
-        }
-      </div>
-    </div>
-
-    <div class="right-side-container">
-      <div class="left-side-personal">
-        <div class="personal-info-container">
-          <div class="title-align title">{{ personalInfoTitle }}</div>
-          <div class="flexbox-column user-username">
-            <mat-label>Username</mat-label>
-            @if (!isUserInEditMode()) {
-            <div class="user-username">{{ user.UserName }}</div>
-            } @else {
-            <ph-text-box [(value)]="user.UserName"></ph-text-box>
-            }
-          </div>
-
-          <!-- <div class="flexbox-column user-password">
-            <mat-label>Password</mat-label>
-            <ph-text-box [(value)]="user.Password"></ph-text-box>
-          </div> -->
-
-          <div class="flexbox-column user-portfolio">
-            <mat-label>Portfolio</mat-label>
-            @if (!isUserInEditMode()) {
-            <div class="user-portfolio">{{ user.Portfolio }}</div>
-            } @else {
-            <ph-text-box [(value)]="user.Portfolio"></ph-text-box>
-            }
-          </div>
-        </div>
-      </div>
-
-      <div class="right-side-contact">
-        <div class="contact-info-container">
-          <div class="title-align title">{{ contactTitle }}</div>
-
-          <div class="flexbox-column user-email">
-            <mat-label>Email</mat-label>
-            @if(!isUserInEditMode()) {
-            <div class="user-email">{{ user.Email }}</div>
-            } @else {
-            <ph-text-box [(value)]="user.Email"></ph-text-box>
-            }
-          </div>
-
-          <div class="flexbox-column user-home-phone">
-            <mat-label>Home Phone</mat-label>
-            @if(!isUserInEditMode()) {
-            <div class="user-home-phone">{{ user.Phone!.Home }}</div>
-            } @else {
-            <ph-text-box
-              *ngIf="user?.Phone"
-              [(value)]="user.Phone!.Home"
-            ></ph-text-box>
-            }
-          </div>
-
-          <div class="flexbox-column user-mobile-phone">
-            <mat-label>Mobile Phone</mat-label>
-            @if (!isUserInEditMode()) {
-            <div class="user-mobile-phone">
-              {{ user.Phone!.Mobile }}
             </div>
-            } @else {
-            <ph-text-box
-              *ngIf="user?.Phone"
-              [(value)]="user.Phone!.Mobile"
-            ></ph-text-box>
-            }
-          </div>
+            @if (!isSocialMediaFormVisible()) {
+              <fieldset>
+                <legend>Social Media</legend>
+                <div class="user-social-media">
+                  @if (!user.Id) { @for (userSocialMedia of userSocialMediaTempArray;
+                    track userSocialMedia.Url;) {
+                    <div class="flexbox-center">
+                      <div>{{ userSocialMedia.Name }}</div>
+                      <div>{{ userSocialMedia.Url }}</div>
+                    </div>
 
-          <div class="flexbox-column user-work-phone">
-            <mat-label>Work Phone</mat-label>
-            @if (!isUserInEditMode()) {
-            <div class="user-work-phone">{{ user.Phone!.Work }}</div>
-            } @else {
-            <ph-text-box
-              *ngIf="user?.Phone"
-              [(value)]="user.Phone!.Work"
-            ></ph-text-box>
-            }
-          </div>
+                    } } @else { @for (userSocialMedia of user.UserSocialMediaLinksMap;
+                    track userSocialMedia.Id;) {
+                    <div class="flexbox-center">
+                      <div>{{ userSocialMedia.Name }}</div>
+                      <div>{{ userSocialMedia.Url }}</div>
+                    </div>
 
-          <div class="flexbox-column user-country">
-            <mat-label>Country</mat-label>
-            @if(!isUserInEditMode()) {
-            <div class="user-country">{{ user.Country }}</div>
-            } @else {
-            <ph-text-box [(value)]="user.Country"></ph-text-box>
-            }
-          </div>
+                    } }
+                  </div>
+                </fieldset>
+              } @else {
+                <div class="add-social-media-form">
+                  <div class="social-media-selectbox">
+                    <mat-select [placeholder]="'Select Social'">
+                      @for (item of socialMedia; track item.Id) {
+                        <mat-option
+                          [disabled]="!isUserInEditMode()"
+                          (click)="onSocialMediaSelectionChange(item)"
+                          [value]="item.Id"
+                          >{{ item.Name }}</mat-option
+                          >
+                        }
+                      </mat-select>
+                    </div>
+                    <div class="social-media-url">
+                      <ph-text-box [(value)]="userSocialMediaDto.Url"></ph-text-box>
+                    </div>
+                    <div class="save-user-social-media">
+                      <button
+                        matTooltip="Save"
+                        mat-icon-button
+                        (click)="onSaveUserSocialMediaRowClicked(userSocialMediaDto)"
+                        >
+                        <mat-icon>save</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
 
-          <div class="flexbox-column user-city">
-            <mat-label>City</mat-label>
-            @if (!isUserInEditMode()) {
-            <div class="user-city">{{ user.Address!.City }}</div>
-            } @else {
-            <ph-text-box
-              *ngIf="user?.Address"
-              [(value)]="user.Address!.City"
-            ></ph-text-box>
-            }
-          </div>
+            <div class="right-side-container">
+              <div class="left-side-personal">
+                <div class="personal-info-container">
+                  <div class="title-align title">{{ personalInfoTitle }}</div>
+                  <div class="flexbox-column user-username">
+                    <mat-label>Username</mat-label>
+                    @if (!isUserInEditMode()) {
+                      <div class="user-username">{{ user.UserName }}</div>
+                    } @else {
+                      <ph-text-box [(value)]="user.UserName"></ph-text-box>
+                    }
+                  </div>
 
-          <div class="flexbox-column user-street">
-            <mat-label>Street</mat-label>
-            @if (!isUserInEditMode()) {
-            <div class="user-street">{{ user.Address!.Street }}</div>
-            } @else {
-            <ph-text-box
-              *ngIf="user?.Address"
-              [(value)]="user.Address!.Street"
-            ></ph-text-box>
-            }
-          </div>
+                  <!-- <div class="flexbox-column user-password">
+                  <mat-label>Password</mat-label>
+                  <ph-text-box [(value)]="user.Password"></ph-text-box>
+                </div> -->
 
-          <div class="flexbox-column user-zip">
-            <mat-label>ZIP Code</mat-label>
-            @if (!isUserInEditMode()) {
-            <div class="user-zip">{{ user.Address!.Zip }}</div>
-            } @else {
-            <ph-text-box
-              *ngIf="user?.Address"
-              [(value)]="user.Address!.Zip"
-            ></ph-text-box>
-            }
+                <div class="flexbox-column user-portfolio">
+                  <mat-label>Portfolio</mat-label>
+                  @if (!isUserInEditMode()) {
+                    <div class="user-portfolio">{{ user.Portfolio }}</div>
+                  } @else {
+                    <ph-text-box [(value)]="user.Portfolio"></ph-text-box>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="right-side-contact">
+              <div class="contact-info-container">
+                <div class="title-align title">{{ contactTitle }}</div>
+
+                <div class="flexbox-column user-email">
+                  <mat-label>Email</mat-label>
+                  @if(!isUserInEditMode()) {
+                    <div class="user-email">{{ user.Email }}</div>
+                  } @else {
+                    <ph-text-box [(value)]="user.Email"></ph-text-box>
+                  }
+                </div>
+
+                <div class="flexbox-column user-home-phone">
+                  <mat-label>Home Phone</mat-label>
+                  @if(!isUserInEditMode()) {
+                    <div class="user-home-phone">{{ user.Phone!.Home }}</div>
+                  } @else {
+                    @if (user?.Phone) {
+                      <ph-text-box
+                        [(value)]="user.Phone!.Home"
+                      ></ph-text-box>
+                    }
+                  }
+                </div>
+
+                <div class="flexbox-column user-mobile-phone">
+                  <mat-label>Mobile Phone</mat-label>
+                  @if (!isUserInEditMode()) {
+                    <div class="user-mobile-phone">
+                      {{ user.Phone!.Mobile }}
+                    </div>
+                  } @else {
+                    @if (user?.Phone) {
+                      <ph-text-box
+                        [(value)]="user.Phone!.Mobile"
+                      ></ph-text-box>
+                    }
+                  }
+                </div>
+
+                <div class="flexbox-column user-work-phone">
+                  <mat-label>Work Phone</mat-label>
+                  @if (!isUserInEditMode()) {
+                    <div class="user-work-phone">{{ user.Phone!.Work }}</div>
+                  } @else {
+                    @if (user?.Phone) {
+                      <ph-text-box
+                        [(value)]="user.Phone!.Work"
+                      ></ph-text-box>
+                    }
+                  }
+                </div>
+
+                <div class="flexbox-column user-country">
+                  <mat-label>Country</mat-label>
+                  @if(!isUserInEditMode()) {
+                    <div class="user-country">{{ user.Country }}</div>
+                  } @else {
+                    <ph-text-box [(value)]="user.Country"></ph-text-box>
+                  }
+                </div>
+
+                <div class="flexbox-column user-city">
+                  <mat-label>City</mat-label>
+                  @if (!isUserInEditMode()) {
+                    <div class="user-city">{{ user.Address!.City }}</div>
+                  } @else {
+                    @if (user?.Address) {
+                      <ph-text-box
+                        [(value)]="user.Address!.City"
+                      ></ph-text-box>
+                    }
+                  }
+                </div>
+
+                <div class="flexbox-column user-street">
+                  <mat-label>Street</mat-label>
+                  @if (!isUserInEditMode()) {
+                    <div class="user-street">{{ user.Address!.Street }}</div>
+                  } @else {
+                    @if (user?.Address) {
+                      <ph-text-box
+                        [(value)]="user.Address!.Street"
+                      ></ph-text-box>
+                    }
+                  }
+                </div>
+
+                <div class="flexbox-column user-zip">
+                  <mat-label>ZIP Code</mat-label>
+                  @if (!isUserInEditMode()) {
+                    <div class="user-zip">{{ user.Address!.Zip }}</div>
+                  } @else {
+                    @if (user?.Address) {
+                      <ph-text-box
+                        [(value)]="user.Address!.Zip"
+                      ></ph-text-box>
+                    }
+                  }
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</ph-container>
+      </ph-container>
 
-@if (isChangePasswordPopupVisible()) {
-<ph-popup
-  [isFullScreenMode]="false"
-  [hideOnOutsideClick]="true"
-  (hidePopup)="onHideChangePasswordPopup($event)"
-  [width]="'500px'"
-  [height]="'500px'"
->
-  <app-change-password
-    [userId]="userId()!"
-    (exitClicked)="onHideChangePasswordPopup($event)"
-  ></app-change-password>
-</ph-popup>
-}
+      @if (isChangePasswordPopupVisible()) {
+        <ph-popup
+          [isFullScreenMode]="false"
+          [hideOnOutsideClick]="true"
+          (hidePopup)="onHideChangePasswordPopup($event)"
+          [width]="'500px'"
+          [height]="'500px'"
+          >
+          <app-change-password
+            [userId]="userId()!"
+            (exitClicked)="onHideChangePasswordPopup($event)"
+          ></app-change-password>
+        </ph-popup>
+      }

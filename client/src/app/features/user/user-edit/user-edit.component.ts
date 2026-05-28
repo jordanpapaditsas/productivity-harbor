@@ -16,7 +16,7 @@ import { UserDto } from '../../../core/dtos/user/user.dto';
 import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
 import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
+
 import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
@@ -38,7 +38,6 @@ import { PhButtonComponent } from '../../../shared/components/ph-button/ph-butto
     PhToolbarComponent,
     PhContainerComponent,
     MatIconModule,
-    CommonModule,
     PhTextBoxComponent,
     MatCheckboxModule,
     FormsModule,
@@ -46,8 +45,8 @@ import { PhButtonComponent } from '../../../shared/components/ph-button/ph-butto
     MatSelectModule,
     PhPopupComponent,
     ChangePasswordComponent,
-    PhButtonComponent,
-  ],
+    PhButtonComponent
+],
 })
 export class UserEditComponent implements OnInit {
   fileInput = viewChild<ElementRef>('fileInput');

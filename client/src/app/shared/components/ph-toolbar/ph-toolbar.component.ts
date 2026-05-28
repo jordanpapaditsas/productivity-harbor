@@ -5,13 +5,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PhDialogService } from '../../services/ph-dialog.service';
 import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'ph-toolbar',
   templateUrl: './ph-toolbar.component.html',
   styleUrls: ['./ph-toolbar.component.scss'],
-  imports: [MatToolbarModule, MatIconModule, MatTooltipModule, CommonModule],
+  imports: [MatToolbarModule, MatIconModule, MatTooltipModule],
 })
 export class PhToolbarComponent implements OnInit {
   toolbarItems!: Array<ToolbarItem>;

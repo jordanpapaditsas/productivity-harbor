@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatTableModule } from '@angular/material/table';
 import { UserDto } from '../../../core/dtos/user/user.dto';
 import { UserService } from '../user.service';
@@ -18,12 +18,11 @@ import { Guid } from 'guid-typescript';
   imports: [
     MatTableModule,
     PhDataGridComponent,
-    CommonModule,
     PhContainerComponent,
     PhToolbarComponent,
     PhPopupComponent,
-    UserEditComponent,
-  ],
+    UserEditComponent
+],
 })
 export class UsersListComponent implements OnInit {
   @ViewChild('usersGrid') usersGrid!: PhDataGridComponent;
