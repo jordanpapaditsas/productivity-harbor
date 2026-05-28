@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
   }
 
   protected login() {
+    debugger;
     this.isUserNotFoundErrorVisible.set(false);
     this.isUserCredentialsNotValidErrorVisible.set(false);
 
@@ -89,6 +90,7 @@ export class LoginComponent implements OnInit {
           }
         },
       });
+    } else {
     }
   }
 

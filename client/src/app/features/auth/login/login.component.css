@@ -17,9 +17,10 @@
   box-shadow:
   0 8px 16px rgba(0, 0, 0, 0.12),
   0 4px 6px rgba(0, 0, 0, 0.08);
+  background: rgb(195, 228, 248);
   max-width: 40%;
   width: 100%;
-  height: 50%;
+  height: 65%;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -41,7 +42,7 @@
   flex-direction: column;
   align-content: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .ph-login-logo {
@@ -104,6 +105,16 @@
   font-size: var(--ph-fontSize-normal);
   word-wrap: break-word;
   text-align: center;
+}
+
+.field-required {
+  color: var(--ph-danger);
+}
+.field-required-container {
+  margin-left: 0.5rem;
+  position: relative;
+  color: var(--ph-danger);
+  /* bottom: 10px; */
 }
 
 @media screen and (max-width: 750px) {

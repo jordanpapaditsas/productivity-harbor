@@ -6,7 +6,7 @@
           <div class="fields-container">
             <img
               class="ph-login-logo"
-              src="/assets/logos/productivity-harbor-logo-white-transparent.png"
+              src="/assets/logos/productivity-harbor-logo.png"
             />
             <div class="ph-username-container">
               <ph-text-box
@@ -22,6 +22,9 @@
                     : 'ph-username-field',
                 ]"
               ></ph-text-box>
+            </div>
+            <div class="field-required-container">
+              <span class="field-required">*</span> Username cannot be empty!
             </div>
 
             <div class="ph-password-container">
@@ -47,6 +50,9 @@
                   "
                 ></i
               ></span>
+            </div>
+            <div class="field-required-container">
+              <span class="field-required">*</span> Password cannot be empty!
             </div>
 
             <button class="ph-login-btn" type="submit">Login</button>
