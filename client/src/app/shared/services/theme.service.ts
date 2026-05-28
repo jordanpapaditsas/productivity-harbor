@@ -27,7 +27,6 @@ export class ThemeService {
   }
 
   // getWindowContentLoaded() {
-  //   debugger;
   //   window.addEventListener('DOMContentLoaded', () => {
   //     this.setTheme(this.getCurrentTheme());
   //   });

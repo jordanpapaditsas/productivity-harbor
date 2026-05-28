@@ -19,7 +19,6 @@ export const serverErrorInterceptor: HttpInterceptorFn = (
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      debugger;
       const showToastr = req.context.get(SHOW_TOASTR);
       console.error('HTTP Error Intercepted:', error);
 
