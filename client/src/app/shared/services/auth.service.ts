@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { AppSettingsService } from './app-settings.service';
 import { map, Observable } from 'rxjs';
@@ -6,6 +6,7 @@ import { LoginDto } from '../../core/dtos/auth/login.dto';
 import { UserDto } from '../../core/dtos/user/user.dto';
 import { ApiResponseDto } from '../../core/dtos/shared/api-response.dto';
 import { ChangePasswordDto } from '../../core/dtos/auth/change-password.dto';
+import { SHOW_TOASTR } from '../../core/interceptors/server-error.interceptor';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,7 @@ export class AuthService {
     return this.http
       .post<any>(this.serviceUrl + '/login', login, {
         headers: this.headers,
+        context: new HttpContext().set(SHOW_TOASTR, false),
       })
       .pipe(
         map((response) => {

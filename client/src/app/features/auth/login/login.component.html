@@ -72,6 +72,14 @@
                 </div>
               }
             }
+            <div class="forgot-password-container">
+              <div class="remember-me-container">
+                <input class="remember-me-checkbox" type="checkbox" />
+                <span class="remember-me-text">Remember me</span>
+              </div>
+              <a href="#" target="_blank">Forgot password?</a>
+            </div>
+
             <button
               class="ph-login-btn"
               [disabled]="!loginForm.valid"
@@ -90,6 +98,9 @@
             {{ accountNotFound }}
           </div>
         }
+      </div>
+      <div class="sign-up-container">
+        <span>Don't have an account? <a href="#">Sign Up</a></span>
       </div>
     </div>
     <app-footer [isLoginPage]="true"></app-footer>

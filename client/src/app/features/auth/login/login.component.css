@@ -81,6 +81,8 @@
   right: 0.5rem;
   top: 0.5rem;
   cursor: pointer;
+    color: var(--ph-loginButton);
+
 }
 
 .ph-login-btn {
@@ -125,6 +127,26 @@
   position: relative;
   color: var(--ph-danger);
   /* bottom: 10px; */
+}
+
+.remember-me-container {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.forgot-password-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+}
+
+.sign-up-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -20px;
 }
 
 @media screen and (max-width: 750px) {

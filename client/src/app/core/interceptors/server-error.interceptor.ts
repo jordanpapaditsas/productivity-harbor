@@ -3,19 +3,24 @@ import {
   HttpRequest,
   HttpHandlerFn,
   HttpErrorResponse,
+  HttpContextToken,
 } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { NotificationService } from '../../shared/services/notification.service';
 
+export const SHOW_TOASTR = new HttpContextToken<boolean>(() => true);
+
 export const serverErrorInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ) => {
   const notifier = inject(NotificationService);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
+      debugger;
+      const showToastr = req.context.get(SHOW_TOASTR);
       console.error('HTTP Error Intercepted:', error);
 
       let message = 'An unexpected error occurred.';
@@ -32,9 +37,13 @@ export const serverErrorInterceptor: HttpInterceptorFn = (
         message = 'Not found: The resource was not found.';
       }
 
-      notifier.showError(message);
+      if (showToastr) {
+        notifier.showError(message);
+      } else {
+        console.log('Skipping toastr display message.');
+      }
 
       return throwError(() => error);
-    })
+    }),
   );
 };
