@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../shared/services/auth.service';
-import { LoginDto } from '../../../core/dto/auth/login.dto';
+import { LoginDto } from '../../../core/dtos/auth/login.dto';
 import { Router } from '@angular/router';
 import { PhLoadingSpinnerComponent } from '../../../shared/components/ph-loading-spinner/ph-loading-spinner.component';
 import {
@@ -11,7 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FooterComponent } from '../../../shared/layout/footer/footer.component';
+import { FooterComponent } from '../../../layout/footer/footer.component';
 import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
 
 @Component({

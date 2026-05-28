@@ -1,12 +1,11 @@
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
-import { UserDto } from '../../../core/dto/user/user.dto';
+import { UserDto } from '../../../core/dtos/user/user.dto';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
 import { Column } from '../../../core/interfaces/column';
 import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
-import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
 import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
 import { PhPopupComponent } from '../../../shared/components/ph-popup/ph-popup.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';

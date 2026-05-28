@@ -2,10 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { AppSettingsService } from './app-settings.service';
 import { map, Observable } from 'rxjs';
-import { LoginDto } from '../../core/dto/auth/login.dto';
-import { UserDto } from '../../core/dto/user/user.dto';
-import { ApiResponseDto } from '../../core/dto/shared/api-response.dto';
-import { ChangePasswordDto } from '../../core/dto/auth/change-password.dto';
+import { LoginDto } from '../../core/dtos/auth/login.dto';
+import { UserDto } from '../../core/dtos/user/user.dto';
+import { ApiResponseDto } from '../../core/dtos/shared/api-response.dto';
+import { ChangePasswordDto } from '../../core/dtos/auth/change-password.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +49,7 @@ export class AuthService {
           }
 
           return response;
-        })
+        }),
       );
   }
 
@@ -68,7 +68,7 @@ export class AuthService {
       changePasswordDto,
       {
         headers: this.headers,
-      }
+      },
     );
   }
 }

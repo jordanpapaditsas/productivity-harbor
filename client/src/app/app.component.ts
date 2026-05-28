@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SideNavComponent } from './shared/layout/side-nav/side-nav.component';
-import { FooterComponent } from './shared/layout/footer/footer.component';
+import { SideNavComponent } from '../app/layout/side-nav/side-nav.component';
+import { FooterComponent } from '../app/layout/footer/footer.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { AuthService } from './shared/services/auth.service';
 

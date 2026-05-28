@@ -12,7 +12,16 @@ namespace ProductivityHarborApi.Services
 
         public TokenProviderService(IConfiguration configuration)
         {
-            _secret = configuration["JwtSettings:SecretKey"];
+            if (configuration["JwtSettings:SecretKey"] is not null)
+            {
+               _secret = configuration["JwtSettings:SecretKey"];
+            }
+            else 
+            { 
+              _secret = "7xX9kM4vW2zB6qP9bL5mK8sT1vN4wZ3xY7rA2eG5hJ8="; 
+            }
+
+
         }
 
         public string GenerateToken(User user)

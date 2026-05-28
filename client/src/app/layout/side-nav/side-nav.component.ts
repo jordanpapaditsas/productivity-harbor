@@ -1,13 +1,13 @@
-import { Component, computed, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal, inject } from '@angular/core';
 import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { PhHamburgerButtonComponent } from '../../components/ph-hamburger-button/ph-hamburger-button.component';
+import { PhHamburgerButtonComponent } from '../../shared/components/ph-hamburger-button/ph-hamburger-button.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { HeaderComponent } from '../header/header.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
-import { MenuItem } from '../../../core/interfaces/menu-item';
+import { MenuItem } from '../../core/interfaces/menu-item';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import {
   animate,
@@ -41,7 +41,7 @@ import { CommonModule } from '@angular/common';
       state('expanded', style({ transform: 'translateX(0)', width: '16rem' })),
       state(
         'collapsed',
-        style({ transform: 'translateX(-10%)', width: '4rem' })
+        style({ transform: 'translateX(-10%)', width: '4rem' }),
       ),
       transition('expanded <=> collapsed', [animate('300ms ease-in-out')]),
     ]),
@@ -72,7 +72,7 @@ export class SideNavComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
   ) {
     // this.breakpointObserver
     //   .observe([Breakpoints.Handset])
@@ -153,7 +153,7 @@ export class SideNavComponent implements OnInit {
   onSideNavToggle() {
     this.isSideNavCollapsed.set(!this.isSideNavCollapsed());
     this.sidenavAnimationState.set(
-      this.isSideNavCollapsed() ? 'collapsed' : 'expanded'
+      this.isSideNavCollapsed() ? 'collapsed' : 'expanded',
     );
   }
 }

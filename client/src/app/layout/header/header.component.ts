@@ -1,15 +1,14 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ThemeService } from '../../services/theme.service';
+import { ThemeService } from '../../shared/services/theme.service';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { AuthService } from '../../services/auth.service';
-import { UserDto } from '../../../core/dto/user/user.dto';
+import { AuthService } from '../../shared/services/auth.service';
+import { UserDto } from '../../core/dtos/user/user.dto';
 import { MatMenuModule } from '@angular/material/menu';
-import { PhPopupComponent } from '../../components/ph-popup/ph-popup.component';
-import { UserEditComponent } from '../../../features/user/user-edit/user-edit.component';
-import { UserService } from '../../../features/user/user.service';
-import { Router } from '@angular/router';
+import { PhPopupComponent } from '../../shared/components/ph-popup/ph-popup.component';
+import { UserEditComponent } from '../../features/user/user-edit/user-edit.component';
+import { UserService } from '../../features/user/user.service';
 
 @Component({
   selector: 'app-header',

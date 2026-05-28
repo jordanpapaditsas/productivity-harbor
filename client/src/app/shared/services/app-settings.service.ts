@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { AppSettingsDto } from '../../core/dto/shared/app-settings.dto';
+import { AppSettingsDto } from '../../core/dtos/shared/app-settings.dto';
 import { firstValueFrom, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { PhDialogService } from './ph-dialog.service';
@@ -26,7 +26,7 @@ export class AppSettingsService {
       this.dialogService.alertDialog(
         'There was an error loading the application settings.',
         'Error Message',
-        DialogTypeEnum.Danger
+        DialogTypeEnum.Danger,
       );
     }
   }

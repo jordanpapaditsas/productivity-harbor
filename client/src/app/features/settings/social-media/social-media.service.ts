@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AppSettingsService } from '../../../shared/services/app-settings.service';
 import { AuthService } from '../../../shared/services/auth.service';
-import { SocialMediaDto } from '../../../core/dto/shared/social-media.dto';
+import { SocialMediaDto } from '../../../core/dtos/shared/social-media.dto';
 import { Guid } from 'guid-typescript';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class SocialMediaService {
       this.serviceUrl + '/getAllSocialMedia',
       {
         headers: this.headers,
-      }
+      },
     );
   }
 
@@ -33,7 +33,7 @@ export class SocialMediaService {
       socialMedia,
       {
         headers: this.headers,
-      }
+      },
     );
   }
 
@@ -43,7 +43,7 @@ export class SocialMediaService {
       socialMedia,
       {
         headers: this.headers,
-      }
+      },
     );
   }
 
@@ -52,7 +52,7 @@ export class SocialMediaService {
       this.serviceUrl + '/deleteSocialMediaById/' + socialMediaId,
       {
         headers: this.headers,
-      }
+      },
     );
   }
 }

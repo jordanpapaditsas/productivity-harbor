@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../user.service';
-import { UserDto } from '../../../core/dto/user/user.dto';
+import { UserDto } from '../../../core/dtos/user/user.dto';
 import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
 import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,10 +21,10 @@ import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-te
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatLabel } from '@angular/material/input';
-import { SocialMediaDto } from '../../../core/dto/shared/social-media.dto';
+import { SocialMediaDto } from '../../../core/dtos/shared/social-media.dto';
 import { MatSelectModule } from '@angular/material/select';
 import { SocialMediaService } from '../../settings/social-media/social-media.service';
-import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-media-map.dto';
+import { UserSocialMediaMapDto } from '../../../core/dtos/relations/user-social-media-map.dto';
 import { ToastrService } from 'ngx-toastr';
 import { PhPopupComponent } from '../../../shared/components/ph-popup/ph-popup.component';
 import { ChangePasswordComponent } from '../../auth/change-password/change-password.component';
@@ -213,7 +213,7 @@ export class UserEditComponent implements OnInit {
 
   onEditSocialMediaRowClicked(
     userSocialMedia: UserSocialMediaMapDto,
-    index: number
+    index: number,
   ) {
     this.socialMediaRowIndex.set(index);
     this.rowKeys.add(userSocialMedia.Id!);

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AppSettingsService } from '../app-settings.service';
 import { AuthService } from '../auth.service';
-import { UserSocialMediaMapDto } from '../../../core/dto/relations/user-social-media-map.dto';
+import { UserSocialMediaMapDto } from '../../../core/dtos/relations/user-social-media-map.dto';
 import { Guid } from 'guid-typescript';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class UserSocialMediaMapService {
       this.serviceUrl + '/getAllUserSocialMediaMapByUserId/' + userId,
       {
         headers: this.headers,
-      }
+      },
     );
   }
 
@@ -33,7 +33,7 @@ export class UserSocialMediaMapService {
       socialMedia,
       {
         headers: this.headers,
-      }
+      },
     );
   }
 
@@ -43,7 +43,7 @@ export class UserSocialMediaMapService {
       socialMedia,
       {
         headers: this.headers,
-      }
+      },
     );
   }
 
@@ -52,7 +52,7 @@ export class UserSocialMediaMapService {
       this.serviceUrl + '/deleteUserSocialMediaMapById/' + id,
       {
         headers: this.headers,
-      }
+      },
     );
   }
 }

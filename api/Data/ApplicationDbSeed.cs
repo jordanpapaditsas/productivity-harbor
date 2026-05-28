@@ -12,8 +12,16 @@ namespace ProductivityHarborApi.Data
 
         public ApplicationDbSeed(IConfiguration configuration)
         {
-            _phAdminPassword = configuration["PhAdmin:Password"] ?? throw new ArgumentNullException(nameof(configuration), "PhAdmin password cannot be null");
-            _adminPassword = configuration["Admin:Password"] ?? throw new ArgumentNullException(nameof(configuration), "Admin password cannot be null");
+            if (configuration["PhAdmin:Password"] is not null)
+            {
+                _phAdminPassword = configuration["PhAdmin:Password"] ?? throw new ArgumentNullException(nameof(configuration), "PhAdmin password cannot be null");
+                _adminPassword = configuration["Admin:Password"] ?? throw new ArgumentNullException(nameof(configuration), "Admin password cannot be null");
+            }
+            else
+            {
+                _phAdminPassword = "P@ssw0rd";
+                _adminPassword = "P@ssw0rd";
+            }
         }
 
         // Seed Roles Method

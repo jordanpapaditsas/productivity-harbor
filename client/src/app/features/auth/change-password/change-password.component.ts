@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../../user/user.service';
-import { UserDto } from '../../../core/dto/user/user.dto';
+import { UserDto } from '../../../core/dtos/user/user.dto';
 import { MatLabel } from '@angular/material/input';
 import {
   FormBuilder,
@@ -16,7 +16,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ChangePasswordDto } from '../../../core/dto/auth/change-password.dto';
+import { ChangePasswordDto } from '../../../core/dtos/auth/change-password.dto';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
@@ -96,7 +96,7 @@ export class ChangePasswordComponent implements OnInit {
       });
     } else {
       this.toastr.error(
-        'New password and confirmation do not match. Please try again.'
+        'New password and confirmation do not match. Please try again.',
       );
     }
   }
