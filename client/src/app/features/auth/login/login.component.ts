@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
   }
 
   private buildForm() {
-    debugger;
     this.loginForm = this.formBuilder.group({
       username: [localStorage.getItem('username') || '', Validators.required],
       password: ['', Validators.required],
@@ -61,8 +60,6 @@ export class LoginComponent implements OnInit {
   }
 
   protected login() {
-    // Nullifying error messages
-    debugger;
     this.isUserNotFoundErrorVisible.set(false);
     this.isUserCredentialsNotValidErrorVisible.set(false);
 
@@ -70,7 +67,6 @@ export class LoginComponent implements OnInit {
       this.loginDto.UserName = this.loginForm.value.username;
       this.loginDto.Password = this.loginForm.value.password;
       this.isLoading.set(true);
-      debugger;
       this.authService.login(this.loginDto).subscribe({
         next: (response) => {
           if (response.IsSuccess) {

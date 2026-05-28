@@ -6,7 +6,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PhDialogService } from '../../services/ph-dialog.service';
 import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
 
-
 @Component({
   selector: 'ph-toolbar',
   templateUrl: './ph-toolbar.component.html',
@@ -74,8 +73,8 @@ export class PhToolbarComponent implements OnInit {
         onItemClick: async (e: MouseEvent) => {
           let result = await this.dialogService.confirmDialog(
             'Confirm Deactivation',
-            'Are you sure you want to deactivate this item? This action can be reversed?',
-            DialogTypeEnum.Warning
+            'Are you sure you want to proceed for deactivation? This action can be reversed.',
+            DialogTypeEnum.Warning,
           );
           if (result) {
             this.deactivate?.emit(e);
@@ -94,7 +93,7 @@ export class PhToolbarComponent implements OnInit {
           let result = await this.dialogService.confirmDialog(
             'Confirm Deletion',
             'Are you sure you want to permanently delete this item? This action cannot be undone.',
-            DialogTypeEnum.Danger
+            DialogTypeEnum.Danger,
           );
           if (result) {
             this.delete?.emit(e);
@@ -113,7 +112,7 @@ export class PhToolbarComponent implements OnInit {
           let result = await this.dialogService.confirmDialog(
             'Confirm Save',
             'Do you want to save the changes?',
-            DialogTypeEnum.Passive
+            DialogTypeEnum.Passive,
           );
           if (result) {
             this.save?.emit(e);

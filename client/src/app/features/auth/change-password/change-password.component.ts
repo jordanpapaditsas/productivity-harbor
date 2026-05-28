@@ -74,7 +74,6 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changePassword() {
-    debugger;
     if (
       this.changePasswordForm.valid &&
       this.changePasswordForm.value.newPassword ===

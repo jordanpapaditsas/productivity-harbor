@@ -40,10 +40,11 @@ export class HeaderComponent implements OnInit {
   private userService = inject(UserService);
 
   constructor() {
-    this.themeService.getWindowContentLoaded();
+    this.themeService.getCurrentTheme();
   }
 
   ngOnInit() {
+    debugger;
     this.theme.set(this.themeService.getCurrentTheme());
     this.user.set(this.authService.user());
   }
