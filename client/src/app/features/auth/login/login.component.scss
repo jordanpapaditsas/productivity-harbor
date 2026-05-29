@@ -81,7 +81,7 @@
   right: 0.5rem;
   top: 0.5rem;
   cursor: pointer;
-    color: var(--ph-loginButton);
+  color: var(--ph-loginButton);
 
 }
 
@@ -146,7 +146,19 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  top: -20px;
+  top: -30px;
+}
+
+::ng-deep .sign-up-button {
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ph-loginButton);
+
+  &:hover {
+  color: hsl(203, 82%, 22%);
+  }
 }
 
 @media screen and (max-width: 750px) {

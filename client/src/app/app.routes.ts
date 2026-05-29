@@ -11,14 +11,14 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () =>
       import('./features/auth/login/login.component').then(
-        (m) => m.LoginComponent
+        (m) => m.LoginComponent,
       ),
   },
   {
     path: 'admin-home',
     loadComponent: () =>
       import('./features/home/admin-home/admin-home.component').then(
-        (m) => m.AdminHomeComponent
+        (m) => m.AdminHomeComponent,
       ),
     canActivate: [AuthGuard],
   },
@@ -26,7 +26,7 @@ export const routes: Routes = [
     path: 'kanban',
     loadComponent: () =>
       import('./features/kanban/tasks-list/tasks-list.component').then(
-        (m) => m.TasksListComponent
+        (m) => m.TasksListComponent,
       ),
     canActivate: [AuthGuard],
   },
@@ -34,7 +34,7 @@ export const routes: Routes = [
     path: 'application-options',
     loadComponent: () =>
       import('./features/settings/app-options/app-options.component').then(
-        (m) => m.AppOptionsComponent
+        (m) => m.AppOptionsComponent,
       ),
     canActivate: [AuthGuard],
   },
@@ -42,7 +42,7 @@ export const routes: Routes = [
     path: 'users-list',
     loadComponent: () =>
       import('./features/user/users-list/users-list.component').then(
-        (m) => m.UsersListComponent
+        (m) => m.UsersListComponent,
       ),
     canActivate: [AuthGuard],
   },
@@ -50,7 +50,7 @@ export const routes: Routes = [
     path: 'user-edit/:id',
     loadComponent: () =>
       import('./features/user/user-edit/user-edit.component').then(
-        (m) => m.UserEditComponent
+        (m) => m.UserEditComponent,
       ),
     canActivate: [AuthGuard],
   },
@@ -58,7 +58,7 @@ export const routes: Routes = [
     path: 'social-media',
     loadComponent: () =>
       import('./features/settings/social-media/social-media.component').then(
-        (m) => m.SocialMediaComponent
+        (m) => m.SocialMediaComponent,
       ),
     canActivate: [AuthGuard],
   },

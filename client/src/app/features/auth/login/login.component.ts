@@ -13,11 +13,14 @@ import {
 } from '@angular/forms';
 import { FooterComponent } from '../../../layout/footer/footer.component';
 import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
+import { PhButtonComponent } from '../../../shared/components/ph-button/ph-button.component';
+import { ChangeFormType } from '../../../core/types/change-form-type';
+import { SignUpComponent } from '../sign-up/sign-up.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
   imports: [
     MatFormFieldModule,
     MatIconModule,
@@ -25,6 +28,8 @@ import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-te
     ReactiveFormsModule,
     FooterComponent,
     PhTextBoxComponent,
+    PhButtonComponent,
+    SignUpComponent,
   ],
 })
 export class LoginComponent implements OnInit {
@@ -42,7 +47,8 @@ export class LoginComponent implements OnInit {
   protected accountNotFound: string =
     'No account found with the provided username. Please verify your entry or create a new account.';
   protected isPasswordVisible = signal<boolean>(true);
-  protected changeType = signal<boolean>(true);
+  protected changePasswordType = signal<boolean>(true);
+  protected formType = signal<ChangeFormType>('login');
 
   constructor(private formBuilder: FormBuilder) {
     this.loginDto = new LoginDto();
@@ -95,6 +101,10 @@ export class LoginComponent implements OnInit {
 
   viewPassword() {
     this.isPasswordVisible.set(!this.isPasswordVisible());
-    this.changeType.set(!this.changeType());
+    this.changePasswordType.set(!this.changePasswordType());
+  }
+
+  onSignUpClick(type: ChangeFormType) {
+    this.formType.set(type);
   }
 }

@@ -3,91 +3,95 @@
     <div class="login-container">
       <div class="ph-form-box">
         <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
-          <div class="fields-container">
-            <img
-              class="ph-login-logo"
-              src="/assets/logos/productivity-harbor-logo.png"
-            />
-            <div class="ph-login-title">Login</div>
-            <div class="ph-username-container">
-              <ph-text-box
-                [tabIndex]="1"
-                [placeholder]="'Username'"
-                formControlName="username"
-                [autocomplete]="'username'"
-                [customCssClass]="[
-                  loginForm.get('username')?.invalid &&
-                  (loginForm.get('username')?.dirty ||
-                    loginForm.get('username')?.touched)
-                    ? 'ph-username-field invalid'
-                    : 'ph-username-field',
-                ]"
-              ></ph-text-box>
-            </div>
-            @if (
-              loginForm.get("username")?.invalid &&
-              (loginForm.get("username")?.dirty ||
-                loginForm.get("username")?.touched)
-            ) {
-              @if (loginForm.get("username")?.hasError("required")) {
-                <div class="field-required-container">
-                  <span class="field-required">*</span>Username is required!
-                </div>
-              }
-            }
-
-            <div class="ph-password-container">
-              <ph-text-box
-                [tabIndex]="2"
-                [placeholder]="'Password'"
-                formControlName="password"
-                [autocomplete]="'password'"
-                [type]="changeType() ? 'password' : 'text'"
-                [customCssClass]="[
-                  loginForm.get('password')?.invalid &&
-                  (loginForm.get('password')?.dirty ||
-                    loginForm.get('password')?.touched)
-                    ? 'ph-password-field invalid'
-                    : 'ph-password-field',
-                ]"
-              ></ph-text-box>
-
-              <span class="ph-password-eye-reveal" (click)="viewPassword()"
-                ><i
-                  [class]="
-                    isPasswordVisible() ? 'fa fa-eye' : 'fa fa-eye-slash'
-                  "
-                ></i
-              ></span>
-            </div>
-            @if (
-              loginForm.get("password")?.invalid &&
-              (loginForm.get("password")?.dirty ||
-                loginForm.get("password")?.touched)
-            ) {
-              @if (loginForm.get("password")?.hasError("required")) {
-                <div class="field-required-container">
-                  <span class="field-required">*</span
-                  ><span>Password is required!</span>
-                </div>
-              }
-            }
-            <div class="forgot-password-container">
-              <div class="remember-me-container">
-                <input class="remember-me-checkbox" type="checkbox" />
-                <span class="remember-me-text">Remember me</span>
+          @if (this.formType() === "login") {
+            <div class="fields-container">
+              <img
+                class="ph-login-logo"
+                src="/assets/logos/productivity-harbor-logo.png"
+              />
+              <div class="ph-login-title">Login</div>
+              <div class="ph-username-container">
+                <ph-text-box
+                  [tabIndex]="1"
+                  [placeholder]="'Username'"
+                  formControlName="username"
+                  [autocomplete]="'username'"
+                  [customCssClass]="[
+                    loginForm.get('username')?.invalid &&
+                    (loginForm.get('username')?.dirty ||
+                      loginForm.get('username')?.touched)
+                      ? 'ph-username-field invalid'
+                      : 'ph-username-field',
+                  ]"
+                ></ph-text-box>
               </div>
-              <a href="#" target="_blank">Forgot password?</a>
-            </div>
+              @if (
+                loginForm.get("username")?.invalid &&
+                (loginForm.get("username")?.dirty ||
+                  loginForm.get("username")?.touched)
+              ) {
+                @if (loginForm.get("username")?.hasError("required")) {
+                  <div class="field-required-container">
+                    <span class="field-required">*</span>Username is required!
+                  </div>
+                }
+              }
 
-            <button
-              class="ph-login-btn"
-              [disabled]="!loginForm.valid"
-              type="submit"
-            >
-              Login
-            </button>
-          </div>
+              <div class="ph-password-container">
+                <ph-text-box
+                  [tabIndex]="2"
+                  [placeholder]="'Password'"
+                  formControlName="password"
+                  [autocomplete]="'password'"
+                  [type]="changePasswordType() ? 'password' : 'text'"
+                  [customCssClass]="[
+                    loginForm.get('password')?.invalid &&
+                    (loginForm.get('password')?.dirty ||
+                      loginForm.get('password')?.touched)
+                      ? 'ph-password-field invalid'
+                      : 'ph-password-field',
+                  ]"
+                ></ph-text-box>
+
+                <span class="ph-password-eye-reveal" (click)="viewPassword()"
+                  ><i
+                    [class]="
+                      isPasswordVisible() ? 'fa fa-eye' : 'fa fa-eye-slash'
+                    "
+                  ></i
+                ></span>
+              </div>
+              @if (
+                loginForm.get("password")?.invalid &&
+                (loginForm.get("password")?.dirty ||
+                  loginForm.get("password")?.touched)
+              ) {
+                @if (loginForm.get("password")?.hasError("required")) {
+                  <div class="field-required-container">
+                    <span class="field-required">*</span
+                    ><span>Password is required!</span>
+                  </div>
+                }
+              }
+              <div class="forgot-password-container">
+                <div class="remember-me-container">
+                  <input class="remember-me-checkbox" type="checkbox" />
+                  <span class="remember-me-text">Remember me</span>
+                </div>
+                <a href="#" target="_blank">Forgot password?</a>
+              </div>
+
+              <button
+                class="ph-login-btn"
+                [disabled]="!loginForm.valid"
+                type="submit"
+              >
+                Login
+              </button>
+            </div>
+          } @else {
+            <app-sign-up></app-sign-up>
+          }
         </form>
         @if (isUserCredentialsNotValidErrorVisible()) {
           <div class="ph-error-message">
@@ -100,7 +104,22 @@
         }
       </div>
       <div class="sign-up-container">
-        <span>Don't have an account? <a href="#">Sign Up</a></span>
+        @if (formType() === "login") {
+          <span
+            >Don't have an account?
+            <ph-button
+              [text]="'Sign up'"
+              [customCssClass]="['sign-up-button']"
+              (btnClick)="onSignUpClick('signUp')"
+            ></ph-button
+          ></span>
+        } @else {
+          <ph-button
+            [text]="'Sign in'"
+            [customCssClass]="['sign-up-button']"
+            (btnClick)="onSignUpClick('login')"
+          ></ph-button>
+        }
       </div>
     </div>
     <app-footer [isLoginPage]="true"></app-footer>

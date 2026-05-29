@@ -1,4 +1,3 @@
-
 import { Component, Input, input, OnInit, output, signal } from '@angular/core';
 
 @Component({
@@ -14,13 +13,13 @@ export class PhButtonComponent implements OnInit {
   disabled = input<boolean>(false);
   @Input() customCssClass!: string[];
 
-  click = output<Event>();
+  btnClick = output<Event>();
 
   constructor() {}
 
   ngOnInit() {}
 
   onClick(e: Event) {
-    this.click.emit(e);
+    this.btnClick.emit(e);
   }
 }
