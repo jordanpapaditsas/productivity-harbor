@@ -37,9 +37,8 @@ export class AuthService {
   }
 
   login(login: LoginDto): Observable<ApiResponseDto> {
-    debugger;
     return this.http
-      .post<any>(this.serviceUrl + '/login', login, {
+      .post<ApiResponseDto>(this.serviceUrl + '/login', login, {
         headers: this.headers,
         context: new HttpContext().set(SHOW_TOASTR, false),
       })
@@ -64,18 +63,21 @@ export class AuthService {
     });
   }
 
-  createNewUser(userRegistrationCredentials: RegisterDto) {
+  createNewUser(
+    userRegistrationCredentials: RegisterDto,
+  ): Observable<ApiResponseDto> {
     return this.http
-      .post<RegisterDto>(
+      .post<ApiResponseDto>(
         this.serviceUrl + '/register',
         userRegistrationCredentials,
         {
           headers: this.headers,
+          context: new HttpContext().set(SHOW_TOASTR, false),
         },
       )
       .pipe(
         map((response) => {
-          console.log(response);
+          return response;
         }),
       );
   }

@@ -8,6 +8,7 @@ using ProductivityHarborApi.Core.Dto.User;
 using ProductivityHarborApi.Core.Models.User;
 using ProductivityHarborApi.Data;
 using ProductivityHarborApi.Services;
+using System.Linq;
 
 namespace ProductivityHarborApi.Controllers
 {
@@ -116,17 +117,38 @@ namespace ProductivityHarborApi.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
+            var apiResponse = new ApiResponseDto();
+
             if (dto == null)
             {
-                return BadRequest("User registration credentials cannot be empty.");
+                apiResponse.IsSuccess = false;
+                apiResponse.StatusCode = 400;
+                apiResponse.Message = "User registration credentials cannot be empty";
+
+                return BadRequest(apiResponse);
             }
 
             var userToCreate = _mapper.Map<User>(dto);
             var result = await _userManager.CreateAsync(userToCreate, dto.Password);
 
+            if (result.Succeeded)
+            {
+                apiResponse.IsSuccess = true;
+                apiResponse.StatusCode = 200;
+                apiResponse.Message = "Account was created successfully!";
+
+                return Ok(apiResponse);
+            }
+            else
+            {
+                apiResponse.IsSuccess = false;
+                apiResponse.StatusCode = 401;
+                apiResponse.Message = string.Join("; ", result.Errors.Select(e => e.Description));
+
+                return BadRequest(apiResponse);
+            }
 
 
-            return BadRequest();
         }
     }
 }

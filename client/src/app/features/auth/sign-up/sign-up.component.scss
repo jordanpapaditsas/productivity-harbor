@@ -73,8 +73,15 @@
   margin: 0 auto;
   cursor: pointer;
   transition: background 0.5s;
+
+  &:disabled {
+    background: rgb(163, 163, 163);
+    cursor: not-allowed;
+  }
 }
-.ph-signup-btn:hover, ::ng-deep.sign-in-button:hover {
+
+.ph-signup-btn:hover:not(:disabled),
+::ng-deep .sign-in-button:hover:not(:disabled) {
   background: rgba(4, 69, 112, 0.671);
 }
 

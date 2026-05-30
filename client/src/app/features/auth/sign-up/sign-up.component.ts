@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  computed,
   inject,
   OnInit,
   output,
@@ -17,11 +19,12 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { RegisterDto } from '../../../core/dtos/auth/register.dto';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css'],
+  styleUrls: ['./sign-up.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PhButtonComponent, PhTextBoxComponent, ReactiveFormsModule],
@@ -32,6 +35,8 @@ export class SignUpComponent implements OnInit {
   protected isPasswordVisible = signal<boolean>(true);
   protected changePasswordType = signal<boolean>(true);
   private readonly auth = inject(AuthService);
+  private readonly toastr = inject(ToastrService);
+  isSubmitting = signal<boolean>(false);
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -56,6 +61,7 @@ export class SignUpComponent implements OnInit {
 
   signup() {
     if (this.signupForm.valid) {
+      this.isSubmitting.set(true);
       const { username, password } = this.signupForm.value;
       const registerDto = new RegisterDto();
 
@@ -63,11 +69,16 @@ export class SignUpComponent implements OnInit {
       registerDto.Password = password;
 
       this.auth.createNewUser(registerDto).subscribe({
-        next: (value) => {},
-        error: (err) => {},
+        next: (value) => {
+          this.toastr.success(value.Message);
+          this.isSubmitting.set(false);
+          this.signupForm.reset();
+        },
+        error: (err) => {
+          this.toastr.error(err.error.Message);
+          this.isSubmitting.set(false);
+        },
       });
-    } else {
-      //
     }
   }
 }

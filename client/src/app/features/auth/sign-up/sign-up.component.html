@@ -61,7 +61,11 @@
       }
     }
 
-    <button class="ph-signup-btn" [disabled]="!signupForm.valid" type="submit">
+    <button
+      class="ph-signup-btn"
+      [disabled]="!signupForm.valid || isSubmitting()"
+      type="submit"
+    >
       Signup
     </button>
   </form>

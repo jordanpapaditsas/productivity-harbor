@@ -229,7 +229,7 @@
             @if (!isUserInEditMode()) {
               <div class="user-home-phone">{{ user.Phone!.Home }}</div>
             } @else {
-              @if (user?.Phone) {
+              @if (user.Phone) {
                 <ph-text-box [(value)]="user.Phone!.Home"></ph-text-box>
               }
             }
@@ -242,7 +242,7 @@
                 {{ user.Phone!.Mobile }}
               </div>
             } @else {
-              @if (user?.Phone) {
+              @if (user.Phone) {
                 <ph-text-box [(value)]="user.Phone!.Mobile"></ph-text-box>
               }
             }
@@ -253,7 +253,7 @@
             @if (!isUserInEditMode()) {
               <div class="user-work-phone">{{ user.Phone!.Work }}</div>
             } @else {
-              @if (user?.Phone) {
+              @if (user.Phone) {
                 <ph-text-box [(value)]="user.Phone!.Work"></ph-text-box>
               }
             }
@@ -273,7 +273,7 @@
             @if (!isUserInEditMode()) {
               <div class="user-city">{{ user.Address!.City }}</div>
             } @else {
-              @if (user?.Address) {
+              @if (user.Address) {
                 <ph-text-box [(value)]="user.Address!.City"></ph-text-box>
               }
             }
@@ -284,7 +284,7 @@
             @if (!isUserInEditMode()) {
               <div class="user-street">{{ user.Address!.Street }}</div>
             } @else {
-              @if (user?.Address) {
+              @if (user.Address) {
                 <ph-text-box [(value)]="user.Address!.Street"></ph-text-box>
               }
             }
@@ -295,7 +295,7 @@
             @if (!isUserInEditMode()) {
               <div class="user-zip">{{ user.Address!.Zip }}</div>
             } @else {
-              @if (user?.Address) {
+              @if (user.Address) {
                 <ph-text-box [(value)]="user.Address!.Zip"></ph-text-box>
               }
             }
