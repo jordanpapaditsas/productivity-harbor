@@ -1,0 +1,100 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.ph-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ph-signup-title {
+  font-size: 2rem;
+  font-weight: bold;
+  place-self: center;
+  margin-bottom: 1rem;
+  color: var(--ph-loginButton);
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.ph-login-logo {
+  object-fit: cover;
+  width: 250px;
+  height: 120px;
+}
+
+::ng-deep .ph-username-field, ::ng-deep .ph-password-field {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem var(--ph-deepShadow);
+  width: 100%;
+
+  &:focus-within {
+    outline: 0.2rem solid var(--ph-mainColor);
+  }
+}
+
+.ph-password-container, .ph-username-container {
+  position: relative;
+  width: 100%;
+}
+
+.ph-password-eye-reveal {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  cursor: pointer;
+  color: var(--ph-loginButton);
+
+}
+
+.ph-signup-btn, ::ng-deep .sign-in-button {
+  box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem var(--ph-deepShadow);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: var(--ph-loginButton);
+  color: white;
+  width: 100%;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+.ph-signup-btn:hover, ::ng-deep.sign-in-button:hover {
+  background: rgba(4, 69, 112, 0.671);
+}
+
+::ng-deep .invalid {
+  box-shadow: 0.1rem 0.1rem 0.3rem 0.2rem var(--ph-danger) !important;
+}
+
+.field-required {
+  color: var(--ph-danger);
+}
+.field-required-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 0.5rem;
+  position: relative;
+  color: var(--ph-danger);
+  /* bottom: 10px; */
+}
+
+.back-to-signin-btn-container {
+  margin-top: auto;
+  width: 100%;
+}

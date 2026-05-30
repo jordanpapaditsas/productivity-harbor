@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductivityHarborApi.Core.Dto.Auth;
@@ -15,12 +16,14 @@ namespace ProductivityHarborApi.Controllers
         private readonly ApplicationDbContext _context;
         private TokenProviderService _tokenProviderService;
         private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
-        public AccountController(ApplicationDbContext context, TokenProviderService tokenProviderService, UserManager<User> userManager) 
+        public AccountController(ApplicationDbContext context, TokenProviderService tokenProviderService, UserManager<User> userManager, IMapper mapper) 
         {
             _context = context;
             _tokenProviderService = tokenProviderService;
             _userManager = userManager;
+            _mapper = mapper;
         }
 
 
@@ -110,5 +113,20 @@ namespace ProductivityHarborApi.Controllers
             }
         }
 
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest("User registration credentials cannot be empty.");
+            }
+
+            var userToCreate = _mapper.Map<User>(dto);
+            var result = await _userManager.CreateAsync(userToCreate, dto.Password);
+
+
+
+            return BadRequest();
+        }
     }
 }

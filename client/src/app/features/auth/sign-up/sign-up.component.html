@@ -1,3 +1,76 @@
-<p>
-  sign-up works!
-</p>
+<div class="form-container">
+  <form class="ph-form" [formGroup]="signupForm" (ngSubmit)="signup()">
+    <img
+      class="ph-login-logo"
+      src="/assets/logos/productivity-harbor-logo.png"
+    />
+    <div class="ph-signup-title">Sign up</div>
+    <div class="ph-username-container">
+      <ph-text-box
+        [tabIndex]="1"
+        [placeholder]="'Username'"
+        formControlName="username"
+        [customCssClass]="[
+          signupForm.get('username')?.invalid &&
+          (signupForm.get('username')?.dirty ||
+            signupForm.get('username')?.touched)
+            ? 'ph-username-field invalid'
+            : 'ph-username-field',
+        ]"
+      ></ph-text-box>
+    </div>
+    @if (
+      signupForm.get("username")?.invalid &&
+      (signupForm.get("username")?.dirty || signupForm.get("username")?.touched)
+    ) {
+      @if (signupForm.get("username")?.hasError("required")) {
+        <div class="field-required-container">
+          <span class="field-required">*</span>Username is required!
+        </div>
+      }
+    }
+
+    <div class="ph-password-container">
+      <ph-text-box
+        [tabIndex]="2"
+        [placeholder]="'Password'"
+        formControlName="password"
+        [type]="changePasswordType() ? 'password' : 'text'"
+        [customCssClass]="[
+          signupForm.get('password')?.invalid &&
+          (signupForm.get('password')?.dirty ||
+            signupForm.get('password')?.touched)
+            ? 'ph-password-field invalid'
+            : 'ph-password-field',
+        ]"
+      ></ph-text-box>
+
+      <span class="ph-password-eye-reveal" (click)="viewPassword()"
+        ><i [class]="isPasswordVisible() ? 'fa fa-eye' : 'fa fa-eye-slash'"></i
+      ></span>
+    </div>
+    @if (
+      signupForm.get("password")?.invalid &&
+      (signupForm.get("password")?.dirty || signupForm.get("password")?.touched)
+    ) {
+      @if (signupForm.get("password")?.hasError("required")) {
+        <div class="field-required-container">
+          <span class="field-required">*</span
+          ><span>Password is required!</span>
+        </div>
+      }
+    }
+
+    <button class="ph-signup-btn" [disabled]="!signupForm.valid" type="submit">
+      Signup
+    </button>
+  </form>
+
+  <div class="back-to-signin-btn-container">
+    <ph-button
+      [text]="'Back to login'"
+      [customCssClass]="['sign-in-button']"
+      (btnClick)="onChangeFormTypeClick('login')"
+    ></ph-button>
+  </div>
+</div>

@@ -107,4 +107,12 @@ export class LoginComponent implements OnInit {
   onSignUpClick(type: ChangeFormType) {
     this.formType.set(type);
   }
+
+  changedFormType(type: ChangeFormType) {
+    this.formType.set(type);
+  }
+
+  onGuestSignIn() {
+    // this.auth.logInAsAGuest();
+  }
 }

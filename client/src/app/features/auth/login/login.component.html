@@ -4,7 +4,7 @@
       <div class="ph-form-box">
         <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
           @if (this.formType() === "login") {
-            <div class="fields-container">
+            <div animate.enter="enter-animation" class="fields-container">
               <img
                 class="ph-login-logo"
                 src="/assets/logos/productivity-harbor-logo.png"
@@ -78,7 +78,7 @@
                   <input class="remember-me-checkbox" type="checkbox" />
                   <span class="remember-me-text">Remember me</span>
                 </div>
-                <a href="#" target="_blank">Forgot password?</a>
+                <a href="#">Forgot password?</a>
               </div>
 
               <button
@@ -90,18 +90,22 @@
               </button>
             </div>
           } @else {
-            <app-sign-up></app-sign-up>
+            <app-sign-up
+              (changeFormType)="changedFormType($event)"
+              animate.enter="enter-animation"
+            ></app-sign-up>
+          }
+
+          @if (isUserCredentialsNotValidErrorVisible()) {
+            <div class="ph-error-message">
+              {{ incorrectCredentialsMessage }}
+            </div>
+          } @else if (isUserNotFoundErrorVisible()) {
+            <div class="ph-error-message">
+              {{ accountNotFound }}
+            </div>
           }
         </form>
-        @if (isUserCredentialsNotValidErrorVisible()) {
-          <div class="ph-error-message">
-            {{ incorrectCredentialsMessage }}
-          </div>
-        } @else if (isUserNotFoundErrorVisible()) {
-          <div class="ph-error-message">
-            {{ accountNotFound }}
-          </div>
-        }
       </div>
       <div class="sign-up-container">
         @if (formType() === "login") {
@@ -113,20 +117,23 @@
               (btnClick)="onSignUpClick('signUp')"
             ></ph-button
           ></span>
-        } @else {
-          <ph-button
-            [text]="'Sign in'"
-            [customCssClass]="['sign-up-button']"
-            (btnClick)="onSignUpClick('login')"
-          ></ph-button>
+
+          <span
+            >or login as a
+            <ph-button
+              [text]="'Guest'"
+              [customCssClass]="['sign-up-button']"
+              (btnClick)="onGuestSignIn()"
+            ></ph-button
+          ></span>
         }
       </div>
     </div>
     <app-footer [isLoginPage]="true"></app-footer>
   </div>
 } @else {
-  <div class="login-container">
-    <div class="ph-form">
+  <div class="loading-spinner">
+    <div class="loading-spinner-inner">
       <ph-loading-spinner></ph-loading-spinner>
     </div>
   </div>

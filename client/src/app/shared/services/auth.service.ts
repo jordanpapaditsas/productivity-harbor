@@ -7,6 +7,7 @@ import { UserDto } from '../../core/dtos/user/user.dto';
 import { ApiResponseDto } from '../../core/dtos/shared/api-response.dto';
 import { ChangePasswordDto } from '../../core/dtos/auth/change-password.dto';
 import { SHOW_TOASTR } from '../../core/interceptors/server-error.interceptor';
+import { RegisterDto } from '../../core/dtos/auth/register.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,7 @@ export class AuthService {
   }
 
   login(login: LoginDto): Observable<ApiResponseDto> {
+    debugger;
     return this.http
       .post<any>(this.serviceUrl + '/login', login, {
         headers: this.headers,
@@ -51,6 +53,29 @@ export class AuthService {
           }
 
           return response;
+        }),
+      );
+  }
+
+  loginAsAGuest() {
+    return this.http.post(this.serviceUrl + '/loginAsAGuest', {
+      headers: this.headers,
+      context: new HttpContext().set(SHOW_TOASTR, false),
+    });
+  }
+
+  createNewUser(userRegistrationCredentials: RegisterDto) {
+    return this.http
+      .post<RegisterDto>(
+        this.serviceUrl + '/register',
+        userRegistrationCredentials,
+        {
+          headers: this.headers,
+        },
+      )
+      .pipe(
+        map((response) => {
+          console.log(response);
         }),
       );
   }
