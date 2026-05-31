@@ -1,9 +1,9 @@
 # Productivity Harbor
 
-Productivity Harbor is a full-stack CRM / productivity web application built for personal use.
+Productivity Harbor is a full-stack business operations platform boosting productivity built for personal use.
 It combines user management, authentication and authorization, and a set of productivity tools
 behind a single dashboard. A super admin can drive a lot of the application's data dynamically
-through the built-in settings/parameters area, so the app can grow without code changes for every
+through the built-in settings area, so the app can grow without code changes for every
 new option.
 
 The project is a monorepo with two parts:
