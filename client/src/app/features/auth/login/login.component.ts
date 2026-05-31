@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
   }
 
   protected login() {
+    debugger;
     this.isUserNotFoundErrorVisible.set(false);
     this.isUserCredentialsNotValidErrorVisible.set(false);
 
@@ -105,10 +106,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSignUpClick(type: ChangeFormType) {
+    debugger;
     this.formType.set(type);
   }
 
   changedFormType(type: ChangeFormType) {
+    debugger;
     this.formType.set(type);
   }
 

@@ -42,6 +42,7 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.signupForm.reset();
   }
 
   private buildForm() {
@@ -56,6 +57,7 @@ export class SignUpComponent implements OnInit {
   }
 
   onChangeFormTypeClick(type: ChangeFormType) {
+    debugger;
     this.changeFormType.emit(type);
   }
 

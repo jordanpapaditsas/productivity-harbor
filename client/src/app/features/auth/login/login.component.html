@@ -2,8 +2,8 @@
   <div class="main-container">
     <div class="login-container">
       <div class="ph-form-box">
-        <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
-          @if (this.formType() === "login") {
+        @if (this.formType() === "login") {
+          <form class="ph-form" [formGroup]="loginForm" (ngSubmit)="login()">
             <div animate.enter="enter-animation" class="fields-container">
               <img
                 class="ph-login-logo"
@@ -89,23 +89,23 @@
                 Login
               </button>
             </div>
-          } @else {
-            <app-sign-up
-              (changeFormType)="changedFormType($event)"
-              animate.enter="enter-animation"
-            ></app-sign-up>
-          }
 
-          @if (isUserCredentialsNotValidErrorVisible()) {
-            <div class="ph-error-message">
-              {{ incorrectCredentialsMessage }}
-            </div>
-          } @else if (isUserNotFoundErrorVisible()) {
-            <div class="ph-error-message">
-              {{ accountNotFound }}
-            </div>
-          }
-        </form>
+            @if (isUserCredentialsNotValidErrorVisible()) {
+              <div class="ph-error-message">
+                {{ incorrectCredentialsMessage }}
+              </div>
+            } @else if (isUserNotFoundErrorVisible()) {
+              <div class="ph-error-message">
+                {{ accountNotFound }}
+              </div>
+            }
+          </form>
+        } @else {
+          <app-sign-up
+            (changeFormType)="changedFormType($event)"
+            animate.enter="enter-animation"
+          ></app-sign-up>
+        }
       </div>
       <div class="sign-up-container">
         @if (formType() === "login") {
