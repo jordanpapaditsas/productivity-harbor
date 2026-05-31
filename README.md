@@ -21,7 +21,7 @@ The project is a monorepo with two parts:
 - Entity Framework Core 10 (code-first, with migrations)
 - SQL Server
 - ASP.NET Core Identity for users, roles and account management
-- JWT-based authentication (custom `TokenProviderService`)
+- JWT-based authentication
 
 **Frontend**
 
@@ -63,6 +63,7 @@ Ideas that are planned but not built yet (this list will keep growing):
 
 - YouTube simple converter
 - Personal notes section (per user)
+- Custom Calendars
 - Expanded client / employee management
 - Additional productivity tools (to be decided)
 
