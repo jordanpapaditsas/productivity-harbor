@@ -78,7 +78,7 @@ Make sure you have the following installed before you start:
   ```bash
   dotnet tool install --global dotnet-ef
   ```
-- (Optional) Angular CLI, if you prefer the `ng` command directly:
+- Angular CLI, if you prefer the `ng` command directly:
   ```bash
   npm install -g @angular/cli
   ```
