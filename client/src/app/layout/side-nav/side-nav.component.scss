@@ -38,13 +38,26 @@
   color: var(--ph-icon) !important;
 }
 
-.menu-icon:hover {
-  color: var(--ph-icon);
-}
 .menu-item:hover, .subMenu-item:hover {
-  background: var(--ph-shadow);
+  background: linear-gradient( to right, hsl(204, 81%, 65%), hsl(199, 59%, 43%), hsl(204, 75%, 34%));
+
+  .menu-icon {
+    color: hsl(000, 100%, 100%) !important;
+  }
+
+  .item-label {
+    color: hsl(000, 100%, 100%) !important;
+ }
 }
 .menu-item:focus, .subMenu-item:focus {
-  background: var(--ph-shadow);
+  background: linear-gradient( to right, hsl(204, 81%, 65%), hsl(199, 59%, 43%), hsl(204, 75%, 34%));
+
+  .menu-icon {
+    color: hsl(000, 100%, 100%) !important;
+  }
+
+  .item-label {
+    color: hsl(000, 100%, 100%) !important;
+ }
 }
 
