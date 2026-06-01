@@ -1,21 +1,14 @@
-import { Component, computed, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PhHamburgerButtonComponent } from '../../shared/components/ph-hamburger-button/ph-hamburger-button.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { HeaderComponent } from '../header/header.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MenuItem } from '../../core/interfaces/menu-item';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 
@@ -36,31 +29,6 @@ import { CommonModule } from '@angular/common';
     MatTooltipModule,
     CommonModule,
   ],
-  animations: [
-    trigger('smoothExpandCollapse', [
-      state('expanded', style({ transform: 'translateX(0)', width: '16rem' })),
-      state(
-        'collapsed',
-        style({ transform: 'translateX(-10%)', width: '4rem' }),
-      ),
-      transition('expanded <=> collapsed', [animate('300ms ease-in-out')]),
-    ]),
-    trigger('sidenavAnimation', [
-      transition(':enter', [
-        style({ transform: 'translateX(-100%)' }),
-        animate('1s ease-in-out', style({ transform: 'translateX(0)' })),
-      ]),
-    ]),
-    trigger('expandSubMenu', [
-      transition(':enter', [
-        style({ opacity: 0, height: '0px' }),
-        animate('300ms ease-in-out', style({ opacity: 1, height: '*' })),
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ opacity: 0, height: '0px' })),
-      ]),
-    ]),
-  ],
 })
 export class SideNavComponent implements OnInit {
   mode: MatDrawerMode = 'side';
@@ -68,18 +36,8 @@ export class SideNavComponent implements OnInit {
   menuItems = signal<MenuItem[]>([]);
   subMenuStates = signal<Record<string, boolean>>({});
   isSideNavCollapsed = signal<boolean>(false);
-  sidenavAnimationState = signal<string>('expanded');
 
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private router: Router,
-  ) {
-    // this.breakpointObserver
-    //   .observe([Breakpoints.Handset])
-    //   .subscribe((result) => {
-    //     this.mode = result.matches ? 'over' : 'side';
-    //   });
-  }
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.initializeMenuItems();
@@ -152,8 +110,5 @@ export class SideNavComponent implements OnInit {
 
   onSideNavToggle() {
     this.isSideNavCollapsed.set(!this.isSideNavCollapsed());
-    this.sidenavAnimationState.set(
-      this.isSideNavCollapsed() ? 'collapsed' : 'expanded',
-    );
   }
 }

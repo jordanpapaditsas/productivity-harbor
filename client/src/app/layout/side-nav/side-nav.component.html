@@ -14,61 +14,66 @@
     [opened]="true"
     [class.collapsed]="isSideNavCollapsed()"
     class="ph-sidenav"
-    @sidenavAnimation
-    [@smoothExpandCollapse]="sidenavAnimationState()"
+    animate.enter="ph-sidenav-enter"
   >
     <mat-nav-list>
       @for (item of menuItems(); track item.label) {
-      <a
-        mat-list-item
-        class="menu-item"
-        [routerLink]="item.route"
-        (click)="onMenuItemClick(item)"
-      >
-        <mat-icon class="menu-icon" [matTooltip]="item.label" matListItemIcon>{{
-          item.icon
-        }}</mat-icon>
-        <span class="item-label" matListItemTitle>{{ item.label }}</span>
-
-        @if (item.subItems) {
-        <span matListItemMeta>
-          @if (isSubMenuOpen(item.label)) {
-          <mat-icon class="menu-icon">expand_more</mat-icon>
-          } @else {
-          <mat-icon class="menu-icon">chevron_right</mat-icon>
-          }
-        </span>
-        }
-      </a>
-
-      @if (item.subItems && isSubMenuOpen(item.label)) {
-      <div @expandSubMenu>
-        @for (subItem of item.subItems; track subItem.label) {
         <a
           mat-list-item
-          class="subMenu-item add-small-space-from-the-left"
-          [routerLink]="item.route + '/' + subItem.route"
-          (click)="onSubMenuItemClick(subItem)"
+          class="menu-item"
+          [routerLink]="item.route"
+          (click)="onMenuItemClick(item)"
         >
           <mat-icon
             class="menu-icon"
-            [matTooltip]="subItem.label"
+            [matTooltip]="item.label"
             matListItemIcon
-            >{{ subItem.icon }}</mat-icon
+            >{{ item.icon }}</mat-icon
           >
-          <span class="item-label" matListItemTitle>{{ subItem.label }}</span>
+          <span class="item-label" matListItemTitle>{{ item.label }}</span>
+
+          @if (item.subItems) {
+            <span matListItemMeta>
+              @if (isSubMenuOpen(item.label)) {
+                <mat-icon class="menu-icon">expand_more</mat-icon>
+              } @else {
+                <mat-icon class="menu-icon">chevron_right</mat-icon>
+              }
+            </span>
+          }
         </a>
+
+        @if (item.subItems && isSubMenuOpen(item.label)) {
+          <div animate.enter="submenu-enter" animate.leave="submenu-leave">
+            @for (subItem of item.subItems; track subItem.label) {
+              <a
+                mat-list-item
+                class="subMenu-item add-small-space-from-the-left"
+                [routerLink]="item.route + '/' + subItem.route"
+                (click)="onSubMenuItemClick(subItem)"
+              >
+                <mat-icon
+                  class="menu-icon"
+                  [matTooltip]="subItem.label"
+                  matListItemIcon
+                  >{{ subItem.icon }}</mat-icon
+                >
+                <span class="item-label" matListItemTitle>{{
+                  subItem.label
+                }}</span>
+              </a>
+            }
+          </div>
         }
-      </div>
-      } }
+      }
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content
     [ngStyle]="{
-      marginLeft: isSideNavCollapsed() ? '4rem' : '16rem',
+      marginLeft: isSideNavCollapsed() ? '3rem' : '16rem',
       background: 'var(--ph-background1)',
-      boxShadow: '0.1rem 0.5rem 0.5rem var(--ph-shadow)'
+      boxShadow: '0.1rem 0.5rem 0.5rem var(--ph-shadow)',
     }"
   >
     <ng-content></ng-content>
