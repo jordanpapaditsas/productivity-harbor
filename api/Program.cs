@@ -1,7 +1,10 @@
 using System.Text.Json.Serialization;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ProductivityHarborApi.Core.Dto.Auth;
 using ProductivityHarborApi.Core.Models.User;
+using ProductivityHarborApi.Core.Utils.CustomValidators;
 using ProductivityHarborApi.Data;
 using ProductivityHarborApi.Services;
 
@@ -30,6 +33,7 @@ builder.Services.AddIdentityApiEndpoints<User>(options => options.SignIn.Require
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<ApplicationDbSeed>();
+builder.Services.AddScoped<IValidator<RegisterDto>, PasswordValidator>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

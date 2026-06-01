@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,8 @@ using ProductivityHarborApi.Core.Dto.Auth;
 using ProductivityHarborApi.Core.Dto.Shared;
 using ProductivityHarborApi.Core.Dto.User;
 using ProductivityHarborApi.Core.Models.User;
+using ProductivityHarborApi.Core.utils;
+using ProductivityHarborApi.Core.Utils.CustomValidators;
 using ProductivityHarborApi.Data;
 using ProductivityHarborApi.Services;
 using System.Linq;
@@ -128,8 +131,25 @@ namespace ProductivityHarborApi.Controllers
                 return BadRequest(apiResponse);
             }
 
+            var passwordValidator = new PasswordValidator();
+            var validationResults = passwordValidator.Validate(dto);
+
+            if (!validationResults.IsValid)
+            {
+                foreach (var failure in validationResults.Errors)
+                { 
+                    apiResponse.Messages.Add(failure.ErrorMessage); 
+                }
+
+                apiResponse.IsSuccess = false;
+                apiResponse.StatusCode = 401;
+                return BadRequest(apiResponse);
+            }
+
             var userToCreate = _mapper.Map<User>(dto);
             var result = await _userManager.CreateAsync(userToCreate, dto.Password);
+            var userToFetch = await _userManager.FindByIdAsync(userToCreate.Id.ToString());
+            var addUserToRole = await _userManager.AddToRoleAsync(userToFetch, AppStaticData.Roles.UserRoleName);
 
             if (result.Succeeded)
             {
@@ -139,6 +159,7 @@ namespace ProductivityHarborApi.Controllers
 
                 return Ok(apiResponse);
             }
+
             else
             {
                 apiResponse.IsSuccess = false;

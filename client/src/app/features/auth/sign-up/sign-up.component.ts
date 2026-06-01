@@ -76,8 +76,13 @@ export class SignUpComponent implements OnInit {
           this.isSubmitting.set(false);
           this.signupForm.reset();
         },
-        error: (err) => {
-          this.toastr.error(err.error.Message);
+        error: (ex) => {
+          debugger;
+          if (ex.error && ex.error.Messages.length > 0) {
+            ex.error.Messages.forEach((message: string) => {
+              this.toastr.error(message);
+            });
+          }
           this.isSubmitting.set(false);
         },
       });
