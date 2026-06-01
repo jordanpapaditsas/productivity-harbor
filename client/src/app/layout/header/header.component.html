@@ -17,14 +17,24 @@
   </div>
   <div class="right-side-header">
     <button
-      mat-button
+      mat-icon-button
       class="theme-switcher"
       (click)="onThemeSwitcherClicked()"
     >
       @if (this.theme() === "light") {
-        <mat-icon @switchTheme>brightness_high</mat-icon>
+        <mat-icon
+          matTooltip="Switch to dark theme"
+          animate.enter="fade-in"
+          animate.leave="fade-out"
+          >brightness_high</mat-icon
+        >
       } @else {
-        <mat-icon @switchTheme>brightness_2</mat-icon>
+        <mat-icon
+          matTooltip="Switch to light theme"
+          animate.enter="fade-in"
+          animate.leave="fade-out"
+          >brightness_2</mat-icon
+        >
       }
     </button>
 

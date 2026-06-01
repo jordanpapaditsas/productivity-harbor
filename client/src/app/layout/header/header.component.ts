@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PhPopupComponent } from '../../shared/components/ph-popup/ph-popup.component';
 import { UserEditComponent } from '../../features/pages/user/user-edit/user-edit.component';
 import { UserService } from '../../features/pages/user/user.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-header',
@@ -20,14 +21,7 @@ import { UserService } from '../../features/pages/user/user.service';
     MatMenuModule,
     PhPopupComponent,
     UserEditComponent,
-  ],
-  animations: [
-    trigger('switchTheme', [
-      transition(':enter', [
-        style({ opacity: 0, height: '0px' }),
-        animate('600ms ease-in-out', style({ opacity: 1, height: '*' })),
-      ]),
-    ]),
+    MatTooltipModule,
   ],
 })
 export class HeaderComponent implements OnInit {
@@ -43,7 +37,6 @@ export class HeaderComponent implements OnInit {
   private userService = inject(UserService);
 
   constructor() {
-    debugger;
     this.themeService.getCurrentTheme();
   }
 

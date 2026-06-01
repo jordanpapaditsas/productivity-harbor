@@ -19,13 +19,6 @@
   align-items: center;
 }
 
-.theme-switcher {
-  background: none;
-  border: none;
-  color: var(--ph-theme-switcher);
-  cursor: pointer;
-}
-
 .user-avatar {
   width: 50px;
   height: 50px;
@@ -46,4 +39,48 @@
 
 .ph-header-username {
   font-size: var(--ph-fontSize-small);
+}
+
+.theme-switcher {
+  background: none;
+  border: none;
+  color: var(--ph-theme-switcher);
+  cursor: pointer;
+
+  display: inline-grid;
+  place-items: center;
+}
+
+.theme-switcher mat-icon {
+  grid-area: 1 / 1;
+}
+
+.fade-in {
+  animation: slide-fade-in 600ms ease-in-out forwards;
+}
+
+.fade-out {
+  animation: slide-fade-out 600ms ease-in-out forwards;
+}
+
+@keyframes slide-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(15px);
+  }
 }
