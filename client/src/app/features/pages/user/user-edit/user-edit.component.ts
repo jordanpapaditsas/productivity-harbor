@@ -12,23 +12,23 @@ import {
 } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../user.service';
-import { UserDto } from '../../../core/dtos/user/user.dto';
-import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
-import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
+import { UserDto } from '../../../../core/dtos/user/user.dto';
+import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
+import { PhContainerComponent } from '../../../../shared/components/ph-container/ph-container.component';
 import { MatIconModule } from '@angular/material/icon';
 
-import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
+import { PhTextBoxComponent } from '../../../../shared/components/ph-text-box/ph-text-box.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatLabel } from '@angular/material/input';
-import { SocialMediaDto } from '../../../core/dtos/shared/social-media.dto';
+import { SocialMediaDto } from '../../../../core/dtos/shared/social-media.dto';
 import { MatSelectModule } from '@angular/material/select';
 import { SocialMediaService } from '../../settings/social-media/social-media.service';
-import { UserSocialMediaMapDto } from '../../../core/dtos/relations/user-social-media-map.dto';
+import { UserSocialMediaMapDto } from '../../../../core/dtos/relations/user-social-media-map.dto';
 import { ToastrService } from 'ngx-toastr';
-import { PhPopupComponent } from '../../../shared/components/ph-popup/ph-popup.component';
+import { PhPopupComponent } from '../../../../shared/components/ph-popup/ph-popup.component';
 import { ChangePasswordComponent } from '../../auth/change-password/change-password.component';
-import { PhButtonComponent } from '../../../shared/components/ph-button/ph-button.component';
+import { PhButtonComponent } from '../../../../shared/components/ph-button/ph-button.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -45,8 +45,8 @@ import { PhButtonComponent } from '../../../shared/components/ph-button/ph-butto
     MatSelectModule,
     PhPopupComponent,
     ChangePasswordComponent,
-    PhButtonComponent
-],
+    PhButtonComponent,
+  ],
 })
 export class UserEditComponent implements OnInit {
   fileInput = viewChild<ElementRef>('fileInput');

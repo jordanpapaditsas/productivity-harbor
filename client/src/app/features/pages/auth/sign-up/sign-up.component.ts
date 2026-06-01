@@ -8,17 +8,17 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { PhButtonComponent } from '../../../shared/components/ph-button/ph-button.component';
-import { ChangeFormType } from '../../../core/types/change-form-type';
-import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
+import { PhButtonComponent } from '../../../../shared/components/ph-button/ph-button.component';
+import { ChangeFormType } from '../../../../core/types/change-form-type';
+import { PhTextBoxComponent } from '../../../../shared/components/ph-text-box/ph-text-box.component';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../../shared/services/auth.service';
-import { RegisterDto } from '../../../core/dtos/auth/register.dto';
+import { AuthService } from '../../../../shared/services/auth.service';
+import { RegisterDto } from '../../../../core/dtos/auth/register.dto';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -57,7 +57,6 @@ export class SignUpComponent implements OnInit {
   }
 
   onChangeFormTypeClick(type: ChangeFormType) {
-    debugger;
     this.changeFormType.emit(type);
   }
 
@@ -77,7 +76,6 @@ export class SignUpComponent implements OnInit {
           this.signupForm.reset();
         },
         error: (ex) => {
-          debugger;
           if (ex.error && ex.error.Messages.length > 0) {
             ex.error.Messages.forEach((message: string) => {
               this.toastr.error(message);

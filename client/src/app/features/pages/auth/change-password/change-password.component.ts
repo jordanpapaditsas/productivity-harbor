@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../../user/user.service';
-import { UserDto } from '../../../core/dtos/user/user.dto';
+import { UserDto } from '../../../../core/dtos/user/user.dto';
 import { MatLabel } from '@angular/material/input';
 import {
   FormBuilder,
@@ -16,12 +16,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ChangePasswordDto } from '../../../core/dtos/auth/change-password.dto';
-import { AuthService } from '../../../shared/services/auth.service';
+import { ChangePasswordDto } from '../../../../core/dtos/auth/change-password.dto';
+import { AuthService } from '../../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
-import { PhButtonComponent } from '../../../shared/components/ph-button/ph-button.component';
-import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
+import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
+import { PhButtonComponent } from '../../../../shared/components/ph-button/ph-button.component';
+import { PhTextBoxComponent } from '../../../../shared/components/ph-text-box/ph-text-box.component';
 
 @Component({
   selector: 'app-change-password',

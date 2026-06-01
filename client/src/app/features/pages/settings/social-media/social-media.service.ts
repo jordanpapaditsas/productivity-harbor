@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AppSettingsService } from '../../../shared/services/app-settings.service';
-import { AuthService } from '../../../shared/services/auth.service';
-import { SocialMediaDto } from '../../../core/dtos/shared/social-media.dto';
+import { AppSettingsService } from '../../../../shared/services/app-settings.service';
+import { AuthService } from '../../../../shared/services/auth.service';
+import { SocialMediaDto } from '../../../../core/dtos/shared/social-media.dto';
 import { Guid } from 'guid-typescript';
 
 @Injectable({

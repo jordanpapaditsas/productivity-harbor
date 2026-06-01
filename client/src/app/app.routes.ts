@@ -10,14 +10,14 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () =>
-      import('./features/auth/login/login.component').then(
+      import('./features/pages/auth/login/login.component').then(
         (m) => m.LoginComponent,
       ),
   },
   {
     path: 'admin-home',
     loadComponent: () =>
-      import('./features/home/admin-home/admin-home.component').then(
+      import('./features/pages/home/admin-home/admin-home.component').then(
         (m) => m.AdminHomeComponent,
       ),
     canActivate: [AuthGuard],
@@ -25,7 +25,7 @@ export const routes: Routes = [
   {
     path: 'kanban',
     loadComponent: () =>
-      import('./features/kanban/tasks-list/tasks-list.component').then(
+      import('./features/pages/kanban/tasks-list/tasks-list.component').then(
         (m) => m.TasksListComponent,
       ),
     canActivate: [AuthGuard],
@@ -33,7 +33,7 @@ export const routes: Routes = [
   {
     path: 'application-options',
     loadComponent: () =>
-      import('./features/settings/app-options/app-options.component').then(
+      import('./features/pages/settings/app-options/app-options.component').then(
         (m) => m.AppOptionsComponent,
       ),
     canActivate: [AuthGuard],
@@ -41,7 +41,7 @@ export const routes: Routes = [
   {
     path: 'users-list',
     loadComponent: () =>
-      import('./features/user/users-list/users-list.component').then(
+      import('./features/pages/user/users-list/users-list.component').then(
         (m) => m.UsersListComponent,
       ),
     canActivate: [AuthGuard],
@@ -49,7 +49,7 @@ export const routes: Routes = [
   {
     path: 'user-edit/:id',
     loadComponent: () =>
-      import('./features/user/user-edit/user-edit.component').then(
+      import('./features/pages/user/user-edit/user-edit.component').then(
         (m) => m.UserEditComponent,
       ),
     canActivate: [AuthGuard],
@@ -57,7 +57,7 @@ export const routes: Routes = [
   {
     path: 'social-media',
     loadComponent: () =>
-      import('./features/settings/social-media/social-media.component').then(
+      import('./features/pages/settings/social-media/social-media.component').then(
         (m) => m.SocialMediaComponent,
       ),
     canActivate: [AuthGuard],

@@ -1,9 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
-import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
-import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
-import { SocialMediaDto } from '../../../core/dtos/shared/social-media.dto';
-import { Column } from '../../../core/interfaces/column';
+import { PhContainerComponent } from '../../../../shared/components/ph-container/ph-container.component';
+import { PhDataGridComponent } from '../../../../shared/components/ph-data-grid/ph-data-grid.component';
+import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
+import { SocialMediaDto } from '../../../../core/dtos/shared/social-media.dto';
+import { Column } from '../../../../core/interfaces/column';
 import { SocialMediaService } from './social-media.service';
 
 @Component({

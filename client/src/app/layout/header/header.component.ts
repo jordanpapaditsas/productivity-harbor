@@ -7,8 +7,8 @@ import { AuthService } from '../../shared/services/auth.service';
 import { UserDto } from '../../core/dtos/user/user.dto';
 import { MatMenuModule } from '@angular/material/menu';
 import { PhPopupComponent } from '../../shared/components/ph-popup/ph-popup.component';
-import { UserEditComponent } from '../../features/user/user-edit/user-edit.component';
-import { UserService } from '../../features/user/user.service';
+import { UserEditComponent } from '../../features/pages/user/user-edit/user-edit.component';
+import { UserService } from '../../features/pages/user/user.service';
 
 @Component({
   selector: 'app-header',
@@ -34,16 +34,21 @@ export class HeaderComponent implements OnInit {
   protected theme = signal<string>('');
   protected user = signal<UserDto | undefined>(undefined);
   protected isUserEditPopupVisible = signal<boolean>(false);
+  protected readonly avatarPlaceholder = signal<string>(
+    '/assets/images/user-avatar-placeholder.jpg',
+  );
 
   private themeService = inject(ThemeService);
   private authService = inject(AuthService);
   private userService = inject(UserService);
 
   constructor() {
+    debugger;
     this.themeService.getCurrentTheme();
   }
 
   ngOnInit() {
+    debugger;
     this.theme.set(this.themeService.getCurrentTheme());
     this.user.set(this.authService.user());
   }

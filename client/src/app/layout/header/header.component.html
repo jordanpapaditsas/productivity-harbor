@@ -4,14 +4,14 @@
       <ng-content></ng-content>
     </div>
     <div class="logo-container">
-      @if(this.theme() === 'light') {
-      <img src="/assets/logos/productivity-harbor-logo.png" alt="App Logo" />
-      } @else if(this.theme() === 'dark') {
-      <img
-        class="ph-app-logo"
-        src="/assets/logos/productivity-harbor-logo-white-transparent.png"
-        alt="App Logo"
-      />
+      @if (this.theme() === "light") {
+        <img src="/assets/logos/productivity-harbor-logo.png" alt="App Logo" />
+      } @else if (this.theme() === "dark") {
+        <img
+          class="ph-app-logo"
+          src="/assets/logos/productivity-harbor-logo-white-transparent.png"
+          alt="App Logo"
+        />
       }
     </div>
   </div>
@@ -21,17 +21,24 @@
       class="theme-switcher"
       (click)="onThemeSwitcherClicked()"
     >
-      @if (this.theme() === 'light') {
-      <mat-icon @switchTheme>brightness_high</mat-icon>
+      @if (this.theme() === "light") {
+        <mat-icon @switchTheme>brightness_high</mat-icon>
       } @else {
-
-      <mat-icon @switchTheme>brightness_2</mat-icon>
+        <mat-icon @switchTheme>brightness_2</mat-icon>
       }
     </button>
 
     <span class="ph-header-username">Welcome, {{ user()?.UserName }}</span>
     <button class="user-avatar-btn" mat-button [matMenuTriggerFor]="userMenu">
-      <img [src]="user()?.Avatar" alt="User Avatar" class="user-avatar" />
+      @if (user()?.Avatar) {
+        <img [src]="user()?.Avatar" alt="User Avatar" class="user-avatar" />
+      } @else {
+        <img
+          [src]="avatarPlaceholder()"
+          alt="User Avatar"
+          class="user-avatar"
+        />
+      }
     </button>
     <mat-menu #userMenu="matMenu">
       <button (click)="onProfileClick(user()!)" mat-menu-item>Profile</button>
@@ -41,10 +48,10 @@
 </mat-toolbar>
 
 @if (isUserEditPopupVisible()) {
-<ph-popup [isFullScreenMode]="true">
-  <app-user-edit
-    [userId]="user()!.Id"
-    (exitScreen)="onExitScreen($event)"
-  ></app-user-edit>
-</ph-popup>
+  <ph-popup [isFullScreenMode]="true">
+    <app-user-edit
+      [userId]="user()!.Id"
+      (exitScreen)="onExitScreen($event)"
+    ></app-user-edit>
+  </ph-popup>
 }

@@ -1,20 +1,20 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '../../../shared/services/auth.service';
-import { LoginDto } from '../../../core/dtos/auth/login.dto';
+import { AuthService } from '../../../../shared/services/auth.service';
+import { LoginDto } from '../../../../core/dtos/auth/login.dto';
 import { Router } from '@angular/router';
-import { PhLoadingSpinnerComponent } from '../../../shared/components/ph-loading-spinner/ph-loading-spinner.component';
+import { PhLoadingSpinnerComponent } from '../../../../shared/components/ph-loading-spinner/ph-loading-spinner.component';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FooterComponent } from '../../../layout/footer/footer.component';
-import { PhTextBoxComponent } from '../../../shared/components/ph-text-box/ph-text-box.component';
-import { PhButtonComponent } from '../../../shared/components/ph-button/ph-button.component';
-import { ChangeFormType } from '../../../core/types/change-form-type';
+import { FooterComponent } from '../../../../layout/footer/footer.component';
+import { PhTextBoxComponent } from '../../../../shared/components/ph-text-box/ph-text-box.component';
+import { PhButtonComponent } from '../../../../shared/components/ph-button/ph-button.component';
+import { ChangeFormType } from '../../../../core/types/change-form-type';
 import { SignUpComponent } from '../sign-up/sign-up.component';
 
 @Component({
@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
   }
 
   protected login() {
-    debugger;
     this.isUserNotFoundErrorVisible.set(false);
     this.isUserCredentialsNotValidErrorVisible.set(false);
 
@@ -106,12 +105,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSignUpClick(type: ChangeFormType) {
-    debugger;
     this.formType.set(type);
   }
 
   changedFormType(type: ChangeFormType) {
-    debugger;
     this.formType.set(type);
   }
 

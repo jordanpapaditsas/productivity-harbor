@@ -1,13 +1,13 @@
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 
 import { MatTableModule } from '@angular/material/table';
-import { UserDto } from '../../../core/dtos/user/user.dto';
+import { UserDto } from '../../../../core/dtos/user/user.dto';
 import { UserService } from '../user.service';
-import { PhDataGridComponent } from '../../../shared/components/ph-data-grid/ph-data-grid.component';
-import { Column } from '../../../core/interfaces/column';
-import { PhContainerComponent } from '../../../shared/components/ph-container/ph-container.component';
-import { PhToolbarComponent } from '../../../shared/components/ph-toolbar/ph-toolbar.component';
-import { PhPopupComponent } from '../../../shared/components/ph-popup/ph-popup.component';
+import { PhDataGridComponent } from '../../../../shared/components/ph-data-grid/ph-data-grid.component';
+import { Column } from '../../../../core/interfaces/column';
+import { PhContainerComponent } from '../../../../shared/components/ph-container/ph-container.component';
+import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
+import { PhPopupComponent } from '../../../../shared/components/ph-popup/ph-popup.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
 import { Guid } from 'guid-typescript';
 
@@ -21,8 +21,8 @@ import { Guid } from 'guid-typescript';
     PhContainerComponent,
     PhToolbarComponent,
     PhPopupComponent,
-    UserEditComponent
-],
+    UserEditComponent,
+  ],
 })
 export class UsersListComponent implements OnInit {
   @ViewChild('usersGrid') usersGrid!: PhDataGridComponent;
