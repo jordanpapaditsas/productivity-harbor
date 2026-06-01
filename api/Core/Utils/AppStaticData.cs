@@ -24,5 +24,10 @@
             public static readonly string PhAdminUserName = "PhAdmin";
             public static readonly string AdminUserName = "Admin";
         }
+
+        public static class ModuleKeys
+        {
+            //public const string 
+        }
     }
 }

@@ -47,8 +47,8 @@ export class SideNavComponent implements OnInit {
     this.menuItems.set([
       {
         icon: 'home',
-        label: 'Home',
-        route: 'admin-home',
+        label: 'Dashboard',
+        route: 'admin-dashboard',
       },
       {
         icon: 'group_work',

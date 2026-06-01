@@ -7,20 +7,17 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
-import { PhDialogService } from '../../shared/services/ph-dialog.service';
-import { DialogTypeEnum } from '../enums/dialog/dialog-type.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
   private authService = inject(AuthService);
-  private dialogService = inject(PhDialogService);
   private router = inject(Router);
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): boolean | Promise<boolean> | Observable<boolean> {
     if (this.authService.isAuthenticated()) {
       return true;

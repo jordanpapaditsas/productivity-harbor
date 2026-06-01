@@ -79,7 +79,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('username', this.loginDto.UserName);
             this.isLoading.set(false);
             console.log(response.Message);
-            this.router.navigate(['/admin-home']);
+            // TODO need to set user-type at logging in functionality so it will determine in which route it will land.
+            this.router.navigate(['/admin-dashboard']);
           } else {
             console.log(response.Error);
             this.isLoading.set(false);

@@ -15,10 +15,10 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'admin-home',
+    path: 'admin-dashboard',
     loadComponent: () =>
-      import('./features/pages/home/admin-home/admin-home.component').then(
-        (m) => m.AdminHomeComponent,
+      import('./features/pages/dashboard/admin-dashboard/admin-dashboard.component').then(
+        (m) => m.AdminDashboardComponent,
       ),
     canActivate: [AuthGuard],
   },

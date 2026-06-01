@@ -15,6 +15,7 @@
     [class.collapsed]="isSideNavCollapsed()"
     class="ph-sidenav"
     animate.enter="ph-sidenav-enter"
+    [autoFocus]="true"
   >
     <mat-nav-list>
       @for (item of menuItems(); track item.label) {
