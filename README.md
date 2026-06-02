@@ -49,7 +49,7 @@ The project is a monorepo with two parts:
   - Social media management (define the available social platforms and map them to users)
 - **Kanban board**
   - Task list and task edit screens for organizing work in columns
-- **UI / experience**
+- **UI / UX**
   - Light and dark theme toggle
   - Responsive layout with header, side navigation and footer
   - Reusable shared component library (buttons, data grid, dialogs/popups, select boxes,
