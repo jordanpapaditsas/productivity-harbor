@@ -106,7 +106,7 @@ export class UserEditComponent implements OnInit {
   }
 
   getUserDataSource() {
-    this.userService.getUserById(this.userId()!).subscribe((response) => {
+    this.userService.getById(this.userId()!).subscribe((response) => {
       this.user = response;
     });
   }
@@ -118,7 +118,7 @@ export class UserEditComponent implements OnInit {
   onSaveClicked(e: any) {
     if (!this.user.Id) {
       this.user.UserSocialMediaLinksMap = this.userSocialMediaTempArray;
-      this.userService.createUser(this.user).subscribe({
+      this.userService.create(this.user).subscribe({
         next: (response) => {
           this.user = response;
           this.toastr.success('User created successfully.');
@@ -126,7 +126,7 @@ export class UserEditComponent implements OnInit {
         error: (error) => {},
       });
     } else if (this.user.Id) {
-      this.userService.updateUser(this.user).subscribe({
+      this.userService.update(this.user).subscribe({
         next: (response) => {
           this.user = response;
           this.toastr.success('User updated successfully.');
@@ -166,7 +166,7 @@ export class UserEditComponent implements OnInit {
     if (this.user) {
       this.user.IsActive = false;
 
-      this.userService.updateUserStatus(this.user).subscribe({
+      this.userService.updateStatus(this.user).subscribe({
         next: (response) => {
           this.user = response;
           this.toastr.success('User deactivated successfully.');

@@ -91,11 +91,9 @@ export class UsersListComponent implements OnInit {
   }
 
   getUsersDataSource() {
-    this.usersService
-      .getAllUsersData()
-      .subscribe((response: Array<UserDto>) => {
-        this.usersDataSource = response;
-      });
+    this.usersService.getAll().subscribe((response: Array<UserDto>) => {
+      this.usersDataSource = response;
+    });
   }
   onCreateNewUser(e: any) {
     this.userId.set(undefined);
@@ -104,13 +102,13 @@ export class UsersListComponent implements OnInit {
 
   onSaveRowClicked(user: UserDto) {
     if (!user.Id) {
-      this.usersService.createUser(user).subscribe((response: UserDto) => {
+      this.usersService.create(user).subscribe((response: UserDto) => {
         this.user = response;
 
         this.getUsersDataSource();
       });
     } else if (user.Id) {
-      this.usersService.updateUser(user).subscribe((response: UserDto) => {
+      this.usersService.update(user).subscribe((response: UserDto) => {
         this.user = response;
 
         this.getUsersDataSource();
@@ -121,7 +119,7 @@ export class UsersListComponent implements OnInit {
 
   onDeleteRowClicked(user: UserDto) {
     if (user) {
-      this.usersService.deleteUserById(user.Id).subscribe({
+      this.usersService.deleteById(user.Id).subscribe({
         next: (response) => {
           this.getUsersDataSource();
         },

@@ -63,7 +63,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   getUserById() {
-    this.userService.getUserById(this.userId()!).subscribe({
+    this.userService.getById(this.userId()!).subscribe({
       next: (response) => {
         this.user.set(response);
       },

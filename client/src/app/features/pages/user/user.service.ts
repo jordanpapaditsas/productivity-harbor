@@ -16,42 +16,38 @@ export class UserService {
   private serviceUrl = this.baseUrl + 'Users';
   private headers = this.authService.getHttpHeaders();
 
-  getAllUsersData() {
-    return this.http.get<UserDto[]>(this.serviceUrl + '/getAllUsers', {
+  getAll() {
+    return this.http.get<UserDto[]>(this.serviceUrl + '/getAll', {
       headers: this.headers,
     });
   }
 
-  getUserById(userId: Guid) {
-    return this.http.get<UserDto>(this.serviceUrl + '/getUserById/' + userId, {
+  getById(userId: Guid) {
+    return this.http.get<UserDto>(this.serviceUrl + '/getById/' + userId, {
       headers: this.headers,
     });
   }
 
-  createUser(user: UserDto) {
-    return this.http.post<UserDto>(this.serviceUrl + '/createUser/', user, {
+  create(user: UserDto) {
+    return this.http.post<UserDto>(this.serviceUrl + '/create/', user, {
       headers: this.headers,
     });
   }
 
-  updateUser(user: UserDto) {
-    return this.http.put<UserDto>(this.serviceUrl + '/updateUser/', user, {
+  update(user: UserDto) {
+    return this.http.put<UserDto>(this.serviceUrl + '/update/', user, {
       headers: this.headers,
     });
   }
 
-  updateUserStatus(user: UserDto) {
-    return this.http.put<UserDto>(
-      this.serviceUrl + '/updateUserStatus/',
-      user,
-      {
-        headers: this.headers,
-      },
-    );
+  updateStatus(user: UserDto) {
+    return this.http.put<UserDto>(this.serviceUrl + '/updateStatus/', user, {
+      headers: this.headers,
+    });
   }
 
-  deleteUserById(userId: Guid) {
-    return this.http.delete(this.serviceUrl + '/deleteUserById/' + userId, {
+  deleteById(userId: Guid) {
+    return this.http.delete(this.serviceUrl + '/deleteById/' + userId, {
       headers: this.headers,
     });
   }
