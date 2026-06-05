@@ -21,16 +21,16 @@ namespace ProductivityHarborApi.Controllers
             _context = context;
         }
 
-        [HttpGet("getAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAll()
         {
             var data = await _context.Users.ToListAsync();
 
             return Ok(data);
         }
 
-        [HttpGet("getUserById/{id}")]
-        public async Task<IActionResult> GetUserById(Guid id)
+        [HttpGet("getById/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             var data = await _context.Users
                 .Include(x => x.UserSocialMediaLinksMap)
@@ -85,8 +85,8 @@ namespace ProductivityHarborApi.Controllers
             return Ok(userDto);
         }
         
-        [HttpPost("createUser")]
-        public async Task<IActionResult> CreateUser(UserDto dto)
+        [HttpPost("create")]
+        public async Task<IActionResult> Create(UserDto dto)
         {
             var actionUser = await _userManager.GetUserAsync(User);
 
@@ -137,8 +137,8 @@ namespace ProductivityHarborApi.Controllers
             }
         }
 
-        [HttpPut("updateUser")]
-        public async Task<IActionResult> UpdateUser(UserDto dto)
+        [HttpPut("update")]
+        public async Task<IActionResult> Update(UserDto dto)
         {
             var actionUser = await _userManager.GetUserAsync(User);
             var data = await _context.Users
@@ -202,8 +202,8 @@ namespace ProductivityHarborApi.Controllers
             } 
         }
 
-        [HttpPut("updateUserStatus")]
-        public async Task<IActionResult> UpdateUserStatus(UserDto dto)
+        [HttpPut("updateStatus")]
+        public async Task<IActionResult> UpdateStatus(UserDto dto)
         {
             var actionUser = await _userManager.GetUserAsync(User);
             var data = await _context.Users.FirstOrDefaultAsync(x => x.Id == dto.Id);
@@ -230,8 +230,8 @@ namespace ProductivityHarborApi.Controllers
             }
         }
 
-        [HttpDelete("deleteUserById/{id}")]
-        public async Task<IActionResult> DeleteUserById(Guid id)
+        [HttpDelete("deleteById/{id}")]
+        public async Task<IActionResult> DeleteById(Guid id)
         {
             var data = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
