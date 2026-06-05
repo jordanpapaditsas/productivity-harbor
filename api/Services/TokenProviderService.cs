@@ -20,8 +20,6 @@ namespace ProductivityHarborApi.Services
             { 
               _secret = "7xX9kM4vW2zB6qP9bL5mK8sT1vN4wZ3xY7rA2eG5hJ8="; 
             }
-
-
         }
 
         public string GenerateToken(User user)

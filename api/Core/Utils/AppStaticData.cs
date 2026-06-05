@@ -27,7 +27,9 @@
 
         public static class ModuleKeys
         {
-            //public const string 
+            public const string Dashboard = "Dashboard";
+            public const string Kanban = "Kanban";
+            public const string Settings = "Settings";
         }
     }
 }
