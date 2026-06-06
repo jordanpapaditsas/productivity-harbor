@@ -14,41 +14,28 @@ export class UserService {
   private authService = inject(AuthService);
   private baseUrl = this.appSettingsService.getAppService();
   private serviceUrl = this.baseUrl + 'Users';
-  private headers = this.authService.getHttpHeaders();
 
   getAll() {
-    return this.http.get<UserDto[]>(this.serviceUrl + '/getAll', {
-      headers: this.headers,
-    });
+    return this.http.get<UserDto[]>(this.serviceUrl + '/getAll');
   }
 
   getById(userId: Guid) {
-    return this.http.get<UserDto>(this.serviceUrl + '/getById/' + userId, {
-      headers: this.headers,
-    });
+    return this.http.get<UserDto>(this.serviceUrl + '/getById/' + userId);
   }
 
   create(user: UserDto) {
-    return this.http.post<UserDto>(this.serviceUrl + '/create/', user, {
-      headers: this.headers,
-    });
+    return this.http.post<UserDto>(this.serviceUrl + '/create/', user);
   }
 
   update(user: UserDto) {
-    return this.http.put<UserDto>(this.serviceUrl + '/update/', user, {
-      headers: this.headers,
-    });
+    return this.http.put<UserDto>(this.serviceUrl + '/update/', user);
   }
 
   updateStatus(user: UserDto) {
-    return this.http.put<UserDto>(this.serviceUrl + '/updateStatus/', user, {
-      headers: this.headers,
-    });
+    return this.http.put<UserDto>(this.serviceUrl + '/updateStatus/', user);
   }
 
   deleteById(userId: Guid) {
-    return this.http.delete(this.serviceUrl + '/deleteById/' + userId, {
-      headers: this.headers,
-    });
+    return this.http.delete(this.serviceUrl + '/deleteById/' + userId);
   }
 }

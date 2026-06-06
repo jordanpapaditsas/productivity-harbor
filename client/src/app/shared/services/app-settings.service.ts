@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { AppSettingsDto } from '../../core/dtos/shared/app-settings.dto';
 import { firstValueFrom, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -9,19 +9,17 @@ import { DialogTypeEnum } from '../../core/enums/dialog/dialog-type.enum';
   providedIn: 'root',
 })
 export class AppSettingsService {
-  private _appSettings!: AppSettingsDto;
+  private _appSettings = signal<AppSettingsDto>(new AppSettingsDto());
   private http = inject(HttpClient);
   private dialogService = inject(PhDialogService);
 
-  constructor() {}
-
-  async loadSettings() {
+  async loadSettings(): Promise<void> {
     const obs = this.getAppSettings();
 
-    const result = await firstValueFrom(obs);
+    const result = (await firstValueFrom(obs)) as AppSettingsDto;
 
     if (result) {
-      this._appSettings = result as AppSettingsDto;
+      this._appSettings.set(result);
     } else {
       this.dialogService.alertDialog(
         'There was an error loading the application settings.',
@@ -35,15 +33,15 @@ export class AppSettingsService {
     return this.http.get('/assets/json/appsettings.json');
   }
   getAppService() {
-    return this._appSettings.AppServiceUrl;
+    return this._appSettings().AppServiceUrl;
   }
   getAppVersion() {
-    return this._appSettings.AppVersion;
+    return this._appSettings().AppVersion;
   }
   getAppLogo() {
-    return this._appSettings.AppLogo;
+    return this._appSettings().AppLogo;
   }
   getAppName() {
-    return this._appSettings.AppName;
+    return this._appSettings().AppName;
   }
 }

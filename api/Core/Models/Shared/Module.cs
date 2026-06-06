@@ -13,7 +13,7 @@
         public string Label { get; set; } = string.Empty;
         public string Icon { get; set; } = string.Empty;
         public string Route { get; set; } = string.Empty;
-        public int? SortOrder { get; set; } = 0;
+        public int? SortOrder { get; set; }
         public bool IsVisible { get; set; } = false;
         public ICollection<Module>? SubModules { get; set; } = new HashSet<Module>();
         

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,18 +10,17 @@ using ProductivityHarborApi.Core.utils;
 using ProductivityHarborApi.Core.Utils.CustomValidators;
 using ProductivityHarborApi.Data;
 using ProductivityHarborApi.Services;
-using System.Linq;
 
 namespace ProductivityHarborApi.Controllers
 {
-    public class AccountController : PhBaseController
+    public class AuthController : PhBaseController
     {
         private readonly ApplicationDbContext _context;
         private TokenProviderService _tokenProviderService;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public AccountController(ApplicationDbContext context, TokenProviderService tokenProviderService, UserManager<User> userManager, IMapper mapper) 
+        public AuthController(ApplicationDbContext context, TokenProviderService tokenProviderService, UserManager<User> userManager, IMapper mapper) 
         {
             _context = context;
             _tokenProviderService = tokenProviderService;

@@ -18,6 +18,7 @@ namespace ProductivityHarborApi.Data
         public DbSet<PhTask> PhTasks { get; set; }
         public DbSet<SocialMedia> SocialMediaLinks { get; set; }
         public DbSet<UserSocialMediaMap> UserSocialMediaLinksMap { get; set; }
+        public DbSet<Module> Modules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

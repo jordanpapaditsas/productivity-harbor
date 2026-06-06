@@ -16,30 +16,19 @@ export class AuthService {
   public user = signal<UserDto | undefined>(undefined);
   private http = inject(HttpClient);
   private appSettingsService = inject(AppSettingsService);
-  private baseUrl = this.appSettingsService.getAppService();
-  private serviceUrl = this.baseUrl + 'Account';
-  private _headers: any;
-  private headers = this.getHttpHeaders();
+
+  private serviceUrl = computed(() => {
+    return (this.appSettingsService.getAppService() || '') + 'Auth';
+  });
+
   private _isUserLoggedIn = signal<boolean>(false);
   readonly isAuthenticated = computed(() => this._isUserLoggedIn());
 
-  constructor() {
-    // localStorage.getItem('token');
-  }
-
-  getHttpHeaders() {
-    this._headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.user()?.Token}`,
-    });
-
-    return this._headers;
-  }
+  constructor() {}
 
   login(login: LoginDto): Observable<ApiResponseDto> {
     return this.http
-      .post<ApiResponseDto>(this.serviceUrl + '/login', login, {
-        headers: this.headers,
+      .post<ApiResponseDto>(this.serviceUrl() + '/login', login, {
         context: new HttpContext().set(SHOW_TOASTR, false),
       })
       .pipe(
@@ -57,8 +46,7 @@ export class AuthService {
   }
 
   loginAsAGuest() {
-    return this.http.post(this.serviceUrl + '/loginAsAGuest', {
-      headers: this.headers,
+    return this.http.post(this.serviceUrl() + '/loginAsAGuest', {
       context: new HttpContext().set(SHOW_TOASTR, false),
     });
   }
@@ -68,10 +56,9 @@ export class AuthService {
   ): Observable<ApiResponseDto> {
     return this.http
       .post<ApiResponseDto>(
-        this.serviceUrl + '/register',
+        this.serviceUrl() + '/register',
         userRegistrationCredentials,
         {
-          headers: this.headers,
           context: new HttpContext().set(SHOW_TOASTR, false),
         },
       )
@@ -93,11 +80,8 @@ export class AuthService {
 
   changePassword(changePasswordDto: ChangePasswordDto) {
     return this.http.post<ChangePasswordDto>(
-      this.serviceUrl + '/changePassword',
+      this.serviceUrl() + '/changePassword',
       changePasswordDto,
-      {
-        headers: this.headers,
-      },
     );
   }
 }

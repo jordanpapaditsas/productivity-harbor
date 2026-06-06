@@ -1,5 +1,5 @@
 export class AppSettingsDto {
-  AppServiceUrl!: string;
+  AppServiceUrl: string = '';
   AppVersion?: string;
   AppName?: string;
   AppLogo?: string;
