@@ -62,9 +62,13 @@ The project is a monorepo with two parts:
 Ideas that are planned but not built yet (this list will keep growing):
 
 - YouTube simple converter
-- Personal notes section (per user)
+- Personal space section (per user)
 - Custom Calendars
 - Expanded client / employee management
+- Notifications / email reminders
+- Live chat system
+- Analytics
+- logs
 - Additional productivity tools (to be decided)
 
 ## Prerequisites
