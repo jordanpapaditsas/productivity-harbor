@@ -60,7 +60,7 @@ The project is a monorepo with two parts:
 
 Ideas that are planned but not built yet (this list will keep growing):
 
-- YouTube simple converter
+- YouTube playlist simple converter
 - Personal space section (per user)
 - Custom Calendars with event planner
 - Expanded client / employee management
