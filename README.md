@@ -94,8 +94,8 @@ cd productivity-harbor
 
 ### 2. Backend (API) setup
 
-The API reads its sensitive configuration from user secrets (or a local `appsettings.json`,
-which is git-ignored). At minimum you need a database connection string. The JWT key and seed
+The API reads its sensitive configuration from user secrets and a local `appsettings.json`,
+(which is git-ignored). At minimum you need a database connection string. The JWT key and seed
 passwords have built-in fallbacks for development, but it is recommended to set your own.
 
 - Move into the API folder:
@@ -104,7 +104,6 @@ passwords have built-in fallbacks for development, but it is recommended to set 
   ```
 - Configure your settings using .NET user secrets:
   ```bash
-  dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost;Database=ProductivityHarbor;Trusted_Connection=True;TrustServerCertificate=True;"
   dotnet user-secrets set "JwtSettings:SecretKey" "your-own-long-random-secret-key"
   dotnet user-secrets set "PhAdmin:Password" "Your@StrongPassword1"
   dotnet user-secrets set "Admin:Password" "Your@StrongPassword1"
