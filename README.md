@@ -1,6 +1,6 @@
 # Productivity Harbor
 
-Productivity Harbor is a full-stack business operation platform boosting productivity and built for personal use.
+Productivity Harbor is a full stack project, a business operation platform boosting productivity and built for personal use.
 It combines user management, authentication and authorization, user settings and permissions, and a set of productivity tools. 
 A super admin can drive a lot of the application's data dynamically
 through the built-in settings area, so the app can grow without code changes for every
@@ -41,7 +41,6 @@ The project is a monorepo with two parts:
   - Role-based access: `PhAdmin` (super admin), `Admin`, `User`, `Guest`
   - User management with list and edit screens (create, edit, activate/deactivate, delete)
   - User edit page with a contact-style layout (hero banner, profile details, social links)
-  - User profile editing
 - **Dynamic data / parameters (super admin)**
   - Application options area where the super admin can populate and configure data that the
     rest of the app consumes, so the application can be extended through configuration rather
@@ -63,7 +62,7 @@ Ideas that are planned but not built yet (this list will keep growing):
 
 - YouTube simple converter
 - Personal space section (per user)
-- Custom Calendars
+- Custom Calendars with event planner
 - Expanded client / employee management
 - Notifications / email reminders
 - Live chat system
@@ -182,7 +181,7 @@ dynamic data.
   populate the dynamic data the rest of the app relies on.
 - Use the side navigation to move between areas (Kanban, users, settings, etc.).
 - Toggle light / dark mode from the header.
-- Edit your profile, manage users, and organize tasks on the Kanban board.
+- Edit your profile, manage users, organize tasks on the Kanban board and set up your area for daily use.
 
 ## Notes
 
