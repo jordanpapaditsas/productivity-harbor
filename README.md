@@ -68,6 +68,7 @@ Ideas that are planned but not built yet (this list will keep growing):
 - Live chat system
 - Analytics
 - logs
+- AI chat bot assistant
 - Additional productivity tools (to be decided)
 
 ## Prerequisites
