@@ -30,6 +30,7 @@ The project is a monorepo with two parts:
 - ngx-toastr (notifications)
 - FontAwesome (icons)
 - RxJS
+- Signals
 
 ## Features
 
