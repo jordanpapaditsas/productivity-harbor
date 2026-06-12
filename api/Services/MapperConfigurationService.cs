@@ -5,9 +5,9 @@ using ProductivityHarborApi.Core.Models.User;
 
 namespace ProductivityHarborApi.Services
 {
-    public class MapperConfiguration : Profile
+    public class MapperConfigurationService : Profile
     {
-        public MapperConfiguration()
+        public MapperConfigurationService()
         {
             CreateMap<User, RegisterDto>().ReverseMap();
         }

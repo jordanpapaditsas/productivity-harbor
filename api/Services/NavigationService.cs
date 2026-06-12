@@ -1,6 +1,6 @@
 ﻿namespace ProductivityHarborApi.Services
 {
-    public class CreateModules
+    public class NavigationService
     {
     }
 }
