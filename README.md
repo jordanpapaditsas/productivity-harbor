@@ -1,8 +1,8 @@
 # Productivity Harbor
 
-Productivity Harbor is a full-stack business operations platform boosting productivity built for personal use.
-It combines user management, authentication and authorization, and a set of productivity tools
-behind a single dashboard. A super admin can drive a lot of the application's data dynamically
+Productivity Harbor is a full stack project, a business operation platform boosting productivity and built for personal use.
+It combines user management, authentication and authorization, user settings and role permissions, and a set of productivity tools. 
+An admin can drive a lot of the application's data dynamically
 through the built-in settings area, so the app can grow without code changes for every
 new option.
 
@@ -30,6 +30,7 @@ The project is a monorepo with two parts:
 - ngx-toastr (notifications)
 - FontAwesome (icons)
 - RxJS
+- Signals
 
 ## Features
 
@@ -41,7 +42,6 @@ The project is a monorepo with two parts:
   - Role-based access: `PhAdmin` (super admin), `Admin`, `User`, `Guest`
   - User management with list and edit screens (create, edit, activate/deactivate, delete)
   - User edit page with a contact-style layout (hero banner, profile details, social links)
-  - User profile editing
 - **Dynamic data / parameters (super admin)**
   - Application options area where the super admin can populate and configure data that the
     rest of the app consumes, so the application can be extended through configuration rather
@@ -61,10 +61,15 @@ The project is a monorepo with two parts:
 
 Ideas that are planned but not built yet (this list will keep growing):
 
-- YouTube simple converter
-- Personal notes section (per user)
-- Custom Calendars
+- YouTube playlist simple converter
+- Personal space section (per user)
+- Custom Calendars with event planner
 - Expanded client / employee management
+- Notifications / email reminders
+- Live chat system
+- Analytics
+- logs
+- AI chat bot assistant
 - Additional productivity tools (to be decided)
 
 ## Prerequisites
@@ -94,8 +99,8 @@ cd productivity-harbor
 
 ### 2. Backend (API) setup
 
-The API reads its sensitive configuration from user secrets (or a local `appsettings.json`,
-which is git-ignored). At minimum you need a database connection string. The JWT key and seed
+The API reads its sensitive configuration from user secrets and a local `appsettings.json`,
+(which is git-ignored). At minimum you need a database connection string. The JWT key and seed
 passwords have built-in fallbacks for development, but it is recommended to set your own.
 
 - Move into the API folder:
@@ -104,7 +109,6 @@ passwords have built-in fallbacks for development, but it is recommended to set 
   ```
 - Configure your settings using .NET user secrets:
   ```bash
-  dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost;Database=ProductivityHarbor;Trusted_Connection=True;TrustServerCertificate=True;"
   dotnet user-secrets set "JwtSettings:SecretKey" "your-own-long-random-secret-key"
   dotnet user-secrets set "PhAdmin:Password" "Your@StrongPassword1"
   dotnet user-secrets set "Admin:Password" "Your@StrongPassword1"
@@ -179,7 +183,7 @@ dynamic data.
   populate the dynamic data the rest of the app relies on.
 - Use the side navigation to move between areas (Kanban, users, settings, etc.).
 - Toggle light / dark mode from the header.
-- Edit your profile, manage users, and organize tasks on the Kanban board.
+- Edit your profile, manage users, organize tasks on the Kanban board and set up your area for daily use.
 
 ## Notes
 
