@@ -4,10 +4,10 @@ namespace ProductivityHarborApi.Core.Interfaces
 {
     public interface IModuleService
     {
-        Task<ModuleDto> GetByIdAsync(Guid Id);
-        Task<List<ModuleDto>> GetAllAsync();
-        Task CreateAsync(ModuleDto moduleDto);
-        Task UpdateAsync(ModuleDto moduleDto);
-        Task DeleteAsync(Guid Id);
+        Task<ModuleDto> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<List<ModuleDto>> GetAllAsync(CancellationToken cancellationToken);
+        Task CreateAsync(ModuleDto moduleDto, CancellationToken cancellationToken);
+        Task UpdateAsync(ModuleDto moduleDto, CancellationToken cancellationToken);
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
     }
 }

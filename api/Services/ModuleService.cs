@@ -10,35 +10,43 @@ namespace ProductivityHarborApi.Services
         private readonly IModuleRepository _moduleRepository;
         private readonly IMapper _mapper;
         
-        public async Task<ModuleDto> GetByIdAsync(Guid Id)
+        public async Task<ModuleDto> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var module = await _moduleRepository.GetByIdAsync(Id);
+            var module = await _moduleRepository.GetByIdAsync(id, cancellationToken);
 
-            return _mapper.Map<ModuleDto>(module);
+            if (module is not null)
+            {
+                var moduleDto = _mapper.Map<ModuleDto>(module);
+                return moduleDto;
+            }
+            else
+            {
+                return null;
+            }
         }
-        public async Task<List<ModuleDto>> GetAllAsync()
+        public async Task<List<ModuleDto>> GetAllAsync(CancellationToken cancellationToken)
         {
-            var modules = await _moduleRepository.GetAllAsync();
+            var modules = await _moduleRepository.GetAllAsync(cancellationToken);
 
             return _mapper.Map<List<ModuleDto>>(modules);
         }
-        public async Task CreateAsync(ModuleDto moduleDto)
+        public async Task CreateAsync(ModuleDto moduleDto, CancellationToken cancellationToken)
         {
             var module = _mapper.Map<Module>(moduleDto);
 
-            await _moduleRepository.CreateAsync(module);
+            await _moduleRepository.CreateAsync(module, cancellationToken);
         }
-        public async Task UpdateAsync(ModuleDto moduleDto)
+        public async Task UpdateAsync(ModuleDto moduleDto, CancellationToken cancellationToken)
         {
             var module = _mapper.Map<Module>(moduleDto);
 
-            await _moduleRepository.UpdateAsync(module);
+            await _moduleRepository.UpdateAsync(module, cancellationToken);
         }
-        public async Task DeleteAsync(Guid Id)
+        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var module = await _moduleRepository.GetByIdAsync(Id);
+            var module = await _moduleRepository.GetByIdAsync(id, cancellationToken);
 
-            await _moduleRepository.DeleteAsync(module.Id);
+            await _moduleRepository.DeleteAsync(module.Id, cancellationToken);
         }
     }
 }
