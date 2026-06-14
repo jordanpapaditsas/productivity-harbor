@@ -1,5 +1,8 @@
-﻿namespace ProductivityHarborApi.Core.Models.Shared
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProductivityHarborApi.Core.Models.Shared
 {
+    [Table("productivityharbor_modules")]
     public class Module
     {
         public Module()
