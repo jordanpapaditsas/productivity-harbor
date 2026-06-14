@@ -2,6 +2,8 @@
 using ProductivityHarborApi.Core.Dtos.Shared;
 using ProductivityHarborApi.Core.Interfaces;
 using ProductivityHarborApi.Core.Models.Shared;
+using ProductivityHarborApi.Data;
+using ProductivityHarborApi.Data.Repositories;
 
 namespace ProductivityHarborApi.Services
 {
@@ -9,12 +11,20 @@ namespace ProductivityHarborApi.Services
     {
         private readonly IModuleRepository _moduleRepository;
         private readonly IMapper _mapper;
-        
-        public async Task<ModuleDto> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        private readonly ApplicationDbContext _context;
+
+        public ModuleService(IModuleRepository moduleRepository, IMapper mapper, ApplicationDbContext context)
+        {
+            _moduleRepository = moduleRepository;
+            _mapper = mapper;
+            _context = context;
+        }
+
+        public async Task<ModuleDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var module = await _moduleRepository.GetByIdAsync(id, cancellationToken);
 
-            if (module is not null)
+            if (module != null)
             {
                 var moduleDto = _mapper.Map<ModuleDto>(module);
                 return moduleDto;
@@ -30,23 +40,41 @@ namespace ProductivityHarborApi.Services
 
             return _mapper.Map<List<ModuleDto>>(modules);
         }
-        public async Task CreateAsync(ModuleDto moduleDto, CancellationToken cancellationToken)
+        public async Task<ModuleDto> CreateAsync(ModuleDto moduleDto, CancellationToken cancellationToken)
         {
             var module = _mapper.Map<Module>(moduleDto);
 
-            await _moduleRepository.CreateAsync(module, cancellationToken);
+            _moduleRepository.Create(module);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return _mapper.Map<ModuleDto>(module);
         }
-        public async Task UpdateAsync(ModuleDto moduleDto, CancellationToken cancellationToken)
+        public async Task<ModuleDto> UpdateAsync(ModuleDto moduleDto, CancellationToken cancellationToken)
         {
             var module = _mapper.Map<Module>(moduleDto);
 
-            await _moduleRepository.UpdateAsync(module, cancellationToken);
+            _moduleRepository.Update(module);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return  _mapper.Map<ModuleDto>(module);
         }
-        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<ModuleDto?> DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
             var module = await _moduleRepository.GetByIdAsync(id, cancellationToken);
 
-            await _moduleRepository.DeleteAsync(module.Id, cancellationToken);
+            if (module  == null)
+            {
+                return null;
+            }
+
+            else
+            {
+                _moduleRepository.Delete(module);
+                await _context.SaveChangesAsync(cancellationToken);
+
+                return _mapper.Map<ModuleDto>(module);
+            }
+
         }
     }
 }
