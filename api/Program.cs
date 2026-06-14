@@ -35,6 +35,7 @@ builder.Services.AddIdentityApiEndpoints<User>(options => options.SignIn.Require
 builder.Services.AddScoped<ApplicationDbSeed>();
 builder.Services.AddScoped<IValidator<RegisterDto>, PasswordValidator>();
 
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

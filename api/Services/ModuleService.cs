@@ -42,7 +42,9 @@ namespace ProductivityHarborApi.Services
         }
         public async Task<ModuleDto> CreateAsync(ModuleDto moduleDto, CancellationToken cancellationToken)
         {
-            var module = _mapper.Map<Module>(moduleDto);
+            var module = new Module();
+
+            module = _mapper.Map<Module>(moduleDto);
 
             _moduleRepository.Create(module);
             await _context.SaveChangesAsync(cancellationToken);

@@ -30,5 +30,13 @@ namespace ProductivityHarborApi.Controllers
             return Ok(module);
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<ModuleDto>>> GetAll(CancellationToken cancellationToken)
+        {
+            var modules = await _moduleService.GetAllAsync(cancellationToken);
+            return Ok(modules);  
+        }
+
     }
 }
