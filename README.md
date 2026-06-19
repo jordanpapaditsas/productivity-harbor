@@ -68,7 +68,7 @@ Ideas that are planned but not built yet (this list will keep growing):
 - Notifications / email reminders
 - Live chat system
 - Analytics
-- logs
+- Logs
 - AI chat bot assistant
 - Additional productivity tools (to be decided)
 
