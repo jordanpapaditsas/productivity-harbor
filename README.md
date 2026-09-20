@@ -70,6 +70,7 @@ Ideas that are planned but not built yet (this list will keep growing):
 - Analytics
 - Logs
 - AI chat bot assistant
+- Job search feature
 - Additional productivity tools (to be decided)
 
 ## Prerequisites
