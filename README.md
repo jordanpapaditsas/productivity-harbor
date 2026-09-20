@@ -1,6 +1,6 @@
 # Productivity Harbor
 
-Productivity Harbor is a full stack project, a business operation platform boosting productivity and built for personal use.
+Productivity Harbor is a full stack project, a platform boosting productivity and built for personal use.
 It combines user management, authentication and authorization, user settings and role permissions, and a set of productivity tools. 
 An admin can drive a lot of the application's data dynamically
 through the built-in settings area, so the app can grow without code changes for every
