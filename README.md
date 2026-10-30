@@ -1,15 +1,12 @@
 # Productivity Harbor
 
 Productivity Harbor is a full stack project, a platform boosting productivity and built for personal use.
-It combines user management, authentication and authorization, user settings and role permissions, and a set of productivity tools. 
-An admin can drive a lot of the application's data dynamically
-through the built-in settings area, so the app can grow without code changes for every
-new option.
+It combines user management, authentication and authorization, user settings and role permissions, and a set of productivity tools.
 
 The project is a monorepo with two parts:
 
 - **`api/`** — ASP.NET Core 10 Web API (C#)
-- **`client/`** — Angular 21 single-page application
+- **`client/`** — Angular 21
 
 ---
 
@@ -26,9 +23,9 @@ The project is a monorepo with two parts:
 **Frontend**
 
 - Angular 21
-- Angular Material + Angular CDK
-- ngx-toastr (notifications)
-- FontAwesome (icons)
+- Angular Material
+- ngx-toastr 
+- FontAwesome 
 - RxJS
 - Signals
 
@@ -59,15 +56,13 @@ The project is a monorepo with two parts:
 
 ## Roadmap / Planned
 
-Ideas that are planned but not built yet (this list will keep growing):
+Ideas that are planned but not built yet:
 
 - YouTube playlist simple converter
 - Personal space section (per user)
 - Custom Calendars with event planner
-- Expanded client / employee management
 - Notifications / email reminders
 - Live chat system
-- Analytics
 - Logs
 - AI chat bot assistant
 - Job search feature
@@ -173,7 +168,7 @@ After the first backend run, two accounts are seeded automatically:
 Log in as `PhAdmin` to access the super-admin settings and start populating the application's
 dynamic data.
 
-> Change these passwords (via user secrets, or after logging in) before using the app anywhere
+> Change these passwords (through user secrets, or after logging in) before using the app anywhere
 > that is not your local machine.
 
 ## Usage
