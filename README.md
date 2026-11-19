@@ -59,14 +59,12 @@ The project is a monorepo with two parts:
 Ideas that are planned but not built yet:
 
 - YouTube playlist simple converter
-- Personal space section (per user)
-- Custom Calendars with event planner
+- Personal & Group space section
+- Calendars with event planner
 - Notifications / email reminders
 - Live chat system
 - Logs
-- AI chat bot assistant
 - Job search feature
-- Additional productivity tools (to be decided)
 
 ## Prerequisites
 
@@ -93,10 +91,10 @@ git clone https://github.com/jordanpapaditsas/productivity-harbor.git
 cd productivity-harbor
 ```
 
-### 2. Backend (API) setup
+### 2. Backend setup
 
-The API reads its sensitive configuration from user secrets and a local `appsettings.json`,
-(which is git-ignored). At minimum you need a database connection string. The JWT key and seed
+The API reads its configuration from user secrets and a local `appsettings.json`,
+(which is git-ignored). You need a database connection string. The JWT key and seed
 passwords have built-in fallbacks for development, but it is recommended to set your own.
 
 - Move into the API folder:
@@ -112,15 +110,11 @@ passwords have built-in fallbacks for development, but it is recommended to set 
   > Notes:
   >
   > - Adjust the connection string for your SQL Server setup (LocalDB, Express, credentials, etc.).
-  > - The JWT secret should be a long, random string (it is used to sign tokens with HMAC-SHA256).
+  > - The JWT secret should be a long, random string
   > - If you skip the password secrets, the seeded accounts fall back to the default password `P@ssw0rd`.
 - Restore packages:
   ```bash
   dotnet restore
-  ```
-- Apply the database migrations (creates the database and tables):
-  ```bash
-  dotnet ef database update
   ```
 - Run the API:
   ```bash
@@ -129,7 +123,7 @@ passwords have built-in fallbacks for development, but it is recommended to set 
 - The API will start on **http://localhost:5000**. On first run it automatically seeds the roles
   and the default admin accounts.
 
-### 3. Frontend (client) setup
+### 3. Frontend setup
 
 - Open a new terminal and move into the client folder:
   ```bash
@@ -151,7 +145,7 @@ passwords have built-in fallbacks for development, but it is recommended to set 
   ```
 - Start the development server:
   ```bash
-  npm start
+  npm run start
   ```
 - The client will be available on **http://localhost:4200** (the API's CORS policy already allows
   this origin).
@@ -160,10 +154,10 @@ passwords have built-in fallbacks for development, but it is recommended to set 
 
 After the first backend run, two accounts are seeded automatically:
 
-| Username  | Role    | Password                                         |
-| --------- | ------- | ------------------------------------------------ |
-| `PhAdmin` | PhAdmin | value of `PhAdmin:Password` (default `P@ssw0rd`) |
-| `Admin`   | Admin   | value of `Admin:Password` (default `P@ssw0rd`)   |
+| Username  | Role    | Password   |
+| --------- | ------- | -----------|
+| `PhAdmin` | PhAdmin | `P@ssw0rd` |
+| `Admin`   | Admin   | `P@ssw0rd` |
 
 Log in as `PhAdmin` to access the super-admin settings and start populating the application's
 dynamic data.
@@ -175,7 +169,7 @@ dynamic data.
 
 - Open **http://localhost:4200** in your browser.
 - Log in with one of the seeded accounts, or register a new user from the sign-up screen.
-- As **PhAdmin**, head to the application options / settings to configure parameters and
+- As **PhAdmin**, head to the application settings to configure parameters and
   populate the dynamic data the rest of the app relies on.
 - Use the side navigation to move between areas (Kanban, users, settings, etc.).
 - Toggle light / dark mode from the header.
@@ -183,10 +177,9 @@ dynamic data.
 
 ## Notes
 
-- This is a personal project and is still under active development, so features and structure
-  may change.
+- This is a personal project and is still under active development.
 - Local configuration files containing secrets (`api/appsettings.json` and the client config under
-  `src/app/config/`) are intentionally git-ignored.
+  `src/app/config/`) are git-ignored.
 
 ## Author
 
