@@ -10,6 +10,18 @@ using ProductivityHarborApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var appSettingsDevelopment = builder.Configuration.Sources
+    .OfType<Microsoft.Extensions.Configuration.Json.JsonConfigurationSource>()
+    .FirstOrDefault(s => string.Equals(
+        s.Path,
+        $"appsettings.{builder.Environment.EnvironmentName}.json",
+        StringComparison.OrdinalIgnoreCase));
+
+if (appSettingsDevelopment is not null)
+{
+    builder.Configuration.Sources.Remove(appSettingsDevelopment);
+}
+
 // Adding Services
 builder.Services.AddSingleton<TokenProviderService>();
 

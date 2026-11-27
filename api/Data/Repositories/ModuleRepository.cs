@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductivityHarborApi.Core.Interfaces;
-using ProductivityHarborApi.Core.Models.Contact;
 using ProductivityHarborApi.Core.Models.Shared;
 
 namespace ProductivityHarborApi.Data.Repositories
