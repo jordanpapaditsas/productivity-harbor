@@ -5,8 +5,8 @@ It combines user management, authentication and authorization, user settings and
 
 The project is a monorepo with two parts:
 
-- **`api/`** — ASP.NET Core 10 Web API (C#)
-- **`client/`** — Angular 21
+- **`api/`** — ASP.NET Core 11 Web API (C#)
+- **`client/`** — Angular 22
 
 ---
 
@@ -14,17 +14,16 @@ The project is a monorepo with two parts:
 
 **Backend**
 
-- ASP.NET Core 10 Web API (C#)
-- Entity Framework Core 10 (code-first, with migrations)
+- ASP.NET Core 11 Web API (C#)
+- Entity Framework Core 11 (code-first, with migrations)
 - SQL Server
 - ASP.NET Core Identity for users, roles and account management
 - JWT-based authentication
 
 **Frontend**
 
-- Angular 21
+- Angular 22
 - Angular Material
-- ngx-toastr 
 - FontAwesome 
 - RxJS
 - Signals
@@ -70,8 +69,8 @@ Ideas that are planned but not built yet:
 
 Make sure you have the following installed before you start:
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- [Node.js 20+](https://nodejs.org/) (includes npm)
+- [.NET 11 SDK](https://dotnet.microsoft.com/download)
+- [Node.js 22+](https://nodejs.org/) (includes npm)
 - SQL Server (LocalDB, Express, or a full instance)
 - EF Core CLI tools (for running migrations):
   ```bash
@@ -93,8 +92,8 @@ cd productivity-harbor
 
 ### 2. Backend setup
 
-The API reads its configuration from user secrets and a local `appsettings.json`,
-(which is git-ignored). You need a database connection string. The JWT key and seed
+The API reads its configuration from a local `appsettings.json` (Check appsettings.Development.json for guide). 
+You need a database connection string. The JWT key and seed
 passwords have built-in fallbacks for development, but it is recommended to set your own.
 
 - Move into the API folder:
@@ -178,8 +177,6 @@ dynamic data.
 ## Notes
 
 - This is a personal project and is still under active development.
-- Local configuration files containing secrets (`api/appsettings.json` and the client config under
-  `src/app/config/`) are git-ignored.
 
 ## Author
 
