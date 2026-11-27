@@ -1,10 +1,17 @@
-import { Component, inject, OnInit, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 import { MatTableModule } from '@angular/material/table';
 import { UserDto } from '../../../../core/dtos/user/user.dto';
 import { UserService } from '../user.service';
 import { PhDataGridComponent } from '../../../../shared/components/ph-data-grid/ph-data-grid.component';
-import { Column } from '../../../../core/interfaces/column';
+import { Column } from '../../../../core/dtos/shared/column';
 import { PhContainerComponent } from '../../../../shared/components/ph-container/ph-container.component';
 import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
 import { PhPopupComponent } from '../../../../shared/components/ph-popup/ph-popup.component';
@@ -29,7 +36,10 @@ export class UsersListComponent implements OnInit {
   @ViewChild('usersGrid') usersGrid!: PhDataGridComponent;
   title = signal<string>('Users');
   usersDataSource: any;
-  user: UserDto = new UserDto();
+  user: UserDto = {
+    id: Guid.createEmpty(),
+    createdAt: '',
+  };
   columns: Array<Column> = [];
   usersLookupDataSource: any[] = [];
   private usersService = inject(UserService);
@@ -38,21 +48,19 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit() {
     this.getUsersDataSource();
-
-    this.initializeColumns();
   }
 
   initializeColumns() {
     this.columns = [
       {
-        dataField: 'Id',
+        dataField: 'id',
         dataType: 'string',
         label: 'Id',
         visible: true,
-        allowEditing: true,
+        allowEditing: false,
       },
       {
-        dataField: 'UserName',
+        dataField: 'userName',
         dataType: 'string',
         label: 'Username',
         visible: true,
@@ -60,7 +68,7 @@ export class UsersListComponent implements OnInit {
         cellTemplate: (row: any, options: any) => {
           options.cell.innerHTML = '';
           const anchor = document.createElement('a');
-          anchor.textContent = row.UserName;
+          anchor.textContent = row.userName;
           anchor.classList.add('link-name-navigation');
           anchor.addEventListener('click', () => {
             this.onUserIdClick(row);
@@ -70,14 +78,14 @@ export class UsersListComponent implements OnInit {
         },
       },
       {
-        dataField: 'IsActive',
+        dataField: 'isActive',
         dataType: 'boolean',
         label: 'Active',
         visible: true,
         allowEditing: true,
       },
       {
-        dataField: 'CreatedAt',
+        dataField: 'createdAt',
         dataType: 'datetime',
         label: 'CreatedAt',
         visible: true,
@@ -87,13 +95,15 @@ export class UsersListComponent implements OnInit {
   }
 
   onUserIdClick(data: any) {
-    this.userId.set(data.Id);
+    this.userId.set(data.id);
     this.isUserEditPopupVisible.set(true);
   }
 
   getUsersDataSource() {
     this.usersService.getAll().subscribe((response: Array<UserDto>) => {
       this.usersDataSource = response;
+
+      this.initializeColumns();
     });
   }
   onCreateNewUser(e: any) {
@@ -102,13 +112,13 @@ export class UsersListComponent implements OnInit {
   }
 
   onSaveRowClicked(user: UserDto) {
-    if (!user.Id) {
+    if (!user.id) {
       this.usersService.create(user).subscribe((response: UserDto) => {
         this.user = response;
 
         this.getUsersDataSource();
       });
-    } else if (user.Id) {
+    } else if (user.id) {
       this.usersService.update(user).subscribe((response: UserDto) => {
         this.user = response;
 
@@ -120,7 +130,7 @@ export class UsersListComponent implements OnInit {
 
   onDeleteRowClicked(user: UserDto) {
     if (user) {
-      this.usersService.deleteById(user.Id).subscribe({
+      this.usersService.deleteById(user.id).subscribe({
         next: (response) => {
           this.getUsersDataSource();
         },

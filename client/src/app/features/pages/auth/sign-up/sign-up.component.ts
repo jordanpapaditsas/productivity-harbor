@@ -62,10 +62,15 @@ export class SignUpComponent implements OnInit {
     if (this.signupForm.valid) {
       this.isSubmitting.set(true);
       const { username, password } = this.signupForm.value;
-      const registerDto = new RegisterDto();
+      const registerDto: RegisterDto = {
+        email: '',
+        password: '',
+        userName: '',
+        fullName: '',
+      };
 
-      registerDto.UserName = username;
-      registerDto.Password = password;
+      registerDto.userName = username;
+      registerDto.password = password;
 
       this.auth.createNewUser(registerDto).subscribe({
         next: (value) => {

@@ -1,10 +1,10 @@
 import { Guid } from 'guid-typescript';
 
-export class UserSocialMediaMapDto {
-  Id?: Guid;
-  UserId?: Guid;
-  SocialMediaId?: Guid;
-  Url?: string;
-  Name?: string;
-  Icon?: string;
+export interface UserSocialMediaMapDto {
+  id: Guid;
+  userId: Guid;
+  socialMediaId?: Guid;
+  url?: string;
+  name?: string;
+  icon?: string;
 }

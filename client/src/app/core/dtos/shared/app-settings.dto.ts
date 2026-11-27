@@ -1,6 +1,6 @@
-export class AppSettingsDto {
-  AppServiceUrl: string = '';
-  AppVersion?: string;
-  AppName?: string;
-  AppLogo?: string;
+export interface AppSettingsDto {
+  appServiceUrl: string;
+  appVersion?: string;
+  appName?: string;
+  appLogo?: string;
 }

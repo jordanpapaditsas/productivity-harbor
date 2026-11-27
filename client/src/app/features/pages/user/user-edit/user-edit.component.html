@@ -4,7 +4,7 @@
   [canSave]="true"
   [canEdit]="true"
   [canDeactivate]="true"
-  [title]="user.UserName ?? newUserTitle"
+  [title]="user.userName ?? newUserTitle"
   (exit)="onExitClicked($event)"
   (save)="onSaveClicked($event)"
   (edit)="onEditClicked($event)"
@@ -41,13 +41,13 @@
           <!-- Avatar -->
           <div
             [style.box-shadow]="
-              user.Color ? '0.2rem 0.5rem 0.5rem ' + user.Color : ''
+              user.color ? '0.2rem 0.5rem 0.5rem ' + user.color : ''
             "
             class="user-avatar-wrapper"
             (click)="triggerAvatarUpload()"
           >
-            @if (user.Avatar) {
-              <img [src]="user.Avatar" alt="User Avatar" class="user-avatar" />
+            @if (user.avatar) {
+              <img [src]="user.avatar" alt="User Avatar" class="user-avatar" />
             } @else {
               <img
                 style="box-shadow: 0 0 1rem var(--ph-deepShadow)"
@@ -63,11 +63,11 @@
           </div>
 
           @if (!isUserInEditMode()) {
-            <div class="user-fullname">{{ user.FullName }}</div>
+            <div class="user-fullname">{{ user.fullName }}</div>
           } @else {
             <div class="flexbox-column">
               <mat-label>Full Name</mat-label>
-              <ph-text-box [(value)]="user.FullName"></ph-text-box>
+              <ph-text-box [(value)]="user.fullName"></ph-text-box>
             </div>
           }
         </div>
@@ -76,7 +76,7 @@
           <mat-label>Color</mat-label>
           <input
             type="color"
-            [value]="user.Color ? user.Color : '#ffffff'"
+            [value]="user.color ? user.color : '#ffffff'"
             (change)="onColorChange($event)"
             id="Color"
             name="Color"
@@ -87,7 +87,7 @@
           <mat-label>Active</mat-label>
           <mat-checkbox
             [disabled]="!isUserInEditMode()"
-            [(ngModel)]="user.IsActive"
+            [(ngModel)]="user.isActive"
           ></mat-checkbox>
         </div>
         <input
@@ -128,7 +128,7 @@
           <fieldset>
             <legend>Social Media</legend>
             <div class="user-social-media">
-              @if (!user.Id) {
+              @if (!user.id) {
                 @for (
                   userSocialMedia of userSocialMediaTempArray;
                   track userSocialMedia.Url
@@ -140,7 +140,7 @@
                 }
               } @else {
                 @for (
-                  userSocialMedia of user.UserSocialMediaLinksMap;
+                  userSocialMedia of user.userSocialMediaLinksMap;
                   track userSocialMedia.Id
                 ) {
                   <div class="flexbox-center">
@@ -155,18 +155,18 @@
           <div class="add-social-media-form">
             <div class="social-media-selectbox">
               <mat-select [placeholder]="'Select Social'">
-                @for (item of socialMedia; track item.Id) {
+                @for (item of socialMedia; track item.id) {
                   <mat-option
                     [disabled]="!isUserInEditMode()"
                     (click)="onSocialMediaSelectionChange(item)"
-                    [value]="item.Id"
-                    >{{ item.Name }}</mat-option
+                    [value]="item.id"
+                    >{{ item.name }}</mat-option
                   >
                 }
               </mat-select>
             </div>
             <div class="social-media-url">
-              <ph-text-box [(value)]="userSocialMediaDto.Url"></ph-text-box>
+              <ph-text-box [(value)]="userSocialMediaDto.url"></ph-text-box>
             </div>
             <div class="save-user-social-media">
               <button
@@ -189,9 +189,9 @@
           <div class="flexbox-column user-username">
             <mat-label>Username</mat-label>
             @if (!isUserInEditMode()) {
-              <div class="user-username">{{ user.UserName }}</div>
+              <div class="user-username">{{ user.userName }}</div>
             } @else {
-              <ph-text-box [(value)]="user.UserName"></ph-text-box>
+              <ph-text-box [(value)]="user.userName"></ph-text-box>
             }
           </div>
 
@@ -203,9 +203,9 @@
           <div class="flexbox-column user-portfolio">
             <mat-label>Portfolio</mat-label>
             @if (!isUserInEditMode()) {
-              <div class="user-portfolio">{{ user.Portfolio }}</div>
+              <div class="user-portfolio">{{ user.portfolio }}</div>
             } @else {
-              <ph-text-box [(value)]="user.Portfolio"></ph-text-box>
+              <ph-text-box [(value)]="user.portfolio"></ph-text-box>
             }
           </div>
         </div>
@@ -218,19 +218,19 @@
           <div class="flexbox-column user-email">
             <mat-label>Email</mat-label>
             @if (!isUserInEditMode()) {
-              <div class="user-email">{{ user.Email }}</div>
+              <div class="user-email">{{ user.email }}</div>
             } @else {
-              <ph-text-box [(value)]="user.Email"></ph-text-box>
+              <ph-text-box [(value)]="user.email"></ph-text-box>
             }
           </div>
 
           <div class="flexbox-column user-home-phone">
             <mat-label>Home Phone</mat-label>
             @if (!isUserInEditMode()) {
-              <div class="user-home-phone">{{ user.Phone!.Home }}</div>
+              <div class="user-home-phone">{{ user.phone!.home }}</div>
             } @else {
-              @if (user.Phone) {
-                <ph-text-box [(value)]="user.Phone!.Home"></ph-text-box>
+              @if (user.phone) {
+                <ph-text-box [(value)]="user.phone!.home"></ph-text-box>
               }
             }
           </div>
@@ -239,11 +239,11 @@
             <mat-label>Mobile Phone</mat-label>
             @if (!isUserInEditMode()) {
               <div class="user-mobile-phone">
-                {{ user.Phone!.Mobile }}
+                {{ user.phone!.mobile }}
               </div>
             } @else {
-              @if (user.Phone) {
-                <ph-text-box [(value)]="user.Phone!.Mobile"></ph-text-box>
+              @if (user.phone) {
+                <ph-text-box [(value)]="user.phone!.mobile"></ph-text-box>
               }
             }
           </div>
@@ -251,10 +251,10 @@
           <div class="flexbox-column user-work-phone">
             <mat-label>Work Phone</mat-label>
             @if (!isUserInEditMode()) {
-              <div class="user-work-phone">{{ user.Phone!.Work }}</div>
+              <div class="user-work-phone">{{ user.phone!.work }}</div>
             } @else {
-              @if (user.Phone) {
-                <ph-text-box [(value)]="user.Phone!.Work"></ph-text-box>
+              @if (user.phone) {
+                <ph-text-box [(value)]="user.phone!.work"></ph-text-box>
               }
             }
           </div>
@@ -262,19 +262,19 @@
           <div class="flexbox-column user-country">
             <mat-label>Country</mat-label>
             @if (!isUserInEditMode()) {
-              <div class="user-country">{{ user.Country }}</div>
+              <div class="user-country">{{ user.country }}</div>
             } @else {
-              <ph-text-box [(value)]="user.Country"></ph-text-box>
+              <ph-text-box [(value)]="user.country"></ph-text-box>
             }
           </div>
 
           <div class="flexbox-column user-city">
             <mat-label>City</mat-label>
             @if (!isUserInEditMode()) {
-              <div class="user-city">{{ user.Address!.City }}</div>
+              <div class="user-city">{{ user.address!.city }}</div>
             } @else {
-              @if (user.Address) {
-                <ph-text-box [(value)]="user.Address!.City"></ph-text-box>
+              @if (user.address) {
+                <ph-text-box [(value)]="user.address!.city"></ph-text-box>
               }
             }
           </div>
@@ -282,10 +282,10 @@
           <div class="flexbox-column user-street">
             <mat-label>Street</mat-label>
             @if (!isUserInEditMode()) {
-              <div class="user-street">{{ user.Address!.Street }}</div>
+              <div class="user-street">{{ user.address!.street }}</div>
             } @else {
-              @if (user.Address) {
-                <ph-text-box [(value)]="user.Address!.Street"></ph-text-box>
+              @if (user.address) {
+                <ph-text-box [(value)]="user.address!.street"></ph-text-box>
               }
             }
           </div>
@@ -293,10 +293,10 @@
           <div class="flexbox-column user-zip">
             <mat-label>ZIP Code</mat-label>
             @if (!isUserInEditMode()) {
-              <div class="user-zip">{{ user.Address!.Zip }}</div>
+              <div class="user-zip">{{ user.address!.zip }}</div>
             } @else {
-              @if (user.Address) {
-                <ph-text-box [(value)]="user.Address!.Zip"></ph-text-box>
+              @if (user.address) {
+                <ph-text-box [(value)]="user.address!.zip"></ph-text-box>
               }
             }
           </div>

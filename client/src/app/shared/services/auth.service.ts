@@ -33,10 +33,10 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          if (response.IsSuccess) {
+          if (response.isSuccess) {
             let apiResponse = response;
-            this.user.set(apiResponse.Data);
-            localStorage.setItem('token', this.user()?.Token!);
+            this.user.set(apiResponse.data);
+            localStorage.setItem('token', this.user()?.token!);
             this._isUserLoggedIn.set(true);
           }
 
@@ -70,8 +70,8 @@ export class AuthService {
   }
 
   logout(): void {
-    if (this.user()?.Token) {
-      this.user()!.Token = '';
+    if (this.user()?.token) {
+      this.user()!.token = '';
       localStorage.removeItem('token');
       this._isUserLoggedIn.set(false);
       window.location.reload();

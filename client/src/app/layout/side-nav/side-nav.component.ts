@@ -11,10 +11,10 @@ import { PhHamburgerButtonComponent } from '../../shared/components/ph-hamburger
 import { HeaderComponent } from '../header/header.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
-import { MenuItem } from '../../core/interfaces/menu-item';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
+import { MenuItem } from '../../core/dtos/shared/menu-item';
 
 @Component({
   selector: 'app-side-nav',

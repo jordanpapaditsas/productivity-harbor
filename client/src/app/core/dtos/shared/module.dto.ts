@@ -1,13 +1,13 @@
 import { Guid } from 'guid-typescript';
 
-export class ModuleDto {
-  Id!: Guid;
-  ParentId?: Guid;
-  Key: string = '';
-  Label: string = '';
-  Icon: string = '';
-  Route: string = '';
-  SortOrder?: number;
-  IsVisible: boolean = false;
-  SubModules?: ModuleDto[];
+export interface ModuleDto {
+  id: Guid;
+  parentId?: Guid;
+  key: string;
+  label: string;
+  icon: string;
+  route: string;
+  sortOrder?: number;
+  isVisible: boolean;
+  subModules?: ModuleDto[];
 }

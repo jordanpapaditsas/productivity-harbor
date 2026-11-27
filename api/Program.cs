@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +6,7 @@ using ProductivityHarborApi.Core.Models.User;
 using ProductivityHarborApi.Core.Utils.CustomValidators;
 using ProductivityHarborApi.Data;
 using ProductivityHarborApi.Services;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,7 +51,8 @@ builder.Services.AddScoped<IValidator<RegisterDto>, PasswordValidator>();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
     });
 
 builder.Services.AddOpenApi();

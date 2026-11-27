@@ -1,13 +1,13 @@
 import { Guid } from 'guid-typescript';
 
-export class PhTaskDto {
-  Id!: Guid;
-  SerialNumber: number = 0;
-  Description: string = '';
-  Notes?: string;
-  CreatedAt: Date | string | number = new Date();
-  CreatedById!: Guid;
-  UpdatedAt?: Date | string | number;
-  UpdatedById?: Guid;
-  StatusId!: Guid;
+export interface PhTaskDto {
+  id: Guid;
+  serialNumber: number;
+  description: string;
+  notes?: string;
+  createdAt: Date | string | number;
+  createdById: Guid;
+  updatedAt?: Date | string | number;
+  updatedById?: Guid;
+  statusId: Guid;
 }

@@ -1,6 +1,6 @@
-export class RegisterDto {
-  UserName: string = '';
-  Password: string = '';
-  Email: string = '';
-  FullName?: string;
+export interface RegisterDto {
+  userName: string;
+  password: string;
+  email: string;
+  fullName?: string;
 }

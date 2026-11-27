@@ -38,10 +38,10 @@
       }
     </button>
 
-    <span class="ph-header-username">Welcome, {{ user()?.UserName }}</span>
+    <span class="ph-header-username">Welcome, {{ user()?.userName }}</span>
     <button class="user-avatar-btn" mat-button [matMenuTriggerFor]="userMenu">
-      @if (user()?.Avatar) {
-        <img [src]="$safeNavigationMigration(user()?.Avatar)" alt="User Avatar" class="user-avatar" />
+      @if (user()?.avatar) {
+        <img [src]="user()?.avatar" alt="User Avatar" class="user-avatar" />
       } @else {
         <img
           [src]="avatarPlaceholder()"
@@ -60,7 +60,7 @@
 @if (isUserEditPopupVisible()) {
   <ph-popup [isFullScreenMode]="true">
     <app-user-edit
-      [userId]="user()!.Id"
+      [userId]="user()!.id"
       (exitScreen)="onExitScreen($event)"
     ></app-user-edit>
   </ph-popup>

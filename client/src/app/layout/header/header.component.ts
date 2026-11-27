@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ThemeService } from '../../shared/services/theme.service';
@@ -47,7 +53,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getById(this.user()!.Id).subscribe((response) => {
+    this.userService.getById(this.user()!.id).subscribe((response) => {
       this.user.set(response);
     });
   }
@@ -68,7 +74,7 @@ export class HeaderComponent implements OnInit {
 
   onProfileClick(user: UserDto) {
     if (user) {
-      this.user()!.Id === user.Id;
+      this.user()!.id === user.id;
       this.isUserEditPopupVisible.set(true);
     }
   }

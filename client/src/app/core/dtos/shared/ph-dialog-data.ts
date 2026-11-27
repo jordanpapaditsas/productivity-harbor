@@ -1,4 +1,4 @@
-import { DialogTypeEnum } from '../enums/dialog/dialog-type.enum';
+import { DialogTypeEnum } from '../../enums/dialog/dialog-type.enum';
 
 export interface PhDialogData {
   title: string;

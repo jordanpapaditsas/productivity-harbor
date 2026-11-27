@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../../shared/services/auth.service';
@@ -52,7 +58,10 @@ export class LoginComponent implements OnInit {
   protected formType = signal<ChangeFormType>('login');
 
   constructor(private formBuilder: FormBuilder) {
-    this.loginDto = new LoginDto();
+    this.loginDto = {
+      password: '',
+      userName: '',
+    };
   }
 
   ngOnInit() {
@@ -71,19 +80,19 @@ export class LoginComponent implements OnInit {
     this.isUserCredentialsNotValidErrorVisible.set(false);
 
     if (this.loginForm.valid) {
-      this.loginDto.UserName = this.loginForm.value.username;
-      this.loginDto.Password = this.loginForm.value.password;
+      this.loginDto.userName = this.loginForm.value.username;
+      this.loginDto.password = this.loginForm.value.password;
       this.isLoading.set(true);
       this.authService.login(this.loginDto).subscribe({
         next: (response) => {
-          if (response.IsSuccess) {
-            localStorage.setItem('username', this.loginDto.UserName);
+          if (response.isSuccess) {
+            localStorage.setItem('username', this.loginDto.userName);
             this.isLoading.set(false);
-            console.log(response.Message);
+            console.log(response.message);
             // TODO need to set user-type at logging in functionality so it will determine in which route it will land.
             this.router.navigate(['/admin-dashboard']);
           } else {
-            console.log(response.Error);
+            console.log(response.error);
             this.isLoading.set(false);
           }
         },

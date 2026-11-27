@@ -9,7 +9,7 @@ import { DialogTypeEnum } from '../../core/enums/dialog/dialog-type.enum';
   providedIn: 'root',
 })
 export class AppSettingsService {
-  private _appSettings = signal<AppSettingsDto>(new AppSettingsDto());
+  private _appSettings = signal<AppSettingsDto>({ appServiceUrl: '' });
   private http = inject(HttpClient);
   private dialogService = inject(PhDialogService);
 
@@ -33,15 +33,15 @@ export class AppSettingsService {
     return this.http.get('/assets/json/appsettings.json');
   }
   getAppService() {
-    return this._appSettings().AppServiceUrl;
+    return this._appSettings().appServiceUrl;
   }
   getAppVersion() {
-    return this._appSettings().AppVersion;
+    return this._appSettings().appVersion;
   }
   getAppLogo() {
-    return this._appSettings().AppLogo;
+    return this._appSettings().appLogo;
   }
   getAppName() {
-    return this._appSettings().AppName;
+    return this._appSettings().appName;
   }
 }

@@ -1,10 +1,17 @@
-import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { PhContainerComponent } from '../../../../shared/components/ph-container/ph-container.component';
 import { PhDataGridComponent } from '../../../../shared/components/ph-data-grid/ph-data-grid.component';
 import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
 import { SocialMediaDto } from '../../../../core/dtos/shared/social-media.dto';
-import { Column } from '../../../../core/interfaces/column';
+import { Column } from '../../../../core/dtos/shared/column';
 import { SocialMediaService } from './social-media.service';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-social-media',
@@ -18,7 +25,10 @@ export class SocialMediaComponent implements OnInit {
   columns = signal<Column[]>([]);
   title = signal<string>('Social Media');
   socialMediaService = inject(SocialMediaService);
-  socialMedia: SocialMediaDto = new SocialMediaDto();
+  socialMedia: SocialMediaDto = {
+    id: Guid.createEmpty(),
+    name: '',
+  };
 
   ngOnInit() {
     this.getDataSource();
@@ -36,21 +46,21 @@ export class SocialMediaComponent implements OnInit {
   initializeColumns() {
     this.columns().push(
       {
-        dataField: 'Id',
+        dataField: 'id',
         dataType: 'string',
         label: 'Id',
         visible: true,
         allowEditing: false,
       },
       {
-        dataField: 'Name',
+        dataField: 'name',
         dataType: 'string',
         label: 'Name',
         visible: true,
         allowEditing: true,
       },
       {
-        dataField: 'Icon',
+        dataField: 'icon',
         dataType: 'string',
         label: 'Icon',
         visible: true,
@@ -60,11 +70,14 @@ export class SocialMediaComponent implements OnInit {
   }
 
   onInsertRow(socialMedia: SocialMediaDto) {
-    this.socialMedia = new SocialMediaDto();
+    this.socialMedia = {
+      id: Guid.createEmpty(),
+      name: '',
+    };
   }
   onEditRow(socialMedia: SocialMediaDto) {}
   onSaveRow(socialMedia: SocialMediaDto) {
-    if (!socialMedia.Id) {
+    if (!socialMedia.id) {
       this.socialMediaService
         .createSocialMedia(socialMedia)
         .subscribe((response: SocialMediaDto) => {
@@ -72,7 +85,7 @@ export class SocialMediaComponent implements OnInit {
 
           this.getDataSource();
         });
-    } else if (socialMedia.Id) {
+    } else if (socialMedia.id) {
       this.socialMediaService
         .updateSocialMedia(socialMedia)
         .subscribe((response: SocialMediaDto) => {
@@ -83,9 +96,9 @@ export class SocialMediaComponent implements OnInit {
     }
   }
   onDeleteRow(socialMedia: SocialMediaDto) {
-    if (socialMedia.Id) {
+    if (socialMedia.id) {
       this.socialMediaService
-        .deleteSocialMediaById(socialMedia.Id)
+        .deleteSocialMediaById(socialMedia.id)
         .subscribe((response) => {
           this.getDataSource();
         });

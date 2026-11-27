@@ -11,7 +11,9 @@ import {
   signal,
   ViewChild,
   ViewChildren,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  effect,
+  viewChild,
 } from '@angular/core';
 import {
   MatTable,
@@ -31,8 +33,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { Guid } from 'guid-typescript';
 import { PhDialogService } from '../../services/ph-dialog.service';
 import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
-import { Column } from '../../../core/interfaces/column';
-import { ToastrService } from 'ngx-toastr';
+import { Column } from '../../../core/dtos/shared/column';
 import { PhSelectBoxComponent } from '../ph-select-box/ph-select-box.component';
 import { PhTextBoxComponent } from '../ph-text-box/ph-text-box.component';
 
@@ -61,31 +62,38 @@ import { PhTextBoxComponent } from '../ph-text-box/ph-text-box.component';
   ],
 })
 export class PhDataGridComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatTable) table!: MatTable<any>;
+  paginator = viewChild<MatPaginator>(MatPaginator);
+  table = viewChild<MatTable<any>>(MatTable);
   @ViewChildren('cellTemplateContainer')
   cellTemplateContainer!: QueryList<ElementRef>;
 
   private dialogService = inject(PhDialogService);
 
-  public get dataSource() {
-    return this._dataSource;
-  }
+  dataSource = input<any[] | MatTableDataSource<any>>([]);
 
-  // INPUTS
-  @Input()
-  public set dataSource(value: MatTableDataSource<any, MatPaginator>) {
-    if (!(value instanceof MatTableDataSource)) {
-      this._dataSource = new MatTableDataSource(value);
-    } else {
-      this._dataSource = value;
-    }
-    if (this._dataSource && this.paginator) {
-      this._dataSource.paginator = this.paginator;
-    }
+  tableDataSource = signal<MatTableDataSource<any>>(
+    new MatTableDataSource<any>([]),
+  );
 
-    setTimeout(() => {
-      this.renderCustomTemplate();
+  constructor() {
+    effect(() => {
+      const incoming = this.dataSource();
+      const paginatorRef = this.paginator();
+
+      const ds =
+        incoming instanceof MatTableDataSource
+          ? incoming
+          : new MatTableDataSource<any>(incoming ?? []);
+
+      if (paginatorRef) {
+        ds.paginator = paginatorRef;
+      }
+
+      this.tableDataSource.set(ds);
+
+      queueMicrotask(() => {
+        this.renderCustomTemplate();
+      });
     });
   }
 
@@ -106,15 +114,19 @@ export class PhDataGridComponent implements OnInit {
   refresh = output<any>();
 
   private _tempRowValues: Record<string, any> = {};
-  private _dataSource!: any;
   rowIndex = signal<number | null>(null);
   rowKeys: Set<Guid> = new Set();
   isNewRow = signal<boolean>(false);
   isRowInViewMode = signal<boolean>(true);
 
-  private toastr = inject(ToastrService);
-
   ngOnInit() {}
+
+  ngAfterViewInit() {
+    const paginatorRef = this.paginator();
+    if (paginatorRef) {
+      this.tableDataSource().paginator = paginatorRef;
+    }
+  }
 
   protected getVisibleColumns() {
     const visibleColumns = this.columns()
@@ -135,7 +147,7 @@ export class PhDataGridComponent implements OnInit {
     row: any,
     column: Column,
     cellElement: HTMLTableCellElement,
-    rowIndex: number
+    rowIndex: number,
   ) {
     if (this.isRowInEditMode(row, rowIndex)) {
       return;
@@ -147,7 +159,7 @@ export class PhDataGridComponent implements OnInit {
   }
 
   renderCustomTemplate() {
-    const rows = this._dataSource.data;
+    const rows = this.tableDataSource().data;
     const cols = this.columns();
 
     const containersByPosition = new Map<string, HTMLElement>();
@@ -185,11 +197,11 @@ export class PhDataGridComponent implements OnInit {
 
   protected isRowInEditMode(row: any, index: number) {
     if (
-      row.Id === null ||
-      (row.Id === undefined && this.rowIndex() === index)
+      row.id === null ||
+      (row.id === undefined && this.rowIndex() === index)
     ) {
       return true;
-    } else if (this.rowKeys.has(row.Id) && this.rowIndex() === index) {
+    } else if (this.rowKeys.has(row.id) && this.rowIndex() === index) {
       return true;
     } else {
       return false;
@@ -197,14 +209,14 @@ export class PhDataGridComponent implements OnInit {
   }
 
   protected onEditRowBtnClick(row: any, index: number) {
-    if (!this._tempRowValues[row.Id]) {
-      this._tempRowValues[row.Id] = { ...row };
+    if (!this._tempRowValues[row.id]) {
+      this._tempRowValues[row.id] = { ...row };
     }
 
     this.rowIndex.set(index);
     this.isRowInViewMode.set(false);
 
-    this.rowKeys.add(row.Id);
+    this.rowKeys.add(row.id);
 
     this.editRow.emit(row);
   }
@@ -214,37 +226,41 @@ export class PhDataGridComponent implements OnInit {
       this.dialogService.alertDialog(
         'Warning Message',
         'Row is empty!',
-        DialogTypeEnum.Warning
+        DialogTypeEnum.Warning,
       );
       return;
     } else {
       this.rowIndex.set(null);
       this.isRowInViewMode.set(true);
       this.isNewRow.set(false);
-      if (row.Id) {
-        this.rowKeys.delete(row.Id);
+      if (row.id) {
+        this.rowKeys.delete(row.id);
       }
 
       this.savedRow.emit(row);
-      this.toastr.success('Record has been saved successfully.');
+      // this.toastr.success('Record has been saved successfully.');
+      // ADD MATERIALS SNACKBAR
+
       this.refreshDataSource();
       this.cleanTempRowValues(row);
     }
   }
 
   protected onCancelEditRowBtnClick(row: any, index: number) {
-    if (!row.Id) {
-      this.dataSource.data.shift();
+    if (!row.id) {
+      const ds = this.tableDataSource();
+      ds.data = ds.data.slice(1);
+      this.tableDataSource.set(ds);
     }
-    if (this._tempRowValues[row.Id]) {
-      Object.assign(row, this._tempRowValues[row.Id]);
+    if (this._tempRowValues[row.id]) {
+      Object.assign(row, this._tempRowValues[row.id]);
     }
 
     this.rowIndex.set(null);
     this.isRowInViewMode.set(true);
     this.isNewRow.set(false);
-    if (row.Id) {
-      this.rowKeys.delete(row.Id);
+    if (row.id) {
+      this.rowKeys.delete(row.id);
     }
 
     this.refreshDataSource();
@@ -255,11 +271,12 @@ export class PhDataGridComponent implements OnInit {
     let result = await this.dialogService.confirmDialog(
       'Warning Message',
       'Are you sure you want to delete this record?',
-      DialogTypeEnum.Danger
+      DialogTypeEnum.Danger,
     );
     if (result) {
       this.deleteRow.emit(row);
-      this.toastr.success('Record has been deleted successfully');
+      // this.toastr.success('Record has been deleted successfully');
+      // ADD MATERIALS SNACKBAR
     } else {
       return;
     }
@@ -273,7 +290,9 @@ export class PhDataGridComponent implements OnInit {
       this.isNewRow.set(true);
       this.rowIndex.set(0);
 
-      this._dataSource.data.unshift(newRow);
+      const ds = this.tableDataSource();
+      ds.data = [newRow, ...ds.data];
+      this.tableDataSource.set(ds);
       this.insertRow.emit(newRow);
       this.refreshDataSource();
     } else {
@@ -286,15 +305,18 @@ export class PhDataGridComponent implements OnInit {
   }
 
   public refreshDataSource() {
-    if (this.dataSource && this._dataSource.data) {
-      this._dataSource.data = [...this.dataSource.data];
-      this.refresh.emit(this._dataSource.data);
+    const ds = this.tableDataSource();
+    if (ds?.data) {
+      ds.data = [...ds.data];
+      this.tableDataSource.set(ds);
+      this.table()?.renderRows();
+      this.refresh.emit(ds.data);
     }
   }
 
   private cleanTempRowValues(row: any) {
     if (row && this._tempRowValues) {
-      delete this._tempRowValues[row.Id];
+      delete this._tempRowValues[row.id];
     }
   }
 }

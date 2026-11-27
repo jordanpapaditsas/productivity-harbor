@@ -1,8 +1,14 @@
-import { Component, Inject, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Inject,
+  input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PhDialogData } from '../../../core/interfaces/ph-dialog-data';
 import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
 import { NgClass } from '@angular/common';
+import { PhDialogData } from '../../../core/dtos/shared/ph-dialog-data';
 
 @Component({
   selector: 'ph-confirm',
@@ -16,7 +22,7 @@ export class PhConfirmComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<PhConfirmComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: PhDialogData
+    @Inject(MAT_DIALOG_DATA) public data: PhDialogData,
   ) {
     if (data.type === DialogTypeEnum.Warning) {
       this.popupType = 'ph-warning';

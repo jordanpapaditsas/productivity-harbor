@@ -40,8 +40,12 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordForm!: FormGroup;
   public userId = input<Guid | null>(null);
   public exitClicked = output();
-  protected user = signal<UserDto>(new UserDto());
-  protected changePasswordDto: ChangePasswordDto = new ChangePasswordDto();
+  protected user = signal<UserDto>({ createdAt: '', id: Guid.createEmpty() });
+  protected changePasswordDto: ChangePasswordDto = {
+    currentPassword: '',
+    newPassword: '',
+    userId: Guid.createEmpty(),
+  };
 
   private userService = inject(UserService);
   private authService = inject(AuthService);
@@ -79,10 +83,10 @@ export class ChangePasswordComponent implements OnInit {
       this.changePasswordForm.value.newPassword ===
         this.changePasswordForm.value.confirmPassword
     ) {
-      this.changePasswordDto.UserId = this.user().Id;
-      this.changePasswordDto.CurrentPassword =
+      this.changePasswordDto.userId = this.user().id;
+      this.changePasswordDto.currentPassword =
         this.changePasswordForm.value.currentPassword;
-      this.changePasswordDto.NewPassword =
+      this.changePasswordDto.newPassword =
         this.changePasswordForm.value.newPassword;
 
       this.authService.changePassword(this.changePasswordDto).subscribe({

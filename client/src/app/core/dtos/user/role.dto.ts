@@ -1,6 +1,6 @@
 import { Guid } from 'guid-typescript';
 
-export class RoleDto {
-  Id!: Guid;
-  Name?: string;
+export interface RoleDto {
+  id: Guid;
+  name?: string;
 }

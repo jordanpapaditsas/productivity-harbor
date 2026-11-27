@@ -1,7 +1,7 @@
 import { Guid } from 'guid-typescript';
 
-export class SocialMediaDto {
-  Id!: Guid;
-  Name!: string;
-  Icon?: string;
+export interface SocialMediaDto {
+  id: Guid;
+  name: string;
+  icon?: string;
 }

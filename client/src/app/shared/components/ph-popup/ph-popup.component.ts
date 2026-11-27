@@ -7,7 +7,7 @@ import {
   input,
   output,
   ViewChild,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 @Component({
@@ -27,10 +27,10 @@ export class PhPopupComponent {
   hidePopup = output<void>();
 
   popupWidth = computed(() =>
-    this.isFullScreenMode() ? '100vw' : this.width()
+    this.isFullScreenMode() ? '100vw' : this.width(),
   );
   popupHeight = computed(() =>
-    this.isFullScreenMode() ? '100vh' : this.height()
+    this.isFullScreenMode() ? '100vh' : this.height(),
   );
 
   private closePopup() {
@@ -44,8 +44,8 @@ export class PhPopupComponent {
     if (!this.hideOnOutsideClick()) {
       return;
     }
-    const clickedInside = this.popupContent.nativeElement.contains(
-      event.target
+    const clickedInside = this.popupContent?.nativeElement?.contains(
+      event.target,
     );
 
     if (!clickedInside) {

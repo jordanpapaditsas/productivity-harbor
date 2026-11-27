@@ -1,26 +1,26 @@
 import { Guid } from 'guid-typescript';
-import { Address } from '../../interfaces/address';
-import { Phone } from '../../interfaces/phone';
+import { Address } from '../shared/address';
+import { Phone } from '../shared/phone';
 
-export class UserDto {
-  Id!: Guid;
-  UserName?: string;
-  Password?: string;
-  Email?: string;
-  FullName?: string;
-  Avatar?: string;
-  Token?: string;
-  IsActive?: boolean;
-  IsDeleted?: boolean;
-  CreatedAt: Date | string | number = new Date();
-  CreatedByUserId?: Guid;
-  UpdatedAt?: Date | string | number;
-  UpdatedByUserId?: Guid;
-  Color?: string;
-  UserSocialMediaLinksMap?: any;
-  Phone?: Phone;
-  Address?: Address;
-  Portfolio?: string;
-  Country?: string;
-  Birthdate?: Date | string | number;
+export interface UserDto {
+  id: Guid;
+  userName?: string;
+  password?: string;
+  email?: string;
+  fullName?: string;
+  avatar?: string;
+  token?: string;
+  isActive?: boolean;
+  isDeleted?: boolean;
+  createdAt: Date | string | number;
+  createdByUserId?: Guid;
+  updatedAt?: Date | string | number;
+  updatedByUserId?: Guid;
+  color?: string;
+  userSocialMediaLinksMap?: any;
+  phone?: Phone;
+  address?: Address;
+  portfolio?: string;
+  country?: string;
+  birthdate?: Date | string | number;
 }

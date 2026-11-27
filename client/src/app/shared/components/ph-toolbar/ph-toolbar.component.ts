@@ -1,10 +1,17 @@
-import { Component, inject, input, OnInit, output, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnInit,
+  output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ToolbarItem } from '../../../core/interfaces/toolbar-item';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PhDialogService } from '../../services/ph-dialog.service';
 import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
+import { ToolbarItem } from '../../../core/dtos/shared/toolbar-item';
 
 @Component({
   selector: 'ph-toolbar',

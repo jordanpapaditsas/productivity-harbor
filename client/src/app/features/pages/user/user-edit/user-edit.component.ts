@@ -58,7 +58,10 @@ export class UserEditComponent implements OnInit {
   userId = input<Guid | undefined | null>();
   exitScreen = output<EventEmitter<void>>();
   isUserInEditMode = signal<boolean>(true);
-  user!: UserDto;
+  user: UserDto = {
+    createdAt: '',
+    id: Guid.createEmpty(),
+  };
   socialMedia: SocialMediaDto[] = [];
 
   isSocialMediaFormVisible = signal<boolean>(false);
@@ -92,11 +95,14 @@ export class UserEditComponent implements OnInit {
   }
 
   initializeUserDto() {
-    this.user = new UserDto();
-    this.userSocialMediaDto = new UserSocialMediaMapDto();
+    debugger;
+    this.userSocialMediaDto = {
+      id: Guid.createEmpty(),
+      userId: Guid.createEmpty(),
+    };
     this.userSocialMediaTempArray = [];
-    this.user.Address = { Street: '', City: '', Zip: '' };
-    this.user.Phone = { Home: '', Mobile: '', Work: '' };
+    this.user.address = { street: '', city: '', zip: '' };
+    this.user.phone = { home: '', mobile: '', work: '' };
   }
 
   getAllSocialMedia() {
@@ -116,8 +122,8 @@ export class UserEditComponent implements OnInit {
   }
 
   onSaveClicked(e: any) {
-    if (!this.user.Id) {
-      this.user.UserSocialMediaLinksMap = this.userSocialMediaTempArray;
+    if (!this.user.id) {
+      this.user.userSocialMediaLinksMap = this.userSocialMediaTempArray;
       this.userService.create(this.user).subscribe({
         next: (response) => {
           this.user = response;
@@ -126,7 +132,7 @@ export class UserEditComponent implements OnInit {
         },
         error: (error) => {},
       });
-    } else if (this.user.Id) {
+    } else if (this.user.id) {
       this.userService.update(this.user).subscribe({
         next: (response) => {
           this.user = response;
@@ -153,7 +159,7 @@ export class UserEditComponent implements OnInit {
       const reader = new FileReader();
 
       reader.onload = (e: any) => {
-        this.user.Avatar = e.target.result;
+        this.user.avatar = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -161,12 +167,12 @@ export class UserEditComponent implements OnInit {
   }
 
   onColorChange(e: any) {
-    this.user.Color = e.target.value;
+    this.user.color = e.target.value;
   }
 
   async onDeactivateClicked(e: any) {
     if (this.user) {
-      this.user.IsActive = false;
+      this.user.isActive = false;
 
       this.userService.updateStatus(this.user).subscribe({
         next: (response) => {
@@ -181,14 +187,17 @@ export class UserEditComponent implements OnInit {
 
   addUserSocialMedia(e: any) {
     this.isSocialMediaFormVisible.set(true);
-    this.userSocialMediaDto = new UserSocialMediaMapDto();
+    this.userSocialMediaDto = {
+      id: Guid.createEmpty(),
+      userId: Guid.createEmpty(),
+    };
   }
 
   onSaveUserSocialMediaRowClicked(userSocialMedia: UserSocialMediaMapDto) {
     this.userSocialMediaDto = userSocialMedia;
-    if (this.user.Id) {
+    if (this.user.id) {
       this.userSocialMediaTempArray.push(this.userSocialMediaDto);
-      this.user.UserSocialMediaLinksMap.push(...this.userSocialMediaTempArray);
+      this.user.userSocialMediaLinksMap.push(...this.userSocialMediaTempArray);
       this.isSocialMediaFormVisible.set(false);
     } else {
       this.userSocialMediaTempArray.push(this.userSocialMediaDto);
@@ -199,18 +208,21 @@ export class UserEditComponent implements OnInit {
   onClearSocialMediaFormClicked() {
     this.isSocialMediaFormVisible.set(false);
     this.userSocialMediaTempArray = [];
-    this.userSocialMediaDto = new UserSocialMediaMapDto();
+    this.userSocialMediaDto = {
+      id: Guid.createEmpty(),
+      userId: Guid.createEmpty(),
+    };
   }
 
   clearRowKeys(row: any) {
-    this.rowKeys.delete(row.Id);
+    this.rowKeys.delete(row.id);
   }
 
   onSocialMediaSelectionChange(socialMedia: SocialMediaDto) {
-    this.userSocialMediaDto.SocialMediaId = socialMedia.Id;
-    this.userSocialMediaDto.UserId = this.user.Id;
-    this.userSocialMediaDto.Icon = socialMedia.Icon;
-    this.userSocialMediaDto.Name = socialMedia.Name;
+    this.userSocialMediaDto.socialMediaId = socialMedia.id;
+    this.userSocialMediaDto.userId = this.user.id;
+    this.userSocialMediaDto.icon = socialMedia.icon;
+    this.userSocialMediaDto.name = socialMedia.name;
   }
 
   onEditSocialMediaRowClicked(
@@ -218,11 +230,11 @@ export class UserEditComponent implements OnInit {
     index: number,
   ) {
     this.socialMediaRowIndex.set(index);
-    this.rowKeys.add(userSocialMedia.Id!);
+    this.rowKeys.add(userSocialMedia.id!);
   }
 
   isSocialMediaRowInEditMode(row: any, index: number) {
-    return this.rowKeys.has(row.Id) && this.socialMediaRowIndex() === index;
+    return this.rowKeys.has(row.id) && this.socialMediaRowIndex() === index;
   }
 
   onChangePasswordClicked(e: any) {

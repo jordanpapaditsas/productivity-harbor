@@ -1,5 +1,9 @@
-import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
-import { PhContainerComponent } from '../../../../shared/components/ph-container/ph-container.component';
+import {
+  Component,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
 
 @Component({
@@ -7,7 +11,7 @@ import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [PhContainerComponent, PhToolbarComponent],
+  imports: [PhToolbarComponent],
 })
 export class AdminDashboardComponent implements OnInit {
   protected readonly titleLabel = signal<string>('Dashboard');

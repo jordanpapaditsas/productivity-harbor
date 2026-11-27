@@ -52,8 +52,7 @@
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -142,5 +141,8 @@
     "@schematics/angular:resolver": {
       "typeSeparator": "."
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

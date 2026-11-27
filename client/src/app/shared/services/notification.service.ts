@@ -1,14 +1,12 @@
-import { inject, Injectable } from '@angular/core';
-import { IndividualConfig, ToastrService } from 'ngx-toastr';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
-  private toastr = inject(ToastrService);
-
-  public showError(message: string, options?: Partial<IndividualConfig>) {
+  public showError(message: string, options?: any) {
     console.log(message);
-    return this.toastr.error(message);
+    // return this.toastr.error(message);
+    // ADD MATERIALS SNACKBAR
   }
 }
