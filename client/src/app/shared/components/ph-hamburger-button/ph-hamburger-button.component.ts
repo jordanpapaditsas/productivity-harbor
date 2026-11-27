@@ -1,9 +1,10 @@
-import { Component, input, OnInit, output } from '@angular/core';
+import { Component, input, OnInit, output, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ph-hamburger-button',
   templateUrl: './ph-hamburger-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ph-hamburger-button.component.scss'],
 })
 export class PhHamburgerButtonComponent implements OnInit {

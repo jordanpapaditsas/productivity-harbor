@@ -7,6 +7,7 @@ import {
   input,
   output,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
@@ -14,6 +15,7 @@ import {
   templateUrl: './ph-popup.component.html',
   styleUrls: ['./ph-popup.component.css'],
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class PhPopupComponent {

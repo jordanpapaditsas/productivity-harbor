@@ -9,6 +9,7 @@ import {
   output,
   signal,
   viewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../user.service';
@@ -25,7 +26,6 @@ import { SocialMediaDto } from '../../../../core/dtos/shared/social-media.dto';
 import { MatSelectModule } from '@angular/material/select';
 import { SocialMediaService } from '../../settings/social-media/social-media.service';
 import { UserSocialMediaMapDto } from '../../../../core/dtos/relations/user-social-media-map.dto';
-import { ToastrService } from 'ngx-toastr';
 import { PhPopupComponent } from '../../../../shared/components/ph-popup/ph-popup.component';
 import { ChangePasswordComponent } from '../../auth/change-password/change-password.component';
 import { PhButtonComponent } from '../../../../shared/components/ph-button/ph-button.component';
@@ -34,6 +34,7 @@ import { PhButtonComponent } from '../../../../shared/components/ph-button/ph-bu
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PhToolbarComponent,
     PhContainerComponent,
@@ -70,7 +71,6 @@ export class UserEditComponent implements OnInit {
 
   private userService = inject(UserService);
   private socialMediaService = inject(SocialMediaService);
-  private toastr = inject(ToastrService);
 
   constructor() {
     this.initializeUserDto();
@@ -121,7 +121,8 @@ export class UserEditComponent implements OnInit {
       this.userService.create(this.user).subscribe({
         next: (response) => {
           this.user = response;
-          this.toastr.success('User created successfully.');
+          // this.toastr.success('User created successfully.');
+          // ADD MATERIAL NOTIFICATIONS SNACKBAR
         },
         error: (error) => {},
       });
@@ -129,7 +130,8 @@ export class UserEditComponent implements OnInit {
       this.userService.update(this.user).subscribe({
         next: (response) => {
           this.user = response;
-          this.toastr.success('User updated successfully.');
+          // this.toastr.success('User updated successfully.');
+          // ADD MATERIAL NOTIFICATIONS SNACKBAR
         },
         error: (error) => {},
       });
@@ -169,7 +171,8 @@ export class UserEditComponent implements OnInit {
       this.userService.updateStatus(this.user).subscribe({
         next: (response) => {
           this.user = response;
-          this.toastr.success('User deactivated successfully.');
+          // this.toastr.success('User deactivated successfully.');
+          // ADD MATERIAL NOTIFICATIONS SNACKBAR
         },
         error: (error) => {},
       });

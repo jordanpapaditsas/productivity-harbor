@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PhContainerComponent } from '../../../../shared/components/ph-container/ph-container.component';
 import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
 
@@ -6,6 +6,7 @@ import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PhContainerComponent, PhToolbarComponent],
 })
 export class AdminDashboardComponent implements OnInit {

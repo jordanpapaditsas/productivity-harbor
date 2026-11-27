@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppStaticData } from '../../core/utils/app-static-data';
 
@@ -6,6 +6,7 @@ import { AppStaticData } from '../../core/utils/app-static-data';
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatToolbarModule],
 })
 export class FooterComponent implements OnInit {

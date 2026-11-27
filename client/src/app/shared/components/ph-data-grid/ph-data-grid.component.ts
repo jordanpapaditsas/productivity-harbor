@@ -11,6 +11,7 @@ import {
   signal,
   ViewChild,
   ViewChildren,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   MatTable,
@@ -39,6 +40,7 @@ import { PhTextBoxComponent } from '../ph-text-box/ph-text-box.component';
   selector: 'ph-data-grid',
   templateUrl: './ph-data-grid.component.html',
   styleUrls: ['./ph-data-grid.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTableModule,
     CommonModule,

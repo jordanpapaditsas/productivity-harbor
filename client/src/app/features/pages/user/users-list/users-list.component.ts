@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatTableModule } from '@angular/material/table';
 import { UserDto } from '../../../../core/dtos/user/user.dto';
@@ -15,6 +15,7 @@ import { Guid } from 'guid-typescript';
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTableModule,
     PhDataGridComponent,

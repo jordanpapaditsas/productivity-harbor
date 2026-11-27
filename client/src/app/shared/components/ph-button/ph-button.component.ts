@@ -1,9 +1,10 @@
-import { Component, Input, input, OnInit, output, signal } from '@angular/core';
+import { Component, Input, input, OnInit, output, signal, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'ph-button',
   templateUrl: './ph-button.component.html',
   styleUrls: ['./ph-button.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [],
 })
 export class PhButtonComponent implements OnInit {

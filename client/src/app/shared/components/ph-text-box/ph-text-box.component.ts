@@ -10,6 +10,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -24,6 +25,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule, CommonModule, A11yModule],
 })
 export class PhTextBoxComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, output } from '@angular/core';
+import { Component, inject, input, OnInit, output, ChangeDetectionStrategy } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ToolbarItem } from '../../../core/interfaces/toolbar-item';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,6 +10,7 @@ import { DialogTypeEnum } from '../../../core/enums/dialog/dialog-type.enum';
   selector: 'ph-toolbar',
   templateUrl: './ph-toolbar.component.html',
   styleUrls: ['./ph-toolbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatToolbarModule, MatIconModule, MatTooltipModule],
 })
 export class PhToolbarComponent implements OnInit {
@@ -55,10 +56,6 @@ export class PhToolbarComponent implements OnInit {
             this.canView() &&
             !this.canEdit()) ??
           false,
-        // false ||
-        // (!this.canEdit?.() &&
-        //   this.isCalledFromEditScreen() &&
-        //   this.canView()),
         onItemClick: (e: MouseEvent) => {
           this.refreshToolbarItems();
           this.edit?.emit(e);

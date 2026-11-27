@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PhContainerComponent } from '../../../../shared/components/ph-container/ph-container.component';
 import { PhDataGridComponent } from '../../../../shared/components/ph-data-grid/ph-data-grid.component';
 import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
@@ -10,6 +10,7 @@ import { SocialMediaService } from './social-media.service';
   selector: 'app-social-media',
   templateUrl: './social-media.component.html',
   styleUrls: ['./social-media.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PhContainerComponent, PhDataGridComponent, PhToolbarComponent],
 })
 export class SocialMediaComponent implements OnInit {

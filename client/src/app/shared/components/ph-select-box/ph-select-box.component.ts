@@ -8,6 +8,7 @@ import {
   Output,
   output,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,6 +22,7 @@ import { CommonModule } from '@angular/common';
   selector: 'ph-select-box',
   templateUrl: './ph-select-box.component.html',
   styleUrls: ['./ph-select-box.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatSelectModule,
     FormsModule,

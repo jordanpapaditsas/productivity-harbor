@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SideNavComponent } from '../app/layout/side-nav/side-nav.component';
 import { FooterComponent } from '../app/layout/footer/footer.component';
@@ -9,6 +9,7 @@ import { AuthService } from './shared/services/auth.service';
   selector: 'app-root',
   imports: [RouterOutlet, SideNavComponent, FooterComponent, LoginComponent],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.css',
 })
 export class AppComponent {

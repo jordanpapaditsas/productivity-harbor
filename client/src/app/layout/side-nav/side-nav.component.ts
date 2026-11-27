@@ -1,9 +1,13 @@
-import { Component, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PhHamburgerButtonComponent } from '../../shared/components/ph-hamburger-button/ph-hamburger-button.component';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { HeaderComponent } from '../header/header.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,6 +20,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatSidenavModule,
     MatListModule,

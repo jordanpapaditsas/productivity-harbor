@@ -19,7 +19,6 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { RegisterDto } from '../../../../core/dtos/auth/register.dto';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -35,7 +34,6 @@ export class SignUpComponent implements OnInit {
   protected isPasswordVisible = signal<boolean>(true);
   protected changePasswordType = signal<boolean>(true);
   private readonly auth = inject(AuthService);
-  private readonly toastr = inject(ToastrService);
   isSubmitting = signal<boolean>(false);
 
   constructor(private formBuilder: FormBuilder) {}
@@ -71,14 +69,16 @@ export class SignUpComponent implements OnInit {
 
       this.auth.createNewUser(registerDto).subscribe({
         next: (value) => {
-          this.toastr.success(value.Message);
+          // this.toastr.success(value.Message);
+          // ADD MATERIAL NOTIFICATIONS SNACKBAR
           this.isSubmitting.set(false);
           this.signupForm.reset();
         },
         error: (ex) => {
           if (ex.error && ex.error.Messages.length > 0) {
             ex.error.Messages.forEach((message: string) => {
-              this.toastr.error(message);
+              // this.toastr.error(message);
+              // ADD MATERIAL NOTIFICATIONS SNACKBAR
             });
           }
           this.isSubmitting.set(false);

@@ -41,7 +41,7 @@
     <span class="ph-header-username">Welcome, {{ user()?.UserName }}</span>
     <button class="user-avatar-btn" mat-button [matMenuTriggerFor]="userMenu">
       @if (user()?.Avatar) {
-        <img [src]="user()?.Avatar" alt="User Avatar" class="user-avatar" />
+        <img [src]="$safeNavigationMigration(user()?.Avatar)" alt="User Avatar" class="user-avatar" />
       } @else {
         <img
           [src]="avatarPlaceholder()"

@@ -5,6 +5,7 @@ import {
   OnInit,
   output,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../../user/user.service';
@@ -18,7 +19,6 @@ import {
 } from '@angular/forms';
 import { ChangePasswordDto } from '../../../../core/dtos/auth/change-password.dto';
 import { AuthService } from '../../../../shared/services/auth.service';
-import { ToastrService } from 'ngx-toastr';
 import { PhToolbarComponent } from '../../../../shared/components/ph-toolbar/ph-toolbar.component';
 import { PhButtonComponent } from '../../../../shared/components/ph-button/ph-button.component';
 import { PhTextBoxComponent } from '../../../../shared/components/ph-text-box/ph-text-box.component';
@@ -27,6 +27,7 @@ import { PhTextBoxComponent } from '../../../../shared/components/ph-text-box/ph
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatLabel,
     ReactiveFormsModule,
@@ -44,7 +45,6 @@ export class ChangePasswordComponent implements OnInit {
 
   private userService = inject(UserService);
   private authService = inject(AuthService);
-  private toastr = inject(ToastrService);
   private fb = inject(FormBuilder);
 
   constructor() {}
@@ -87,16 +87,18 @@ export class ChangePasswordComponent implements OnInit {
 
       this.authService.changePassword(this.changePasswordDto).subscribe({
         next: (response) => {
-          this.toastr.success('Password has changed successfully!');
+          // this.toastr.success('Password has changed successfully!');
+          // ADD MATERIAL NOTIFICATIONS SNACKBAR
         },
         error: (error) => {
           console.log(error);
         },
       });
     } else {
-      this.toastr.error(
-        'New password and confirmation do not match. Please try again.',
-      );
+      // this.toastr.error(
+      //   'New password and confirmation do not match. Please try again.',
+      // );
+      // ADD MATERIAL NOTIFICATIONS SNACKBAR
     }
   }
 

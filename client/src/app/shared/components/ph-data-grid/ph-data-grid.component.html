@@ -87,10 +87,10 @@
         @if (column.allowEditing && isRowInEditMode(row, i)) {
         <!-- ph-select-box -->
         <ph-select-box
-          [dataSource]="column.lookup?.dataSource"
+          [dataSource]="$safeNavigationMigration(column.lookup?.dataSource)"
           [(value)]="row[column.dataField]"
-          [valueExpr]="column.lookup?.valueExpr"
-          [displayExpr]="column.lookup?.displayExpr"
+          [valueExpr]="$safeNavigationMigration(column.lookup?.valueExpr)"
+          [displayExpr]="$safeNavigationMigration(column.lookup?.displayExpr)"
         ></ph-select-box>
         } @else if(!column.cellTemplate) {
         {{ row[column.dataField] }}
