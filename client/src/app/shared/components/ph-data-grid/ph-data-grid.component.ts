@@ -14,6 +14,9 @@ import {
   ChangeDetectionStrategy,
   effect,
   viewChild,
+  afterRenderEffect,
+  computed,
+  AfterViewInit,
 } from '@angular/core';
 import {
   MatTable,
@@ -61,7 +64,7 @@ import { PhTextBoxComponent } from '../ph-text-box/ph-text-box.component';
     PhTextBoxComponent,
   ],
 })
-export class PhDataGridComponent implements OnInit {
+export class PhDataGridComponent implements AfterViewInit {
   paginator = viewChild<MatPaginator>(MatPaginator);
   table = viewChild<MatTable<any>>(MatTable);
   @ViewChildren('cellTemplateContainer')
@@ -71,29 +74,27 @@ export class PhDataGridComponent implements OnInit {
 
   dataSource = input<any[] | MatTableDataSource<any>>([]);
 
-  tableDataSource = signal<MatTableDataSource<any>>(
-    new MatTableDataSource<any>([]),
-  );
+  tableDataSource = computed(() => {
+    const incomingData = this.dataSource();
+    const paginatorRef = this.paginator();
+
+    const dataSource =
+      incomingData instanceof MatTableDataSource
+        ? incomingData
+        : new MatTableDataSource<any>(incomingData ?? []);
+
+    if (paginatorRef) {
+      dataSource.paginator = paginatorRef;
+    }
+
+    return dataSource;
+  });
 
   constructor() {
-    effect(() => {
-      const incoming = this.dataSource();
-      const paginatorRef = this.paginator();
-
-      const ds =
-        incoming instanceof MatTableDataSource
-          ? incoming
-          : new MatTableDataSource<any>(incoming ?? []);
-
-      if (paginatorRef) {
-        ds.paginator = paginatorRef;
-      }
-
-      this.tableDataSource.set(ds);
-
-      queueMicrotask(() => {
-        this.renderCustomTemplate();
-      });
+    afterRenderEffect(() => {
+      this.tableDataSource();
+      this.columns();
+      this.renderCustomTemplate();
     });
   }
 
@@ -118,8 +119,6 @@ export class PhDataGridComponent implements OnInit {
   rowKeys: Set<Guid> = new Set();
   isNewRow = signal<boolean>(false);
   isRowInViewMode = signal<boolean>(true);
-
-  ngOnInit() {}
 
   ngAfterViewInit() {
     const paginatorRef = this.paginator();
@@ -247,10 +246,10 @@ export class PhDataGridComponent implements OnInit {
   }
 
   protected onCancelEditRowBtnClick(row: any, index: number) {
+    const ds = this.tableDataSource();
+
     if (!row.id) {
-      const ds = this.tableDataSource();
       ds.data = ds.data.slice(1);
-      this.tableDataSource.set(ds);
     }
     if (this._tempRowValues[row.id]) {
       Object.assign(row, this._tempRowValues[row.id]);
@@ -265,6 +264,29 @@ export class PhDataGridComponent implements OnInit {
 
     this.refreshDataSource();
     this.cleanTempRowValues(row);
+  }
+
+  protected onInsertRowBtnClick() {
+    if (!this.isNewRow()) {
+      const newRow: Record<string, any> = {};
+      this.isRowInViewMode.set(false);
+      this.isNewRow.set(true);
+      this.rowIndex.set(0);
+
+      const ds = this.tableDataSource();
+      ds.data = [newRow, ...ds.data];
+      this.insertRow.emit(newRow);
+      this.refreshDataSource();
+    }
+  }
+
+  public refreshDataSource() {
+    const ds = this.tableDataSource();
+    if (ds?.data) {
+      ds.data = [...ds.data];
+      this.table()?.renderRows();
+      this.refresh.emit(ds.data);
+    }
   }
 
   protected async onDeleteRowBtnClick(row: any) {
@@ -283,35 +305,8 @@ export class PhDataGridComponent implements OnInit {
     this.refreshDataSource();
   }
 
-  protected onInsertRowBtnClick() {
-    if (!this.isNewRow()) {
-      const newRow: Record<string, any> = {};
-      this.isRowInViewMode.set(false);
-      this.isNewRow.set(true);
-      this.rowIndex.set(0);
-
-      const ds = this.tableDataSource();
-      ds.data = [newRow, ...ds.data];
-      this.tableDataSource.set(ds);
-      this.insertRow.emit(newRow);
-      this.refreshDataSource();
-    } else {
-      return;
-    }
-  }
-
   protected onCreate() {
     this.create.emit();
-  }
-
-  public refreshDataSource() {
-    const ds = this.tableDataSource();
-    if (ds?.data) {
-      ds.data = [...ds.data];
-      this.tableDataSource.set(ds);
-      this.table()?.renderRows();
-      this.refresh.emit(ds.data);
-    }
   }
 
   private cleanTempRowValues(row: any) {
