@@ -1,5 +1,5 @@
 export interface Phone {
-  home: string;
-  mobile: string;
-  work: string;
+  home?: string;
+  mobile?: string;
+  work?: string;
 }

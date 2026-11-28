@@ -20,7 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatToolbarModule,
@@ -32,23 +32,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
 })
 export class HeaderComponent implements OnInit {
-  protected theme = signal<string>('');
   protected user = signal<UserDto | undefined>(undefined);
   protected isUserEditPopupVisible = signal<boolean>(false);
   protected readonly avatarPlaceholder = signal<string>(
     '/assets/images/user-avatar-placeholder.jpg',
   );
-
   private themeService = inject(ThemeService);
   private authService = inject(AuthService);
   private userService = inject(UserService);
 
-  constructor() {
-    this.themeService.getCurrentTheme();
-  }
-
   ngOnInit() {
-    this.theme.set(this.themeService.getCurrentTheme());
     this.user.set(this.authService.user());
   }
 
@@ -59,12 +52,10 @@ export class HeaderComponent implements OnInit {
   }
 
   onThemeSwitcherClicked() {
-    if (this.theme() === 'light') {
+    if (this.themeService.theme() === 'light') {
       this.themeService.setTheme('dark');
-      this.theme.set('dark');
-    } else if (this.theme() === 'dark') {
+    } else {
       this.themeService.setTheme('light');
-      this.theme.set('light');
     }
   }
 

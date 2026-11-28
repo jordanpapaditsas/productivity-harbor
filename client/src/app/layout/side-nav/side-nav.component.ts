@@ -3,6 +3,7 @@ import {
   OnInit,
   signal,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -37,12 +38,10 @@ import { MenuItem } from '../../core/dtos/shared/menu-item';
 })
 export class SideNavComponent implements OnInit {
   mode: MatDrawerMode = 'side';
-
   menuItems = signal<MenuItem[]>([]);
   subMenuStates = signal<Record<string, boolean>>({});
   isSideNavCollapsed = signal<boolean>(false);
-
-  constructor(private router: Router) {}
+  router = inject(Router);
 
   ngOnInit() {
     this.initializeMenuItems();

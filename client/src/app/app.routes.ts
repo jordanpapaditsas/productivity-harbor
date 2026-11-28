@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { PageNotFoundComponent } from './features/pages/auth/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -7,6 +8,7 @@ export const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'login',
   },
+  { path: '**', component: PageNotFoundComponent },
   {
     path: 'login',
     loadComponent: () =>

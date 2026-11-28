@@ -4,9 +4,9 @@
       <ng-content></ng-content>
     </div>
     <div class="logo-container">
-      @if (this.theme() === "light") {
+      @if (!themeService.isDarkTheme()) {
         <img src="/assets/logos/productivity-harbor-logo.png" alt="App Logo" />
-      } @else if (this.theme() === "dark") {
+      } @else {
         <img
           class="ph-app-logo"
           src="/assets/logos/productivity-harbor-logo-white-transparent.png"
@@ -21,7 +21,7 @@
       class="theme-switcher"
       (click)="onThemeSwitcherClicked()"
     >
-      @if (this.theme() === "light") {
+      @if (!themeService.isDarkTheme()) {
         <mat-icon
           matTooltip="Switch to dark theme"
           animate.enter="fade-in"

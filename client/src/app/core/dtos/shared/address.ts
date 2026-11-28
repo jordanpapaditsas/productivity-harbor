@@ -1,5 +1,5 @@
 export interface Address {
-  street: string;
-  city: string;
-  zip: string;
+  street?: string;
+  city?: string;
+  zip?: string;
 }
